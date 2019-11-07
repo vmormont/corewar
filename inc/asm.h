@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm.c                                              :+:      :+:    :+:   */
+/*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/07 14:14:54 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/07 17:31:23 by pcredibl         ###   ########.fr       */
+/*   Created: 2019/11/07 21:31:06 by astripeb          #+#    #+#             */
+/*   Updated: 2019/11/07 21:33:56 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#ifndef ASM_H
+# define ASM_H
 
-int main (int ac, char **av)
-{
-	printf("str = %s", )
-}
+/*
+** THIS HEADER ONLY FOR FUNCTIONS PROTOTYPES
+*/
+
+# include <stdio.h>
+
+# include "corewar_structs.h"
+
+# endif

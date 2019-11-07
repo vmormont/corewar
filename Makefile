@@ -3,36 +3,43 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
+#    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/11/07 17:48:25 by pcredibl         ###   ########.fr        #
+#    Updated: 2019/11/07 23:19:06 by astripeb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+GREEN 				:= \033[0;32m
+RED 				:= \033[0;31m
+RESET				:= \033[0m
 
 NAME_ASM			:= asm
 NAME_CORE			:= corewar
 
-CC 					:= gcc
-CFALGS				:= -g -Wall -Wextra -Werror
+#HEADERS
+ASM_HEADERS			:= asm.h op.h corewar_structs.h
 
-#LIBFT_DIRS
-LIB_DIR			:= ./libft
-LIBFT			:= libft.a
+#COMPILER
+CC 					:= gcc
+
+#LIBFT
+LIB_DIR				:= ./libft
+LIBFT				:= libft.a
 
 #PROJECT_DIRS
-INC_DIR			:= ./include
-OBJ_DIR			:= ./obj
-SRC_DIR			:= ./src
+INC_DIR				:= ./inc
+OBJ_DIR				:= ./obj
+SRC_DIR				:= ./src
 
-LIBS			:= -L $(LIB_DIR) -libft
-LFLAGS			:= -I $(LIB_DIR)/inc -I $(INC_DIR)
+#COMPILER FLAGS
+CFALGS				:= -Wall -Wextra -Werror
+LFLAGS				:= -I $(LIB_DIR)/inc -I $(INC_DIR)
+LIBS				:= -L $(LIB_DIR) -lft
 
-#HEADERS
+SRC					= asm.c
 
-SRC				:= asm.c
-
-OBJ_DIR			:= $(SRC:.c=.o)
+OBJ					:= $(SRC:.c=.o)
 
 vpath %.c $(SRC_DIR)
 vpath %.o $(OBJ_DIR)
@@ -41,14 +48,15 @@ vpath %.a $(LIB_DIR)
 
 all: lib $(NAME_ASM)
 
-$(NAME_ASM): lib $(OBJ)
-#Добавить флаги CFLAGS
-	$(CC) $(LFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ))$(LIBS) -o $@
-	echo "DONE ✅"
+#BEFORE COMPLETE PROJECT ADD $(CFLAGS)
+$(NAME_ASM): $(LIBFT) $(OBJ) $(ASM_HEADERS)
+	$(CC) $(LFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ)) $(LIBS) -o $@
+	echo "$(GREEN)DONE ✅$(RESET)"
 
-$(OBJ):	%.o:%c
-	$(CC) $(LFLAGS) -o $(OBJ_DIR)/$@ -c $<
-	echo "$@ was created"
+#BEFORE COMPLETE PROJECT ADD $(CFLAGS)
+$(OBJ):%.o:%.c $(ASM_HEADERS) | $(OBJ_DIR)
+	$(CC) -g $(LFLAGS) -o $(OBJ_DIR)/$@ -c $<
+	echo "$(GREEN)$@ was created$(RESET)"
 
 lib:
 	$(MAKE) -C $(LIB_DIR)
@@ -59,12 +67,15 @@ $(OBJ_DIR):
 clean:
 	$(MAKE) clean -C $(LIB_DIR)
 	rm -rf $(OBJ_DIR)
-	echo "obj files was deleted"
+	echo "$(RED)objs files was deleted$(RESET)"
 
 fclean: clean
 	$(MAKE) fclean -C $(LIB_DIR)
-	rm 
-	echo "libs was deleted"
+	rm -rf $(NAME_ASM)
+	echo "$(RED)$(LIBFT) was deleted$(RESET)"
 
-re: fclean all 
+re: fclean all
 
+.SILENT: all clean fclean re $(NAME_ASM) $(OBJ) $(OBJ_DIR) lib
+
+.PHONY: clean fclean re all
