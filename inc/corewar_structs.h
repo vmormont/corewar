@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar_structs.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/08 20:47:44 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/08 21:25:35 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 /*
 ** THIS HEADER ONLY FOR STRUCTURES
-** AND DEFINE COSTANTS NEEDED FOR PROJECT COREWAR
+** AND DEFINE CONSTANTS NEEDED FOR PROJECT COREWAR
 */
 
 # include "op.h"
