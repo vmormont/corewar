@@ -3,16 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:25:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/05 17:28:28 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/08 20:24:07 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 
-t_op	op_tab[17] =
+/*
+** СТРУКТУРА ИНСТРУКЦИИ
+** name			- имя инструкции
+** num_args		- количество небходимых аргументов
+** args[1-3]	- аргументы
+** code			- код инструкции
+** cycles2go	- циклов до исполнения
+** comment		- комментарий
+** code_args	- код типов аргументов (1 - есть, 0 - нет)
+** tdir_size	- размер аргумента T_DIR (0 - 4 байта, 1 - 2 байта)
+
+typedef struct	s_op
+{
+	char		*name;
+	int			num_args;
+	char		args[3];
+	int			code;
+	int			cycles2go;
+	char		*comment;
+	char		code_args;
+	char		tdir_size;
+}				t_op;
+*/
+
+t_op    op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
@@ -37,4 +61,4 @@ t_op	op_tab[17] =
 	{"lfork", 1, {T_DIR}, 15, 1000, "long fork", 0, 1},
 	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0},
 	{0, 0, {0}, 0, 0, 0, 0, 0}
-}
+};
