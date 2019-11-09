@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   asm.h                                              :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/07 21:31:06 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/09 12:07:33 by pcredibl         ###   ########.fr       */
+/*   Created: 2019/11/09 11:02:47 by pcredibl          #+#    #+#             */
+/*   Updated: 2019/11/09 12:09:18 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ASM_H
-# define ASM_H
+#include "asm.h"
 
-# define INVALID_FILE_NAME 200
-# define USAGE 201
-
-/*
-** THIS HEADER ONLY FOR FUNCTIONS PROTOTYPES
-*/
-
-# include <stdio.h>
-
-# include "corewar_structs.h"
-
-void			ft_exit(int err);
-
-#endif
+void	ft_exit(int err)
+{
+	if (err == INVALID_FILE_NAME)
+		exit(ft_fprintf(2, "Invalid input file\n"));
+	if (err == USAGE)
+		exit(ft_fprintf(2, "Usage: ./asm <file name> (*.s)\n"));
+}
