@@ -6,7 +6,7 @@
 #    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/11/09 11:02:23 by pcredibl         ###   ########.fr        #
+#    Updated: 2019/11/09 14:22:33 by pcredibl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ CFALGS				:= -Wall -Wextra -Werror
 LFLAGS				:= -I $(LIB_DIR)/inc -I $(INC_DIR)
 LIBS				:= -L $(LIB_DIR) -lft
 
-SRC					= asm.c ft_exit.c
+SRC					= asm.c op_tab_func.c champion.c ft_exit.c
 
 OBJ					:= $(SRC:.c=.o)
 
