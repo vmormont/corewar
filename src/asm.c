@@ -6,15 +6,18 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:14:54 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/07 22:57:43 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/09 14:14:25 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int main	(int argc, char **av)
+int main	(int argc, char **argv)
 {
-	ft_printf("LABEL_CHARS = %s\n", LABEL_CHARS);
+	t_champ	*champ;
 
+	champ = create_champ();
+	ft_printf("%s = %d\n", "fork", get_op_code(champ->op_tab, "fork"));
+	free_champ(&champ);
 	return (0);
 }
