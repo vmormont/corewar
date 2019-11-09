@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 21:31:06 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/09 15:50:43 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:38:30 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,9 @@ t_label		*add_label2end(t_label *begin);
 void		del_label(t_label **begin);
 
 void		print_label(t_label *label);
+
+
+
+int			clean_commetns(char *data);
 
 #endif

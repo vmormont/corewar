@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:14:54 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/09 14:21:12 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:40:28 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,31 @@ static void		create_cor_file(char *src_file)
 	ft_printf("file type = %s\n", file_type);
 }
 
-int				main	(int argc, char **av)
+int				main	(int argc, char **argv)
 {
 	int			i;
-	t_champ	*champ;
+	t_champ		*champ;
+	int			fd;
+	char		*datafile;
 
 	champ = create_champ();
-	ft_printf("%s = %d\n", "fork", get_op_code(champ->op_tab, "fork"));
 	i = 0;
+/*
 	if (argc == 1)
 		ft_exit(USAGE);
 	else
 	{
-		while (av[++i])
-			create_cor_file(av[i]);
+		while (argv[++i])
+			create_cor_file(argv[i]);
 	}
+*/
+	fd = open(argv[1], O_RDONLY);
+	datafile = read_from_file_to_var(fd);
+	ft_printf("BEFORE\n{red}%s{eoc}", datafile);
+	clean_commetns(datafile);
+	ft_printf("\n\nAFTER\n%s", datafile);
+	free(datafile);
 	free_champ(&champ);
+	close(fd);
 	return (0);
 }
