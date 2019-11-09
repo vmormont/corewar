@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/asm",
-			"args": ["fork.s" "trev.s" "yes.sora" "ex.s"],
+			"args": ["rex.sgen.s"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],

@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:35:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/09 16:11:15 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:52:49 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		del_one_label(t_label **label)
 	}
 }
 
-static t_label		*new_label(void)
+static t_label	*new_label(void)
 {
 	t_label *label;
 
@@ -32,7 +32,7 @@ static t_label		*new_label(void)
 	return (label);
 }
 
-void		del_label(t_label **begin)
+void			del_label(t_label **begin)
 {
 	t_label	*temp;
 	t_label	*label;
@@ -50,7 +50,7 @@ void		del_label(t_label **begin)
 	}
 }
 
-t_label		*add_label2end(t_label *begin)
+t_label			*add_label2end(t_label *begin)
 {
 	t_label	*temp;
 
@@ -71,7 +71,7 @@ t_label		*add_label2end(t_label *begin)
 	return (begin);
 }
 
-void		print_label(t_label *label)
+void			print_label(t_label *label)
 {
 	ft_printf("___________________ \n");
 	ft_printf("|  name  | offset |\n");
