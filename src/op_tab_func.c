@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 10:23:16 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/09 13:15:29 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/09 16:12:01 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,6 @@ int		get_op_code(t_op *op_tab, char *name)
 			return (op_tab[i].code);
 		++i;
 	}
-	return (0);
-}
-
-int		possible_arg(char arg, char mask)
-{
-	if (arg == T_REG && !(((mask >> 4) & T_REG) ^ T_REG))
-		return (1);
-	else if (arg == T_DIR && !(((mask >> 2) & T_DIR) ^ T_DIR))
-			return (1);
-	else if (arg == T_IND && !((mask & 3) ^ 3))
-			return (1);
 	return (0);
 }
 
