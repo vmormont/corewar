@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 21:31:06 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/09 14:22:05 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/09 17:11:21 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ t_champ		*create_champ(void);
 
 void		free_champ(t_champ **champ);
 
-void			ft_exit(int err);
+void		ft_exit(int err);
+
+void		create_cor_file(char *src_file);
+
+//char		*ft_strlstr(char *src, char *pattern, int len);
 
 #endif
