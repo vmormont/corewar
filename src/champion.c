@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 12:52:36 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/09 13:05:40 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/09 15:53:26 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ void		free_champ(t_champ **champ)
 		ft_strdel(&(*champ)->name);
 		ft_strdel(&(*champ)->comment);
 		ft_memdel((void*)&(*champ)->op_tab);
-		/* не забыть вставить финкции очистки */
-		(*champ)->instr = NULL;
-		(*champ)->labels = NULL;
+		del_instr(&(*champ)->instr);
+		del_label(&(*champ)->labels);
 		free(*champ);
 		*champ = NULL;
 	}

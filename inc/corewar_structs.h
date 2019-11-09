@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/09 12:03:13 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/09 15:00:20 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ typedef struct	s_instr
 	int				num_args;
 	int				cycles2go;
 	char			tdir_size;
-	struct s_op		*next;
-	struct s_op		*prev;
+	struct s_instr	*next;
+	struct s_instr	*prev;
 }				t_instr;
 
 /*
