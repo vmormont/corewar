@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/11 15:52:25 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/11 23:36:02 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 # define INVALID_FILE_NAME 200
 # define USAGE 201
-# define INVALID_NAME_COMMENT 202
+# define NAME_ERROR 202
+# define COMMENT_ERROR 203
+# define LEXICAL_ERROR 204
 
 /*
 ** THIS HEADER ONLY FOR FUNCTIONS PROTOTYPES
@@ -24,7 +26,9 @@
 # include <stdio.h>
 # include "corewar_structs.h"
 
-void		ft_exit(int err);
+void		ft_exit(t_champ **champ, int err);
+
+void		lexical_error(t_champ **champ, int err, int ns, int i);
 
 t_op		*create_op_tab(void);
 
@@ -40,11 +44,15 @@ t_champ		*create_champ(void);
 
 void		free_champ(t_champ **champ);
 
-void		ft_exit(int err);
-
 void		create_cor_file(char *src_file);
 
-t_champ		*lexical_analizer(t_champ *champ, char *datafile);
+/*
+** LEXICAL FUNCTIONS
+*/
+
+char		*get_clean_data_from_file(t_champ *champ, char *filename);
+
+void		lexical_analizer(t_champ *champ, char *datafile);
 
 /*
 ** INSTR FUNCTIONS
@@ -73,7 +81,5 @@ t_label		*add_label2end(t_label *begin);
 void		del_label(t_label **begin);
 
 void		print_label(t_label *label);
-
-int			clean_commetns(char *data);
 
 #endif
