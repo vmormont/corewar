@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/09 17:49:54 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/11 15:52:25 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define INVALID_FILE_NAME 200
 # define USAGE 201
+# define INVALID_NAME_COMMENT 202
 
 /*
 ** THIS HEADER ONLY FOR FUNCTIONS PROTOTYPES
@@ -42,6 +43,8 @@ void		free_champ(t_champ **champ);
 void		ft_exit(int err);
 
 void		create_cor_file(char *src_file);
+
+t_champ		*lexical_analizer(t_champ *champ, char *datafile);
 
 /*
 ** INSTR FUNCTIONS

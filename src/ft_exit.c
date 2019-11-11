@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 11:02:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/09 12:09:18 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/11 15:53:54 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,6 @@ void	ft_exit(int err)
 		exit(ft_fprintf(2, "Invalid input file\n"));
 	if (err == USAGE)
 		exit(ft_fprintf(2, "Usage: ./asm <file name> (*.s)\n"));
+	if (err == INVALID_NAME_COMMENT)
+		exit(ft_fprintf(2, "Incorrect name or comment of champ\n"));
 }
