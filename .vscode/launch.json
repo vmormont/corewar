@@ -9,12 +9,12 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/asm",
-			"args": ["folder_of_example/champs/examples/zork.s"],
+			"args": ["folder_of_example/champs/comment.s"],
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
 			"externalConsole": false,
-			"MIMode": "gdb",
+			"MIMode": "lldb",
 		}
 	]
 }

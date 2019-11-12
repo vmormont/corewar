@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 11:02:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/11 23:33:08 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/12 19:19:05 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,26 @@ void		ft_exit(t_champ **champ, int err)
 	exit(err);
 }
 
-void	lexical_error(t_champ **champ, int err, int ns, int i)
+void	lexical_error(t_champ **champ, char *data, char *err_adr)
 {
-	if (err = NAME_ERROR)
-		ft_fprintf(2, "Name error at [%03d]:[%03d]\n", ns, i);
-	else
-		ft_fprintf(2, "Lexical error at [%03d]:[%03d]\n", ns, i);
+	int		row;
+	int		pos_in_row;
+	int		pos;
+
+	row = 1;
+	pos_in_row = 1;
+	pos = 0;
+	while (&data[pos] != err_adr)
+	{
+		if (data[pos] == '\n')
+		{
+			row++;
+			pos_in_row = 0;
+		}
+	pos++;
+	pos_in_row++;
+	}
+	ft_fprintf(2, "Lexical error at [%03d]:[%03d]\n", row, pos_in_row);
 	free_champ(champ);
-	exit(err);
+	exit(1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/11 23:36:02 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:59:02 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 void		ft_exit(t_champ **champ, int err);
 
-void		lexical_error(t_champ **champ, int err, int ns, int i);
+void		lexical_error(t_champ **champ, char *data, char *err_adr);
 
 t_op		*create_op_tab(void);
 
