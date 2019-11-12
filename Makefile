@@ -6,7 +6,7 @@
 #    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/11/11 23:31:57 by astripeb         ###   ########.fr        #
+#    Updated: 2019/11/12 21:15:20 by astripeb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ LFLAGS				:= -I $(LIB_DIR)/inc -I $(INC_DIR)
 LIBS				:= -L $(LIB_DIR) -lft
 
 SRC					= asm.c ft_exit.c op_tab_func.c champion.c instructions.c\
-					arguments.c labels.c name.c lexical.c
+					arguments.c labels.c lexical.c
 
 OBJ					:= $(SRC:.c=.o)
 

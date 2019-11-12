@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/12 18:59:02 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/12 21:25:13 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ void		create_cor_file(char *src_file);
 /*
 ** LEXICAL FUNCTIONS
 */
-
-char		*get_clean_data_from_file(t_champ *champ, char *filename);
 
 void		lexical_analizer(t_champ *champ, char *datafile);
 
