@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   labels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:35:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/13 19:42:28 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/13 22:20:13 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		del_one_label(t_label **label)
 	}
 }
 
-static t_label	*new_label(char *title)
+static t_label	*new_label(char *title, size_t offset)
 {
 	t_label *label;
 
@@ -30,6 +30,7 @@ static t_label	*new_label(char *title)
 		return (NULL);
 	ft_bzero((void*)label, sizeof(t_label));
 	label->name = title;
+	label->offset = offset;
 	return (label);
 }
 
@@ -51,20 +52,20 @@ void			del_label(t_label **begin)
 	}
 }
 
-t_label			*add_label2end(t_label *begin, char *title)
+t_label			*add_label2end(t_label *begin, char *title, size_t offset)
 {
 	t_label	*temp;
 
 	if (!begin)
 	{
-		if (!(begin = new_label(title)))
+		if (!(begin = new_label(title, offset)))
 			return (NULL);
 		return (begin);
 	}
 	temp = begin;
 	while (temp->next)
 		temp = temp->next;
-	if (!(temp->next = new_label(title)))
+	if (!(temp->next = new_label(title, offset)))
 	{
 		del_label(&begin);
 		return (NULL);

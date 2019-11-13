@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/13 19:43:38 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/13 22:19:14 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		create_cor_file(char *src_file);
 
 void		lexical_analizer(t_champ *champ, char *datafile);
 
-void		parse_instr(t_champ *champ, char *filedata, int offset);
+void		parse_instr(t_champ *champ, char *filedata, int index);
 
 /*
 ** INSTR FUNCTIONS
@@ -76,7 +76,7 @@ int			possible_arg(char arg, char mask);
 ** LABEL FUNCTIONS
 */
 
-t_label		*add_label2end(t_label *begin, char *title);
+t_label		*add_label2end(t_label *begin, char *title, size_t offset);
 
 void		del_label(t_label **begin);
 

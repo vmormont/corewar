@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/09 15:00:20 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/13 22:16:25 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct	s_arg
 ** code_args	- код типов аргументов
 ** argc[3]		- аргументы инструкции
 ** num_args		- количество аргументов
+** instr_size	- размер в байтах инструкции
 ** cycles2go	- циклов до исполнения
 ** tdir_size	- размер T_DIR (0 - 4 байта, 1 - 2 байта)
 ** next			- следующая инструкция (под вопросом)
@@ -90,6 +91,7 @@ typedef struct	s_instr
 	char			code_args;
 	t_arg			*args;
 	int				num_args;
+	size_t			instr_size;
 	int				cycles2go;
 	char			tdir_size;
 	struct s_instr	*next;
