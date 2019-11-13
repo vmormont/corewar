@@ -1,5 +1,6 @@
 .gitignore
-.vscode
 .vscode/*
 *.dSYM
-.vscode/launch.json
+*.o
+*.a
+

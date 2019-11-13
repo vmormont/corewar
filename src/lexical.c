@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexical.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 23:18:41 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/12 21:24:46 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/13 17:49:17 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,4 +120,8 @@ void		lexical_analizer(t_champ *champ, char *filename)
 	filedata = get_clean_data_from_file(champ, filename);
 	i = parse_name(champ, filedata);
 	ft_printf("|%s|\n|%s|\n", champ->name, champ->comment);
+	ft_printf("filedata[%d] = %c\n", i, filedata[i]);
+	filedata += i;
+	ft_printf("filedata = %s\n", filedata);
+	parse_instr(champ, filedata);
 }

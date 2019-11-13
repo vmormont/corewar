@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   labels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:35:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/09 17:52:49 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/13 17:44:16 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ static void		del_one_label(t_label **label)
 	}
 }
 
-static t_label	*new_label(void)
+static t_label	*new_label(char *title)
 {
 	t_label *label;
 
 	if (!(label = (t_label*)malloc(sizeof(t_label))))
 		return (NULL);
 	ft_bzero((void*)label, sizeof(t_label));
+	label->name = title;
 	return (label);
 }
 
@@ -50,20 +51,20 @@ void			del_label(t_label **begin)
 	}
 }
 
-t_label			*add_label2end(t_label *begin)
+t_label			*add_label2end(t_label *begin, char *title)
 {
 	t_label	*temp;
 
 	if (!begin)
 	{
-		if (!(begin = new_label()))
+		if (!(begin = new_label(title)))
 			return (NULL);
 		return (begin);
 	}
 	temp = begin;
 	while (temp->next)
 		temp = temp->next;
-	if (!(temp->next = new_label()))
+	if (!(temp->next = new_label(title)))
 	{
 		del_label(&begin);
 		return (NULL);
