@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:24:27 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/13 18:50:08 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/13 19:43:30 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,20 @@ static void detect_label(t_champ *champ, char **data)
 	//ft_printf("data = %s\n", *data);
 }
 
-void	parse_instr(t_champ *champ, char *filedata)
+void	parse_instr(t_champ *champ, char *filedata, int offset)
 {
 	int		i;
-
+	char	*filedata_start;
+	
+	filedata_start = filedata;
 	while (*filedata)
 	{
 		detect_label(champ, &filedata);
 		if (*filedata++ == '\n')
 			detect_label(champ, &filedata);
+		ft_printf("char = %c\n", *filedata);
+		if (*filedata == ':')
+			lexical_error(&champ, filedata_start - offset, filedata);
 	}
 	while (champ->labels)
 	{

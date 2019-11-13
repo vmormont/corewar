@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/13 17:44:49 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/13 19:43:38 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		create_cor_file(char *src_file);
 
 void		lexical_analizer(t_champ *champ, char *datafile);
 
-void		parse_instr(t_champ *champ, char *filedata);
+void		parse_instr(t_champ *champ, char *filedata, int offset);
 
 /*
 ** INSTR FUNCTIONS
