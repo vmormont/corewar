@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   labels.c                                           :+:      :+:    :+:   */
+/*   label_utility.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:35:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/13 22:20:13 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/15 01:15:27 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_label			*add_label2end(t_label *begin, char *title, size_t offset)
 
 void			print_label(t_label *label)
 {
+	ft_printf("LABELS\n");
 	ft_printf("___________________ \n");
 	ft_printf("|  name  | offset |\n");
 	while (label)

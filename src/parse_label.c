@@ -1,24 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commands.c                                         :+:      :+:    :+:   */
+/*   parse_label.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:24:27 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/14 18:11:32 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 00:52:31 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-int		skip_spaces(char *filedata, int index)
-{
-	while (ft_isspace(filedata[index] && filedata[index] != '\n'))
-		++index;
-	return (index);
-}
-
 
 static int	offset4label(t_instr *instr)
 {
@@ -33,7 +25,7 @@ static int	offset4label(t_instr *instr)
 	return (offset);
 }
 
-static int	ft_islabel(char c, char *label_chars)
+int			ft_islabel(char c, char *label_chars)
 {
 	int i;
 
@@ -47,16 +39,13 @@ static int	ft_islabel(char c, char *label_chars)
 	return (0);
 }
 
-int			detect_label(t_champ *champ, char *filedata, int i)
+int			parse_label(t_champ *champ, char *filedata, int i)
 {
 	int		j;
 	char	*name;
 
-	// пропускаем пробельные символы
-	while (ft_isspace(filedata[i]))
-		++i;
-	// запоминаем начало символов в строке
 	j = i;
+	// запоминаем начало символов в строке
 	// проверяем является ли началом строки лейбл
 	while (ft_islabel(filedata[i], LABEL_CHARS))
 		++i;
@@ -74,5 +63,7 @@ int			detect_label(t_champ *champ, char *filedata, int i)
 	// возвращаем цикл
 	else
 		i = j;
+	while (ft_isspace(filedata[i]))
+		++i;
 	return (i);
 }

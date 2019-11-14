@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
+#    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/11/14 18:09:29 by pcredibl         ###   ########.fr        #
+#    Updated: 2019/11/14 21:48:31 by astripeb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,11 @@ CFALGS				:= -Wall -Wextra -Werror
 LFLAGS				:= -I $(LIB_DIR)/inc -I $(INC_DIR)
 LIBS				:= -L $(LIB_DIR) -lft
 
-SRC					= asm.c ft_exit.c op_tab_func.c champion.c instructions.c\
-					instructions_utility.c arguments.c labels.c lexical.c\
-					commands.c
+SRC					= asm.c errors.c op_tab_func.c champion.c utility.c\
+					instructions_utility.c label_utility.c\
+					parse_name_comment.c parse_label.c parse_instructions.c\
+					parse_arguments.c
+
 
 OBJ					:= $(SRC:.c=.o)
 

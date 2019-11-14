@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar_structs.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/14 17:45:09 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/14 23:23:46 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # include "op.h"
 # include "libftprintf.h"
 
+# define MIN_REG 1
+# define MAX_REG 99
+# define REG_CHAR 'r'
 /*
 ** КОДЫ ТИПОВ АРГУМЕНТОВ
 ** нужны для определения необходимости добавления
