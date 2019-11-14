@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar_structs.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/13 22:16:25 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/14 17:45:09 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,13 +130,13 @@ typedef struct	s_instr
 
 typedef struct	s_op
 {
-	char		name[5];
-	int			num_args;
-	char		args[3];
-	int			code;
-	int			cycles2go;
-	char		code_args;
-	char		tdir_size;
+	char			name[5];
+	int				num_args;
+	char			args[3];
+	int				code;
+	int				cycles2go;
+	char			code_args;
+	char			tdir_size;
 }				t_op;
 
 /*

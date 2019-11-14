@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arguments.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/09 17:53:45 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/14 19:45:36 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,16 @@ int		possible_arg(char arg, char mask)
 	else if (arg == T_IND && !((mask & 3) ^ 3))
 		return (1);
 	return (0);
+}
+
+int		get_arguments(t_champ *champ, char *filedata, int index)
+{
+	int		j;
+	char	n_com;
+
+	//мы находимся на первом не 'пробельном' символе после инструкции
+	j = i;
+	
+	i += filedata[i] == 'r' ? check_reg(champ,)
+
 }

@@ -3,95 +3,107 @@
 /*                                                        :::      ::::::::   */
 /*   instructions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 14:21:32 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/09 16:09:04 by astripeb         ###   ########.fr       */
+/*   Created: 2019/11/14 18:03:59 by pcredibl          #+#    #+#             */
+/*   Updated: 2019/11/14 19:43:49 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static void		del_one_instr(t_instr **instr)
+static int 	get_instruct_code(char *name, t_op *op_tab)
 {
-	if (instr && *instr)
+	int i;
+	
+	i = 1;
+	while (i <= NUMBER_OF_INSTR)
 	{
-		del_args(&(*instr)->args, (*instr)->num_args);
-		(*instr)->prev = NULL;
-		(*instr)->next = NULL;
-		ft_memdel((void*)instr);
+		if (!ft_strncmp(op_tab[i].name, name, ft_strlen(op_tab[i].name)))
+			return (i);
+		++i;
 	}
+	return (0);
 }
 
-static t_instr	*new_instruct(t_op *op)
+static int 	get_type_arg(char *arg)
 {
-	t_instr		*instr;
-
-	if (!(instr = (t_instr*)malloc(sizeof(t_instr))))
-		return (NULL);
-	ft_bzero((void*)instr, sizeof(t_instr));
-	instr->code = op->code;
-	instr->cycles2go = op->cycles2go;
-	instr->num_args = op->num_args;
-	instr->tdir_size = !op->tdir_size ? 4 : 2;
-	if (!(instr->args = (t_arg*)malloc(sizeof(t_arg) * instr->num_args)))
-	{
-		ft_memdel((void*)&instr);
-		return (NULL);
-	}
-	ft_bzero((void*)instr->args, sizeof(t_arg) * instr->num_args);
-	return (instr);
+	int i;
+	
+	i = skip_spaces(arg, 0);
+	if (arg[i] == DIRECT_CHAR)
+		return(T_DIR);
+	if (arg[i] == 'r')
+		return (T_REG);
+	if (ft_isdigit(arg[i]))
+		return(T_IND);
+	return(0);
 }
 
-void			del_instr(t_instr **begin)
+static int		get_instr(t_champ *champ, char *filedata, int i)
 {
-	t_instr		*temp;
-	t_instr		*instr;
-
-	if (begin && *begin)
+	int 		valid_code;
+	t_instr		*instruct;
+	//мы находимся всегда в начале команды
+	
+	//променяем валидность названия инструкции
+	valid_code = get_instruct_code(&filedata[i], champ->op_tab);
+	
+	//создаем новую инструкцию
+	if (valid_code)
 	{
-		instr = *begin;
-		while (instr)
+		if (!(instruct = new_instruct(&champ->op_tab[valid_code])))
+			ft_exit(&champ, MALLOC_FAILURE);
+	}
+	else
+		lexical_error(&champ, filedata, &filedata[i]);
+	
+	champ->instr = add_instr2end(champ->instr, instruct);
+	
+	//сдвигаем индекс на длину команды
+	//i += ft_strlen(champ->op_tab[valid_code].name);
+	
+	//если после команды нет пробельного символа вызываем ошибку
+	if (!ft_isspace(filedata[i]))
+		lexical_error(&champ, filedata, &filedata[i]);
+	i += skip_spaces(filedata, i);
+	//запускаем парсинг аргументов
+	i += get_arguments(champ, filedata, i);
+	return (i);
+}
+
+void		parse_instr(t_champ *champ, char *filedata, int i)
+{
+	int j;
+
+	j = 0;
+	while (filedata[i])
+	{
+		// вначале цикла мы находимся всегда вначале строки
+
+		// так как лейблов подряд может быть несколько
+		// мы добавляем их все
+		while (j != i)
 		{
-			temp = instr;
-			instr = instr->next;
-			del_one_instr(&temp);
+			j = i;
+			i = detect_label(champ, filedata, i);
 		}
-		*begin = NULL;
-	}
-}
 
-t_instr			*add_instr2end(t_instr *instr, t_op *op)
-{
-	t_instr		*begin;
+		//тут должна быть функция парсинга инструкции
+		//while (filedata[i] != '\n')
+		//	++i;
+		i += get_instr (champ, filedata, i);
 
-	if (!instr)
-	{
-		if (!(instr = new_instruct(op)))
-			return (NULL);
-		return (instr);
+		//переходим по пробельным символам на следующую строку
+		while (ft_isspace(filedata[i]) && filedata[i] != '\n')
+			++i;
+		++i;
+		//считываем аргументы команды
 	}
-	begin = instr;
-	while (instr->next)
-		instr = instr->next;
-	if (!(instr->next = new_instruct(op)))
+	while (champ->labels)
 	{
-		del_instr(&begin);
-		return (NULL);
+		ft_printf("label = %s, offset = %u\n",\
+		champ->labels->name, champ->labels->offset);
+		champ->labels = champ->labels->next;
 	}
-	instr->next->prev = instr;
-	return (begin);
-}
-
-void			print_instruct(t_instr *instr)
-{
-	ft_printf("___________________________ \n");
-	ft_printf("| code | num_arg | offset |\n");
-	while (instr)
-	{
-		ft_printf("| %4d | %7d | %6d |\n",\
-		instr->code, instr->num_args, instr->offset);
-		instr = instr->next;
-	}
-	ft_printf("|_________________________|\n");
 }

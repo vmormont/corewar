@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:24:27 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/13 23:14:34 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/14 18:11:32 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+int		skip_spaces(char *filedata, int index)
+{
+	while (ft_isspace(filedata[index] && filedata[index] != '\n'))
+		++index;
+	return (index);
+}
+
 
 static int	offset4label(t_instr *instr)
 {
@@ -19,7 +27,7 @@ static int	offset4label(t_instr *instr)
 	offset = 0;
 	while (instr)
 	{
-		offset =+ instr->instr_size;
+		offset += instr->instr_size;
 		instr = instr->next;
 	}
 	return (offset);
@@ -33,15 +41,13 @@ static int	ft_islabel(char c, char *label_chars)
 	while (label_chars[i])
 	{
 		if (c == label_chars[i])
-			break ;
+			return(1);
 		++i;
 	}
-	if (!label_chars[i])
-		return (0);
-	return(1);
+	return (0);
 }
 
-static int	detect_label(t_champ *champ, char *filedata, int i)
+int			detect_label(t_champ *champ, char *filedata, int i)
 {
 	int		j;
 	char	*name;
@@ -69,38 +75,4 @@ static int	detect_label(t_champ *champ, char *filedata, int i)
 	else
 		i = j;
 	return (i);
-}
-
-void		parse_instr(t_champ *champ, char *filedata, int i)
-{
-	int j;
-
-	j = 0;
-	while (filedata[i])
-	{
-		// вначале цикла мы находимся всегда вначале строки
-
-		// так как лейблов подряд может быть несколько
-		// мы добавляем их все
-		while (j != i)
-		{
-			j = i;
-			i = detect_label(champ, filedata, i);
-		}
-
-		//тут должна быть функция парсинга инструкции
-		while (filedata[i] != '\n')
-			++i;
-
-		//переходим по пробельным символам на следующую строку
-		while (ft_isspace(filedata[i]) && filedata[i] != '\n')
-			++i;
-		++i;
-	}
-	while (champ->labels)
-	{
-		ft_printf("label = %s, offset = %u\n",\
-		champ->labels->name, champ->labels->offset);
-		champ->labels = champ->labels->next;
-	}
 }

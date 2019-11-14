@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/13 22:19:14 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/14 18:11:30 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void		print_op_tab(t_op *op_tab);
 
 int			get_op_code(t_op *op_tab, char *name);
 
+int			skip_spaces(char *filedata, int index);
+
 /*
 ** CHAMP FUNCTIONS
 */
@@ -58,7 +60,9 @@ void		parse_instr(t_champ *champ, char *filedata, int index);
 ** INSTR FUNCTIONS
 */
 
-t_instr		*add_instr2end(t_instr *instr, t_op *op);
+t_instr		*new_instruct(t_op *op);
+
+t_instr		*add_instr2end(t_instr *start, t_instr *instr);
 
 void		del_instr(t_instr **begin);
 
@@ -81,5 +85,7 @@ t_label		*add_label2end(t_label *begin, char *title, size_t offset);
 void		del_label(t_label **begin);
 
 void		print_label(t_label *label);
+
+int			detect_label(t_champ *champ, char *filedata, int i);
 
 #endif
