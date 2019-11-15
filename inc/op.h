@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:26:09 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/13 21:44:08 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/15 13:36:42 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@
 
 # define NAME_CMD_STRING		".name"
 # define COMMENT_CMD_STRING		".comment"
-
-# define REG_NUMBER				16
 
 # define CYCLE_TO_DIE			1536
 # define CYCLE_DELTA			50

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 00:21:26 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/15 13:42:02 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,17 @@ t_label		*add_label2end(t_label *begin, char *title, size_t offset);
 void		del_label(t_label **begin);
 
 void		print_label(t_label *label);
+
+/*
+** VALIDATION FUNCTION
+*/
+
+int			valid_label(char *arg, t_label *label);
+
+int			valid_direct(char *arg, t_label *label);
+
+int			valid_indirect(char *arg, t_label *label);
+
+int			valid_register(char *arg);
 
 #endif
