@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions_utility.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:21:32 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 16:33:05 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:18:29 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ t_instr		*new_instruct(t_op *op)
 		return (NULL);
 	}
 	ft_bzero((void*)instr->args, sizeof(t_arg) * instr->num_args);
-	instr->next = NULL;
-	instr->prev = NULL;
 	return (instr);
 }
 
@@ -80,29 +78,30 @@ void		del_instr(t_instr **begin)
 	}
 }
 
-t_instr		*add_instr2end(t_instr *start, t_instr *instr)
+void		add_instr2end(t_instr **begin, t_instr *instr)
 {
 	t_instr		*temp;
 
-	if (!start)
+	if (begin)
 	{
-		start = instr;
-		return (start);
+		if (!*begin)
+			*begin = instr;
+		else
+		{
+			temp = *begin;
+			while (temp->next)
+				temp = temp->next;
+			temp->next = instr;
+			instr->prev = temp;
+		}
 	}
-	temp = start;
-	while (temp->next)
-		temp = temp->next;
-	temp->next = instr;
-	instr->prev = temp; //чтобы последней инструкции задавать prev
-	//ft_printf(" prev type = %d\n", instr->prev->code);
-	return (start);
 }
 
 void		print_instruct(t_instr *instr)
 {
 	int i;
 
-	ft_printf("INSTRUCTIONS\n");
+	ft_printf("\nINSTRUCTIONS\n");
 	ft_printf("_______________________\n");
 	while (instr)
 	{

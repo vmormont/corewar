@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_arguments.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 16:33:34 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:20:08 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int get_type_argument(char *arg)
 		return(T_DIR);
 	if (arg[i] == REG_CHAR)
 		return (T_REG);
-	if (ft_isdigit(arg[i]) || arg[i] == LABEL_CHAR)
+	if (ft_isdigit(arg[i]) || arg[i] == LABEL_CHAR || arg[i] == '-')
 		return(T_IND);
 	return(0);
 }
@@ -53,7 +53,7 @@ int	add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
 			ft_exit(&champ, MALLOC_FAILURE);
 	}
 	else
-		lexical_error(&champ, filedata, &filedata[i]);
+		error_manager(&champ, filedata, &filedata[i]);
 	return (i + valid);
 }
 
@@ -78,17 +78,32 @@ int	parse_arguments(t_champ *champ, t_instr *instruct, char *filedata, int i)
 		else
 		{
 			del_one_instr(&instruct);
-			lexical_error(&champ, filedata, &filedata[i]);
+			error_manager(&champ, filedata, &filedata[i]);
 		}
 		++j;
 		if (j < instruct->num_args && filedata[i++] != SEPARATOR_CHAR)
-			lexical_error(&champ, filedata, &filedata[--i]);
+			error_manager(&champ, filedata, &filedata[--i]);
 		i = skip_spaces(filedata, i);
 	}
 	instruct->instr_size = define_instruct_size(instruct);
 	instruct->offset = define_instruct_offset(champ->instr);
 	++i;
-	champ->instr = add_instr2end(champ->instr, instruct);
-	//print_instruct(champ->instr);
+	add_instr2end(&champ->instr, instruct);
 	return (i);
+}
+
+void		print_args(t_arg *args, int num)
+{
+	int		i;
+
+	i = 0;
+	ft_printf("\nARGS\n");
+	ft_printf("__________________________________________________________\n");
+	ft_printf("|       type       |       str        |       value      |\n");
+	while (i < num)
+	{
+		ft_printf("| %16d | %16s | %16d |\n", args[i].type, args[i].str, args[i].value);
+		i++;
+	}
+	ft_printf("|________________________________________________________|\n");
 }

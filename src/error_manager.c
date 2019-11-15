@@ -1,40 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   error_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 11:02:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/15 21:04:01 by astripeb         ###   ########.fr       */
+/*   Created: 2019/11/15 21:13:47 by astripeb          #+#    #+#             */
+/*   Updated: 2019/11/15 21:14:33 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-void	lexical_error(t_champ **champ, char *data, char *error_address)
-{
-	ft_fprintf(2, "Lexical error at ");
-//	print_error_position(data, error_address);
-	ft_fprintf(2, "\n");
-	free_champ(champ);
-	free(data);
-	exit(LEXICAL_ERROR);
-}
-
-void		ft_exit(t_champ **champ, int err)
-{
-	if (err == USAGE)
-		ft_fprintf(2, "Usage: ./asm <file name> (*.s)\n");
-	else if (err == INVALID_FILE_NAME)
-		ft_fprintf(2, "Error: Invalid input file\n");
-	else if (err  == MALLOC_FAILURE)
-		ft_fprintf(2, "Error: Failed to alloc memory\n");
-	else
-		perror("Error");
-	free_champ(champ);
-	exit(err);
-}
 
 static int	get_token_type(char *arg, t_op *op_tab)
 {

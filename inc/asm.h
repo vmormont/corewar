@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 21:03:29 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:19:13 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # define INVALID_FILE_NAME 200
 # define USAGE 201
-# define NAME_ERROR 202
-# define COMMENT_ERROR 203
-# define LEXICAL_ERROR 204
 
 enum token
 {
@@ -41,8 +38,6 @@ enum token
 */
 
 void		ft_exit(t_champ **champ, int err);
-
-void		lexical_error(t_champ **champ, char *data, char *err_adr);
 
 void		error_manager(t_champ **champ, char *data, char *error_address);
 
@@ -91,17 +86,11 @@ int			parse_arguments(t_champ *champ, t_instr *instruction,
 
 t_instr		*new_instruct(t_op *op);
 
-t_instr		*add_instr2end(t_instr *start, t_instr *instr);
+void		add_instr2end(t_instr **begin, t_instr *instr);
 
 void		del_one_instr(t_instr **instr);
 
 void		del_instr(t_instr **begin);
-
-t_op		*create_op_tab(void);
-
-int			get_op_code(t_op *op_tab, char *name);
-
-void		print_op_tab(t_op *op_tab);
 
 void		print_instruct(t_instr *instr);
 
@@ -111,11 +100,19 @@ int			define_instruct_offset(t_instr *begin);
 
 int 		get_instruct_code(char *name, t_op *op_tab);
 
+t_op		*create_op_tab(void);
+
+int			get_op_code(t_op *op_tab, char *name);
+
+void		print_op_tab(t_op *op_tab);
+
 /*
-** ARGGUMENTS FUNCTIONS
+** ARGUMENTS FUNCTIONS
 */
 
 int			possible_arg(char arg, char mask);
+
+void		print_args(t_arg *args, int num);
 
 /*
 ** LABEL FUNCTIONS
