@@ -6,13 +6,13 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 21:20:08 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:48:01 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int	possible_arg(char arg_type, char mask)
+static int	possible_arg(char arg_type, char mask)
 {
 	if (arg_type == T_REG && !(((mask >> 4) & T_REG) ^ T_REG))
 		return (1);
@@ -23,7 +23,7 @@ int	possible_arg(char arg_type, char mask)
 	return (0);
 }
 
-int get_type_argument(char *arg)
+static int	get_type_argument(char *arg)
 {
 	int i;
 
@@ -37,7 +37,7 @@ int get_type_argument(char *arg)
 	return(0);
 }
 
-int	add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
+static int	add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
 {
 	int valid;
 
@@ -85,8 +85,6 @@ int	parse_arguments(t_champ *champ, t_instr *instruct, char *filedata, int i)
 			error_manager(&champ, filedata, &filedata[--i]);
 		i = skip_spaces(filedata, i);
 	}
-	instruct->instr_size = define_instruct_size(instruct);
-	instruct->offset = define_instruct_offset(champ->instr);
 	++i;
 	add_instr2end(&champ->instr, instruct);
 	return (i);

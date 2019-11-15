@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 21:19:13 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:57:48 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void		error_manager(t_champ **champ, char *data, char *error_address);
 
 int			skip_spaces(char *filedata, int index);
 
-int			skip_spaces_2next_line(char *filedata, int index);
-
 char		*get_clean_data_from_file(t_champ *champ, char *filename);
 
 /*
@@ -69,9 +67,7 @@ void		lexical_analizer(t_champ *champ, char *datafile);
 
 int			parse_name(t_champ *champ, char *data);
 
-int			ft_islabel(char c, char *label_chars);
-
-int			islabel(char *data);
+int			islabelchar(char c, char *label_chars);
 
 int			parse_label(t_champ *champ, char *filedata, int i);
 
@@ -92,27 +88,7 @@ void		del_one_instr(t_instr **instr);
 
 void		del_instr(t_instr **begin);
 
-void		print_instruct(t_instr *instr);
-
-int			define_instruct_size(t_instr *instr);
-
-int			define_instruct_offset(t_instr *begin);
-
-int 		get_instruct_code(char *name, t_op *op_tab);
-
 t_op		*create_op_tab(void);
-
-int			get_op_code(t_op *op_tab, char *name);
-
-void		print_op_tab(t_op *op_tab);
-
-/*
-** ARGUMENTS FUNCTIONS
-*/
-
-int			possible_arg(char arg, char mask);
-
-void		print_args(t_arg *args, int num);
 
 /*
 ** LABEL FUNCTIONS
@@ -126,8 +102,6 @@ void		del_one_label(t_label **label);
 
 void		del_label(t_label **begin);
 
-void		print_label(t_label *label);
-
 /*
 ** VALIDATION FUNCTION
 */
@@ -139,5 +113,15 @@ int			valid_direct(char *arg, t_label *label);
 int			valid_indirect(char *arg, t_label *label);
 
 int			valid_register(char *arg);
+
+/*
+** PRINT FUNCTIONS
+** DELETE BEFORE DEFENCE
+*/
+void		print_instruct(t_instr *instr);
+
+void		print_args(t_arg *args, int num);
+
+void		print_label(t_label *label);
 
 #endif

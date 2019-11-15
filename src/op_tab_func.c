@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 10:23:16 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/09 16:12:01 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:49:19 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,6 @@ t_op	*create_op_tab(void)
 	op_tab[15] = (t_op){"lfork", 1, {D}, 15, 1000, 0, 1};
 	op_tab[16] = (t_op){"aff", 1, {R}, 16, 2, 1, 0};
 	return (op_tab);
-}
-
-int		get_op_code(t_op *op_tab, char *name)
-{
-	int i;
-
-	i = 1;
-	while (i <= NUMBER_OF_INSTR)
-	{
-		if (!ft_strcmp(name, op_tab[i].name))
-			return (op_tab[i].code);
-		++i;
-	}
-	return (0);
 }
 
 void	print_op_tab(t_op *op_tab)
