@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:21:32 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 16:33:05 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 19:51:03 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void		print_instruct(t_instr *instr)
 {
 	int i;
 
-	ft_printf("INSTRUCTIONS\n");
+	ft_printf("\nINSTRUCTIONS\n");
 	ft_printf("_______________________\n");
 	while (instr)
 	{

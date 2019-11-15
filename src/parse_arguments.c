@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 16:33:34 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 20:45:28 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int get_type_argument(char *arg)
 		return(T_DIR);
 	if (arg[i] == REG_CHAR)
 		return (T_REG);
-	if (ft_isdigit(arg[i]) || arg[i] == LABEL_CHAR)
+	if (ft_isdigit(arg[i]) || arg[i] == LABEL_CHAR || arg[i] == '-')
 		return(T_IND);
 	return(0);
 }
@@ -91,4 +91,20 @@ int	parse_arguments(t_champ *champ, t_instr *instruct, char *filedata, int i)
 	champ->instr = add_instr2end(champ->instr, instruct);
 	//print_instruct(champ->instr);
 	return (i);
+}
+
+void		print_args(t_arg *args, int num)
+{
+	int		i;
+
+	i = 0;
+	ft_printf("\nARGS\n");
+	ft_printf("__________________________________________________________\n");
+	ft_printf("|       type       |       str        |       value      |\n");
+	while (i < num)
+	{
+		ft_printf("| %16d | %16s | %16d |\n", args[i].type, args[i].str, args[i].value);
+		i++;
+	}
+	ft_printf("|________________________________________________________|\n");
 }

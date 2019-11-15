@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:35:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 16:02:27 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 19:52:12 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_label			*add_label2end(t_label *begin, char *title, size_t offset)
 
 void			print_label(t_label *label)
 {
-	ft_printf("LABELS\n");
+	ft_printf("\nLABELS\n");
 	ft_printf("_______________________________________\n");
 	ft_printf("|       name       |      offset      |\n");
 	while (label)

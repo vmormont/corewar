@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 13:37:50 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/15 13:43:14 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 20:29:20 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	valid_direct(char *arg, t_label *label)
 		}
 		else
 		{
+			i += arg[i] == '-' ? 1 : 0;
 			while (arg[i] && arg[i] != SEPARATOR_CHAR && arg[i] != '\n')
 			{
 				if (!ft_isdigit(arg[i]))
@@ -65,6 +66,7 @@ int	valid_indirect(char *arg, t_label *label)
 	}
 	else
 	{
+		i += arg[i] == '-' ? 1 : 0;
 		while (arg[i] && arg[i] != SEPARATOR_CHAR && arg[i] != '\n')
 		{
 			if (!ft_isdigit(arg[i]))

@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:03:59 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/15 16:35:24 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 20:11:08 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ int			define_instruct_size(t_instr *instr)
 	int		size;
 	int		i;
 
-	//ft_printf("args size = %d\n'", instr->args_size);
 	size = 1 + instr->args_size;
 	i = -1;
-	//ft_printf("instr size start = %d\n'", size);
 	while (++i < instr->num_args)
 	{
 		if (instr->args[i].type == T_REG)
@@ -29,9 +27,7 @@ int			define_instruct_size(t_instr *instr)
 			size += 2;
 		if (instr->args[i].type == T_DIR)
 			size += instr->tdir_size;
-		//ft_printf("arg type = %d, instr size = %d, t_dir size = %d\n'", instr->args[i].type, size, instr->tdir_size);
 	}
-	//ft_printf("instr size final = %d\n'", size);
 	return (size);
 }
 
@@ -101,6 +97,7 @@ static int	get_instruction(t_champ *champ, char *filedata, int i)
 int			parse_instruction(t_champ *champ, char *filedata, int i)
 {
 	int j;
+	t_instr	*temp;
 
 	j = 0;
 	while (filedata[i])
@@ -119,5 +116,11 @@ int			parse_instruction(t_champ *champ, char *filedata, int i)
 	}
 	print_label(champ->labels);
 	print_instruct(champ->instr);
+	temp = champ->instr;
+	while (temp)
+	{
+		print_args(temp->args, temp->num_args);
+		temp = temp->next;
+	}
 	return (i);
 }

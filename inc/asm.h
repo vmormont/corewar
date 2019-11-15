@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 16:34:35 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 19:48:56 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ int			define_instruct_offset(t_instr *begin);
 */
 
 int			possible_arg(char arg, char mask);
+
+void		print_args(t_arg *args, int num);
 
 /*
 ** LABEL FUNCTIONS
