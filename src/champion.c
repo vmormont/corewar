@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 12:52:36 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/09 15:53:26 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:00:34 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ t_champ		*create_champ(void)
 
 	if (!(champ = (t_champ*)malloc(sizeof(t_champ))))
 		return (NULL);
-	champ->name = NULL;
-	champ->comment = NULL;
-	champ->instr = NULL;
-	champ->labels = NULL;
+	ft_bzero((void*)champ, sizeof(t_champ));
 	champ->op_tab = create_op_tab();
 	if (!champ->op_tab)
 	{

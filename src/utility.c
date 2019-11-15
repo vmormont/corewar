@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 20:46:25 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/14 21:32:24 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/15 18:51:04 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,6 @@ int			skip_spaces(char *filedata, int index)
 int			skip_spaces2next_line(char *filedata, int index)
 {
 	while (ft_isspace(filedata[index]))
-	{
-		if (filedata[index] == '\n')
-		{
-			++index;
-			break ;
-		}
 		++index;
-	}
 	return (index);
 }

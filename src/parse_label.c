@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_label.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:24:27 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/15 16:40:52 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:01:59 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,37 @@ int			ft_islabel(char c, char *label_chars)
 	return (0);
 }
 
+int			islabel(char *data)
+{
+	int i;
+
+	i = 0;
+	while (ft_islabel(data[i], LABEL_CHARS))
+		++i;
+	if (data[i] == LABEL_CHAR)
+		return (i);
+	return (0);
+}
+
 int			parse_label(t_champ *champ, char *filedata, int i)
 {
-	int		j;
-	char	*name;
+	int		valid_label;
+	t_label	*label;
 
-	j = i;
-	// запоминаем начало символов в строке
-	// проверяем является ли началом строки лейбл
-	while (ft_islabel(filedata[i], LABEL_CHARS))
-		++i;
-	// добавляем лейбл
-	if (filedata[i] == LABEL_CHAR)
+	valid_label = islabel(&filedata[i]);
+	if (valid_label)
 	{
-		if (!(name = ft_strsub(filedata, j, i - j)))
+		if (!(label = new_label(offset4label(champ->instr))))
 			ft_exit(&champ, MALLOC_FAILURE);
-		champ->labels = add_label2end(champ->labels, name,\
-		offset4label(champ->instr));
-		if (!champ->labels)
+		if (!(label->name = ft_strsub(filedata, i, valid_label)))
+		{
+			del_one_label(&label);
 			ft_exit(&champ, MALLOC_FAILURE);
-		++i;
+		}
+		i = i + valid_label + 1;
+		add_label2end(&champ->labels, label);
+		while (ft_isspace(filedata[i]))
+			++i;
 	}
-	// возвращаем цикл
-	else
-		i = j;
-	while (ft_isspace(filedata[i]))
-		++i;
 	return (i);
 }

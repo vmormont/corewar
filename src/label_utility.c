@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   label_utility.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:35:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 16:02:27 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:01:37 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static void		del_one_label(t_label **label)
+void		del_one_label(t_label **label)
 {
 	if (label && *label)
 	{
@@ -22,19 +22,18 @@ static void		del_one_label(t_label **label)
 	}
 }
 
-static t_label	*new_label(char *title, size_t offset)
+t_label		*new_label(size_t offset)
 {
 	t_label *label;
 
 	if (!(label = (t_label*)malloc(sizeof(t_label))))
 		return (NULL);
 	ft_bzero((void*)label, sizeof(t_label));
-	label->name = title;
 	label->offset = offset;
 	return (label);
 }
 
-void			del_label(t_label **begin)
+void		del_label(t_label **begin)
 {
 	t_label	*temp;
 	t_label	*label;
@@ -52,28 +51,25 @@ void			del_label(t_label **begin)
 	}
 }
 
-t_label			*add_label2end(t_label *begin, char *title, size_t offset)
+void		add_label2end(t_label **begin, t_label *label)
 {
 	t_label	*temp;
 
-	if (!begin)
+	if (begin)
 	{
-		if (!(begin = new_label(title, offset)))
-			return (NULL);
-		return (begin);
+		if (!*begin)
+			*begin = label;
+		else
+		{
+			temp = *begin;
+			while (temp->next)
+				temp = temp->next;
+			temp->next = label;
+		}
 	}
-	temp = begin;
-	while (temp->next)
-		temp = temp->next;
-	if (!(temp->next = new_label(title, offset)))
-	{
-		del_label(&begin);
-		return (NULL);
-	}
-	return (begin);
 }
 
-void			print_label(t_label *label)
+void		print_label(t_label *label)
 {
 	ft_printf("LABELS\n");
 	ft_printf("_______________________________________\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 16:34:35 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:03:29 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 # define NAME_ERROR 202
 # define COMMENT_ERROR 203
 # define LEXICAL_ERROR 204
+
+enum token
+{
+	T_NAME = 5,
+	T_COMMENT,
+	T_ENDLINE,
+	T_SEPARATOR,
+	T_INSTRUCTION,
+	T_LABEL
+};
 
 /*
 ** THIS HEADER ONLY FOR FUNCTIONS PROTOTYPES
@@ -33,6 +43,8 @@
 void		ft_exit(t_champ **champ, int err);
 
 void		lexical_error(t_champ **champ, char *data, char *err_adr);
+
+void		error_manager(t_champ **champ, char *data, char *error_address);
 
 /*
 ** UTILITY FUNCTIONS
@@ -63,6 +75,8 @@ void		lexical_analizer(t_champ *champ, char *datafile);
 int			parse_name(t_champ *champ, char *data);
 
 int			ft_islabel(char c, char *label_chars);
+
+int			islabel(char *data);
 
 int			parse_label(t_champ *champ, char *filedata, int i);
 
@@ -95,6 +109,8 @@ int			define_instruct_size(t_instr *instr);
 
 int			define_instruct_offset(t_instr *begin);
 
+int 		get_instruct_code(char *name, t_op *op_tab);
+
 /*
 ** ARGGUMENTS FUNCTIONS
 */
@@ -105,7 +121,11 @@ int			possible_arg(char arg, char mask);
 ** LABEL FUNCTIONS
 */
 
-t_label		*add_label2end(t_label *begin, char *title, size_t offset);
+t_label		*new_label(size_t offset);
+
+void		add_label2end(t_label **begin, t_label *label);
+
+void		del_one_label(t_label **label);
 
 void		del_label(t_label **begin);
 

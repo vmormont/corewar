@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_instructions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:03:59 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/15 16:35:24 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 20:19:08 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ int			define_instruct_offset(t_instr *begin)
 		tmp = begin;
 		while (tmp->next)
 			tmp = tmp->next;
-		return (tmp->offset + tmp->instr_size);		
+		return (tmp->offset + tmp->instr_size);
 	}
 }
 
-static int 	get_instruct_code(char *name, t_op *op_tab)
+int 		get_instruct_code(char *name, t_op *op_tab)
 {
 	int i;
 	int	code;
@@ -117,6 +117,7 @@ int			parse_instruction(t_champ *champ, char *filedata, int i)
 		// парсим инструкцию
 		i = get_instruction(champ, filedata, i);
 	}
+	ft_printf("\nNAME = %s\nCOMMENT = %s\n\n", champ->name, champ->comment);
 	print_label(champ->labels);
 	print_instruct(champ->instr);
 	return (i);
