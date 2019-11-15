@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 13:39:26 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:33:34 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ int	parse_arguments(t_champ *champ, t_instr *instruct, char *filedata, int i)
 			lexical_error(&champ, filedata, &filedata[--i]);
 		i = skip_spaces(filedata, i);
 	}
+	instruct->instr_size = define_instruct_size(instruct);
+	instruct->offset = define_instruct_offset(champ->instr);
 	++i;
 	champ->instr = add_instr2end(champ->instr, instruct);
+	//print_instruct(champ->instr);
 	return (i);
 }

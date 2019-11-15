@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 13:42:02 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:34:35 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,10 @@ int			get_op_code(t_op *op_tab, char *name);
 void		print_op_tab(t_op *op_tab);
 
 void		print_instruct(t_instr *instr);
+
+int			define_instruct_size(t_instr *instr);
+
+int			define_instruct_offset(t_instr *begin);
 
 /*
 ** ARGGUMENTS FUNCTIONS

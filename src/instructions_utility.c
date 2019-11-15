@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions_utility.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:21:32 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 01:15:06 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:33:05 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_instr		*new_instruct(t_op *op)
 		return (NULL);
 	ft_bzero((void*)instr, sizeof(t_instr));
 	instr->code = op->code;
+	instr->args_size = op->code_args;
 	instr->cycles2go = op->cycles2go;
 	instr->num_args = op->num_args;
 	instr->tdir_size = !op->tdir_size ? 4 : 2;
@@ -92,7 +93,8 @@ t_instr		*add_instr2end(t_instr *start, t_instr *instr)
 	while (temp->next)
 		temp = temp->next;
 	temp->next = instr;
-//	instr->next->prev = instr; //(?)
+	instr->prev = temp; //чтобы последней инструкции задавать prev
+	//ft_printf(" prev type = %d\n", instr->prev->code);
 	return (start);
 }
 
@@ -101,18 +103,18 @@ void		print_instruct(t_instr *instr)
 	int i;
 
 	ft_printf("INSTRUCTIONS\n");
-	ft_printf("_____________________\n");
+	ft_printf("_______________________\n");
 	while (instr)
 	{
-		ft_printf("| code     = %7d|\n| num_args = %7d|\n",\
-		instr->code, instr->num_args);
+		ft_printf("| code       = %7d|\n| num_args   = %7d|\n| offset     = %7d|\n| size instr = %7d|\n",\
+		instr->code, instr->num_args, instr->offset, instr->instr_size);
 		i = 0;
 		while (i < instr->num_args)
 		{
-			ft_printf("| arg[%d]   = %7s|\n", i + 1, instr->args[i].str);
+			ft_printf("| arg[%d]     = %7s|\n", i + 1, instr->args[i].str);
 			++i;
 		}
-		ft_printf("|___________________|\n");
+		ft_printf("|_____________________|\n");
 		instr = instr->next;
 	}
 

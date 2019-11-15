@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 13:33:42 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/15 15:25:09 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct	s_arg
 ** code 		- код инструкции (live -> 1, ld -> 2, lfork ->15 and e.t.)
 ** offset 		- смещение инструкции относительно начала КОДА чемиона
 ** code_args	- код типов аргументов
+** args_size	- флаг, показывающий, нужен ли байт для кода типа аргументов
 ** argc[3]		- аргументы инструкции
 ** num_args		- количество аргументов
 ** instr_size	- размер в байтах инструкции
@@ -92,6 +93,7 @@ typedef struct	s_instr
 	int				code;
 	size_t			offset;
 	char			code_args;
+	char			args_size;
 	t_arg			*args;
 	int				num_args;
 	size_t			instr_size;
@@ -110,7 +112,7 @@ typedef struct	s_instr
 ** cycles2go	- циклов до исполнения
 ** comment		- комментарий
 ** code_args	- код типов аргументов (1 - есть, 0 - нет)
-** tdir_size	- размер аргумента T_DIR (0 - 4 байта, 1 - 2 байта)
+** tdir_size	- размер аргумента T_DIR
 **
 **
 **	ДОПУСТИМЫЙ ТИП АРГУМЕНТОВ ДЛЯ ИНСТРУКЦИИ

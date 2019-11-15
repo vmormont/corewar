@@ -3,14 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   parse_instructions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:03:59 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/15 01:02:01 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:35:24 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+int			define_instruct_size(t_instr *instr)
+{
+	int		size;
+	int		i;
+
+	//ft_printf("args size = %d\n'", instr->args_size);
+	size = 1 + instr->args_size;
+	i = -1;
+	//ft_printf("instr size start = %d\n'", size);
+	while (++i < instr->num_args)
+	{
+		if (instr->args[i].type == T_REG)
+			size += 1;
+		if (instr->args[i].type == T_IND)
+			size += 2;
+		if (instr->args[i].type == T_DIR)
+			size += instr->tdir_size;
+		//ft_printf("arg type = %d, instr size = %d, t_dir size = %d\n'", instr->args[i].type, size, instr->tdir_size);
+	}
+	//ft_printf("instr size final = %d\n'", size);
+	return (size);
+}
+
+int			define_instruct_offset(t_instr *begin)
+{
+	t_instr		*tmp;
+
+	if (!begin)
+		return (0);
+	else
+	{
+		tmp = begin;
+		while (tmp->next)
+			tmp = tmp->next;
+		return (tmp->offset + tmp->instr_size);		
+	}
+}
 
 static int 	get_instruct_code(char *name, t_op *op_tab)
 {
