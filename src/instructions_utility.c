@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:21:32 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 21:18:29 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 10:41:19 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_instr		*new_instruct(t_op *op)
 		return (NULL);
 	ft_bzero((void*)instr, sizeof(t_instr));
 	instr->code = op->code;
-	instr->args_size = op->code_args;
+	instr->code_args = op->code_args;
 	instr->cycles2go = op->cycles2go;
 	instr->num_args = op->num_args;
 	instr->tdir_size = !op->tdir_size ? 4 : 2;

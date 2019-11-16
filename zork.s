@@ -4,12 +4,13 @@
 .name "zork" ;another one
 
 # yes it's comment
-.comment "I'M ALIIIIVE"	#another two
+.comment"I'M ALIIIIVE"	#another two
 
 l2:
-	st1i r1, %:live, %1
+	sti r1, %:live, %1
 label:
 	and r1, %0, r1
+
 live:
 	live %1
 	zjmp %:live

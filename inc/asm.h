@@ -6,25 +6,12 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 21:57:48 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 14:12:10 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
-
-# define INVALID_FILE_NAME 200
-# define USAGE 201
-
-enum token
-{
-	T_NAME = 5,
-	T_COMMENT,
-	T_ENDLINE,
-	T_SEPARATOR,
-	T_INSTRUCTION,
-	T_LABEL
-};
 
 /*
 ** THIS HEADER ONLY FOR FUNCTIONS PROTOTYPES
@@ -33,13 +20,17 @@ enum token
 # include <stdio.h>
 # include "corewar_structs.h"
 
+# define INVALID_FILE_NAME 200
+# define USAGE 201
+
 /*
 ** MANAGMENT ERRORS
 */
 
 void		ft_exit(t_champ **champ, int err);
 
-void		error_manager(t_champ **champ, char *data, char *error_address);
+void		error_manager(t_champ **champ, char *data,\
+			char *error_address, char token);
 
 /*
 ** UTILITY FUNCTIONS
@@ -58,6 +49,8 @@ t_champ		*create_champ(void);
 void		free_champ(t_champ **champ);
 
 void		create_cor_file(char *src_file);
+
+void		create_op_tab(t_op *op_tab);
 
 /*
 ** LEXICAL FUNCTIONS
@@ -88,8 +81,6 @@ void		del_one_instr(t_instr **instr);
 
 void		del_instr(t_instr **begin);
 
-t_op		*create_op_tab(void);
-
 /*
 ** LABEL FUNCTIONS
 */
@@ -113,6 +104,8 @@ int			valid_direct(char *arg, t_label *label);
 int			valid_indirect(char *arg, t_label *label);
 
 int			valid_register(char *arg);
+
+int			isseparator(char c);
 
 /*
 ** PRINT FUNCTIONS

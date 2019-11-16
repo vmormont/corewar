@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:14:54 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/14 21:46:55 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 12:37:50 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ void		lexical_analizer(t_champ *champ, char *filename)
 	filedata = get_clean_data_from_file(champ, filename);
 	i = parse_name(champ, filedata);
 	i = parse_instruction(champ, filedata, i);
+	ft_strdel(&filedata);
 }

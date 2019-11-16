@@ -6,11 +6,13 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 21:13:47 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 21:55:58 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 14:04:58 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+extern t_op g_op_tab[];
 
 static void	print_error_position(char *data, char *error_address)
 {
@@ -34,7 +36,7 @@ static void	print_error_position(char *data, char *error_address)
 	ft_fprintf(2, "[%03d:%03d]", row, pos_in_row);
 }
 
-static int	get_token_type(char *arg, t_op *op_tab)
+static int	get_token_type(char *arg)
 {
 	int i;
 
@@ -72,30 +74,34 @@ static void	print_token(char token)
 
 static void print_token_value(char *arg, char token)
 {
-	if (token == T_DIR || token == T_REG || token == T_IND)
+	char stop_char;
+
+	if (token == T_LABEL)
+		stop_char = LABEL_CHAR;
+	else
+		stop_char = SEPARATOR_CHAR;
+	ft_fprintf(2, " \"");
+	while (*arg && *arg != stop_char && !ft_isspace(*arg))
 	{
-		ft_fprintf(2, " \"");
-		while (*arg && *arg != SEPARATOR_CHAR && !ft_isspace(*arg))
-		{
-			ft_putchar_fd(*arg, 2);
-			++arg;
-		}
-		ft_fprintf(2, "\"\n");
+		ft_putchar_fd(*arg, 2);
+		++arg;
 	}
+	ft_fprintf(2, "\"\n");
 }
 
-void	error_manager(t_champ **champ, char *data, char *error_address)
+void	error_manager(t_champ **champ, char *data, char *error_address, char token)
 {
-	char	token;
 	char	*token_value;
 
-	token = get_token_type(error_address, (*champ)->op_tab);
+	if (!token)
+		token = get_token_type(error_address);
 	if (token)
 	{
 		ft_fprintf(2, "Syntax error at token [TOKEN]");
 		print_error_position(data, error_address);
 		print_token(token);
-		print_token_value(error_address, token);
+		if (token != T_ENDLINE)
+			print_token_value(error_address, token);
 	}
 	else
 	{

@@ -6,11 +6,13 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 21:48:01 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 14:01:20 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+extern t_op g_op_tab[];
 
 static int	possible_arg(char arg_type, char mask)
 {
@@ -39,7 +41,8 @@ static int	get_type_argument(char *arg)
 
 static int	add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
 {
-	int valid;
+	int		valid;
+	char	*str_before_trim;
 
 	if (arg->type == T_DIR)
 		valid = valid_direct(&filedata[i], champ->labels);
@@ -49,44 +52,45 @@ static int	add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
 		valid = valid_register(&filedata[i]);
 	if (valid)
 	{
-		if (!(arg->str = ft_strsub(filedata, i, valid)))
+		if (!(str_before_trim = ft_strsub(filedata, i, valid)))
 			ft_exit(&champ, MALLOC_FAILURE);
+		if (!(arg->str = ft_strtrim(str_before_trim)))
+			ft_exit(&champ, MALLOC_FAILURE);
+		ft_strdel(&str_before_trim);
 	}
 	else
-		error_manager(&champ, filedata, &filedata[i]);
-	return (i + valid);
+		error_manager(&champ, filedata, &filedata[i], T_NONE);
+	i = skip_spaces(filedata, i + valid);
+	return (i);
 }
 
-int	parse_arguments(t_champ *champ, t_instr *instruct, char *filedata, int i)
+int			parse_arguments(t_champ *champ, t_instr *instruct,\
+			char *filedata, int i)
 {
 	int		j;
 	char	arg_type;
 
-	//мы находимся на первом не 'пробельном' символе после инструкции
 	j = 0;
 	while (j < instruct->num_args)
 	{
-		//получаем тип аргумента
 		arg_type = get_type_argument(&filedata[i]);
-
-		//проверяем валидность аргумента
-		if (possible_arg(arg_type, champ->op_tab[instruct->code].args[j]))
+		if (possible_arg(arg_type, g_op_tab[instruct->code].args[j]))
 		{
 			instruct->args[j].type = arg_type;
 			i = add_argument(champ, &instruct->args[j], filedata, i);
+			i = skip_spaces(filedata, i);
 		}
-		else
+		if (!isseparator(filedata[i++]))
 		{
 			del_one_instr(&instruct);
-			error_manager(&champ, filedata, &filedata[i]);
+			error_manager(&champ, filedata, &filedata[i], T_NONE);
 		}
 		++j;
-		if (j < instruct->num_args && filedata[i++] != SEPARATOR_CHAR)
-			error_manager(&champ, filedata, &filedata[--i]);
 		i = skip_spaces(filedata, i);
 	}
-	++i;
 	add_instr2end(&champ->instr, instruct);
+	while (ft_isspace(filedata[i]))
+		++i;
 	return (i);
 }
 

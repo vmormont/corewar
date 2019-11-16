@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar_structs.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 19:30:47 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/16 14:17:42 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define MIN_REG 1
 # define MAX_REG		16
 # define REG_CHAR 'r'
+
 /*
 ** КОДЫ ТИПОВ АРГУМЕНТОВ
 ** нужны для определения необходимости добавления
@@ -78,7 +79,6 @@ typedef struct	s_arg
 ** code 		- код инструкции (live -> 1, ld -> 2, lfork ->15 and e.t.)
 ** offset 		- смещение инструкции относительно начала КОДА чемиона
 ** code_args	- код типов аргументов
-** args_size	- флаг, показывающий, нужен ли байт для кода типа аргументов
 ** args[3]		- аргументы инструкции
 ** num_args		- количество аргументов
 ** instr_size	- размер в байтах инструкции
@@ -93,7 +93,6 @@ typedef struct	s_instr
 	int				code;
 	size_t			offset;
 	char			code_args;
-	char			args_size;
 	t_arg			*args;
 	int				num_args;
 	size_t			instr_size;
@@ -135,7 +134,7 @@ typedef struct	s_instr
 
 typedef struct	s_op
 {
-	char			name[5];
+	char			name[6];
 	int				num_args;
 	char			args[3];
 	int				code;
@@ -149,7 +148,6 @@ typedef struct	s_op
 ** name 		- имя
 ** comment		- комментарий к имени
 ** instr		- список на набор инструкций-действий
-** op_tab		- массив операций с их характеристиками
 ** labels		- список меток
 */
 
@@ -158,8 +156,18 @@ typedef struct	s_champ
 	char			*name;
 	char			*comment;
 	struct s_instr	*instr;
-	struct s_op		*op_tab;
 	struct s_label	*labels;
 }				t_champ;
+
+enum			e_token
+{
+	T_NONE,
+	T_ENDLINE = 5,
+	T_NAME,
+	T_COMMENT,
+	T_SEPARATOR,
+	T_INSTRUCTION,
+	T_LABEL
+}				t_token;
 
 #endif
