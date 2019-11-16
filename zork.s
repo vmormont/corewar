@@ -7,7 +7,7 @@
 .comment "I'M ALIIIIVE"	#another two
 
 l2:
-	sti r1, %:live, %1
+	st1i r1, %:live, %1
 label:
 	and r1, %0, r1
 live:

@@ -6,13 +6,13 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:03:59 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/15 21:12:06 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:46:52 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int			define_instruct_size(t_instr *instr)
+static int	define_instruct_size(t_instr *instr)
 {
 	int		size;
 	int		i;
@@ -31,7 +31,7 @@ int			define_instruct_size(t_instr *instr)
 	return (size);
 }
 
-int			define_instruct_offset(t_instr *begin)
+static int	define_instruct_offset(t_instr *begin)
 {
 	t_instr		*tmp;
 
@@ -46,7 +46,7 @@ int			define_instruct_offset(t_instr *begin)
 	}
 }
 
-int 		get_instruct_code(char *name, t_op *op_tab)
+static int	get_instruct_code(char *name, t_op *op_tab)
 {
 	int i;
 	int	code;
@@ -91,6 +91,8 @@ static int	get_instruction(t_champ *champ, char *filedata, int i)
 
 	//запускаем парсинг аргументов
 	i = parse_arguments(champ, instruct, filedata, i);
+	instruct->instr_size = define_instruct_size(instruct);
+	instruct->offset = define_instruct_offset(champ->instr);
 	return (i);
 }
 

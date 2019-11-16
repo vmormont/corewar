@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 13:37:50 by pcredibl          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/11/15 21:59:39 by pcredibl         ###   ########.fr       */
+=======
+/*   Updated: 2019/11/15 21:54:02 by astripeb         ###   ########.fr       */
+>>>>>>> f4f86c74bc6d7a1e2aa52ea64ed9695a0f430cf4
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +25,7 @@ int	valid_label(char *arg, t_label *label)
 	{
 		while (arg[++i] && arg[i] != SEPARATOR_CHAR && arg[i] != '\n')
 		{
-			if (!ft_islabel(arg[i], LABEL_CHARS))
+			if (!islabelchar(arg[i], LABEL_CHARS))
 				return (0);
 		}
 	}
