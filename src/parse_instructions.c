@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:03:59 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/16 15:35:00 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 17:17:06 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,15 +115,6 @@ int			parse_instruction(t_champ *champ, char *filedata, int i)
 		// мы добавляем их все
 		i = parse_label(champ, filedata, i);
 		i = get_instruction(champ, filedata, i);
-	}
-	ft_printf("\nNAME = %s\nCOMMENT = %s\n\n", champ->name, champ->comment);
-	print_label(champ->labels);
-	print_instruct(champ->instr);
-	temp = champ->instr;
-	while (temp)
-	{
-		print_args(temp->args, temp->num_args);
-		temp = temp->next;
 	}
 	return (i);
 }

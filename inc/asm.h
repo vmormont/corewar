@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/16 16:33:13 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 17:19:57 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void		free_champ(t_champ **champ);
 
 void		create_cor_file(char *src_file);
 
-void		create_op_tab(t_op *op_tab);
-
 /*
 ** LEXICAL FUNCTIONS
 */
@@ -66,8 +64,6 @@ void		create_op_tab(t_op *op_tab);
 void		lexical_analizer(t_champ *champ, char *datafile);
 
 int			parse_name(t_champ *champ, char *data);
-
-
 
 int			parse_label(t_champ *champ, char *filedata, int i);
 
@@ -88,6 +84,8 @@ void		del_one_instr(t_instr **instr);
 
 void		del_instr(t_instr **begin);
 
+t_instr 	*last_instruction(t_instr *instr);
+
 /*
 ** LABEL FUNCTIONS
 */
@@ -106,10 +104,13 @@ void		del_label(t_label **begin);
 
 int			valid_argument(char *arg, char type, t_label *label);
 
+void		get_arg_value(t_champ *champ);
+
 /*
 ** PRINT FUNCTIONS
 ** DELETE BEFORE DEFENCE
 */
+
 void		print_instruct(t_instr *instr);
 
 void		print_args(t_arg *args, int num);

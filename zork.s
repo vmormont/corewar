@@ -8,7 +8,7 @@
 
 	live %1
 l1:
-	sti r11 , %:live, %1
+	sti r11, %:live, %1
 label:
 	and r1, %0, r13
 live:
