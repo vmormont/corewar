@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_arguments.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/16 14:47:05 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 17:02:26 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,51 +39,6 @@ static int	get_type_argument(char *arg)
 	return(0);
 }
 
-static t_instr *last_instruction(t_instr *instr)
-{
-	while (instr->next)
-		instr = instr->next;
-	return (instr);
-}
-
-static int	label2value(t_arg *arg, t_champ *champ, int offset)
-{
-	int		value;
-	t_label		*tmp;
-	t_instr		*last_instr;
-
-	tmp = champ->labels;
-	while(tmp)
-	{
-		if (!ft_strcmp(arg->str + offset, tmp->name))
-		{
-			value = tmp->offset;
-			break;
-		}
-		tmp = tmp->next;
-	}
-	if (arg->type == T_IND)
-	{
-		last_instr = last_instruction(champ->instr);
-		value -= (last_instr->offset + last_instr->instr_size);
-	}
-	return (value);
-}
-
-static void	get_arg_value(t_arg *arg, t_champ *champ)
-{
-	int value;
-	int i;
-	char	label;
-
-	i = 0;
-	if (arg->type == T_DIR || arg->type == T_REG)
-		i += 1;
-label = arg->str[i] == LABEL_CHAR ? 1 : 0;
-	arg->value = label ? label2value(arg, champ, i + 1) : ft_atoi(arg->str + i);
-
-}
-
 int	add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
 {
 	int		valid;
@@ -102,7 +57,7 @@ int	add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
 		if (!(arg->str = ft_strtrim(str_before_trim)))
 			ft_exit(&champ, MALLOC_FAILURE);
 		ft_strdel(&str_before_trim);
-		get_arg_value(arg, champ);
+		//get_arg_value(arg, champ);
 	}
 	else
 		error_manager(&champ, filedata, &filedata[i], T_NONE);

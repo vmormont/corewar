@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/11/16 14:20:42 by astripeb         ###   ########.fr        #
+#    Updated: 2019/11/16 15:32:14 by pcredibl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ LIBS				:= -L $(LIB_DIR) -lft
 
 SRC					= asm.c ft_exit.c champion.c utility.c instructions_utility.c\
 					label_utility.c parse_name_comment.c parse_label.c parse_instructions.c\
-					parse_arguments.c validation.c error_manager.c
+					parse_arguments.c validation.c error_manager.c value.c
 
 
 OBJ					:= $(SRC:.c=.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/16 14:12:10 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 17:03:50 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,14 @@ void		add_instr2end(t_instr **begin, t_instr *instr);
 void		del_one_instr(t_instr **instr);
 
 void		del_instr(t_instr **begin);
+
+t_instr 	*last_instruction(t_instr *instr);
+
+/*
+** ARGUMENT FUNCTION
+*/
+
+
 
 /*
 ** LABEL FUNCTIONS
