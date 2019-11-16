@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 17:26:09 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/15 13:36:42 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/16 11:04:25 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define NBR_LIVE				21
 # define MAX_CHECKS				10
 
-typedef char	t_arg_type;
+typedef char					t_arg_type;
 
 # define T_REG					1
 # define T_DIR					2

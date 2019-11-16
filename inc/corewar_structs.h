@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/16 14:17:42 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 14:38:47 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 # include "op.h"
 # include "libftprintf.h"
 
-# define MIN_REG 1
-# define MAX_REG		16
-# define REG_CHAR 'r'
+# define MIN_REG 	1
+# define MAX_REG 	16
+# define REG_CHAR 	'r'
 
 /*
 ** КОДЫ ТИПОВ АРГУМЕНТОВ

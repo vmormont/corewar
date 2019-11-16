@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:03:59 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/16 14:03:06 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 14:47:56 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,17 @@ static int	define_instruct_size(t_instr *instr)
 	return (size);
 }
 
-static int	define_instruct_offset(t_instr *begin)
+static int	define_instruct_offset(t_instr *instr)
 {
 	t_instr		*tmp;
 
-	if (!begin)
+	if (!instr)
 		return (0);
 	else
 	{
-		tmp = begin;
-		while (tmp->next)
-			tmp = tmp->next;
-		return (tmp->offset + tmp->instr_size);
+		while (instr->next)
+			instr = instr->next;
+		return (instr->offset + instr->instr_size);
 	}
 }
 
@@ -59,7 +58,6 @@ static int	get_instruct_code(char *name)
 	code = 0;
 	while (i <= NUMBER_OF_INSTR)
 	{
-//		ft_printf("name = %s\n", op_tab[i].name);
 		name_len = ft_strlen(g_op_tab[i].name);
 		if (!ft_strncmp(g_op_tab[i].name, name, name_len))
 		{
@@ -101,6 +99,7 @@ static int	get_instruction(t_champ *champ, char *filedata, int i)
 	i = parse_arguments(champ, instruct, filedata, i);
 	instruct->instr_size = define_instruct_size(instruct);
 	instruct->offset = define_instruct_offset(champ->instr);
+	add_instr2end(&champ->instr, instruct);
 	return (i);
 }
 
@@ -124,7 +123,6 @@ int			parse_instruction(t_champ *champ, char *filedata, int i)
 		// парсим инструкцию
 		i = get_instruction(champ, filedata, i);
 	}
-/*
 	ft_printf("\nNAME = %s\nCOMMENT = %s\n\n", champ->name, champ->comment);
 	print_label(champ->labels);
 	print_instruct(champ->instr);
@@ -134,6 +132,5 @@ int			parse_instruction(t_champ *champ, char *filedata, int i)
 		print_args(temp->args, temp->num_args);
 		temp = temp->next;
 	}
-*/
 	return (i);
 }
