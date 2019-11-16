@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_arguments.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 21:20:08 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:59:37 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ int get_type_argument(char *arg)
 	return(0);
 }
 
+static void	get_arg_value(t_arg *arg)
+{
+	int value;
+	if (arg->type == T_DIR || arg->type == T_REG)
+		arg->str += 1;
+
+}
+
 int	add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
 {
 	int valid;
@@ -51,6 +59,7 @@ int	add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
 	{
 		if (!(arg->str = ft_strsub(filedata, i, valid)))
 			ft_exit(&champ, MALLOC_FAILURE);
+		//get_arg_value(arg);
 	}
 	else
 		error_manager(&champ, filedata, &filedata[i]);
