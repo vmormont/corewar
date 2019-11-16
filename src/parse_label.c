@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:24:27 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/15 21:53:48 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 16:09:00 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,39 +37,29 @@ static int	islabel(char *data)
 	return (0);
 }
 
-int			islabelchar(char c, char *label_chars)
-{
-	int i;
-
-	i = 0;
-	while (label_chars[i])
-	{
-		if (c == label_chars[i])
-			return(1);
-		++i;
-	}
-	return (0);
-}
-
 int			parse_label(t_champ *champ, char *filedata, int i)
 {
 	int		valid_label;
 	t_label	*label;
 
-	valid_label = islabel(&filedata[i]);
-	if (valid_label)
+	valid_label = 1;
+	while (valid_label)
 	{
-		if (!(label = new_label(offset4label(champ->instr))))
-			ft_exit(&champ, MALLOC_FAILURE);
-		if (!(label->name = ft_strsub(filedata, i, valid_label)))
+		valid_label = islabel(&filedata[i]);
+		if (valid_label)
 		{
-			del_one_label(&label);
-			ft_exit(&champ, MALLOC_FAILURE);
+			if (!(label = new_label(offset4label(champ->instr))))
+				ft_exit(&champ, MALLOC_FAILURE);
+			if (!(label->name = ft_strsub(filedata, i, valid_label)))
+			{
+				del_one_label(&label);
+				ft_exit(&champ, MALLOC_FAILURE);
+			}
+			i = i + valid_label + 1;
+			add_label2end(&champ->labels, label);
+			while (ft_isspace(filedata[i]))
+				++i;
 		}
-		i = i + valid_label + 1;
-		add_label2end(&champ->labels, label);
-		while (ft_isspace(filedata[i]))
-			++i;
 	}
 	return (i);
 }

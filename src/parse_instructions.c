@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:03:59 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/16 14:47:56 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 15:35:00 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static int	get_instruction(t_champ *champ, char *filedata, int i)
 
 	//если после команды нет пробельного символа вызываем ошибку
 	if (!ft_isspace(filedata[i]) || filedata[i] == '\n')
-		error_manager(&champ, filedata, &filedata[i], T_INSTRUCTION);
+		error_manager(&champ, filedata, &filedata[i], T_NONE);
 
 	i = skip_spaces(filedata, i);
 
@@ -105,22 +105,15 @@ static int	get_instruction(t_champ *champ, char *filedata, int i)
 
 int			parse_instruction(t_champ *champ, char *filedata, int i)
 {
-	int j;
 	t_instr	*temp;
 
-	j = 0;
 	while (filedata[i])
 	{
 		// вначале цикла мы находимся всегда вначале строки
+		i = skip_spaces(filedata, i);
 		// так как лейблов подряд может быть несколько
 		// мы добавляем их все
-		while (j != i)
-		{
-			i = skip_spaces(filedata, i);
-			j = i;
-			i = parse_label(champ, filedata, i);
-		}
-		// парсим инструкцию
+		i = parse_label(champ, filedata, i);
 		i = get_instruction(champ, filedata, i);
 	}
 	ft_printf("\nNAME = %s\nCOMMENT = %s\n\n", champ->name, champ->comment);

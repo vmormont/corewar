@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/16 14:47:05 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 17:14:20 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern t_op g_op_tab[];
 
-static int	possible_arg(char arg_type, char mask)
+static int		possible_arg(char arg_type, char mask)
 {
 	if (arg_type == T_REG && !(((mask >> 4) & T_REG) ^ T_REG))
 		return (1);
@@ -25,7 +25,7 @@ static int	possible_arg(char arg_type, char mask)
 	return (0);
 }
 
-static int	get_type_argument(char *arg)
+static int		get_type_argument(char *arg)
 {
 	int i;
 
@@ -39,14 +39,14 @@ static int	get_type_argument(char *arg)
 	return(0);
 }
 
-static t_instr *last_instruction(t_instr *instr)
+static t_instr	*last_instruction(t_instr *instr)
 {
 	while (instr->next)
 		instr = instr->next;
 	return (instr);
 }
 
-static int	label2value(t_arg *arg, t_champ *champ, int offset)
+static int		label2value(t_arg *arg, t_champ *champ, int offset)
 {
 	int		value;
 	t_label		*tmp;
@@ -70,7 +70,7 @@ static int	label2value(t_arg *arg, t_champ *champ, int offset)
 	return (value);
 }
 
-static void	get_arg_value(t_arg *arg, t_champ *champ)
+static void		get_arg_value(t_arg *arg, t_champ *champ)
 {
 	int value;
 	int i;
@@ -79,22 +79,17 @@ static void	get_arg_value(t_arg *arg, t_champ *champ)
 	i = 0;
 	if (arg->type == T_DIR || arg->type == T_REG)
 		i += 1;
-label = arg->str[i] == LABEL_CHAR ? 1 : 0;
+	label = arg->str[i] == LABEL_CHAR ? 1 : 0;
 	arg->value = label ? label2value(arg, champ, i + 1) : ft_atoi(arg->str + i);
 
 }
 
-int	add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
+static int		add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
 {
 	int		valid;
 	char	*str_before_trim;
 
-	if (arg->type == T_DIR)
-		valid = valid_direct(&filedata[i], champ->labels);
-	else if (arg->type == T_IND)
-		valid = valid_indirect(&filedata[i], champ->labels);
-	else if (arg->type == T_REG)
-		valid = valid_register(&filedata[i]);
+	valid = valid_argument(&filedata[i], arg->type, champ->labels);
 	if (valid)
 	{
 		if (!(str_before_trim = ft_strsub(filedata, i, valid)))
@@ -107,6 +102,9 @@ int	add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
 	else
 		error_manager(&champ, filedata, &filedata[i], T_NONE);
 	i = skip_spaces(filedata, i + valid);
+	if (!isseparator(filedata[i++]))
+		error_manager(&champ, filedata, &filedata[i], T_SEPARATOR);
+	i = skip_spaces(filedata, i);
 	return (i);
 }
 
@@ -126,16 +124,11 @@ int			parse_arguments(t_champ *champ, t_instr *instruct,\
 			i = add_argument(champ, &instruct->args[j], filedata, i);
 		}
 		else
-			error_manager(&champ, filedata, &filedata[i], T_NONE);
-		i = skip_spaces(filedata, i);
-		if (!isseparator(filedata[i++]))
-		{
-			del_one_instr(&instruct);
-			error_manager(&champ, filedata, &filedata[i], T_NONE);
-		}
+			invalid_parameter(&champ, &filedata[i], instruct, j);
 		++j;
-		i = skip_spaces(filedata, i);
 	}
+	if (get_type_argument(&filedata[i]))
+		invalid_parameter(&champ, &filedata[i], instruct, j);
 	while (ft_isspace(filedata[i]))
 		++i;
 	return (i);
@@ -151,7 +144,8 @@ void		print_args(t_arg *args, int num)
 	ft_printf("|       type       |       str        |       value      |\n");
 	while (i < num)
 	{
-		ft_printf("| %16d | %16s | %16d |\n", args[i].type, args[i].str, (short)args[i].value);
+		ft_printf("| %16d | %16s | %16d |\n", args[i].type, args[i].str,\
+		(short)args[i].value);
 		i++;
 	}
 	ft_printf("|________________________________________________________|\n");

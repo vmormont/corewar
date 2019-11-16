@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 20:46:25 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/15 18:51:04 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 16:09:04 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,23 @@ int			skip_spaces(char *filedata, int index)
 	return (index);
 }
 
-int			skip_spaces2next_line(char *filedata, int index)
+int			isseparator(char c)
 {
-	while (ft_isspace(filedata[index]))
-		++index;
-	return (index);
+	if (c == SEPARATOR_CHAR || c == '\n')
+		return (1);
+	return (0);
+}
+
+int			islabelchar(char c, char *label_chars)
+{
+	int i;
+
+	i = 0;
+	while (label_chars[i])
+	{
+		if (c == label_chars[i])
+			return(1);
+		++i;
+	}
+	return (0);
 }

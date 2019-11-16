@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 21:13:47 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/16 14:04:58 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 17:12:44 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,14 @@ void	error_manager(t_champ **champ, char *data, char *error_address, char token)
 	exit(token);
 }
 
-
+void	invalid_parameter(t_champ **champ, char *data,
+		t_instr *instruction, int param)
+{
+	ft_fprintf(2, "Invalid parameter %d type", param);
+	print_token(get_token_type(data));
+	ft_fprintf(2, " for instruction %s", g_op_tab[instruction->code].name);
+	ft_fprintf(2, "\n");
+	del_one_instr(&instruction);
+	free_champ(champ);
+	exit(T_PARAMETER);
+}

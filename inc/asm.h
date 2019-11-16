@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/16 14:12:10 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 16:33:13 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,20 @@ void		ft_exit(t_champ **champ, int err);
 void		error_manager(t_champ **champ, char *data,\
 			char *error_address, char token);
 
+void		invalid_parameter(t_champ **champ, char *data,
+			t_instr *instruction, int param);
+
 /*
 ** UTILITY FUNCTIONS
 */
 
+char		*get_clean_data_from_file(t_champ *champ, char *filename);
+
 int			skip_spaces(char *filedata, int index);
 
-char		*get_clean_data_from_file(t_champ *champ, char *filename);
+int			isseparator(char c);
+
+int			islabelchar(char c, char *label_chars);
 
 /*
 ** CHAMPION FUNCTIONS
@@ -60,7 +67,7 @@ void		lexical_analizer(t_champ *champ, char *datafile);
 
 int			parse_name(t_champ *champ, char *data);
 
-int			islabelchar(char c, char *label_chars);
+
 
 int			parse_label(t_champ *champ, char *filedata, int i);
 
@@ -97,15 +104,7 @@ void		del_label(t_label **begin);
 ** VALIDATION FUNCTION
 */
 
-int			valid_label(char *arg, t_label *label);
-
-int			valid_direct(char *arg, t_label *label);
-
-int			valid_indirect(char *arg, t_label *label);
-
-int			valid_register(char *arg);
-
-int			isseparator(char c);
+int			valid_argument(char *arg, char type, t_label *label);
 
 /*
 ** PRINT FUNCTIONS
