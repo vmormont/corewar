@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_instructions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:03:59 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/15 21:46:52 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/16 13:45:07 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,19 @@ static int	define_instruct_size(t_instr *instr)
 	return (size);
 }
 
-static int	define_instruct_offset(t_instr *begin)
+static int	define_instruct_offset(t_instr *instr)
 {
 	t_instr		*tmp;
 
-	if (!begin)
+	ft_printf("instr = %p\n", instr);
+	if (!instr)
 		return (0);
 	else
 	{
-		tmp = begin;
-		while (tmp->next)
-			tmp = tmp->next;
-		return (tmp->offset + tmp->instr_size);
+		while (instr->next)
+			instr = instr->next;
+		ft_printf("instr = %p, offset = %d\n", instr, instr->offset);
+		return (instr->offset + instr->instr_size);
 	}
 }
 
@@ -93,6 +94,7 @@ static int	get_instruction(t_champ *champ, char *filedata, int i)
 	i = parse_arguments(champ, instruct, filedata, i);
 	instruct->instr_size = define_instruct_size(instruct);
 	instruct->offset = define_instruct_offset(champ->instr);
+	add_instr2end(&champ->instr, instruct);
 	return (i);
 }
 

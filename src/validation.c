@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 13:37:50 by pcredibl          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/11/15 21:59:39 by pcredibl         ###   ########.fr       */
-=======
-/*   Updated: 2019/11/15 21:54:02 by astripeb         ###   ########.fr       */
->>>>>>> f4f86c74bc6d7a1e2aa52ea64ed9695a0f430cf4
+/*   Updated: 2019/11/16 10:13:10 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +66,7 @@ int	valid_indirect(char *arg, t_label *label)
 	}
 	else
 	{
-		get_value(arg[i], )
+		//get_value(arg[i], )
 		i += arg[i] == '-' ? 1 : 0;
 		while (arg[i] && arg[i] != SEPARATOR_CHAR && arg[i] != '\n')
 		{

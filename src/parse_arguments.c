@@ -6,11 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/11/15 21:59:37 by pcredibl         ###   ########.fr       */
-=======
-/*   Updated: 2019/11/15 21:48:01 by astripeb         ###   ########.fr       */
->>>>>>> f4f86c74bc6d7a1e2aa52ea64ed9695a0f430cf4
+/*   Updated: 2019/11/16 14:18:45 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +37,52 @@ static int	get_type_argument(char *arg)
 	return(0);
 }
 
-<<<<<<< HEAD
-static void	get_arg_value(t_arg *arg)
+static t_instr *last_instruction(t_instr *instr)
+{
+	while (instr->next)
+		instr = instr->next;
+	return (instr);
+}
+
+static int	label2value(t_arg *arg, t_champ *champ, int offset)
+{
+	int		value;
+	t_label		*tmp;
+	t_instr		*last_instr;
+
+	tmp = champ->labels;
+	while(tmp)
+	{
+		if (!ft_strcmp(arg->str + offset, tmp->name))
+		{
+			value = tmp->offset;
+			break;		
+		}
+		tmp = tmp->next;
+	}
+	if (arg->type == T_IND)
+	{
+		last_instr = last_instruction(champ->instr);
+		value -= (last_instr->offset + last_instr->instr_size);
+	}
+	return (value);
+}
+
+static void	get_arg_value(t_arg *arg, t_champ *champ)
 {
 	int value;
+	int i;
+	char	label;
+
+	i = 0;
 	if (arg->type == T_DIR || arg->type == T_REG)
-		arg->str += 1;
+		i += 1;
+label = arg->str[i] == LABEL_CHAR ? 1 : 0;
+	arg->value = label ? label2value(arg, champ, i + 1) : ft_atoi(arg->str + i);
 
 }
 
 int	add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
-=======
-static int	add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
->>>>>>> f4f86c74bc6d7a1e2aa52ea64ed9695a0f430cf4
 {
 	int valid;
 
@@ -67,7 +96,7 @@ static int	add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
 	{
 		if (!(arg->str = ft_strsub(filedata, i, valid)))
 			ft_exit(&champ, MALLOC_FAILURE);
-		//get_arg_value(arg);
+		get_arg_value(arg, champ);
 	}
 	else
 		error_manager(&champ, filedata, &filedata[i]);
@@ -103,7 +132,6 @@ int	parse_arguments(t_champ *champ, t_instr *instruct, char *filedata, int i)
 		i = skip_spaces(filedata, i);
 	}
 	++i;
-	add_instr2end(&champ->instr, instruct);
 	return (i);
 }
 
@@ -117,7 +145,7 @@ void		print_args(t_arg *args, int num)
 	ft_printf("|       type       |       str        |       value      |\n");
 	while (i < num)
 	{
-		ft_printf("| %16d | %16s | %16d |\n", args[i].type, args[i].str, args[i].value);
+		ft_printf("| %16d | %16s | %16d |\n", args[i].type, args[i].str, (short)args[i].value);
 		i++;
 	}
 	ft_printf("|________________________________________________________|\n");
