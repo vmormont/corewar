@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:04:09 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/09 17:29:12 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/18 16:30:46 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,15 @@ static char		*ft_strlstr(char *src, char *pattern, int len)
 	return (NULL);
 }
 
-void			create_cor_file(char *src_file)
+void			create_cor_file(char *src_file, t_champ *champ)
 {
 	int			fd;
 	char		*file_type;
 	char		*file_name;
 	char		*cor_file;
 
-	if ((fd = open(src_file, O_RDONLY) < 0))
+	ft_printf("File name2 = %s\n", src_file);
+	if ((fd = open(src_file, O_RDONLY)) < 0)
 	{
 		ft_printf("File %s can not to be opened\n", src_file);
 		//perror("Error");
@@ -55,8 +56,11 @@ void			create_cor_file(char *src_file)
 		//ft_printf("src file = %s, file name = %s\n", src_file, file_name);
 		cor_file = ft_strjoin_f(file_name, ".cor");
 		//ft_printf("cor file = %s\n", cor_file);
-		fd = open(cor_file, O_CREAT | O_EXCL | O_WRONLY);
+//		fd = open(src_file, O_RDONLY);
+		if ((fd = open(cor_file, O_RDWR | O_CREAT | O_TRUNC, S_IRWXU)) < 0)
+			ft_exit(&champ, ERROR_OF_OPEN_FILE);
 		free(cor_file);
+		write_champ_in_file(fd, champ);
 		close(fd);
 	}
 	else

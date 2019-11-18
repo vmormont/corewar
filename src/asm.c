@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:14:54 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/16 17:18:02 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/18 14:38:02 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int			main(int argc, char **argv)
 	argc == 1 ? ft_exit(NULL, USAGE) : 0;
 	champ = create_champ();
 	lexical_analizer(champ, argv[1]);
+	create_cor_file(argv[1], champ);
 	free_champ(&champ);
 	return (0);
 }

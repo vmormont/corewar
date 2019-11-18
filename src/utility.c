@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 20:46:25 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/16 16:09:04 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/18 15:08:20 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ char		*get_clean_data_from_file(t_champ *champ, char *filename)
 {
 	int		fd;
 	char	*data;
-
+	
+	ft_printf("File name = %s\n", filename);
 	if ((fd = open(filename, O_RDONLY)) < 1)
 		ft_exit(&champ, 0);
 	if (!(data = read_from_file_to_var(fd)))

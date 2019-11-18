@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/16 17:19:57 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/18 14:54:35 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 # define INVALID_FILE_NAME 200
 # define USAGE 201
+# define ERROR_OF_OPEN_FILE 202
 
 /*
 ** MANAGMENT ERRORS
@@ -55,7 +56,6 @@ t_champ		*create_champ(void);
 
 void		free_champ(t_champ **champ);
 
-void		create_cor_file(char *src_file);
 
 /*
 ** LEXICAL FUNCTIONS
@@ -105,6 +105,14 @@ void		del_label(t_label **begin);
 int			valid_argument(char *arg, char type, t_label *label);
 
 void		get_arg_value(t_champ *champ);
+
+/*
+** WRITE CHAMP IN FILE FUNCTION
+*/
+
+void		create_cor_file(char *src_file, t_champ *champ);
+
+void		write_champ_in_file(int fd, t_champ *champ);
 
 /*
 ** PRINT FUNCTIONS
