@@ -3,52 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   utility.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 20:46:25 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/18 15:08:20 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/19 19:24:18 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static int	clean_commetns(char *data)
+extern		t_op g_op_tab[];
+
+void		print_error_position(char *data, char *error_address)
 {
 	int		i;
-	int		in;
+	int		row;
+	int		pos_in_row;
 
 	i = 0;
-	in = 0;
-	while (data[i])
+	row = 1;
+	pos_in_row = 1;
+	while (&data[i] != error_address)
 	{
-		if (data[i] == '"')
-			in = in ? 0 : 1;
-		if (!in && (data[i] == COMMENT_CHAR || data[i] == ALT_COMMENT_CHAR))
+		if (data[i] == '\n')
 		{
-			while (data[i] && data[i] != '\n')
-				data[i++] = ' ';
+			row++;
+			pos_in_row = 0;
 		}
-		++i;
+		i++;
+		pos_in_row++;
 	}
-	return (0);
-}
-
-char		*get_clean_data_from_file(t_champ *champ, char *filename)
-{
-	int		fd;
-	char	*data;
-	
-	ft_printf("File name = %s\n", filename);
-	if ((fd = open(filename, O_RDONLY)) < 1)
-		ft_exit(&champ, 0);
-	if (!(data = read_from_file_to_var(fd)))
-	{
-		close(fd);
-		ft_exit(&champ, MALLOC_FAILURE);
-	}
-	clean_commetns(data);
-	close(fd);
-	return (data);
+	ft_fprintf(2, "[%03d:%03d]", row, pos_in_row);
 }
 
 int			skip_spaces(char *filedata, int index)
@@ -60,21 +45,23 @@ int			skip_spaces(char *filedata, int index)
 
 int			isseparator(char c)
 {
-	if (c == SEPARATOR_CHAR || c == '\n')
+	if (c == DIRECT_CHAR || c == '-' || ft_isspace(c))
 		return (1);
 	return (0);
 }
 
-int			islabelchar(char c, char *label_chars)
+int			isinstruct(char *name)
 {
 	int i;
+	int	code;
 
-	i = 0;
-	while (label_chars[i])
+	i = 1;
+	code = 0;
+	while (i <= NUMBER_OF_INSTR)
 	{
-		if (c == label_chars[i])
-			return(1);
+		if (!ft_strncmp(g_op_tab[i].name, name, ft_strlen(g_op_tab[i].name)))
+			code = i;
 		++i;
 	}
-	return (0);
+	return (code);
 }

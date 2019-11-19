@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 12:52:36 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/16 14:48:16 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/19 19:23:49 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,44 @@ t_op g_op_tab[] = { {0, 0, 0, 0, 0, 0, 0},
 	{"lfork", 1, {D}, 15, 1000, 0, 1},
 	{"aff", 1, {R}, 16, 2, 1, 0} };
 
+static int	clean_commetns(char *data)
+{
+	int		i;
+	int		in;
+
+	i = 0;
+	in = 0;
+	while (data[i])
+	{
+		if (data[i] == '"')
+			in = in ? 0 : 1;
+		if (!in && (data[i] == COMMENT_CHAR || data[i] == ALT_COMMENT_CHAR))
+		{
+			while (data[i] && data[i] != '\n')
+				data[i++] = ' ';
+		}
+		++i;
+	}
+	return (0);
+}
+
+char		*get_clean_data_from_file(t_champ *champ, char *filename)
+{
+	int		fd;
+	char	*data;
+
+	if ((fd = open(filename, O_RDONLY)) < 1)
+		ft_exit(&champ, 0);
+	if (!(data = read_from_file_to_var(fd)))
+	{
+		close(fd);
+		ft_exit(&champ, MALLOC_FAILURE);
+	}
+	clean_commetns(data);
+	close(fd);
+	return (data);
+}
+
 t_champ		*create_champ(void)
 {
 	t_champ	*champ;
@@ -49,10 +87,11 @@ void		free_champ(t_champ **champ)
 {
 	if (champ && *champ)
 	{
+		ft_strdel(&(*champ)->data);
 		ft_strdel(&(*champ)->name);
 		ft_strdel(&(*champ)->comment);
 		del_instr(&(*champ)->instr);
-		del_label(&(*champ)->labels);
+		del_label(&(*champ)->labels);;
 		free(*champ);
 		*champ = NULL;
 	}

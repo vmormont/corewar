@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:03:59 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/16 17:17:06 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/19 18:36:44 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ static int	get_instruct_code(char *name)
 	{
 		name_len = ft_strlen(g_op_tab[i].name);
 		if (!ft_strncmp(g_op_tab[i].name, name, name_len))
-		{
-			if (ft_isspace(name[name_len]))
-				code = i;
-		}
+			code = i;
 		++i;
 	}
 	return (code);
@@ -71,34 +68,38 @@ static int	get_instruct_code(char *name)
 
 static int	get_instruction(t_champ *champ, char *filedata, int i)
 {
-	int 		valid_code;
+	int			valid_code;
 	t_instr		*instruct;
 
 	//мы находимся всегда в начале команды
 	//променяем валидность названия инструкции
 	valid_code = get_instruct_code(&filedata[i]);
 
+	//если инструкции нет, сообщаем об ошибке
+	if (!valid_code)
+		error_manager(&champ, &filedata[i], T_INSTRUCTION);
+
 	//создаем новую инструкцию
-	if (valid_code)
-	{
-		if (!(instruct = new_instruct(&g_op_tab[valid_code])))
-			ft_exit(&champ, MALLOC_FAILURE);
-		//сдвигаем индекс на длину команды
-		i += ft_strlen(g_op_tab[valid_code].name);
-	}
-	else
-		error_manager(&champ, filedata, &filedata[i], T_INSTRUCTION);
+	if (!(instruct = new_instruct(&g_op_tab[valid_code])))
+		ft_exit(&champ, MALLOC_FAILURE);
 
-	//если после команды нет пробельного символа вызываем ошибку
-	if (!ft_isspace(filedata[i]) || filedata[i] == '\n')
-		error_manager(&champ, filedata, &filedata[i], T_NONE);
+	//сдвигаем индекс на длину команды
+	i += ft_strlen(g_op_tab[valid_code].name);
 
+	//если после команды нет явного, разделяющего символа вызываем ошибку
+	if (!isseparator(filedata[i]) || filedata[i] == '\n')
+		error_manager(&champ,\
+		&filedata[i - ft_strlen(g_op_tab[valid_code].name)], T_NONE);
 	i = skip_spaces(filedata, i);
 
 	//запускаем парсинг аргументов
 	i = parse_arguments(champ, instruct, filedata, i);
+
+	//добавляем размер инструккци и ее смещение относительно начала кода
 	instruct->instr_size = define_instruct_size(instruct);
 	instruct->offset = define_instruct_offset(champ->instr);
+
+	//добавляем в список инструкции
 	add_instr2end(&champ->instr, instruct);
 	return (i);
 }
@@ -114,7 +115,8 @@ int			parse_instruction(t_champ *champ, char *filedata, int i)
 		// так как лейблов подряд может быть несколько
 		// мы добавляем их все
 		i = parse_label(champ, filedata, i);
-		i = get_instruction(champ, filedata, i);
+		if (filedata[i])
+			i = get_instruction(champ, filedata, i);
 	}
 	return (i);
 }

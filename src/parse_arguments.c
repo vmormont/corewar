@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/16 17:51:14 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/19 19:01:07 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,55 +14,55 @@
 
 extern t_op g_op_tab[];
 
-static int		possible_arg(char arg_type, char mask)
+static int	possible_arg(char arg_type, char mask)
 {
-	if (arg_type == T_REG && !(((mask >> 4) & T_REG) ^ T_REG))
+	if (arg_type == T_REG && !(((mask >> 4) & 1) ^ 1))
 		return (1);
-	else if (arg_type == T_DIR && !(((mask >> 2) & T_DIR) ^ T_DIR))
+	else if (arg_type == T_DIR && !(((mask >> 2) & 2) ^ 2))
 		return (1);
 	else if (arg_type == T_IND && !((mask & 3) ^ 3))
 		return (1);
 	return (0);
 }
 
-static int		get_type_argument(char *arg)
+static int	get_type_argument(char *arg)
 {
 	int i;
 
 	i = skip_spaces(arg, 0);
 	if (arg[i] == DIRECT_CHAR)
-		return(T_DIR);
+		return (T_DIR);
 	if (arg[i] == REG_CHAR)
 		return (T_REG);
 	if (ft_isdigit(arg[i]) || arg[i] == LABEL_CHAR || arg[i] == '-')
-		return(T_IND);
-	return(0);
+		return (T_IND);
+	return (0);
 }
 
-int	add_argument(t_champ *champ, t_arg *arg, char *filedata, int i)
+static int	add_argument(t_champ *champ, t_instr *instruct, int num_arg, int i)
 {
 	int		valid;
 	char	*str_before_trim;
 
-	valid = valid_argument(&filedata[i], arg->type, champ->labels);
-	if (valid)
+	valid = valid_argument(&champ->data[i], instruct->args[num_arg].type,\
+	champ->labels);
+	if (!valid)
+		error_manager(&champ, &champ->data[i], T_NONE);
+	if (!(str_before_trim = ft_strsub(champ->data, i, valid)))
 	{
-		if (!(str_before_trim = ft_strsub(filedata, i, valid)))
-			ft_exit(&champ, MALLOC_FAILURE);
-		if (!(arg->str = ft_strtrim(str_before_trim)))
-			ft_exit(&champ, MALLOC_FAILURE);
-		ft_strdel(&str_before_trim);
+		del_one_instr(&instruct);
+		ft_exit(&champ, MALLOC_FAILURE);
 	}
-	else
-		error_manager(&champ, filedata, &filedata[i], T_NONE);
-	i = skip_spaces(filedata, i + valid);
+	if (!(instruct->args[num_arg].str = ft_strtrim(str_before_trim)))
+	{
+		del_one_instr(&instruct);
+		ft_strdel(&str_before_trim);
+		ft_exit(&champ, MALLOC_FAILURE);
+	}
+	ft_strdel(&str_before_trim);
+	i = skip_spaces(champ->data, i + valid);
 	return (i);
 }
-
-
-/*
-** довавить проверку на количество аргументов
-*/
 
 int			parse_arguments(t_champ *champ, t_instr *instruct,\
 			char *filedata, int i)
@@ -71,23 +71,29 @@ int			parse_arguments(t_champ *champ, t_instr *instruct,\
 	char	arg_type;
 
 	j = 0;
-	while (j < instruct->num_args)
+	while (42)
 	{
-		arg_type = get_type_argument(&filedata[i]);
-		if (possible_arg(arg_type, g_op_tab[instruct->code].args[j]))
-		{
-			instruct->args[j].type = arg_type;
-			i = add_argument(champ, &instruct->args[j], filedata, i);
-		}
-		else
+		//получаем тип аргумента
+		if (!(arg_type = get_type_argument(&filedata[i])))
+			error_manager(&champ, &filedata[i], T_NONE);
+
+		//возможен ли этот тип аргумента в инструкции
+		if (!possible_arg(arg_type, g_op_tab[instruct->code].args[j]))
 			invalid_parameter(&champ, &filedata[i], instruct, j);
+
+		//добавляем
+		instruct->args[j].type = arg_type;
+		i = add_argument(champ, instruct, j, i);
+
+		//если нет разделителя, выходим
+		if (filedata[i] != SEPARATOR_CHAR)
+			break ;
+		//пропускем пробелы после SEPARATOR CHAR
+		i = skip_spaces(filedata, i + 1);
 		++j;
-		if (!(isseparator(filedata[i++])))
-			error_manager(&champ, filedata, &filedata[i], T_NONE);
-		i = skip_spaces(filedata, i);
 	}
-	if (get_type_argument(&filedata[i]))
-		invalid_parameter(&champ, &filedata[i], instruct, j);
+	if (filedata[i] != '\n')
+		error_manager(&champ, &filedata[i], T_NONE);
 	while (ft_isspace(filedata[i]))
 		++i;
 	return (i);

@@ -1,16 +1,16 @@
-# this is a comment
-; this is another comment
+.name "zork"
+.comment "I'M ALIIIIVE"
 
-.name "zork" ;another one
-
-# yes it's comment
-.comment"I'M ALIIIIVE"	#another two
-
-	live %1
-l1:
-	sti r11, %:live, %1
+	live %:label
+	ldi-1, r2, r3
 label:
-	and r1, %0, r13
+	and-1, %:live, r13
 live:
-	live %1
-	zjmp %:live
+	live%1
+l1:
+	sti r1, %:live, %1
+live:
+	zjmp%:l1
+	lfork%1
+	lld%:node,r1
+node:

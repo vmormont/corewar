@@ -6,12 +6,11 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 13:37:50 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/16 16:18:56 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/19 18:43:31 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
 
 static int	valid_label(char *arg, t_label *label)
 {
@@ -23,8 +22,6 @@ static int	valid_label(char *arg, t_label *label)
 		while (islabelchar(arg[i], LABEL_CHARS))
 			++i;
 		i = skip_spaces(arg, i);
-		if (!isseparator(arg[i]))
-			return (0);
 	}
 	return (i);
 }
@@ -43,12 +40,15 @@ static int	valid_direct(char *arg, t_label *label)
 		}
 		else
 		{
-			i += arg[i] == '-' ? 1 : 0;
-			while (ft_isdigit(arg[i]))
-				++i;
-			i = skip_spaces(arg, i);
-			if (!isseparator(arg[i]))
-				return (0);
+			if (ft_isdigit(arg[i]) || arg[i] == '-')
+			{
+				i += arg[i] == '-' ? 1 : 0;
+				while (ft_isdigit(arg[i]))
+					++i;
+				i = skip_spaces(arg, i);
+			}
+			else
+				i = 0;
 		}
 	}
 	return (i);
@@ -70,8 +70,6 @@ static int	valid_indirect(char *arg, t_label *label)
 		while (ft_isdigit(arg[i]))
 			++i;
 		i = skip_spaces(arg, i);
-		if (!isseparator(arg[i]))
-			return (0);
 	}
 	return (i);
 }
@@ -90,12 +88,10 @@ static int	valid_register(char *arg)
 	while (ft_isdigit(arg[i]))
 		++i;
 	i = skip_spaces(arg, i);
-	if (!isseparator(arg[i]))
-		return (0);
 	return (i);
 }
 
-int	valid_argument(char *arg, char type,  t_label *label)
+int			valid_argument(char *arg, char type, t_label *label)
 {
 	int		valid;
 

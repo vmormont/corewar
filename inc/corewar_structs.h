@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/16 15:54:44 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/19 19:02:45 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ typedef struct	s_op
 
 /*
 ** ЧЕМПИОН
+** data			- cчитанные в переменную данные из файла
 ** name 		- имя
 ** comment		- комментарий к имени
 ** instr		- список на набор инструкций-действий
@@ -153,6 +154,7 @@ typedef struct	s_op
 
 typedef struct	s_champ
 {
+	char			*data;
 	char			*name;
 	char			*comment;
 	struct s_instr	*instr;
@@ -162,13 +164,15 @@ typedef struct	s_champ
 enum			e_token
 {
 	T_NONE,
-	T_ENDLINE = 5,
+	T_ENDLINE = T_LAB + 1,
 	T_NAME,
 	T_COMMENT,
 	T_SEPARATOR,
 	T_INSTRUCTION,
 	T_PARAMETER,
-	T_LABEL
+	T_LABEL,
+	T_DIR_LABEL,
+	T_IND_LABEL
 }				t_token;
 
 #endif
