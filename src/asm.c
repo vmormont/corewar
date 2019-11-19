@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 14:14:54 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/18 14:38:02 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/19 20:49:29 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,11 @@ int			main(int argc, char **argv)
 void		lexical_analizer(t_champ *champ, char *filename)
 {
 	int		i;
-	char	*filedata;
 	t_instr *temp;
 
-	filedata = get_clean_data_from_file(champ, filename);
-	i = parse_name(champ, filedata);
-	i = parse_instruction(champ, filedata, i);
+	champ->data = get_clean_data_from_file(champ, filename);
+	i = parse_name(champ, champ->data);
+	i = parse_instruction(champ, champ->data, i);
 	get_arg_value(champ);
 	ft_printf("\nNAME = %s\nCOMMENT = %s\n\n", champ->name, champ->comment);
 	print_label(champ->labels);
@@ -43,5 +42,4 @@ void		lexical_analizer(t_champ *champ, char *filename)
 		print_args(temp->args, temp->num_args);
 		temp = temp->next;
 	}
-	ft_strdel(&filedata);
 }
