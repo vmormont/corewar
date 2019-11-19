@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/18 14:54:35 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/19 20:02:40 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void		del_instr(t_instr **begin);
 
 t_instr 	*last_instruction(t_instr *instr);
 
+int			size_instr(t_instr *instr);
+
 /*
 ** LABEL FUNCTIONS
 */
@@ -113,6 +115,14 @@ void		get_arg_value(t_champ *champ);
 void		create_cor_file(char *src_file, t_champ *champ);
 
 void		write_champ_in_file(int fd, t_champ *champ);
+
+int			define_code_args(t_instr *instr);
+
+int			copy2_head(t_champ *champ, t_header *head);
+
+t_header	*create_header(void);
+
+int			reverse_bits(int num, char full_bit);
 
 /*
 ** PRINT FUNCTIONS

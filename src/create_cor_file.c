@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:04:09 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/18 16:30:46 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/19 18:45:12 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,6 @@ void			create_cor_file(char *src_file, t_champ *champ)
 	char		*file_name;
 	char		*cor_file;
 
-	ft_printf("File name2 = %s\n", src_file);
-	if ((fd = open(src_file, O_RDONLY)) < 0)
-	{
-		ft_printf("File %s can not to be opened\n", src_file);
-		//perror("Error");
-		return;
-	}
 	close(fd);
 	if ((file_type = ft_strlstr(src_file, ".s", ft_strlen(src_file) - 1)) && ft_strlen(file_type) == 2)
 	{
@@ -64,5 +57,5 @@ void			create_cor_file(char *src_file, t_champ *champ)
 		close(fd);
 	}
 	else
-		ft_printf("File %s have invalid type\n", src_file);
+		ft_fprintf(2, "File %s have invalid type\n", src_file);
 }

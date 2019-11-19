@@ -6,7 +6,7 @@
 #    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/11/18 14:37:47 by pcredibl         ###   ########.fr        #
+#    Updated: 2019/11/19 18:55:39 by pcredibl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ LIBS				:= -L $(LIB_DIR) -lft
 SRC					= asm.c ft_exit.c champion.c utility.c instructions_utility.c\
 					label_utility.c parse_name_comment.c parse_label.c parse_instructions.c\
 					parse_arguments.c validation.c error_manager.c value.c\
-					write_champ_in_file.c asm_yura.c
+					write_champ_in_file.c create_cor_file.c write_in_file_utillity.c
 
 
 OBJ					:= $(SRC:.c=.o)
