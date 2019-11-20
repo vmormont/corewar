@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 14:27:32 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/20 16:45:43 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/20 17:02:55 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,9 @@ void		assembly(t_champ *champ, char *s_file)
 	t_header	*header;
 	char		*cor_file;
 	int			fd;
+	int			zero;
 
+	zero = 0;
 	cor_file = get_cor_filename(s_file, champ);
 	if ((fd = open(cor_file, O_RDWR | O_CREAT | O_TRUNC, S_IRWXU)) < 0)
 	{
@@ -110,9 +112,11 @@ void		assembly(t_champ *champ, char *s_file)
 	header = create_head_of_champion(champ);
 	header->prog_size = reverse_bits(header->prog_size, 1);
 	write(fd, (void*)&header->magic, sizeof(unsigned int));
-	write(fd, (void*)&header->prog_name, PROG_NAME_LENGTH + 4);
+	write(fd, (void*)&header->prog_name, PROG_NAME_LENGTH);
+	write(fd, (void*)&zero, 4);
 	write(fd, (void*)&header->prog_size, 4);
-	write(fd, (void*)&header->comment, COMMENT_LENGTH + 4);
+	write(fd, (void*)&header->comment, COMMENT_LENGTH);
+	write(fd, (void*)&zero, 4);
 	write_instr(fd, champ->instr);
 	ft_printf("Writing output program to %s\n", cor_file);
 	ft_memdel((void*)&header);

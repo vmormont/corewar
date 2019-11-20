@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 21:10:47 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/20 16:21:35 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/20 17:14:15 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int			parse_name(t_champ *champ, char *data)
 			++i;
 	}
 	if (!champ->name || !champ->comment)
-		error_manager(&champ, &data[i], T_NONE);
+		error_manager(&champ, &data[i], !champ->name ? T_NAME : T_COMMENT);
 	if (ft_strlen(champ->name) > PROG_NAME_LENGTH)
 		ft_exit(&champ, NAME_LEN_ERROR);
 	if (ft_strlen(champ->comment) > COMMENT_LENGTH)
