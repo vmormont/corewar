@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 14:27:32 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/20 17:02:55 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/20 18:21:58 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,6 @@ static char	*get_cor_filename(char *src_file, t_champ *champ)
 	else
 		ft_exit(&champ, INVALID_FILE_NAME);
 	return (cor_file);
-}
-
-static int	define_code_args(t_instr *instr)
-{
-	char	code;
-	int		i;
-	int		n;
-
-	n = 6;
-	i = 0;
-	code = 0;
-	while (i < instr->num_args)
-	{
-		if (instr->args[i].type == T_IND)
-			code = code | (IND_CODE << n);
-		else if (instr->args[i].type == T_REG)
-			code = code | (REG_CODE << n);
-		else if (instr->args[i].type == T_DIR)
-			code = code | (DIR_CODE << n);
-		n -= 2;
-		++i;
-	}
-	return (code);
 }
 
 static void	write_args(int fd, t_instr *instr)
@@ -93,6 +70,29 @@ static void	write_instr(int fd, t_instr *instr)
 		write_args(fd, instr);
 		instr = instr->next;
 	}
+}
+
+int			define_code_args(t_instr *instr)
+{
+	char	code;
+	int		i;
+	int		n;
+
+	n = 6;
+	i = 0;
+	code = 0;
+	while (i < instr->num_args)
+	{
+		if (instr->args[i].type == T_IND)
+			code = code | (IND_CODE << n);
+		else if (instr->args[i].type == T_REG)
+			code = code | (REG_CODE << n);
+		else if (instr->args[i].type == T_DIR)
+			code = code | (DIR_CODE << n);
+		n -= 2;
+		++i;
+	}
+	return (code);
 }
 
 void		assembly(t_champ *champ, char *s_file)

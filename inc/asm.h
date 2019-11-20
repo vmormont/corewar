@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/20 18:33:43 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/20 21:05:41 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define COMMENT_LEN_ERROR 203
 # define EXEC_CODE_ERROR 204
 # define NO_CODE_ERROR 205
+# define INVALID_OPTION 206
 
 /*
 ** MANAGMENT ERRORS
@@ -48,6 +49,8 @@ void		print_error_position(char *data, char *error_address);
 int			reverse_bits(int num, char full_bit);
 
 char		*ft_strlstr(char *src, char *pattern, int len);
+
+int			options(int ac, char **av);
 
 /*
 ** CHAMPION FUNCTIONS
@@ -122,6 +125,10 @@ int			isinstruct(char *name);
 */
 
 void		assembly(t_champ *champ, char *s_file);
+
+int			define_code_args(t_instr *instr);
+
+void		dump_to_stdout(t_champ *champ);
 
 /*
 ** PRINT FUNCTIONS
