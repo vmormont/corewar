@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/20 13:45:10 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/20 16:25:46 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,23 @@ void		invalid_parameter(t_champ **champ, char *data,\
 ** UTILITY FUNCTIONS
 */
 
-char		*get_clean_data_from_file(t_champ *champ, char *filename);
-
 void		print_error_position(char *data, char *error_address);
+
+int			reverse_bits(int num, char full_bit);
+
+char		*ft_strlstr(char *src, char *pattern, int len);
 
 /*
 ** CHAMPION FUNCTIONS
 */
 
+char		*get_clean_data_from_file(t_champ *champ, char *filename);
+
 t_champ		*create_champ(void);
 
 void		free_champ(t_champ **champ);
+
+t_header	*create_head_of_champion(t_champ *champ);
 
 /*
 ** INSTRUCTIONS FUNCTIONS
@@ -65,10 +71,6 @@ void		add_instr2end(t_instr **begin, t_instr *instr);
 void		del_one_instr(t_instr **instr);
 
 void		del_instr(t_instr **begin);
-
-t_instr 	*last_instruction(t_instr *instr);
-
-int			size_instr(t_instr *instr);
 
 /*
 ** LABEL FUNCTIONS
@@ -92,7 +94,6 @@ int			parse_name(t_champ *champ, char *data);
 
 int			parse_label(t_champ *champ, char *filedata, int i);
 
-int			islabel(char *data);
 
 int			parse_arguments(t_champ *champ, t_instr *instruction,
 			char *filedata, int index);
@@ -109,23 +110,17 @@ int			skip_spaces(char *filedata, int index);
 
 int			isseparator(char c);
 
+int			islabel(char *data);
+
 int			islabelchar(char c, char *label_chars);
 
 int			isinstruct(char *name);
 
 /*
-** WRITE CHAMP IN FILE FUNCTION
+** ASSEMBLY CHAMP CODE IN FILE FUNCTIONS
 */
 
-int			create_cor_file(char *src_file, t_champ *champ);
-
-t_header	*create_header(t_champ *champ);
-
-void		write_champ_in_file(int fd, t_champ *champ);
-
-int			define_code_args(t_instr *instr);
-
-int			reverse_bits(int num, char full_bit);
+void		assembly(t_champ *champ, char *s_file);
 
 /*
 ** PRINT FUNCTIONS

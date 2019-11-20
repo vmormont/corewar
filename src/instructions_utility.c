@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions_utility.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:21:32 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/16 15:33:36 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/20 16:20:40 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,6 @@ void		del_instr(t_instr **begin)
 		}
 		*begin = NULL;
 	}
-}
-
-t_instr 	*last_instruction(t_instr *instr)
-{
-	while (instr->next)
-		instr = instr->next;
-	return (instr);
 }
 
 void		add_instr2end(t_instr **begin, t_instr *instr)

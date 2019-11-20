@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 20:46:25 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/19 19:24:18 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/20 16:24:07 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,46 @@ void		print_error_position(char *data, char *error_address)
 	ft_fprintf(2, "[%03d:%03d]", row, pos_in_row);
 }
 
-int			skip_spaces(char *filedata, int index)
+
+int			reverse_bits(int num, char full_bit)
 {
-	while (ft_isspace(filedata[index]) && filedata[index] != '\n')
-		++index;
-	return (index);
+	int		rev_num;
+	int		i;
+
+	i = 0;
+	if (full_bit)
+	{
+		rev_num = (num & 0xFF) << 24;
+		rev_num = rev_num | ((num >> 8) & 0xFF) << 16;
+		rev_num = rev_num | ((num >> 16) & 0xFF) << 8;
+		rev_num = rev_num | ((num >> 24) & 0xFF);
+	}
+	else
+	{
+		rev_num = (num & 0xFF) << 8;
+		rev_num = rev_num | ((num & 0xFF00) >> 8);
+	}
+	return (rev_num);
+}
+
+char		*ft_strlstr(char *src, char *pattern, int len)
+{
+	int			i;
+
+	len -= (ft_strlen(pattern) - 1);
+	while (len >= 0)
+	{
+		if (src[len] == pattern[0])
+		{
+			i = 1;
+			while ((src[len + i] == pattern[i]) && pattern[i])
+				++i;
+			if (!pattern[i])
+				return (src + len);
+		}
+		len--;
+	}
+	return (NULL);
 }
 
 int			isseparator(char c)

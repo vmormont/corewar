@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 12:52:36 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/19 19:23:49 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/20 16:06:44 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,28 @@ void		free_champ(t_champ **champ)
 		ft_strdel(&(*champ)->name);
 		ft_strdel(&(*champ)->comment);
 		del_instr(&(*champ)->instr);
-		del_label(&(*champ)->labels);;
+		del_label(&(*champ)->labels);
 		free(*champ);
 		*champ = NULL;
 	}
+}
+
+t_header	*create_head_of_champion(t_champ *champ)
+{
+	t_header	*head;
+	t_instr		*instruct;
+
+	if (!(head = (t_header*)malloc(sizeof(t_header))))
+		ft_exit(&champ, MALLOC_FAILURE);
+	ft_bzero((void*)head, sizeof(t_header));
+	head->magic = reverse_bits(COREWAR_EXEC_MAGIC, 1);
+	ft_memcpy((void*)head->prog_name, (const void*)champ->name,\
+	ft_strlen(champ->name));
+	ft_memcpy((void*)head->comment, (const void*)champ->comment,\
+	ft_strlen(champ->comment));
+	instruct = champ->instr;
+	while (instruct->next)
+		instruct = instruct->next;
+	head->prog_size = instruct->offset + instruct->instr_size;
+	return (head);
 }

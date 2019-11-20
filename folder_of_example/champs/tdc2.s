@@ -1,21 +1,21 @@
 .name 		"dtonc v1.0pl2"
 .comment	"ta mere elle fait du rodeo sur les kfar"
-.extend
-	
+
+
 begin:
 #	st	r1, :boucle+1
 #	st	r1, :rboucle+1
 #	st	r1, :liver1+1
-#	st	r1, :liver2+1	
+#	st	r1, :liver2+1
 #	st	r1, :gen+1
-	
-ld1:	
+
+ld1:
 	ld	%15, r3 	#offset
 	ld	%195, r4	#limit
 	ld	%0, r7		#pattern faites nous confiance
 	ld	%0x00090000, r8	#pattern poison
 
-#gen:	
+#gen:
 #	live	%1
 #	fork	%:gen
 #	fork	%:boucle
@@ -23,7 +23,7 @@ ld1:
 #	ld 	%0, r5
 #	zjmp	%:gen
 
-	
+
 liver1:
 	live	%1
 	fork	%:liver1
@@ -34,12 +34,12 @@ liver1:
 	live	%1
 	fork	%:rboucle
 	zjmp	%:liver1
-	
-liver2:	
+
+liver2:
 	live	%1
 	zjmp	%:liver2
 
-boucle:	
+boucle:
 	live	%1
 	fork	%:boucle
 no:
@@ -50,7 +50,7 @@ no:
 	zjmp	%:boucle2
 	ld	%0, r5
 	zjmp	%:no
-	
+
 boucle2:
 	ld	%0, r2
 	zjmp	%:no
@@ -58,7 +58,7 @@ boucle2:
 #	live %0
 #	live %0
 #	live %0
-	
+
 rboucle:
 	live	%1
 	fork	%:rboucle
@@ -74,16 +74,16 @@ rno:
 rboucle2:
 	ld	%0, r2
 	zjmp	%:rno
-	
-toto:	
+
+toto:
 	live	%0
 	xor 	r1, r1, r5
 	zjmp	%:toto
 
 
-end:	
+end:
 	xor r1, r1, r1
-	
+
 
 
 

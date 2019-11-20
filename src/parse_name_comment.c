@@ -6,11 +6,18 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 21:10:47 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/19 18:35:42 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/20 16:21:35 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+int			skip_spaces(char *filedata, int index)
+{
+	while (ft_isspace(filedata[index]) && filedata[index] != '\n')
+		++index;
+	return (index);
+}
 
 static int	add_name(t_champ *champ, char *data, int i)
 {
