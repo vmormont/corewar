@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   write_in_file_utillity.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 18:49:11 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/19 20:19:58 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/20 12:07:11 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,20 @@ int			reverse_bits(int num, char full_bit)
 	return (rev_num);
 }
 
-t_header	*create_header(void)
+t_header	*create_header(t_champ *champ)
 {
 	t_header *head;
 
-	head = (t_header*)malloc(sizeof(t_header));
-	if (!head)
-		return (NULL);
+	if (!(head = (t_header*)malloc(sizeof(t_header))))
+		ft_exit(&champ, MALLOC_FAILURE);
 	ft_bzero((void*)head, sizeof(t_header));
 	head->magic = reverse_bits(COREWAR_EXEC_MAGIC, 1);
-	return (head);
-}
-
-int	copy2_head(t_champ *champ, t_header *head)
-{
-	ft_memcpy((void*)head->prog_name, (const void*)champ->name, ft_strlen(champ->name));
-	ft_memcpy((void*)head->comment, (const void*)champ->comment, ft_strlen(champ->comment));
+	ft_memcpy((void*)head->prog_name, (const void*)champ->name,\
+	ft_strlen(champ->name));
+	ft_memcpy((void*)head->comment, (const void*)champ->comment,\
+	ft_strlen(champ->comment));
 	head->prog_size = size_instr(champ->instr);
-	return (0);
+	return (head);
 }
 
 int	size_instr(t_instr *instr)
@@ -72,7 +68,7 @@ int	define_code_args(t_instr *instr)
 	n = 6;
 	i = 0;
 	code = 0;
-	while (i < 3)
+	while (i < instr->num_args)
 	{
 		if (instr->args[i].type == T_IND)
 			code = code | (IND_CODE << n);
@@ -83,5 +79,5 @@ int	define_code_args(t_instr *instr)
 		n -= 2;
 		++i;
 	}
-	return (code);	
+	return (code);
 }

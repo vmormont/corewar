@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:04:09 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/19 20:54:29 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/20 10:40:52 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,28 @@ static char		*ft_strlstr(char *src, char *pattern, int len)
 	return (NULL);
 }
 
-void			create_cor_file(char *src_file, t_champ *champ)
+int				create_cor_file(char *src_file, t_champ *champ)
 {
 	int			fd;
-	char		*file_type;
-	char		*file_name;
 	char		*cor_file;
+	char		*file_type;
 
-	if ((file_type = ft_strlstr(src_file, ".s", ft_strlen(src_file) - 1)) && ft_strlen(file_type) == 2)
+	fd = 0;
+	if ((file_type = ft_strlstr(src_file, ".s", ft_strlen(src_file) - 1))\
+	&& ft_strlen(file_type) == 2)
 	{
-		//ft_printf("file type = %s\n", file_type);
-		file_name = (char*)malloc(sizeof(char) * (ft_strlen(src_file) - 1));
-		file_name = ft_strncpy(file_name, src_file, ft_strlen(src_file) - 2);
-		file_name[ft_strlen(src_file) - 2] = '\0';
-		//ft_printf("src file = %s, file name = %s\n", src_file, file_name);
-		cor_file = ft_strjoin_f(file_name, ".cor");
-		//ft_printf("cor file = %s\n", cor_file);
-//		fd = open(src_file, O_RDONLY);
+		if (!(cor_file = ft_strnew(ft_strlen(src_file) + 2)))
+			ft_exit(&champ, MALLOC_FAILURE);
+		ft_strncpy(cor_file, src_file, ft_strlen(src_file) - 2);
+		ft_strcpy(&cor_file[ft_strlen(src_file) - 2], ".cor");
 		if ((fd = open(cor_file, O_RDWR | O_CREAT | O_TRUNC, S_IRWXU)) < 0)
-			ft_exit(&champ, ERROR_OF_OPEN_FILE);
-		free(cor_file);
-		write_champ_in_file(fd, champ);
-		close(fd);
+		{
+			ft_strdel(&cor_file);
+			ft_exit(&champ, 0);
+		}
+		ft_strdel(&cor_file);
 	}
 	else
-		ft_fprintf(2, "File %s have invalid type\n", src_file);
+		ft_exit(&champ, INVALID_FILE_NAME);
+	return (fd);
 }

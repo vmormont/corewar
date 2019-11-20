@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_instructions.c                               :+:      :+:    :+:   */
+/*   asm_file_parser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:03:59 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/19 20:45:32 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/20 13:51:57 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,19 +104,33 @@ static int	get_instruction(t_champ *champ, char *filedata, int i)
 	return (i);
 }
 
-int			parse_instruction(t_champ *champ, char *filedata, int i)
+void		asm_file_parser(t_champ *champ, char *filename)
 {
-	t_instr	*temp;
+	int		i;
+	t_instr *temp;
 
-	while (filedata[i])
+	champ->data = get_clean_data_from_file(champ, filename);
+	i = parse_name(champ, champ->data);
+	while (champ->data[i])
 	{
-		// вначале цикла мы находимся всегда вначале строки
-		i = skip_spaces(filedata, i);
-		// так как лейблов подряд может быть несколько
-		// мы добавляем их все
-		i = parse_label(champ, filedata, i);
-		if (filedata[i])
-			i = get_instruction(champ, filedata, i);
+		i = skip_spaces(champ->data, i);
+		i = parse_label(champ, champ->data, i);
+		if (champ->data[i])
+			i = get_instruction(champ, champ->data, i);
 	}
-	return (i);
+	if (!champ->instr)
+		error_manager(&champ, &champ->data[i], T_END);
+	assign_arguments_values(champ);
+/*
+	//УДОЛИТЬ!
+	ft_printf("\nNAME = %s\nCOMMENT = %s\n\n", champ->name, champ->comment);
+	print_label(champ->labels);
+	print_instruct(champ->instr);
+	temp = champ->instr;
+	while (temp)
+	{
+		print_args(temp->args, temp->num_args);
+		temp = temp->next;
+	}
+*/
 }

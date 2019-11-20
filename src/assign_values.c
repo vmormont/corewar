@@ -1,17 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   value.c                                            :+:      :+:    :+:   */
+/*   assign_values.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 15:27:03 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/16 17:17:38 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/20 13:33:52 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
+static t_label	*get_label(t_label *label, char *label_name)
+{
+	while (label)
+	{
+		if (!ft_strcmp(label_name, label->name))
+			return (label);
+		label = label->next;
+	}
+	return (NULL);
+}
+
+/*
 static int		label2value(char *title, t_label *labels, char arg_type,\
 				int offset)
 {
@@ -29,37 +41,46 @@ static int		label2value(char *title, t_label *labels, char arg_type,\
 		}
 		labels = labels->next;
 	}
-	return(value);
+	return (value);
 }
+*/
 
-static void		browse_args(t_instr *instr, t_label *labels)
-{	int			i;
+static void		browse_arguments(t_champ *champ, t_instr *instr)
+{
+	int			i;
 	int			k;
-	t_label		*tmp;
+	t_label		*label;
 
 	i = -1;
-	while(++i < instr->num_args)
+	while (++i < instr->num_args)
 	{
 		k = 0;
 		if (instr->args[i].type == T_DIR || instr->args[i].type == T_REG)
-			k++;
+			k = 1;
 		if (instr->args[i].str[k] == LABEL_CHAR)
-			instr->args[i].value = label2value(instr->args[i].str + k + 1,\
-			labels,	instr->args[i].type, instr->offset);
+		{
+			label = get_label(champ->labels, instr->args[i].str + k + 1);
+			if (!label)
+				error_manager(&champ,\
+				ft_strstr(champ->data, instr->args[i].str), T_NO_LABEL);
+			if (instr->args[i].type == T_DIR)
+				instr->args[i].value = label->offset - instr->offset;
+			else if (instr->args[i].type == T_IND)
+				instr->args[i].value = label->offset - instr->offset;
+		}
 		else
 			instr->args[i].value = ft_atoi(instr->args[i].str + k);
 	}
 }
 
-void			get_arg_value(t_champ *champ)
+void			assign_arguments_values(t_champ *champ)
 {
-	t_instr		*tmp;
+	t_instr		*instruct;
 
-	tmp = champ->instr;
-	while (tmp)
+	instruct = champ->instr;
+	while (instruct)
 	{
-		browse_args(tmp, champ->labels);
-		tmp = tmp->next;
+		browse_arguments(champ, instruct);
+		instruct = instruct->next;
 	}
-
 }

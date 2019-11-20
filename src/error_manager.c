@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 21:13:47 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/19 18:38:19 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/20 13:55:55 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static void	print_token(char token)
 		ft_fprintf(2, " COMMAND_NAME");
 	else if (token == T_COMMENT)
 		ft_fprintf(2, " COMMAND_COMMENT");
+	else if (token == T_END)
+		ft_fprintf(2, " END");
 }
 
 static void	print_token_value(char *arg, char token)
@@ -74,10 +76,12 @@ static void	print_token_value(char *arg, char token)
 		COMMENT_CMD_STRING);
 		return ;
 	}
-	if (token == T_LABEL)
-		stop_char = LABEL_CHAR;
-	else
-		stop_char = SEPARATOR_CHAR;
+	if (token == T_END)
+	{
+		ft_fprintf(2, " \"%s\"\n", NULL);
+		return ;
+	}
+	stop_char = token == T_LABEL ? LABEL_CHAR : SEPARATOR_CHAR;
 	ft_fprintf(2, " \"");
 	while (*arg && *arg != stop_char && !ft_isspace(*arg))
 	{
@@ -95,7 +99,11 @@ void		error_manager(t_champ **champ, char *error_address, char token)
 		token = get_token_type(error_address);
 	if (token)
 	{
-		ft_fprintf(2, "Syntax error at token [TOKEN]");
+		if (token == T_NO_LABEL)
+			ft_printf("%s",\
+			"No such label while attempting to dereference token [TOKEN]");
+		else
+			ft_fprintf(2, "Syntax error at token [TOKEN]");
 		print_error_position((*champ)->data, error_address);
 		print_token(token);
 		if (token != T_ENDLINE)

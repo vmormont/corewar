@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/19 20:42:17 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/20 13:52:18 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,9 @@ enum			e_token
 	T_PARAMETER,
 	T_LABEL,
 	T_DIR_LABEL,
-	T_IND_LABEL
+	T_IND_LABEL,
+	T_NO_LABEL,
+	T_END
 }				t_token;
 
 #endif
