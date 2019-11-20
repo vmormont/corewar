@@ -6,7 +6,7 @@
 #    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/11/20 16:25:09 by astripeb         ###   ########.fr        #
+#    Updated: 2019/11/20 20:20:27 by astripeb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ LIBS				:= -L $(LIB_DIR) -lft
 SRC					= asm.c ft_exit.c champion.c utility.c instructions_utility.c\
 					label_utility.c parse_name_comment.c parse_label.c\
 					asm_file_parser.c parse_arguments.c validation.c\
-					error_manager.c assign_values.c assembly.c
+					error_manager.c assign_values.c assembly.c dump_to_stdo.c\
+					options.c
 
 OBJ					:= $(SRC:.c=.o)
 
