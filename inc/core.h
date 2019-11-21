@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   core.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/21 16:24:03 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/21 21:02:25 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,34 @@
 # include <stdio.h>
 # include "corewar_structs.h"
 
+enum			e_error
+{
+	FILE_FAILED = 300,
+	INVALID_CHAMP_NUM,
+	WAITING_FILE,
+	TYPE_ERROR,
+	NO_CODE_ERROR,
+	INVALID_OPTION,
+	INVALID_HEAD_SIZE,
+	EXEC_CODE_ERROR,
+	EXEC_SIZE_ERROR,
+	CODE_SIZE_ERROR
+}				t_error;
 
-# define FILE_FAILED 300
-# define INVALID_CHAMP_NUM 301
-# define WAITING_FILE 303
-# define TYPE_ERROR 304
-
+int		read_cor_file(char *filename);
 
 /*
 ** MANAGMENT ERRORS
 */
 
 void			ft_exit_core(int err, char *file_name);
+
+
+/*
+** UTILITY FUNCTIONS
+*/
+
+int				reverse_bits(int num, char full_bit);
 
 /*
 ** CURSOR
@@ -40,5 +56,17 @@ void			ft_exit_core(int err, char *file_name);
 t_cursor		*new_cursor(void);
 
 void			add_cursor(t_cursor **list, t_cursor *cursor);
+
+/*
+** CHAMPION FUNCTIONS
+*/
+
+t_champ			*get_champion_from_file(char *filename);
+
+void			del_one_champion(t_champ **begin);
+
+void			del_champions(t_champ **champ);
+
+void			add_champion2end(t_champ **begin, t_champ *champ);
 
 #endif

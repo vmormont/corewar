@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
+#    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/11/21 16:24:58 by pcredibl         ###   ########.fr        #
+#    Updated: 2019/11/21 20:39:19 by astripeb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ SRC_ASM				:= asm.c ft_exit.c champion.c utility.c instructions_utility.c\
 					error_manager.c assign_values.c assembly.c dump_to_stdo.c\
 					options.c
 
-SRC_CORE			:= vm.c utillity_core.c #read_cor_file.c
+SRC_CORE			:= vm.c ft_exit_core.c utility_core.c champion_core.c
 
 OBJ_ASM				:= $(SRC_ASM:.c=.o)
 OBJ_CORE			:= $(SRC_CORE:.c=.o)
@@ -90,8 +90,11 @@ clean:
 
 fclean: clean
 	$(MAKE) fclean -C $(LIB_DIR)
-	rm -rf $(NAME_ASM)
 	echo "$(RED)$(LIBFT) was deleted$(RESET)"
+	rm -rf $(NAME_ASM) $(NAME_CORE)
+	echo "$(RED)$(NAME_ASM) was deleted$(RESET)"
+	rm -rf $(NAME_CORE)
+	echo "$(RED)$(NAME_CORE) was deleted$(RESET)"
 
 re: fclean all
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar_structs.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/21 16:24:03 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/21 20:53:44 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 ** step				- кол-во байт, которое должна перешагнуть каретка, чтоб оказаться на следующей команде
 */
 
-typedef struct		s_cursor 
+typedef struct		s_cursor
 {
 	int				id;
 	char			reg[(REG_NUMBER + 1) * REG_SIZE];
@@ -52,7 +52,7 @@ typedef struct		s_cursor
 ** cycles			- количество пройденных циклов
 ** cycles_to_die	- количество оставшихся до конца партии циклов
 ** num_of_champs	- количество игроков
-**  
+**
 */
 
 typedef struct		s_vm
@@ -64,5 +64,27 @@ typedef struct		s_vm
 	int				cycles_to_die;
 	char			num_of_champs;
 }					t_vm;
+
+
+/*
+** ЧЕМПИОН
+** считанный из *.cor файла
+** name			- имя игрока
+** comment		- комментарий
+** code			- код, считанный из файла
+** code_size	- размер исполняемого кода
+** next			- указатель на следующего чемпиона
+*/
+
+typedef	struct s_champ
+{
+	int				id;
+	char			*name;
+	char			*comment;
+	int				magic;
+	int				code_size;
+	char			*code;
+	struct s_champ	*next;
+}				t_champ;
 
 #endif
