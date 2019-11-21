@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/21 16:16:58 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:01:34 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int			reverse_bits(int num, char full_bit);
 char		*ft_strlstr(char *src, char *pattern, int len);
 
 int			options(int ac, char **av);
+
+void		usage_asm(void);
 
 /*
 ** CHAMPION FUNCTIONS

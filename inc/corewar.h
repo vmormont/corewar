@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core.h                                             :+:      :+:    :+:   */
+/*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/21 21:02:25 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/21 21:10:59 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CORE_H
-# define CORE_H
+#ifndef COREWAR_H
+# define COREWAR_H
 
 /*
 ** THIS HEADER ONLY FOR FUNCTIONS PROTOTYPES
@@ -22,7 +22,8 @@
 
 enum			e_error
 {
-	FILE_FAILED = 300,
+	USAGE = 300,
+	FILE_FAILED,
 	INVALID_CHAMP_NUM,
 	WAITING_FILE,
 	TYPE_ERROR,
@@ -40,7 +41,7 @@ int		read_cor_file(char *filename);
 ** MANAGMENT ERRORS
 */
 
-void			ft_exit_core(int err, char *file_name);
+void			ft_exit(int err, char *file_name);
 
 
 /*
@@ -53,7 +54,7 @@ int				reverse_bits(int num, char full_bit);
 ** CURSOR
 */
 
-t_cursor		*new_cursor(void);
+t_cursor		*new_cursor(int pos);
 
 void			add_cursor(t_cursor **list, t_cursor *cursor);
 

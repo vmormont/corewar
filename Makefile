@@ -6,7 +6,7 @@
 #    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/11/21 20:39:19 by astripeb         ###   ########.fr        #
+#    Updated: 2019/11/21 21:12:07 by astripeb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME_CORE			:= corewar
 
 #HEADERS
 ASM_HEADERS			:= asm.h op.h corewar_structs.h
-CORE_HEADERS		:= core.h op.h corewar_structs.h
+CORE_HEADERS		:= corewar.h op.h corewar_structs.h
 
 #COMPILER
 CC 					:= gcc
@@ -39,13 +39,13 @@ CFALGS				:= -Wall -Wextra -Werror
 LFLAGS				:= -I $(LIB_DIR)/inc -I $(INC_DIR)
 LIBS				:= -L $(LIB_DIR) -lft
 
-SRC_ASM				:= asm.c ft_exit.c champion.c utility.c instructions_utility.c\
+SRC_ASM				:= asm.c ft_exit_asm.c champion.c utility.c instructions_utility.c\
 					label_utility.c parse_name_comment.c parse_label.c\
 					asm_file_parser.c parse_arguments.c validation.c\
 					error_manager.c assign_values.c assembly.c dump_to_stdo.c\
 					options.c
 
-SRC_CORE			:= vm.c ft_exit_core.c utility_core.c champion_core.c
+SRC_CORE			:= vm.c ft_exit_corewar.c utility_core.c champion_core.c
 
 OBJ_ASM				:= $(SRC_ASM:.c=.o)
 OBJ_CORE			:= $(SRC_CORE:.c=.o)

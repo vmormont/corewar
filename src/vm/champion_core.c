@@ -6,11 +6,11 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/21 21:01:28 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/21 21:07:44 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "core.h"
+#include "corewar.h"
 
 static t_champ	*create_new_champ(t_header *head, char *code)
 {

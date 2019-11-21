@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_exit_asm.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 11:02:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/21 10:40:20 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:35:23 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void		ft_exit(t_champ **champ, int err)
 {
 	if (err == USAGE)
 	{
-		ft_fprintf(2, "%s\n%s%s",\
-	"./asm [-a] <source_file.s>",
-	"      [-a] - Instead of creating a .cor file, outputs a stripped and ",\
-	"annotated version of the code to the standard output\n");
+		ft_fprintf(2, "%s\n%s%s\n",\
+	"./asm\t[-a] <source_file.s>",\
+	"\t[-a] - Instead of creating a .cor file, outputs a stripped and ",\
+	"annotated version of the code to the standard output");
 	}
 	else if (err == INVALID_FILE_NAME)
 		ft_fprintf(2, "Error: Invalid input file\n");
