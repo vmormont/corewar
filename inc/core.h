@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/21 14:10:12 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/21 16:24:03 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 # include <stdio.h>
 # include "corewar_structs.h"
-# include "asm.h"
+
 
 # define FILE_FAILED 300
 # define INVALID_CHAMP_NUM 301

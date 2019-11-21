@@ -6,7 +6,7 @@
 #    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/11/21 15:57:29 by pcredibl         ###   ########.fr        #
+#    Updated: 2019/11/21 16:24:58 by pcredibl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ SRC_ASM				:= asm.c ft_exit.c champion.c utility.c instructions_utility.c\
 					error_manager.c assign_values.c assembly.c dump_to_stdo.c\
 					options.c
 
-SRC_CORE			:= vm.c utillity_core.c read_cor_file.c
+SRC_CORE			:= vm.c utillity_core.c #read_cor_file.c
 
 OBJ_ASM				:= $(SRC_ASM:.c=.o)
 OBJ_CORE			:= $(SRC_CORE:.c=.o)
