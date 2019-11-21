@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 13:37:50 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/19 18:43:31 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/21 11:52:33 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static int	valid_register(char *arg)
 	if (arg[i++] != REG_CHAR)
 		return (0);
 	reg_num = ft_atoi(&arg[i]);
-	if (reg_num < MIN_REG || reg_num > MAX_REG)
+	if (reg_num < 1 || reg_num > REG_NUMBER)
 		return (0);
 	while (ft_isdigit(arg[i]))
 		++i;
@@ -91,7 +91,7 @@ static int	valid_register(char *arg)
 	return (i);
 }
 
-int			valid_argument(char *arg, char type, t_label *label)
+int			valid_argument(char *arg, t_arg_type type, t_label *label)
 {
 	int		valid;
 

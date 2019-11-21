@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/20 21:05:41 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/21 11:20:33 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,35 @@
 
 # include <stdio.h>
 # include "corewar_structs.h"
-# include "core.h"
+# include "op.h"
 
-# define USAGE 200
-# define INVALID_FILE_NAME 201
-# define NAME_LEN_ERROR 202
-# define COMMENT_LEN_ERROR 203
-# define EXEC_CODE_ERROR 204
-# define NO_CODE_ERROR 205
-# define INVALID_OPTION 206
+# define REG_CHAR 	'r'
+
+enum			e_error
+{
+	USAGE = 200,
+	INVALID_FILE_NAME,
+	NAME_LEN_ERROR,
+	COMMENT_LEN_ERROR,
+	NO_CODE_ERROR,
+	INVALID_OPTION
+}				t_error;
+
+enum			e_token
+{
+	T_NONE,
+	T_ENDLINE = T_LAB + 1,
+	T_NAME,
+	T_COMMENT,
+	T_SEPARATOR,
+	T_INSTRUCTION,
+	T_PARAMETER,
+	T_LABEL,
+	T_DIR_LABEL,
+	T_IND_LABEL,
+	T_NO_LABEL,
+	T_END
+}				t_token;
 
 /*
 ** MANAGMENT ERRORS
@@ -98,11 +118,10 @@ int			parse_name(t_champ *champ, char *data);
 
 int			parse_label(t_champ *champ, char *filedata, int i);
 
-
 int			parse_arguments(t_champ *champ, t_instr *instruction,
 			char *filedata, int index);
 
-int			valid_argument(char *arg, char type, t_label *label);
+int			valid_argument(char *arg, t_arg_type type, t_label *label);
 
 void		assign_arguments_values(t_champ *champ);
 

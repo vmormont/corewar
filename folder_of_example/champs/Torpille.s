@@ -1,6 +1,6 @@
 .name "Torpille"
 .comment "by sebc"
-
+.extend
 
 	xor	r4,r4,r4
 debut:

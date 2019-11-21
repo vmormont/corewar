@@ -6,7 +6,11 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/11/21 14:11:23 by pcredibl         ###   ########.fr       */
+=======
+/*   Updated: 2019/11/21 13:49:00 by astripeb         ###   ########.fr       */
+>>>>>>> 1854ac3e529423e67f4c1314ea818907bc77b3dc
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +24,6 @@
 
 # include "op.h"
 # include "libftprintf.h"
-
-# define MIN_REG 	1
-# define MAX_REG 	16
-# define REG_CHAR 	'r'
-
-/*
-** КОДЫ ТИПОВ АРГУМЕНТОВ
-** нужны для определения необходимости добавления
-** байта "Кода типов аргументов""
-** bin - 1011 0110 1111 1110, hex – 0xb6fe, dec - 46846
-** пример для live: (CODE_TYPES >> (op.code(1) - 1)) & 1 -> Fasle
-** пример для lld:	(CODE_TYPES >> (op.code(13) - 1)) & 1 -> True
-*/
-
-# define CODE_TYPES	0xb6fe
-
-/*
-** РАЗМЕР T_DIR ДЛЯ ИНСТРУКЦИЙ
-** нужны определения необходимости добавления
-** байта "Кода типов аргументов""
-** bin - 1001 0000 1111 1111, hex – 0x90ff, dec - 37119
-** пример для live: (OP_DIR_SIZE >> (op.code(1) - 1)) & 1 -> 4 байта
-** пример для zjmp: (OP_DIR_SIZE >> (op.code(9) - 1)) & 1 -> 2 байта
-*/
-
-# define OP_DIR_SIZE	0x90ff
 
 /*
 ** МЕТКА
@@ -69,7 +47,7 @@ typedef struct	s_label
 
 typedef struct	s_arg
 {
-	char			type;
+	t_arg_type		type;
 	char			*str;
 	int				value;
 }				t_arg;
@@ -160,66 +138,5 @@ typedef struct	s_champ
 	struct s_instr	*instr;
 	struct s_label	*labels;
 }				t_champ;
-
-/*
-** КАРЕТКА
-** id				- уникальный номер каретки
-** reg[MAX_REG]		- регистры каретки
-** carry			- флаг carry
-** pos				- позиция каретки
-** op_code			- код операции на котором стоит каретка
-** cycles_to_exec	- время до выполнения операции, на котором стоит каретка
-** step				- кол-во байт, которое должна перешагнуть каретка, чтоб оказаться на следующей команде
-*/
-
-typedef struct		s_cursor 
-{
-	int				id;
-	char			reg[(MAX_REG + 1) * REG_SIZE];
-	char			carry;
-	int				pos;
-	char			op_code;
-	int				time_to_exec;
-	char			step;
-	struct s_cursor	*next;
-}					t_cursor;
-
-/*
-** ВИРТУАЛЬНАЯ МАШИНА
-** champs			- список игроков
-** cursors			- список кареток
-** field[MEM_SIZE]	- арена
-** cycles			- количество пройденных циклов
-** cycles_to_die	- количество оставшихся до конца партии циклов
-** num_of_champs	- количество игроков
-**  
-*/
-
-typedef struct		s_vm
-{
-	struct s_champ	*champs;
-	struct s_cursor	*cursors;
-	char			field[MEM_SIZE];
-	int				cycles;
-	int				cycles_to_die;
-	char			num_of_champs;
-}					t_vm;
-
-
-enum			e_token
-{
-	T_NONE,
-	T_ENDLINE = T_LAB + 1,
-	T_NAME,
-	T_COMMENT,
-	T_SEPARATOR,
-	T_INSTRUCTION,
-	T_PARAMETER,
-	T_LABEL,
-	T_DIR_LABEL,
-	T_IND_LABEL,
-	T_NO_LABEL,
-	T_END
-}				t_token;
 
 #endif
