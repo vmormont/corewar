@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/20 13:52:18 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/21 13:49:00 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,6 @@
 
 # include "op.h"
 # include "libftprintf.h"
-
-# define MIN_REG 	1
-# define MAX_REG 	16
-# define REG_CHAR 	'r'
-
-/*
-** КОДЫ ТИПОВ АРГУМЕНТОВ
-** нужны для определения необходимости добавления
-** байта "Кода типов аргументов""
-** bin - 1011 0110 1111 1110, hex – 0xb6fe, dec - 46846
-** пример для live: (CODE_TYPES >> (op.code(1) - 1)) & 1 -> Fasle
-** пример для lld:	(CODE_TYPES >> (op.code(13) - 1)) & 1 -> True
-*/
-
-# define CODE_TYPES	0xb6fe
-
-/*
-** РАЗМЕР T_DIR ДЛЯ ИНСТРУКЦИЙ
-** нужны определения необходимости добавления
-** байта "Кода типов аргументов""
-** bin - 1001 0000 1111 1111, hex – 0x90ff, dec - 37119
-** пример для live: (OP_DIR_SIZE >> (op.code(1) - 1)) & 1 -> 4 байта
-** пример для zjmp: (OP_DIR_SIZE >> (op.code(9) - 1)) & 1 -> 2 байта
-*/
-
-# define OP_DIR_SIZE	0x90ff
 
 /*
 ** МЕТКА
@@ -69,7 +43,7 @@ typedef struct	s_label
 
 typedef struct	s_arg
 {
-	char			type;
+	t_arg_type		type;
 	char			*str;
 	int				value;
 }				t_arg;
@@ -160,21 +134,5 @@ typedef struct	s_champ
 	struct s_instr	*instr;
 	struct s_label	*labels;
 }				t_champ;
-
-enum			e_token
-{
-	T_NONE,
-	T_ENDLINE = T_LAB + 1,
-	T_NAME,
-	T_COMMENT,
-	T_SEPARATOR,
-	T_INSTRUCTION,
-	T_PARAMETER,
-	T_LABEL,
-	T_DIR_LABEL,
-	T_IND_LABEL,
-	T_NO_LABEL,
-	T_END
-}				t_token;
 
 #endif

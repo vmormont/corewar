@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
+#    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/11/20 21:05:19 by pcredibl         ###   ########.fr        #
+#    Updated: 2019/11/21 14:19:01 by astripeb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME_CORE			:= corewar
 
 #HEADERS
 ASM_HEADERS			:= asm.h op.h corewar_structs.h
-CORE_HEADERS			:= core.h op.h corewar_structs.h
+CORE_HEADERS		:= core.h op.h corewar_structs.h
 
 #COMPILER
 CC 					:= gcc
@@ -31,7 +31,7 @@ LIBFT				:= libft.a
 #PROJECT_DIRS
 INC_DIR				:= ./inc
 OBJ_DIR				:= ./obj
-SRC_ASM_DIR			:= ./src
+SRC_ASM_DIR			:= ./src/asm
 SRC_CORE_DIR		:= ./src/vm
 
 #COMPILER FLAGS
@@ -39,13 +39,13 @@ CFALGS				:= -Wall -Wextra -Werror
 LFLAGS				:= -I $(LIB_DIR)/inc -I $(INC_DIR)
 LIBS				:= -L $(LIB_DIR) -lft
 
-SRC_ASM				= asm.c ft_exit.c champion.c utility.c instructions_utility.c\
+SRC_ASM				:= asm.c ft_exit.c champion.c utility.c instructions_utility.c\
 					label_utility.c parse_name_comment.c parse_label.c\
 					asm_file_parser.c parse_arguments.c validation.c\
 					error_manager.c assign_values.c assembly.c dump_to_stdo.c\
 					options.c
 
-SRC_CORE			=vm.c utillity_core.c
+SRC_CORE			:= vm.c utillity_core.c read_cor_file.c
 
 OBJ_ASM				:= $(SRC_ASM:.c=.o)
 OBJ_CORE			:= $(SRC_CORE:.c=.o)
@@ -60,12 +60,12 @@ all: lib $(NAME_ASM) $(NAME_CORE)
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(NAME_ASM): $(LIBFT) $(OBJ_ASM) $(ASM_HEADERS)
 	$(CC) $(LFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ_ASM)) $(LIBS) -o $@
-	echo "$(GREEN)DONE ✅$(RESET)"
+	echo "$(GREEN)$@ was created ✅$(RESET)"
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(NAME_CORE): $(LIBFT) $(OBJ_CORE) $(CORE_HEADERS)
 	$(CC) $(LFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ_CORE)) $(LIBS) -o $@
-	echo "$(GREEN)DONE ✅$(RESET)"
+	echo "$(GREEN)$@ was created ✅$(RESET)"
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(OBJ_ASM):%.o:%.c $(ASM_HEADERS) | $(OBJ_DIR)
