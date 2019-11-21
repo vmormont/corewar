@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/20 21:00:10 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/21 14:10:12 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,19 @@
 # define WAITING_FILE 303
 # define TYPE_ERROR 304
 
+
 /*
 ** MANAGMENT ERRORS
 */
 
-void	ft_exit_core(int err, char *file_name);
+void			ft_exit_core(int err, char *file_name);
+
+/*
+** CURSOR
+*/
+
+t_cursor		*new_cursor(void);
+
+void			add_cursor(t_cursor **list, t_cursor *cursor);
 
 #endif

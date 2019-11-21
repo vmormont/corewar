@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/20 21:03:48 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/21 14:36:08 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,11 @@ static void	validity_core_args(char **av)
 int		main(int ac, char **av)
 {
 	int		i;
+	t_vm	*vm;
 
 	validity_core_args(av + 1);
+	vm = (t_vm*)malloc(sizeof(t_vm));
+	
 	i = 0;
 	return (0);
 }
