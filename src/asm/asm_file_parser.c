@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:03:59 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/20 16:15:08 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 10:39:15 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,6 @@ static int	define_instruct_offset(t_instr *instr)
 			instr = instr->next;
 		return (instr->offset + instr->instr_size);
 	}
-}
-
-static int	get_instruct_code(char *name)
-{
-	int i;
-	int	code;
-	int name_len;
-
-	i = 1;
-	code = 0;
-	while (i <= NUMBER_OF_INSTR)
-	{
-		name_len = ft_strlen(g_op_tab[i].name);
-		if (!ft_strncmp(g_op_tab[i].name, name, name_len))
-			code = i;
-		++i;
-	}
-	return (code);
 }
 
 static int	get_instruction(t_champ *champ, char *filedata, int i)

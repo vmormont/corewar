@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/21 17:01:34 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/22 10:40:49 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 # include <stdio.h>
 # include "asm_structs.h"
-# include "op.h"
 
 # define REG_CHAR 	'r'
 
@@ -139,7 +138,7 @@ int			islabel(char *data);
 
 int			islabelchar(char c, char *label_chars);
 
-int			isinstruct(char *name);
+int			get_instruct_code(char *name);
 
 /*
 ** ASSEMBLY CHAMP CODE IN FILE FUNCTIONS

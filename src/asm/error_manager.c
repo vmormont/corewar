@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 21:13:47 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/20 13:55:55 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 10:40:55 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	get_token_type(char *arg)
 		return (T_ENDLINE);
 	if (arg[i] == SEPARATOR_CHAR)
 		return (T_SEPARATOR);
-	if (isinstruct(arg))
+	if (get_instruct_code(arg))
 		return (T_INSTRUCTION);
 	if (arg[i] == LABEL_CHAR)
 		return (T_IND_LABEL);

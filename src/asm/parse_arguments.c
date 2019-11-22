@@ -6,24 +6,13 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/19 19:01:07 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 11:10:30 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 extern t_op g_op_tab[];
-
-static int	possible_arg(char arg_type, char mask)
-{
-	if (arg_type == T_REG && !(((mask >> 4) & 1) ^ 1))
-		return (1);
-	else if (arg_type == T_DIR && !(((mask >> 2) & 2) ^ 2))
-		return (1);
-	else if (arg_type == T_IND && !((mask & 3) ^ 3))
-		return (1);
-	return (0);
-}
 
 static int	get_type_argument(char *arg)
 {

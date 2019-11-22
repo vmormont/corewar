@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/21 21:07:44 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 14:27:02 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static t_champ	*create_new_champ(t_header *head, char *code)
 		del_one_champion(&champ);
 		return (NULL);
 	}
-	ft_strncpy(champ->code, code, head->prog_size);
+	ft_memcpy((void*)champ->code, (void*)code, head->prog_size);
+	print_code(champ->code, head->prog_size);
 	champ->code_size = head->prog_size;
 	champ->magic = head->magic;
 	return (champ);
@@ -70,8 +71,7 @@ static void		ft_exit_read(int err, char *filename, int fd, int exec_size)
 		ft_fprintf(2, "Error: File %s has a code size that %s\n",\
 		filename, "differ from what its header says");
 	else if (err == EXEC_CODE_ERROR)
-		ft_fprintf(2, "Error: File %s has a code size that %s\n",\
-		filename, "differ from what its header says");
+		ft_fprintf(2, "Error: File %s has an invalid header", filename);
 	else if (err == EXEC_SIZE_ERROR)
 		ft_fprintf(2, "Error: File %s has too large a code (%d bytes > %d%s",\
 		filename, exec_size, CHAMP_MAX_SIZE, " bytes)\n");

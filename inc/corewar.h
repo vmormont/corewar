@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/21 21:10:59 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 12:08:36 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ enum			e_error
 	CODE_SIZE_ERROR
 }				t_error;
 
-int		read_cor_file(char *filename);
-
 /*
 ** MANAGMENT ERRORS
 */
@@ -49,6 +47,8 @@ void			ft_exit(int err, char *file_name);
 */
 
 int				reverse_bits(int num, char full_bit);
+
+void			dump_arena(char *arena);
 
 /*
 ** CURSOR

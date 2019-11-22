@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 20:46:25 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/20 16:24:07 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 10:39:59 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int			isseparator(char c)
 	return (0);
 }
 
+/*
 int			isinstruct(char *name)
 {
 	int i;
@@ -95,6 +96,25 @@ int			isinstruct(char *name)
 	while (i <= NUMBER_OF_INSTR)
 	{
 		if (!ft_strncmp(g_op_tab[i].name, name, ft_strlen(g_op_tab[i].name)))
+			code = i;
+		++i;
+	}
+	return (code);
+}
+*/
+
+int	get_instruct_code(char *name)
+{
+	int i;
+	int	code;
+	int name_len;
+
+	i = 1;
+	code = 0;
+	while (i <= NUMBER_OF_INSTR)
+	{
+		name_len = ft_strlen(g_op_tab[i].name);
+		if (!ft_strncmp(g_op_tab[i].name, name, name_len))
 			code = i;
 		++i;
 	}
