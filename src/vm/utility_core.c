@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   utility_core.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:47:36 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/21 21:07:44 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 14:19:32 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+void	dump_arena(char *arena)
+{
+	int i;
+	int j;
+	char *address;
+	
+	i = 0;
+	address = NULL;
+	while (i < DUMP_COLUMNS)
+	{
+		j = 0;
+		ft_printf("%06p : ", (void*)address);
+		while (j < DUMP_ROWS)
+		{
+			if (arena[DUMP_ROWS * i + j])
+				ft_printf("{red}%x%x {eoc}", (arena[DUMP_ROWS * i + j] & 0xF0) >> 4,\
+				arena[DUMP_ROWS * i + j] & 0xF);
+			else
+				ft_printf("%x%x ", (arena[DUMP_ROWS * i + j] & 0xF0) >> 4,\
+				arena[DUMP_ROWS * i + j] & 0xF);
+			++j;
+			++address;
+		}
+		ft_printf("\n");
+		++i;
+	}
+}
 
 int			reverse_bits(int num, char full_bit)
 {

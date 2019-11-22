@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/21 21:10:59 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 13:40:01 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 
 # include <stdio.h>
 # include "corewar_structs.h"
+
+#define DUMP_COLUMNS	64
+#define DUMP_ROWS		64
 
 enum			e_error
 {
@@ -50,13 +53,19 @@ void			ft_exit(int err, char *file_name);
 
 int				reverse_bits(int num, char full_bit);
 
+void			dump_arena(char *arena);
+
 /*
 ** CURSOR
 */
 
 t_cursor		*new_cursor(int pos);
 
+t_cursor		*copy_cursor(t_cursor *src, int pos, char mode);
+
 void			add_cursor(t_cursor **list, t_cursor *cursor);
+
+void			kill_cursor(t_cursor **list, t_cursor *cursor);
 
 /*
 ** CHAMPION FUNCTIONS

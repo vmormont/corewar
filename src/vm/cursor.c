@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cursor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:06:22 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/21 21:12:44 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 11:01:59 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_cursor	*copy_cursor(t_cursor *src, int pos, char mode)
 t_cursor	*new_cursor(int pos)
 {
 	t_cursor	*cursor;
-	static int	i = 0;
+	static int	i = 1;
 
 	cursor = (t_cursor*)malloc(sizeof(t_cursor));
 	ft_bzero((void*)cursor, sizeof(t_cursor));

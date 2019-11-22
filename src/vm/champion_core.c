@@ -3,15 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   champion_core.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/21 21:07:44 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 14:16:41 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+void		print_code(char *code, int size)
+{
+	int i;
 
+	i = 0;
+	while (i < size)
+	{
+		ft_printf("%x", code[i++]);
+	//	i++;
+	}
+		ft_putchar('\n');
+}
 static t_champ	*create_new_champ(t_header *head, char *code)
 {
 	t_champ *champ;
@@ -26,7 +37,7 @@ static t_champ	*create_new_champ(t_header *head, char *code)
 		del_one_champion(&champ);
 		return (NULL);
 	}
-	ft_strncpy(champ->code, code, head->prog_size);
+	ft_memcpy((void*)champ->code, (void*)code, head->prog_size);
 	champ->code_size = head->prog_size;
 	champ->magic = head->magic;
 	return (champ);
@@ -116,10 +127,10 @@ t_champ			*get_champion_from_file(char *filename)
 		ft_exit_read(EXEC_CODE_ERROR, filename, fd, 0);
 	if (!(champ = create_new_champ(&header, code)))
 		return (NULL);
-	ft_printf("magic     = %x\n", champ->magic);
+	/*ft_printf("magic     = %x\n", champ->magic);
 	ft_printf("name      = %s\n", champ->name);
 	ft_printf("comment   = %s\n", champ->comment);
-	ft_printf("exec_size = %d\n", champ->code_size);
+	ft_printf("exec_size = %d\n", champ->code_size);*/
 	close(fd);
 	return (champ);
 }
