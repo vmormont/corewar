@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   champion_core.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 15:19:09 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 18:53:56 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void			del_one_champion(t_champ **champ)
 	if (champ && *champ)
 	{
 		(*champ)->next = NULL;
+		ft_memdel((void*)&(*champ)->name);
+		ft_memdel((void*)&(*champ)->comment);
+		ft_memdel((void*)&(*champ)->code);
 		ft_memdel((void*)champ);
-		ft_memdel((void*)(*champ)->name);
-		ft_memdel((void*)(*champ)->comment);
-		ft_memdel((void*)(*champ)->code);
 	}
 }
 

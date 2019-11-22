@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar_structs.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 14:35:06 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 19:41:30 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,22 @@ typedef struct		s_cursor
 ** ВИРТУАЛЬНАЯ МАШИНА
 ** champs			- список игроков
 ** cursors			- список кареток
-** field[MEM_SIZE]	- арена
 ** cycles			- количество пройденных циклов
 ** cycles_to_die	- количество оставшихся до конца партии циклов
 ** num_of_champs	- количество игроков
 ** arena[MEM_SIZE]	- арена
+** num_live_op		- количество операций live в данном цикле
 */
 
 typedef struct		s_vm
 {
 	struct s_champ	*champs;
 	struct s_cursor	*cursors;
-	char			field[MEM_SIZE];
 	int				cycles;
 	int				cycles_to_die;
 	char			num_of_champs;
 	char			arena[MEM_SIZE];
+	int				num_live_op;
 }					t_vm;
 
 

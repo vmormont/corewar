@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:06:22 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/22 11:01:59 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/22 17:58:48 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,20 @@ void		kill_cursor(t_cursor **list, t_cursor *cursor)
 	cursor = cursor->next;
 	}
 	cursor = start;
+}
+
+void		kill_all_cursors(t_cursor **begin)
+{
+	t_cursor	*tmp;
+
+	while (*begin)
+	{
+		tmp = *begin;
+		(*begin) = (*begin)->next;
+		tmp->next = NULL;
+		free((void*)tmp);
+	}
+	begin = NULL;
 }
 
 void		add_cursor(t_cursor **list, t_cursor *cursor)

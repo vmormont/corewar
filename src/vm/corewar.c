@@ -3,46 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/22 14:39:54 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 18:37:10 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-static void set_champ_code(t_vm *vm)
-{
-	t_champ		*player;
-	int			offset_start_code;
-	int			i;
-	t_cursor	*cursor;
-
-	offset_start_code = MEM_SIZE / 3;
-	player = vm->champs;
-	i = 0;
-	while(player)
-	{
-		ft_memcpy((void*)vm->arena + i, (void*)player->code, player->code_size);
-		cursor	= new_cursor(i);
-		i += offset_start_code;
-		player = player->next;
-	}
-}
-
-static int	count_champs(t_champ *champ)
-{
-	int		i;
-
-	i = 0;
-	while (champ)
-	{
-		i++;
-		champ = champ->next;
-	}
-	return (i);
-}
 
 int		main(int argc, char **argv)
 {
@@ -52,18 +20,23 @@ int		main(int argc, char **argv)
 	char	arena[MEM_SIZE];
 	t_champ	*champ;
 
-	argc == 1 ? ft_exit(USAGE, NULL) : 0;
+	argc == 1 ? ft_exit(USAGE, NULL, NULL) : 0;
 	validity_core_args(argv + 1);
-	vm = (t_vm*)malloc(sizeof(t_vm));
+	vm = create_vm();
 	argv++;
 	while (*argv)
 	{
+		if (!ft_strcmp((const char*)*argv, "-n"))
+			argv += 2;
 		champ = get_champion_from_file(*argv);
 		add_champion2end(&vm->champs, champ);
 		argv++;
+		ft_printf("champ name = %s\n", vm->champs->name);
 	}
+	vm->num_of_champs = count_champs(vm->champs);
 	set_champ_code(vm);
-	dump_arena(vm->arena);
+	//dump_arena(vm->arena);
+	destroy_vm(&vm);
 	return (0);
 }
 
