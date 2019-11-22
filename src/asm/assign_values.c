@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_values.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 15:27:03 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/20 17:08:49 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 13:37:09 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void		browse_arguments(t_champ *champ, t_instr *instr)
 			if (!label)
 				error_manager(&champ,\
 				ft_strstr(champ->data, instr->args[i].str), T_NO_LABEL);
-				instr->args[i].value = label->offset - instr->offset;
+			instr->args[i].value = label->offset - instr->offset;
 		}
 		else
 			instr->args[i].value = ft_atoi(instr->args[i].str + k);

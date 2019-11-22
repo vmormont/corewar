@@ -6,7 +6,7 @@
 #    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/11/22 14:27:19 by astripeb         ###   ########.fr        #
+#    Updated: 2019/11/22 15:21:27 by astripeb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ SRC_ASM				:= asm.c ft_exit_asm.c champion.c utility.c instructions_utility.c\
 					error_manager.c assign_values.c assembly.c dump_to_stdo.c\
 					options.c
 
-SRC_CORE			:= corewar.c ft_exit_corewar.c utility_core.c champion_core.c
+SRC_CORE			:= corewar.c ft_exit_corewar.c utility_core.c champion_core.c\
+					cursor.c options_core.c
 
 OBJ_OP				:= $(SRC_OP:.c=.o)
 OBJ_ASM				:= $(SRC_ASM:.c=.o)

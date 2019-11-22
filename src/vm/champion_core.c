@@ -6,13 +6,13 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 14:30:15 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:19:09 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static t_champ	*create_new_champ(t_header *head, char *code)
+static t_champ	*create_new_champ(t_header *head, void *code)
 {
 	t_champ *champ;
 
@@ -26,7 +26,7 @@ static t_champ	*create_new_champ(t_header *head, char *code)
 		del_one_champion(&champ);
 		return (NULL);
 	}
-	ft_memcpy((void*)champ->code, (void*)code, head->prog_size);
+	ft_memcpy(champ->code, code, head->prog_size);
 	champ->code_size = head->prog_size;
 	champ->magic = head->magic;
 	return (champ);
@@ -76,6 +76,8 @@ static void		ft_exit_read(int err, char *filename, int fd, int exec_size)
 		filename, exec_size, CHAMP_MAX_SIZE, " bytes)\n");
 	else if (err == CODE_SIZE_ERROR)
 		ft_fprintf(2, "Error: File %s size of code is incorrect\n", filename);
+	else
+		perror("Error");
 	close(fd);
 	exit(err);
 }
@@ -113,12 +115,8 @@ t_champ			*get_champion_from_file(char *filename)
 	read_champion_from_file(fd, filename, &header, (char*)&code);
 	if (header.magic != COREWAR_EXEC_MAGIC)
 		ft_exit_read(EXEC_CODE_ERROR, filename, fd, 0);
-	if (!(champ = create_new_champ(&header, code)))
+	if (!(champ = create_new_champ(&header, (void*)code)))
 		return (NULL);
-	ft_printf("magic     = %x\n", champ->magic);
-	ft_printf("name      = %s\n", champ->name);
-	ft_printf("comment   = %s\n", champ->comment);
-	ft_printf("exec_size = %d\n", champ->code_size);
 	close(fd);
 	return (champ);
 }

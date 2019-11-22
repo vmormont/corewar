@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/22 12:08:36 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 15:19:55 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 
 # include <stdio.h>
 # include "corewar_structs.h"
+
+#define DUMP_COLUMNS	64
+#define DUMP_ROWS		64
 
 enum			e_error
 {
@@ -41,6 +44,13 @@ enum			e_error
 
 void			ft_exit(int err, char *file_name);
 
+/*
+** OPTIONS
+*/
+
+void			check_champ_num(char *num);
+
+void			validity_core_args(char **av);
 
 /*
 ** UTILITY FUNCTIONS
@@ -56,7 +66,11 @@ void			dump_arena(char *arena);
 
 t_cursor		*new_cursor(int pos);
 
+t_cursor		*copy_cursor(t_cursor *src, int pos, char mode);
+
 void			add_cursor(t_cursor **list, t_cursor *cursor);
+
+void			kill_cursor(t_cursor **list, t_cursor *cursor);
 
 /*
 ** CHAMPION FUNCTIONS

@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 10:24:55 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 14:35:06 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef	struct s_champ
 	char			*comment;
 	int				magic;
 	int				code_size;
-	char			*code;
+	void			*code;
 	struct s_champ	*next;
 }				t_champ;
 
