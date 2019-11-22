@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 14:35:06 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 20:06:10 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,36 @@ typedef	struct s_champ
 	void			*code;
 	struct s_champ	*next;
 }				t_champ;
+
+/*
+** ./corewar [-d N -s N -v N | -b --stealth | -t --stealth] [-a] <champion1.cor>
+** ############################################################################
+** -n [1..4] <champion1.cor>	- Number of champion
+** ############################################################################
+** -a			- Prints output from "aff" (Default is to hide it)
+** ############################################################################
+** -d [1..INT_MAX]	- Dumps memory after N cycles then exits
+** -s [1..INT_MAX]	- Runs N cycles, dumps memory, pauses, then repeats
+** -v N			- Verbosity levels, can be added together to enable several
+**  				- 0 : Show only essentials
+**  				- 1 : Show lives
+**  				- 2 : Show cycles
+**  				- 4 : Show operations
+**  				- 8 : Show deaths
+**  				- 16 : Show PC movements (Except for jumps)
+** ############################################################################
+** -t			- Terminal output mode
+** 	--stealth	- Hides the real contents of the memory
+** ############################################################################
+*/
+
+typedef struct s_options
+{
+	char	aff;
+	int		dump;
+	int		cycles;
+	char	verbos;
+	char	terminal;
+}				t_options;
 
 #endif
