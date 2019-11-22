@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility_core.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:47:36 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 14:19:32 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/22 21:00:08 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	dump_arena(char *arena)
 	int i;
 	int j;
 	char *address;
-	
+
 	i = 0;
 	address = NULL;
 	while (i < DUMP_COLUMNS)
@@ -27,7 +27,8 @@ void	dump_arena(char *arena)
 		while (j < DUMP_ROWS)
 		{
 			if (arena[DUMP_ROWS * i + j])
-				ft_printf("{red}%x%x {eoc}", (arena[DUMP_ROWS * i + j] & 0xF0) >> 4,\
+				ft_printf("{red}%x%x {eoc}",\
+				(arena[DUMP_ROWS * i + j] & 0xF0) >> 4,\
 				arena[DUMP_ROWS * i + j] & 0xF);
 			else
 				ft_printf("%x%x ", (arena[DUMP_ROWS * i + j] & 0xF0) >> 4,\
@@ -57,4 +58,15 @@ int			reverse_bits(int num, char full_bit)
 		rev_num = rev_num | ((num & 0xFF00) >> 8);
 	}
 	return (rev_num);
+}
+
+int			isdigit_word(char *word)
+{
+	if (!word)
+		return (0);
+	while (ft_isdigit(*word))
+		++word;
+	if (*word)
+		return (0);
+	return (1);
 }
