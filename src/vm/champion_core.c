@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 14:27:02 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 14:30:15 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static t_champ	*create_new_champ(t_header *head, char *code)
 		return (NULL);
 	}
 	ft_memcpy((void*)champ->code, (void*)code, head->prog_size);
-	print_code(champ->code, head->prog_size);
 	champ->code_size = head->prog_size;
 	champ->magic = head->magic;
 	return (champ);

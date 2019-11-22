@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/22 14:06:24 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/22 14:31:13 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,8 @@ static void set_champ_code(t_vm *vm)
 int		main(int argc, char **argv)
 {
 	t_vm	*vm;
-//	char	arena[MEM_SIZE];
 
 	argc == 1 ? ft_exit(USAGE, NULL) : 0;
-	char arena[MEM_SIZE];
-	ft_bzero((void*)arena, MEM_SIZE);
-	arena[42] = 0xFF;
-	arena[0] = 0xF;
-	arena[2048 + 31] = 0xFF;
-//	dump_arena((char*)arena);
-
-//	validity_core_args(argv + 1);
-//	vm = (t_vm*)malloc(sizeof(t_vm));
-//	ft_bzero((void*)arena, MEM_SIZE);
-//	set_champ_code(vm);
 	t_champ *champ = get_champion_from_file(argv[1]);
 	return (0);
 }
