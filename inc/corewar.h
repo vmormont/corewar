@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/22 21:22:32 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/23 15:39:04 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void			ft_exit(int err, char *file_name, t_vm **vm);
 ** UTILLITY VM
 */
 
-t_vm			*create_vm(void);
+t_vm			*create_vm(t_champ *champs);
 
 void 			set_champ_code(t_vm *vm);
 
@@ -105,5 +105,11 @@ void			del_champions(t_champ **champ);
 void			add_champion2end(t_champ **begin, t_champ *champ);
 
 t_champ			*read_champions_from_args(int ac, char **av);
+
+/*
+** CYCLES FUNCTION
+*/
+
+void			cycle(t_vm *vm);
 
 #endif

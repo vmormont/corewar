@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/22 21:23:11 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/23 15:41:27 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int		main(int argc, char **argv)
 
 	options = get_options(argc, argv);
 	champs = read_champions_from_args(argc, argv);
-	while (champs)
-	{
-		ft_printf("name     = %s\n", champs->name);
-		ft_printf("comment  = %s\n", champs->comment);
-		ft_printf("size     = %d\n", champs->code_size);
-		ft_printf("magic    = %x\n", champs->magic);
-		champs = champs->next;
-	}
+	vm = create_vm(champs);
+	set_champ_code(vm);
+	ft_printf("name champs  = %s\n", vm->champs->name);
+	ft_printf("cursor pos   = %d\n", vm->cursors->pos);
+	ft_printf("num champs   = %d\n", vm->num_of_champs);
+	cycle(vm);
+	//ft_printf("size     = %d\n", champs->code_size);
+	//ft_printf("magic    = %x\n", champs->magic);
 /*
 	validity_core_args(argv + 1);
 	vm = create_vm();
