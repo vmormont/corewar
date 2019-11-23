@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_champions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:40:44 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 21:02:35 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/23 13:39:31 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,26 @@ static t_champ	*get_champion_from_file(t_champ *champs, char *filename)
 
 static int		valid_n_argument(char **av)
 {
-	int id;
+	int 	id;
+	char	*file_type;
 
 	id = 0;
+	if (!*av)
+		return (USAGE);
 	if (isdigit_word(*av))
 	{
 		if ((id = ft_atoi(*av)) < 1 || id > MAX_PLAYERS)
 			return (USAGE);
 		av++;
-		if (av && ft_strstr(*av, ".cor"))
-			return (FILETYPE_ERROR);
-	}
+		if (*av)
+		{
+			file_type = (*av) + (ft_strlen(*av) - 4);
+			if (ft_strcmp(file_type, ".cor"))
+				return (FILETYPE_ERROR);
+		}
+		else
+			return(WAITING_FILE);
+	}	
 	return (id);
 }
 
@@ -94,7 +103,7 @@ t_champ			*read_champions_from_args(int ac, char **av)
 			else
 			{
 				del_champions(&champs);
-				ft_exit_read(MALLOC_FAILURE, av[i], NONE, NONE);
+				ft_exit(id, av[i], NULL);
 			}
 		}
 		else if (ft_strstr(av[i], ".cor"))

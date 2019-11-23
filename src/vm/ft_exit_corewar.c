@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:58:00 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/22 21:24:13 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/23 13:28:35 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void		ft_exit(int err, char *file_name, t_vm **vm)
 		ft_fprintf(STDERR_FILENO,\
 		"Error: corewar waiting for file with champ\n");
 	else if (err == FILETYPE_ERROR)
-		ft_fprintf(STDERR_FILENO, "Error: invalid type of file with champ\n");
+		ft_fprintf(STDERR_FILENO, "%s %s", "Error: invalid type of file with champ", \
+		"(need <file_name>.cor)\n");
 	destroy_vm(vm);
 	exit(err);
 }
