@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 14:39:58 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/25 14:40:24 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/25 19:55:17 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,13 @@ int			count_champs(t_champ *champs)
 	return (i);
 }
 
+t_champ		*get_champ_by_id(t_champ *champs, int id)
+{
+	while (champs)
+	{
+		if (champs->id == id)
+			return (champs);
+		champs = champs->next;
+	}
+	return (champs);
+}

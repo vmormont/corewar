@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar_structs.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/25 14:48:32 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/25 19:52:58 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,21 +105,27 @@ typedef struct		s_vm
 /*
 ** ЧЕМПИОН
 ** считанный из *.cor файла
-** name			- имя игрока
-** comment		- комментарий
-** code			- код, считанный из файла
-** code_size	- размер исполняемого кода
-** next			- указатель на следующего чемпиона
+** id				- порядковый номер игрока
+** magic			- magic_header_code
+** name				- имя игрока
+** comment			- комментарий
+** code				- код, считанный из файла
+** code_size		- размер исполняемого кода
+** last_live		- последний cycle когда, команда live указала на игрока
+** lives_in_period	- (?)
+** next				- указатель на следующего чемпиона
 */
 
 typedef	struct s_champ
 {
 	int				id;
+	int				magic;
 	char			*name;
 	char			*comment;
-	int				magic;
-	int				code_size;
 	void			*code;
+	int				code_size;
+	int				last_live;
+	int				lives_in_period;
 	struct s_champ	*next;
 }				t_champ;
 

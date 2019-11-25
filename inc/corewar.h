@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/25 14:41:04 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/25 17:12:18 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ typedef enum	e_error
 	EXEC_CODE_ERROR,
 	EXEC_SIZE_ERROR,
 	NO_CODE_ERROR,
-	CODE_SIZE_ERROR
+	CODE_SIZE_ERROR,
+	MANY_CHAMPS_ERROR
 }				t_error;
 
 /*
@@ -68,7 +69,7 @@ void			add_champion2end(t_champ **begin, t_champ *champ);
 
 void			insert_champion(t_champ **begin, t_champ *champ, int index);
 
-t_champ			*read_champions_from_args(int ac, char **av);
+void			read_champions_from_args(int ac, char **av, t_champ **champs);
 
 int				count_champs(t_champ *champs);
 

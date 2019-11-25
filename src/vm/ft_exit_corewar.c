@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit_corewar.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: astripeb <astripeb@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:58:00 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/25 13:42:57 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/25 16:32:59 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,11 @@ void		ft_exit_read(t_error err, char *file,\
 		ft_fprintf(STDERR_FILENO, "Error: File %s size of code is incorrect\n",\
 		file);
 	else if (err == CHAMP_NUM_ERROR)
-		ft_fprintf(STDERR_FILENO, "Wrong champ number (1 - %d)\n", MAX_PLAYERS);
+		ft_fprintf(STDERR_FILENO, "Wrong player number (1 - %d)\n", MAX_PLAYERS);
 	else if (err == FILE_EXTENSION_ERROR)
 		ft_fprintf(STDERR_FILENO, "Error: Invalid file extension. Need <file_name>.cor\n");
+	else if (err == MANY_CHAMPS_ERROR)
+		ft_fprintf(STDERR_FILENO, "Error: Too many players. Max playes: %d\n", MAX_PLAYERS);
 	else
 		perror("Error");
 	del_champions(champs);
