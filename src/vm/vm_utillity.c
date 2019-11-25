@@ -3,57 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   vm_utillity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/23 14:18:54 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/25 14:38:57 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	set_champ_code(t_vm *vm)
+void		set_champ_code_on_arena(t_vm *vm)
 {
-	t_champ		*player;
-	int			offset_start_code;
 	int			i;
+	t_champ		*player;
 	t_cursor	*cursor;
+	int			offset_start_code;
 
-	offset_start_code = MEM_SIZE / vm->num_of_champs;
-	player = vm->champs;
 	i = 0;
+	player = vm->champs;
+	offset_start_code = MEM_SIZE / vm->num_of_champs;
 	while(player)
 	{
-		ft_memcpy((void*)vm->arena + i, (void*)player->code, player->code_size);
-		cursor	= new_cursor(i);
+		ft_memcpy((void*)vm->arena + i, player->code, player->code_size);
+		if (!(cursor	= new_cursor(i)))
+			ft_exit(MALLOC_FAILURE, NULL, &vm);
 		add_cursor(&vm->cursors, cursor);
 		i += offset_start_code;
 		player = player->next;
 	}
 }
 
-int		count_champs(t_champ *champs)
-{
-	int		i;
-
-	i = 0;
-	while (champs)
-	{
-		i++;
-		champs = champs->next;
-	}
-	return (i);
-}
-
-t_vm	*create_vm(t_champ *champs)
+t_vm		*create_vm(t_champ *champs, t_options options)
 {
 	t_vm		*vm;
 
-	vm = (t_vm*)malloc(sizeof(t_vm));
+	if (!(vm = (t_vm*)malloc(sizeof(t_vm))))
+		return (NULL);
 	ft_bzero((void*)vm, sizeof(t_vm));
 	vm->cycles_to_die = CYCLE_TO_DIE;
 	vm->champs = champs;
 	vm->num_of_champs = count_champs(vm->champs);
+	vm->options = options;
 	return (vm);
 }
 
@@ -63,7 +53,6 @@ void	destroy_vm(t_vm **vm)
 	{
 		del_champions(&(*vm)->champs);
 		kill_all_cursors(&(*vm)->cursors);
-		vm && (*vm) ? free((void*)(*vm)) : 0;
-		vm = NULL;
+		ft_memdel((void*)vm);
 	}
 }

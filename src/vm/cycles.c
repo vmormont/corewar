@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/25 14:35:51 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/25 14:49:26 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	move_and_read_cursor(t_cursor *cursor, char *arena)
 	ft_printf("------------------------------\n");
 }
 
-static void calculate_cycle_to_die(t_vm *vm)
+/*static void calculate_cycle_to_die(t_vm *vm)
 {
 	if (vm->num_live_op >= NBR_LIVE || vm->checks_without_dec_cycles2die < MAX_CHECKS)
 	{
@@ -81,7 +81,7 @@ static void calculate_cycle_to_die(t_vm *vm)
 		vm->checks_without_dec_cycles2die += 1;
 	
 
-}
+}*/
 
 static void	check_cursors(t_vm *vm)
 {
@@ -94,7 +94,7 @@ static void	check_cursors(t_vm *vm)
 			kill_cursor(&vm->cursors, temp);
 		temp = temp->next;
 	}
-	calculate_cycle_to_die(vm);
+	//calculate_cycle_to_die(vm);
 }
 
 
@@ -120,7 +120,7 @@ void	cycle(t_vm *vm)
 		}
 		vm->cycles += 1;
 		/* if(что-то там)
-			check_cursors(vm);
+			check_cursors(vm);*/
 		i++;
 	}
 	

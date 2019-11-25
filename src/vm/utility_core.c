@@ -6,13 +6,13 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:47:36 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 21:00:08 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/25 14:40:17 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void	dump_arena(char *arena)
+void		dump_arena(char *arena)
 {
 	int i;
 	int j;
@@ -69,4 +69,15 @@ int			isdigit_word(char *word)
 	if (*word)
 		return (0);
 	return (1);
+}
+
+int			is_filename_extension(char *filename, char *extension)
+{
+	filename = ft_strrchr(filename, '.');
+	if (filename)
+	{
+		if (!ft_strcmp(filename, extension))
+			return (1);
+	}
+	return (0);
 }
