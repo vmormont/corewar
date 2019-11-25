@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 12:52:36 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 10:34:10 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/25 11:10:42 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char		*get_clean_data_from_file(t_champ *champ, char *filename)
 	int		fd;
 	char	*data;
 
+	if (!is_filename_extension(filename, ".s"))
+		ft_exit(&champ, FILE_EXTENSION_ERROR);
 	if ((fd = open(filename, O_RDONLY)) < 1)
 		ft_exit(&champ, 0);
 	if (!(data = read_from_file_to_var(fd)))

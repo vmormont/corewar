@@ -1,85 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   champion_core.c                                    :+:      :+:    :+:   */
+/*   champion_utility.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 19:26:44 by astripeb         ###   ########.fr       */
+/*   Created: 2019/11/25 14:39:58 by astripeb          #+#    #+#             */
+/*   Updated: 2019/11/25 14:40:24 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-t_champ			*create_new_champ(t_header *head, void *code)
+void		set_champions_id(t_champ *champ)
 {
-	t_champ *champ;
+	t_champ *temp;
 
-	if (!(champ = (t_champ*)malloc(sizeof(t_champ))))
-		return (NULL);
-	ft_bzero((void*)champ, sizeof(t_champ));
-	if (!(champ->name = ft_strdup(head->prog_name))\
-	|| !(champ->comment = ft_strdup(head->comment))\
-	|| !(champ->code = ft_strnew(head->prog_size)))
+	if (champ->next)
 	{
-		del_one_champion(&champ);
-		return (NULL);
-	}
-	ft_memcpy(champ->code, code, head->prog_size);
-	champ->code_size = head->prog_size;
-	champ->magic = head->magic;
-	return (champ);
-}
-
-void			del_one_champion(t_champ **champ)
-{
-	if (champ && *champ)
-	{
-		(*champ)->next = NULL;
-		ft_memdel((void*)champ);
-		ft_memdel((void*)(*champ)->name);
-		ft_memdel((void*)(*champ)->comment);
-		ft_memdel((void*)(*champ)->code);
-	}
-}
-
-void			del_champions(t_champ **begin)
-{
-	t_champ	*first;
-	t_champ	*second;
-
-	if (begin && *begin)
-	{
-		first = *begin;
-		while (first)
+		temp = champ->next;
+		temp->id = champ->id + 1;
+		while (temp->next)
 		{
-			second = first;
-			first = first->next;
-			del_one_champion(&second);
-		}
-		*begin = NULL;
-	}
-}
-
-void			add_champion2end(t_champ **begin, t_champ *champ)
-{
-	t_champ	*temp;
-
-	if (begin)
-	{
-		if (!*begin)
-		{
-			*begin = champ;
-			champ->id = 1;
-		}
-		else
-		{
-			temp = *begin;
-			while (temp->next)
-				temp = temp->next;
-			temp->next = champ;
-			champ->id = temp->id + 1;
+			temp->next->id = temp->id + 1;
+			temp = temp->next;
 		}
 	}
 }
+
+int			count_champs(t_champ *champs)
+{
+	int	i;
+
+	i = 0;
+	while (champs)
+	{
+		i++;
+		champs = champs->next;
+	}
+	return (i);
+}
+

@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 10:40:49 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/25 11:10:16 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 enum			e_error
 {
 	USAGE = 200,
-	INVALID_FILE_NAME,
+	FILE_EXTENSION_ERROR,
 	NAME_LEN_ERROR,
 	COMMENT_LEN_ERROR,
 	NO_CODE_ERROR,
@@ -67,7 +67,7 @@ void		print_error_position(char *data, char *error_address);
 
 int			reverse_bits(int num, char full_bit);
 
-char		*ft_strlstr(char *src, char *pattern, int len);
+int			is_filename_extension(char *filename, char *extension);
 
 int			options(int ac, char **av);
 

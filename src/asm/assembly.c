@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 14:27:32 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/20 18:21:58 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/25 11:07:39 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,10 @@ static char	*get_cor_filename(char *src_file, t_champ *champ)
 	char		*file_type;
 
 	cor_file = NULL;
-	if ((file_type = ft_strlstr(src_file, ".s", ft_strlen(src_file) - 1))\
-	&& ft_strlen(file_type) == 2)
-	{
-		if (!(cor_file = ft_strnew(ft_strlen(src_file) + 2)))
-			ft_exit(&champ, MALLOC_FAILURE);
-		ft_strncpy(cor_file, src_file, ft_strlen(src_file) - 2);
-		ft_strcpy(&cor_file[ft_strlen(src_file) - 2], ".cor");
-	}
-	else
-		ft_exit(&champ, INVALID_FILE_NAME);
+	if (!(cor_file = ft_strnew(ft_strlen(src_file) + 2)))
+		ft_exit(&champ, MALLOC_FAILURE);
+	ft_strncpy(cor_file, src_file, ft_strlen(src_file) - 2);
+	ft_strcpy(&cor_file[ft_strlen(src_file) - 2], ".cor");
 	return (cor_file);
 }
 

@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 20:46:25 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 10:39:59 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/25 11:16:04 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void		print_error_position(char *data, char *error_address)
 	ft_fprintf(2, "[%03d:%03d]", row, pos_in_row);
 }
 
-
 int			reverse_bits(int num, char full_bit)
 {
 	int		rev_num;
@@ -58,24 +57,15 @@ int			reverse_bits(int num, char full_bit)
 	return (rev_num);
 }
 
-char		*ft_strlstr(char *src, char *pattern, int len)
+int			is_filename_extension(char *filename, char *extension)
 {
-	int			i;
-
-	len -= (ft_strlen(pattern) - 1);
-	while (len >= 0)
+	filename = ft_strrchr(filename, '.');
+	if (filename)
 	{
-		if (src[len] == pattern[0])
-		{
-			i = 1;
-			while ((src[len + i] == pattern[i]) && pattern[i])
-				++i;
-			if (!pattern[i])
-				return (src + len);
-		}
-		len--;
+		if (!ft_strcmp(filename, extension))
+			return (1);
 	}
-	return (NULL);
+	return (0);
 }
 
 int			isseparator(char c)
@@ -85,25 +75,7 @@ int			isseparator(char c)
 	return (0);
 }
 
-/*
-int			isinstruct(char *name)
-{
-	int i;
-	int	code;
-
-	i = 1;
-	code = 0;
-	while (i <= NUMBER_OF_INSTR)
-	{
-		if (!ft_strncmp(g_op_tab[i].name, name, ft_strlen(g_op_tab[i].name)))
-			code = i;
-		++i;
-	}
-	return (code);
-}
-*/
-
-int	get_instruct_code(char *name)
+int			get_instruct_code(char *name)
 {
 	int i;
 	int	code;
