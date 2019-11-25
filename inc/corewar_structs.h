@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 21:22:32 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/25 12:37:49 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct		s_cursor
 	char			carry;
 	int				pos;
 	char			op_code;
-	int				time_to_exec;
+	int				cycles2go;
 	char			step;
 	struct s_cursor	*next;
 	int				cycle_live;

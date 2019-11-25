@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/23 16:07:10 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/25 14:35:51 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,33 @@
 
 extern t_op	g_op_tab[];
 
-/*static void	define_step_and_time_cursor(t_cursor *cursor, char code_arg)
+static void	define_step_and_time_cursor(t_cursor *cursor, char code_arg)
 {
-	char	tdir_size;
+	char	step;
 	char	i;
-	char	arg;
 
-	tdir_size = g_op_tab[cursor->op_code].tdir_size ? 2 : 4;
+	step = 2;
 	i = 6;
 	while (i)
 	{
-		arg = (code_arg >> i) & 3;
-
+		if (((code_arg >> i) & 3) == REG_CODE)
+			step++;
+		else if (((code_arg >> i) & 3) == IND_CODE)
+			step += IND_SIZE;
+		else if (((code_arg >> i) & 3) == DIR_CODE)
+			step += (4 - (2 * g_op_tab[cursor->op_code].tdir_size));
+		else if (i == 6 && (((code_arg >> 6) & 3) == 0))
+		{
+			cursor->step = 1;
+			cursor->cycles2go = 0;
+			return ;
+		}
+		i -= 2;
 	}
-
+	cursor->step = step;
+	cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go;
 }
 
-static void	move_cursor(t_cursor *cursor, char *arena)
-{
-	char	code_arg;
-
-	cursor->pos += cursor->step;
-	cursor->op_code = arena[cursor->pos];
-	
-	if(!(cursor->op_code > 0 && cursor->op_code < 17))
-	{
-		cursor->step = 1;
-		cursor->time_to_exec = 0;
-	}
-	else
-	{
-		if (g_op_tab[cursor->op_code].code_args)
-		{
-			cursor->pos += 4;
-			code_arg = arena[cursor->pos];
-			define_step_cursor(cursor, code_arg);
-		}
-		else
-			cursor->step = 1 + g_op_tab[cursor->op_code].tdir_size;
-		cursor->time_to_exec = g_op_tab[cursor->op_code].cycles2go;	
-	}
-}*/
 
 static void	move_and_read_cursor(t_cursor *cursor, char *arena)
 {
@@ -62,51 +48,79 @@ static void	move_and_read_cursor(t_cursor *cursor, char *arena)
 
 	cursor->pos += cursor->step;
 	cursor->op_code = arena[cursor->pos];
-	ft_printf("op code = %d\n", cursor->op_code);
 	if(!(cursor->op_code > 0 && cursor->op_code < 17))
 	{
 		cursor->step = 1;
-		cursor->time_to_exec = 0;
+		cursor->cycles2go = 0;
 	}
 	else
 	{
 		if (g_op_tab[cursor->op_code].code_args)
 		{
-			cursor->pos += 1;
-			code_arg = arena[cursor->pos];
-			ft_printf("code arg = %d\n", code_arg);
-			//define_step_cursor(cursor, code_arg);
+			code_arg = arena[cursor->pos + 1];
+			define_step_and_time_cursor(cursor, code_arg);
 		}
 		else
-			cursor->step = 1 + g_op_tab[cursor->op_code].tdir_size;
-		cursor->time_to_exec = g_op_tab[cursor->op_code].cycles2go;	
+		{
+			cursor->step = 1 + (4 - (2 *g_op_tab[cursor->op_code].tdir_size));
+			cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go;	
+		}
 	}
+	ft_printf("op_code = %d\nstep = %d\ncycle2go = %d\n", cursor->op_code, cursor->step, cursor->cycles2go);
+	ft_printf("------------------------------\n");
 }
+
+static void calculate_cycle_to_die(t_vm *vm)
+{
+	if (vm->num_live_op >= NBR_LIVE || vm->checks_without_dec_cycles2die < MAX_CHECKS)
+	{
+		vm->cycles_to_die -= CYCLE_DELTA;
+		vm->checks_without_dec_cycles2die = 0;
+	}
+	else
+		vm->checks_without_dec_cycles2die += 1;
+	
+
+}
+
+static void	check_cursors(t_vm *vm)
+{
+	t_cursor	*temp;
+
+	temp = vm->cursors;
+	while (temp)
+	{
+		if (((vm->cycles - temp->cycle_live) < vm->cycles_to_die) || vm->cycles_to_die <= 0)
+			kill_cursor(&vm->cursors, temp);
+		temp = temp->next;
+	}
+	calculate_cycle_to_die(vm);
+}
+
 
 void	cycle(t_vm *vm)
 {
-	t_cursor	*tmp;
+	t_cursor	*temp;
 	int			i;
 
 	i = 0;
-	while (i < 11)
+	while (i < 50)
 	{
-		tmp = vm->cursors;
-		while (tmp)
+		temp = vm->cursors;
+		while (temp)
 		{
-			tmp->time_to_exec -= 1;
-			if (!tmp->time_to_exec)
-				tmp->time_to_exec -= 0;
-				//exec_op(tmp);
-			if (tmp->time_to_exec == -1)
-				//move_cursor(tmp, vm->arena);
-				//read_cursor(tmp, vm->arena);
-				//tmp->time_to_exec -= 0;
-				move_and_read_cursor(tmp, vm->arena);		
-			//ft_printf("time to exec = %d\n", tmp->time_to_exec);
-			tmp = tmp->next;
+			temp->cycles2go -= 1;
+			if (!temp->cycles2go)
+				temp->cycles2go -= 0;
+				//exec_op(temp);
+			if (temp->cycles2go == -1)
+				move_and_read_cursor(temp, vm->arena);		
+			//ft_printf("time to exec = %d\n", temp->cycles2go);
+			temp = temp->next;
 		}
 		vm->cycles += 1;
+		/* if(что-то там)
+			check_cursors(vm);
 		i++;
 	}
 	
