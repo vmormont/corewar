@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/25 13:53:54 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/25 21:05:37 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ int		main(int argc, char **argv)
 	t_champ		*champs;
 	t_vm		*vm;
 
+	champs = NULL;
 	options = get_options(argc, argv);
-	champs = read_champions_from_args(argc, argv);
+	read_champions_from_args(argc, argv, &champs);
 	if (champs)
 	{
 		vm = create_vm(champs, options);
