@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/25 14:48:32 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/25 20:27:24 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct		s_cursor
 	int				cycles2go;
 	char			step;
 	struct s_cursor	*next;
-	int				cycle_live;
+	int				cycle_live;			
 }					t_cursor;
 
 /*
@@ -88,6 +88,8 @@ typedef struct		s_cursor
 ** num_of_champs	- количество игроков
 ** arena[MEM_SIZE]	- арена
 ** num_live_op		- количество операций live в данном цикле
+** checks_without_dec_cycle2die 
+**					- количество проверок без уменьшения парметра cycle_to_die
 */
 
 typedef struct		s_vm
@@ -100,6 +102,8 @@ typedef struct		s_vm
 	char			num_of_champs;
 	char			arena[MEM_SIZE];
 	int				num_live_op;
+	int				checks_without_dec_cycle2die;
+	int				cycles
 }					t_vm;
 
 /*
