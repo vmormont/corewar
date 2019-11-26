@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar_structs.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/11/26 10:35:25 by pcredibl         ###   ########.fr       */
-=======
-/*   Updated: 2019/11/26 10:28:21 by astripeb         ###   ########.fr       */
->>>>>>> d281da440f82b475415e3edee9d354788e0cab72
+/*   Updated: 2019/11/26 15:22:33 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +103,7 @@ typedef struct		s_vm
 	char			arena[MEM_SIZE];
 	int				num_live_op;
 	int				checks_without_dec_cycle2die;
-<<<<<<< HEAD
 	int				cycles_from_last_check;
-=======
-//	int				cycles;
->>>>>>> d281da440f82b475415e3edee9d354788e0cab72
 }					t_vm;
 
 /*

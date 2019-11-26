@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 12:01:00 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/26 14:22:16 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/26 15:22:33 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ void op_ld(t_vm *vm, t_cursor  *cursor)
 		num = read_4_bytes(vm->arena, cursor->pos + 2);
 		num_reg = vm->arena[cursor->pos + 6];
 		ft_printf("num = %d,   num_reg = %d\n", num, num_reg);
+		if (num_reg > 0 && num_reg < 17)
+			cursor->reg[num_reg] = num;
 	}
 }

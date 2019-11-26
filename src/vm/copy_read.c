@@ -6,11 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:44:46 by astripeb          #+#    #+#             */
-<<<<<<< HEAD:src/vm/live_st_sti_aff.c
-/*   Updated: 2019/11/26 14:21:49 by pcredibl         ###   ########.fr       */
-=======
-/*   Updated: 2019/11/26 14:22:38 by astripeb         ###   ########.fr       */
->>>>>>> d281da440f82b475415e3edee9d354788e0cab72:src/vm/copy_read.c
+/*   Updated: 2019/11/26 15:25:03 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +21,7 @@ int			read_4_bytes(char *arena, int index)
 	num = 0;
 	while (i < DIR_SIZE)
 	{
-<<<<<<< HEAD:src/vm/live_st_sti_aff.c
-		num |= arena[index % MEM_SIZE];
-		i != DIR_SIZE - 1 ? num = num << 8 : 0;
-=======
 		num = (num << __CHAR_BIT__) | (unsigned char)arena[index % MEM_SIZE];
->>>>>>> d281da440f82b475415e3edee9d354788e0cab72:src/vm/copy_read.c
 		++i;
 		++index;
 	}
@@ -46,13 +37,8 @@ short		read_2_bytes(char *arena, int index)
 	i = 0;
 	while (i < IND_SIZE)
 	{
-<<<<<<< HEAD:src/vm/live_st_sti_aff.c
-		num |= arena[index % MEM_SIZE];
-		num = num << 8;
-=======
 
 		num = (num << __CHAR_BIT__) | (unsigned char)arena[index % MEM_SIZE];
->>>>>>> d281da440f82b475415e3edee9d354788e0cab72:src/vm/copy_read.c
 		++i;
 		++index;
 	}
