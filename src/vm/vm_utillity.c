@@ -6,11 +6,28 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/11/26 13:23:47 by pcredibl         ###   ########.fr       */
+=======
+/*   Updated: 2019/11/26 13:18:11 by astripeb         ###   ########.fr       */
+>>>>>>> d281da440f82b475415e3edee9d354788e0cab72
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+static int	count_champs(t_champ *champs)
+{
+	int	i;
+
+	i = 0;
+	while (champs)
+	{
+		i++;
+		champs = champs->next;
+	}
+	return (i);
+}
 
 void		set_champ_code_on_arena(t_vm *vm)
 {

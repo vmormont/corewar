@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   champion_utility.c                                 :+:      :+:    :+:   */
+/*   champion_funcs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/25 14:38:13 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:20:49 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ void			del_champions(t_champ **begin)
 	}
 }
 
-void			add_champion2end(t_champ **begin, t_champ *champ)
+void			add_champion2end(t_champ **begin, t_champ *champ, int id)
 {
 	t_champ	*temp;
 
 	if (begin)
 	{
+		champ->id = id;
 		if (!*begin)
 		{
 			*begin = champ;
-			champ->id = 1;
 		}
 		else
 		{
@@ -79,33 +79,7 @@ void			add_champion2end(t_champ **begin, t_champ *champ)
 			while (temp->next)
 				temp = temp->next;
 			temp->next = champ;
-			champ->id = temp->id + 1;
 		}
-	}
-}
-
-void			insert_champion(t_champ **begin, t_champ *champ, int index)
-{
-	t_champ *temp;
-
-	if (begin)
-	{
-		champ->id = index;
-		if (!*begin || index == 1)
-		{
-			champ->next = *begin;
-			*begin = champ;
-		}
-		else
-		{
-			temp = *begin;
-			while (temp->next && champ->id > temp->next->id)
-				temp = temp->next;
-			if (temp->next)
-				champ->next = temp->next;
-			temp->next = champ;
-		}
-		set_champions_id(champ);
 	}
 }
 
