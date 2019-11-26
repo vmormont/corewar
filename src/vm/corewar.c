@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/25 21:05:37 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/26 14:23:51 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,15 @@ int		main(int argc, char **argv)
 	}
 	else
 		ft_exit_read(USAGE, NULL, &champs, NONE);
-	print_champs(vm->champs);
-//	dump_arena(vm->arena);
+//	print_champs(vm->champs);
+/*
+	vm->arena[3] = 0xFF;
+	int num = read_4_bytes(vm->arena, 0);
+	copy_4_bytes(vm->arena, 2048, num);
+	short sh = read_2_bytes(vm->arena, 14);
+	copy_2_bytes(vm->arena, 4095, sh);
+	dump_arena(vm->arena);
+*/
 	destroy_vm(&vm);
 	return (0);
 }

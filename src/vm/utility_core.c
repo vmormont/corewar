@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:47:36 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/25 14:40:17 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/26 11:21:21 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,13 @@ int			is_filename_extension(char *filename, char *extension)
 			return (1);
 	}
 	return (0);
+}
+
+void		ft_swap(void **a, void **b)
+{
+	void	*c;
+
+	c = *a;
+	*a = *b;
+	*b = c;
 }

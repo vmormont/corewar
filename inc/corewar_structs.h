@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar_structs.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/25 21:21:07 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/26 10:28:21 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct		s_cursor
 	int				cycles2go;
 	char			step;
 	struct s_cursor	*next;
-	int				cycle_live;			
+	int				cycle_live;
 }					t_cursor;
 
 /*
@@ -88,7 +88,7 @@ typedef struct		s_cursor
 ** num_of_champs	- количество игроков
 ** arena[MEM_SIZE]	- арена
 ** num_live_op		- количество операций live в данном цикле
-** checks_without_dec_cycle2die 
+** checks_without_dec_cycle2die
 **					- количество проверок без уменьшения парметра cycle_to_die
 */
 
@@ -103,7 +103,7 @@ typedef struct		s_vm
 	char			arena[MEM_SIZE];
 	int				num_live_op;
 	int				checks_without_dec_cycle2die;
-	int				cycles
+//	int				cycles;
 }					t_vm;
 
 /*

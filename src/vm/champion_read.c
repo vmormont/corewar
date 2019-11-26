@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 16:35:34 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/25 17:11:57 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:18:45 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,75 +54,52 @@ static t_champ	*get_champion_from_file(t_champ *champs, char *filename)
 	return (champ);
 }
 
-static void		add_n_champion(int ac, char **av, t_champ **champs, int index)
+static void		add_n_champion(int ac, char **av, t_champ **champs, int i)
 {
 	int		id;
 	t_champ	*temp;
 
-	if (index)
+	id = 0;
+	if (av[i] && isdigit_word(av[i]))
 	{
-		if (index >= ac)
+		if ((id = ft_atoi(av[i])) < 1 || id > MAX_PLAYERS)
 			ft_exit_read(USAGE, NULL, champs, NONE);
-		if (isdigit_word(av[index]))
+		if (av[++i])
 		{
-			if ((id = ft_atoi(av[index])) < 1 || id > MAX_PLAYERS)
-				ft_exit_read(USAGE, NULL, champs, NONE);
-			if (av[++index])
-			{
-				if (!is_filename_extension(av[index], ".cor"))
-					ft_exit_read(FILE_EXTENSION_ERROR, NULL, champs, NONE);
-			}
+			if (!is_filename_extension(av[i], ".cor"))
+				ft_exit_read(FILE_EXTENSION_ERROR, NULL, champs, NONE);
 		}
-		if (id && id < USAGE)
-			temp = get_champion_from_file(*champs, av[index]);
-		else
-			ft_exit_read(id, av[index], champs, NONE);
-		insert_champion(champs, temp, id);
 	}
-}
-
-static void		check_champs_num(t_champ *champs)
-{
-	int			i;
-	t_champ		*temp;
-
-	i = 1;
-	temp = champs;
-	while (temp)
-	{
-		if (temp->id > MAX_PLAYERS)
-			ft_exit_read(MANY_CHAMPS_ERROR, NULL, &champs, NONE);
-		if (temp->id != i)
-			ft_exit_read(USAGE, NULL, &champs, NONE);
-		++i;
-		temp = temp->next;
-	}
+	else
+		ft_exit_read(USAGE, NULL, champs, NONE);
+	if (id && id < USAGE)
+		temp = get_champion_from_file(*champs, av[i]);
+	else
+		ft_exit_read(id, av[i], champs, NONE);
+	add_champion2end(champs, temp, id);
 }
 
 void			read_champions_from_args(int ac, char **av, t_champ **champs)
 {
 	int		i;
-	int		n_champ;
 	t_champ	*temp;
 
-	i = 0;
-	n_champ = 0;
-	while (++i < ac)
+	i = 1;
+	while (i < ac)
 	{
 		if (!ft_strcmp(av[i], "-n"))
 		{
-			n_champ ? ft_exit_read(USAGE, NULL, champs, NONE) : NONE;
-			n_champ = i + 1;
+			add_n_champion(ac, av, champs, i + 1);
 			i = i + 2;
 		}
 		else if (is_filename_extension(av[i], ".cor"))
 		{
 			temp = get_champion_from_file(*champs, av[i]);
-			add_champion2end(champs, temp);
+			add_champion2end(champs, temp, NONE);
 		}
 		else if (av[i][0] != '-' && !isdigit_word(av[i]))
 			ft_exit_read(FILE_EXTENSION_ERROR, av[i], champs, NONE);
+		++i;
 	}
-	add_n_champion(ac, av, champs, n_champ);
-	check_champs_num(*champs);
+	sort_and_check_champs(*champs);
 }
