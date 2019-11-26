@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/26 13:32:32 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/26 20:29:49 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	read_cursor(t_cursor *cursor, char *arena)
 		if (g_op_tab[cursor->op_code].code_args)
 		{
 			code_arg = arena[(cursor->pos + 1) % MEM_SIZE];
-			define_step_and_time_cursor(cursor, code_arg);
+			//define_step_and_time_cursor(cursor, code_arg);
 		}
 		else
 		{
