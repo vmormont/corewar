@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/26 15:23:20 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/26 19:01:12 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,19 @@ typedef enum	e_error
 	CODE_SIZE_ERROR,
 	MANY_CHAMPS_ERROR
 }				t_error;
+
+typedef enum	e_bool
+{
+	FALSE,
+	TRUE
+}				t_bool;
+
+enum			s_args
+{
+	FIRST,
+	SECOND,
+	THIRD
+};
 
 /*
 ** MANAGMENT ERRORS
@@ -93,9 +106,9 @@ int				reverse_bits(int num, char full_bit);
 
 void			dump_arena(char *arena);
 
-int				isdigit_word(char *word);
+t_bool			isdigit_word(char *word);
 
-int				is_filename_extension(char *filename, char *extension);
+t_bool			is_filename_extension(char *filename, char *extension);
 
 void			ft_swap(void **a, void **b);
 
@@ -120,10 +133,19 @@ void			kill_all_cursors(t_cursor **begin);
 void			cycle(t_vm *vm);
 
 /*
-** OPTIONS FUNCTION
+** OPERATIONS FUNCTION
 */
 
 void			op_ld(t_vm *vm, t_cursor *cursor);
+
+
+/*
+** OPERATIONS UTILITY
+*/
+
+t_bool			isregister(char reg_num);
+
+t_arg_type		get_arg_type(char code_args, char num_arg);
 
 /*
 ** READ & WRITE FUNCTIONS

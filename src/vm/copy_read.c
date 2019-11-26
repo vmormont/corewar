@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy_read.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:44:46 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/26 15:25:03 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/26 15:43:01 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ short		read_2_bytes(char *arena, int index)
 	i = 0;
 	while (i < IND_SIZE)
 	{
-
 		num = (num << __CHAR_BIT__) | (unsigned char)arena[index % MEM_SIZE];
 		++i;
 		++index;
@@ -45,10 +44,9 @@ short		read_2_bytes(char *arena, int index)
 	return (num);
 }
 
-
 void		copy_4_bytes(char *arena, int index, int num)
 {
-	int 	i;
+	int		i;
 	int		offset;
 
 	i = 0;
@@ -64,7 +62,7 @@ void		copy_4_bytes(char *arena, int index, int num)
 
 void		copy_2_bytes(char *arena, int index, short num)
 {
-	int 	i;
+	int		i;
 	int		offset;
 
 	i = 0;

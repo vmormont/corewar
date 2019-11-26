@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:47:36 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/26 11:21:21 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/26 17:43:57 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,26 @@ int			reverse_bits(int num, char full_bit)
 	return (rev_num);
 }
 
-int			isdigit_word(char *word)
+t_bool		isdigit_word(char *word)
 {
 	if (!word)
-		return (0);
+		return (FALSE);
 	while (ft_isdigit(*word))
 		++word;
 	if (*word)
-		return (0);
-	return (1);
+		return (FALSE);
+	return (TRUE);
 }
 
-int			is_filename_extension(char *filename, char *extension)
+t_bool		is_filename_extension(char *filename, char *extension)
 {
 	filename = ft_strrchr(filename, '.');
 	if (filename)
 	{
 		if (!ft_strcmp(filename, extension))
-			return (1);
+			return (TRUE);
 	}
-	return (0);
+	return (FALSE);
 }
 
 void		ft_swap(void **a, void **b)

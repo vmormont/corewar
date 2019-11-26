@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_utillity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/26 15:22:33 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/26 15:40:49 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,6 @@ void		set_champ_code_on_arena(t_vm *vm)
 		player = player->next;
 	}
 }
-
-/*int			read_memory(char *arena, int pos, char size)
-{
-	int 	offset;
-	int		res;
-	int		i;
-
-	i = 0;
-	res = 0;
-	arena[2202] = 2;
-	arena[2203] = 1;
-	arena[2204] = 3;
-	arena[2205] = 0;
-	offset = PROG_NAME_LENGTH + COMMENT_LENGTH + 16;
-	while (i < size)
-	{
-		res = (arena[pos + offset + i] & 3) | (res << 1);
-		i++;
-	}
-	return (res);
-}*/
 
 t_vm		*create_vm(t_champ *champs, t_options options)
 {
