@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/25 17:12:18 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:59:59 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void 			set_champ_code_on_arena(t_vm *vm);
 
 void			destroy_vm(t_vm **vm);
 
+int				read_memory(char *arena, int pos, char size);
+
 /*
 ** UTILITY FUNCTIONS
 */
@@ -118,5 +120,19 @@ void			kill_all_cursors(t_cursor **begin);
 */
 
 void			cycle(t_vm *vm);
+
+/*
+** OPTIONS FUNCTION
+*/
+
+void			op_ld(t_vm *vm, t_cursor *cursor);
+
+/*
+** ARENA FUNCTION
+*/
+
+int			read_4_bytes(char *arena, int index);
+
+short		read_2_bytes(char *arena, int index);
 
 #endif

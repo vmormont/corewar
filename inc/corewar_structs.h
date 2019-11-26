@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/25 21:21:07 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/26 10:35:25 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ typedef struct		s_vm
 	char			arena[MEM_SIZE];
 	int				num_live_op;
 	int				checks_without_dec_cycle2die;
-	int				cycles
+	int				cycles_from_last_check;
 }					t_vm;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/25 20:27:24 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/26 13:32:32 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	read_cursor(t_cursor *cursor, char *arena)
 	{
 		if (g_op_tab[cursor->op_code].code_args)
 		{
-			code_arg = arena[cursor->pos + 1];
+			code_arg = arena[(cursor->pos + 1) % MEM_SIZE];
 			define_step_and_time_cursor(cursor, code_arg);
 		}
 		else
@@ -66,8 +66,8 @@ static void	read_cursor(t_cursor *cursor, char *arena)
 			cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go;	
 		}
 	}
-	ft_printf("op_code = %d\nstep = %d\ncycle2go = %d\n", cursor->op_code, cursor->step, cursor->cycles2go);
-	ft_printf("------------------------------\n");
+	//ft_printf("op_code = %d\nstep = %d\ncycle2go = %d\n", cursor->op_code, cursor->step, cursor->cycles2go);
+	//ft_printf("------------------------------\n");
 }
 
 static void calculate_cycle_to_die(t_vm *vm)
@@ -90,21 +90,24 @@ static void	check_cursors(t_vm *vm)
 	temp = vm->cursors;
 	while (temp)
 	{
-		if (((vm->cycles - temp->cycle_live) > vm->cycles_to_die) || vm->cycles_to_die <= 0)
+		if (((vm->cycles - temp->cycle_live) >= vm->cycles_to_die) || vm->cycles_to_die <= 0)
 			kill_cursor(&vm->cursors, temp);
 		temp = temp->next;
 	}
 	calculate_cycle_to_die(vm);
 }
 
+static void	exec_op(t_vm *vm, t_cursor *cursor)
+{
+
+}
+
 
 void	cycle(t_vm *vm)
 {
 	t_cursor	*temp;
-	int			i;
 
-	i = 0;
-	while (i < 50)
+	while (vm->cursors)
 	{
 		temp = vm->cursors;
 		while (temp)
@@ -112,18 +115,21 @@ void	cycle(t_vm *vm)
 			temp->cycles2go -= 1;
 			if (!temp->cycles2go)
 				temp->cycles2go -= 0;
-				//exec_op(temp);
+				//exec_op(vm, temp);
 			else if (temp->cycles2go == -1)
-				temp->pos += temp->step; 
+				temp->pos = (temp->pos + temp->step) % MEM_SIZE; 
 			else if (temp->cycles2go == -2)
 				read_cursor(temp, vm->arena);		
 			//ft_printf("time to exec = %d\n", temp->cycles2go);
 			temp = temp->next;
 		}
 		vm->cycles += 1;
-		/* if(что-то там)
-			check_cursors(vm);*/
-		i++;
+		vm->cycles_from_last_check += 1;
+		 if(vm->cycles_from_last_check >= vm->cycles_to_die)
+		{
+			check_cursors(vm);
+			vm->cycles_from_last_check = 0;
+		}
+		ft_printf("cycles from last check = %d    cycles to die = %d   cycles = %d\n", vm->cycles_from_last_check, vm->cycles_to_die, vm->cycles);
 	}
-	
 }

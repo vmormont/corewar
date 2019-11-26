@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/11/25 16:01:02 by astripeb         ###   ########.fr        #
+#    Updated: 2019/11/26 14:01:34 by pcredibl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ SRC_ASM				:= asm.c ft_exit_asm.c champion.c utility.c instructions_utility.c\
 
 SRC_CORE			:= corewar.c ft_exit_corewar.c utility_core.c options_core.c\
 					champion_read.c champion_utility.c champion_funcs.c\
-					vm_utillity.c cursor.c cycles.c
+					vm_utillity.c cursor.c cycles.c op1.c live_st_sti_aff.c
 
 OBJ_OP				:= $(SRC_OP:.c=.o)
 OBJ_ASM				:= $(SRC_ASM:.c=.o)
