@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/26 15:22:33 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/27 11:59:20 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		main(int argc, char **argv)
 		vm = create_vm(champs, options);
 		set_champ_code_on_arena(vm);
 		op_ld(vm, vm->cursors);
-		//cycle(vm);
+		cycle(vm);
 	}
 	else
 		ft_exit_read(USAGE, NULL, &champs, NONE);

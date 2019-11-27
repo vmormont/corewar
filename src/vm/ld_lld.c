@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 12:01:00 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/26 20:29:49 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/27 19:55:29 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void op_ld(t_vm *vm, t_cursor  *cursor)
 	int		num_reg;
 	
 	code_arg = vm->arena[cursor->pos + 1];
-	if (((code_arg >> 6) & 3) == T_DIR)
+	if (((code_arg >> 6) & 3) == DIR_CODE)
 	{
 		num = read_4_bytes(vm->arena, (cursor->pos + 2)) % IDX_MOD;
 		num_reg = vm->arena[cursor->pos + 6];
 	}
-	else if(((code_arg >> 6) & 3) == T_IND)
+	else if(((code_arg >> 6) & 3) == IND_CODE)
 	{
 		num = read_2_bytes(vm->arena, (cursor->pos + 2)) % IDX_MOD;
 		num_reg = vm->arena[cursor->pos + 4];
@@ -47,12 +47,12 @@ void op_lld(t_vm *vm, t_cursor  *cursor)
 	int		num_reg;
 	
 	code_arg = vm->arena[cursor->pos + 1];
-	if (((code_arg >> 6) & 3) == T_DIR)
+	if (((code_arg >> 6) & 3) == DIR_CODE)
 	{
 		num = read_4_bytes(vm->arena, (cursor->pos + 2));
 		num_reg = vm->arena[cursor->pos + 6];
 	}
-	else if(((code_arg >> 6) & 3) == T_IND)
+	else if(((code_arg >> 6) & 3) == IND_CODE)
 	{
 		num = read_2_bytes(vm->arena, (cursor->pos + 2));
 		num_reg = vm->arena[cursor->pos + 4];
