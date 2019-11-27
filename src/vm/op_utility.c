@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:41:19 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/26 20:20:58 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/27 13:50:29 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_bool			isregister(char reg_num)
 {
-	if (reg_num > 1 && reg_num <= REG_NUMBER)
+	if (reg_num > 0 && reg_num <= REG_NUMBER)
 		return (TRUE);
 	return (FALSE);
 }

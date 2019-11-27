@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 20:46:25 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/25 11:16:04 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/27 19:10:47 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,22 @@ int			reverse_bits(int num, char full_bit)
 	return (rev_num);
 }
 
-int			is_filename_extension(char *filename, char *extension)
+t_bool		is_filename_extension(char *filename, char *extension)
 {
 	filename = ft_strrchr(filename, '.');
 	if (filename)
 	{
 		if (!ft_strcmp(filename, extension))
-			return (1);
+			return (TRUE);
 	}
-	return (0);
+	return (FALSE);
 }
 
-int			isseparator(char c)
+t_bool		isseparator(char c)
 {
 	if (c == DIRECT_CHAR || c == '-' || ft_isspace(c))
-		return (1);
-	return (0);
+		return (TRUE);
+	return (FALSE);
 }
 
 int			get_instruct_code(char *name)

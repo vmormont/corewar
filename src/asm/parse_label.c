@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 16:24:27 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/19 18:49:39 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/27 19:12:54 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	offset4label(t_instr *instr)
 	return (offset);
 }
 
-int			islabelchar(char c, char *label_chars)
+t_bool		islabelchar(char c, char *label_chars)
 {
 	int i;
 
@@ -33,10 +33,10 @@ int			islabelchar(char c, char *label_chars)
 	while (label_chars[i])
 	{
 		if (c == label_chars[i])
-			return (1);
+			return (TRUE);
 		++i;
 	}
-	return (0);
+	return (FALSE);
 }
 
 int			islabel(char *data)

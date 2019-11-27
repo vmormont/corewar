@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/25 11:10:16 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/27 19:14:25 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 # include "asm_structs.h"
 
 # define REG_CHAR 	'r'
+
+typedef enum	e_bool
+{
+	FALSE,
+	TRUE
+}				t_bool;
 
 enum			e_error
 {
@@ -67,7 +73,7 @@ void		print_error_position(char *data, char *error_address);
 
 int			reverse_bits(int num, char full_bit);
 
-int			is_filename_extension(char *filename, char *extension);
+t_bool		is_filename_extension(char *filename, char *extension);
 
 int			options(int ac, char **av);
 
@@ -132,11 +138,11 @@ void		assign_arguments_values(t_champ *champ);
 
 int			skip_spaces(char *filedata, int index);
 
-int			isseparator(char c);
+t_bool		isseparator(char c);
+
+t_bool		islabelchar(char c, char *label_chars);
 
 int			islabel(char *data);
-
-int			islabelchar(char c, char *label_chars);
 
 int			get_instruct_code(char *name);
 

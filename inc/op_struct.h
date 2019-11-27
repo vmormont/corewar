@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:19:34 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 11:11:16 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/27 20:41:37 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ typedef struct	s_op
 	char			tdir_size;
 }				t_op;
 
-int		possible_arg(t_arg_type type, char mask);
+int				possible_arg(t_arg_type type, char mask);
 
 #endif

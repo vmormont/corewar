@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:06:22 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/25 21:07:02 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:36:45 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ t_cursor	*new_cursor(int pos)
 	if (!(cursor = (t_cursor*)malloc(sizeof(t_cursor))))
 		return (NULL);
 	ft_bzero((void*)cursor, sizeof(t_cursor));
-	cursor->id = ++i;
+	cursor->id = i;
 	cursor->pos = pos;
+	++i;
 	return (cursor);
 }
 
@@ -74,22 +75,17 @@ void		add_cursor(t_cursor **list, t_cursor *cursor)
 	*list = cursor;
 }
 
-t_cursor	*copy_cursor(t_cursor *src, int pos, char mode)
+t_cursor	*copy_cursor(t_cursor *src, int pos)
 {
 	t_cursor	*dst;
 	int			i;
 
-	if (!(dst = (t_cursor*)malloc(sizeof(t_cursor))))
+	if (!(dst = new_cursor(pos)))
 		return (NULL);
 	dst->carry = src->carry;
 	dst->cycle_live = src->cycle_live;
 	i = 0;
 	while (++i <= REG_NUMBER)
 		dst->reg[i] = src->reg[i];
-	if (mode)
-		dst->pos += pos;
-	else
-		dst->pos += (pos % IDX_MOD);
-	dst->pos = dst->pos % IDX_MOD;
 	return (dst);
 }

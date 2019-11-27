@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/26 19:01:12 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/27 19:53:49 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@
 # include <stdio.h>
 # include "corewar_structs.h"
 
-#define DUMP_COLUMNS	64
-#define DUMP_ROWS		64
+# define DUMP_COLUMNS	64
+# define DUMP_ROWS		64
+
+# define OP_SIZE 1
+# define ARGS_SIZE 1
 
 typedef enum	e_error
 {
@@ -44,12 +47,14 @@ typedef enum	e_bool
 	TRUE
 }				t_bool;
 
-enum			s_args
+enum			e_args
 {
 	FIRST,
 	SECOND,
 	THIRD
 };
+
+typedef void(*t_function)(t_vm *vm, t_cursor *cursor);
 
 /*
 ** MANAGMENT ERRORS
@@ -84,6 +89,8 @@ void			read_champions_from_args(int ac, char **av, t_champ **champs);
 
 void			sort_and_check_champs(t_champ *champs);
 
+t_champ			*get_champ_by_id(t_champ *champs, int id);
+
 void			print_champs(t_champ *champ);
 
 /*
@@ -92,7 +99,7 @@ void			print_champs(t_champ *champ);
 
 t_vm			*create_vm(t_champ *champs, t_options options);
 
-void 			set_champ_code_on_arena(t_vm *vm);
+void			set_champ_code_on_arena(t_vm *vm);
 
 void			destroy_vm(t_vm **vm);
 
@@ -118,7 +125,7 @@ void			ft_swap(void **a, void **b);
 
 t_cursor		*new_cursor(int pos);
 
-t_cursor		*copy_cursor(t_cursor *src, int pos, char mode);
+t_cursor		*copy_cursor(t_cursor *src, int pos);
 
 void			add_cursor(t_cursor **list, t_cursor *cursor);
 
@@ -136,8 +143,37 @@ void			cycle(t_vm *vm);
 ** OPERATIONS FUNCTION
 */
 
+void			op_live(t_vm *vm, t_cursor *cursor);
+
 void			op_ld(t_vm *vm, t_cursor *cursor);
 
+void			op_st(t_vm *vm, t_cursor *cursor);
+
+void			op_add(t_vm *vm, t_cursor *cursor);
+
+void			op_sub(t_vm *vm, t_cursor *cursor);
+
+void			op_and(t_vm *vm, t_cursor *cursor);
+
+void			op_or(t_vm *vm, t_cursor *cursor);
+
+void			op_xor(t_vm *vm, t_cursor *cursor);
+
+void			op_zjmp(t_vm *vm, t_cursor *cursor);
+
+void			op_ldi(t_vm *vm, t_cursor *cursor);
+
+void			op_sti(t_vm *vm, t_cursor *cursor);
+
+void			op_fork(t_vm *vm, t_cursor *cursor);
+
+void			op_lld(t_vm *vm, t_cursor *cursor);
+
+void			op_lldi(t_vm *vm, t_cursor *cursor);
+
+void			op_lfork(t_vm *vm, t_cursor *cursor);
+
+void			op_aff(t_vm *vm, t_cursor *cursor);
 
 /*
 ** OPERATIONS UTILITY

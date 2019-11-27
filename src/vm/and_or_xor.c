@@ -6,14 +6,11 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:02:30 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/26 19:29:31 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/27 19:45:36 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-#define OP_SIZE 1
-#define ARGS_SIZE 1
 
 static int	get_ind_value(char *arena, int index, char offset)
 {
@@ -33,22 +30,22 @@ static int	get_arg_value(char *arena, t_cursor *cursor, char *offset, char num)
 
 	value = 0;
 	type = get_arg_type(arena[(cursor->pos + OP_SIZE) % MEM_SIZE], num);
-	if (type == T_REG)
+	if (type == REG_CODE)
 	{
 		reg_num = arena[(cursor->pos + *offset) % MEM_SIZE];
 		if (isregister(reg_num))
 			value = cursor->reg[reg_num];
 		*offset += 1;
 	}
-	if (type == T_DIR)
+	if (type == DIR_CODE)
 	{
-		value = read_4_bytes(arena, index);
-		*offset += 4;
+		value = read_4_bytes(arena, cursor->pos + *offset);
+		*offset += DIR_SIZE;
 	}
-	else if (type == T_IND)
+	else if (type == IND_CODE)
 	{
-		value = get_ind_value(arena, index, offset);
-		*offset += 2;
+		value = get_ind_value(arena, cursor->pos, *offset);
+		*offset += IND_SIZE;
 	}
 	return (value);
 }

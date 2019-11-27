@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar_structs.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/26 15:22:33 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/27 20:42:52 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@
 ** ############################################################################
 */
 
-typedef struct s_options
+typedef struct		s_options
 {
-	char	aff;
-	int		dump;
-	int		cycles;
-	char	verbos;
-	char	terminal;
-}				t_options;
+	char		aff;
+	int			dump;
+	int			cycles;
+	char		verbos;
+	char		terminal;
+}					t_options;
 
 /*
 ** КАРЕТКА
@@ -61,8 +61,10 @@ typedef struct s_options
 ** pos				- позиция каретки
 ** op_code			- код операции на котором стоит каретка
 ** cycles_to_exec	- время до выполнения операции, на котором стоит каретка
-** step				- кол-во байт, которое должна перешагнуть каретка, чтоб оказаться на следующей команде
-** cycle_live		- цикл, в который данной кареткой в последний раз выполнялась команда live
+** step				- кол-во байт, которое должна перешагнуть каретка,
+**					  чтоб оказаться на следующей команде
+** cycle_live		- цикл, в который данной кареткой в последний\
+**					  раз выполнялась команда live
 */
 
 typedef struct		s_cursor
@@ -120,7 +122,7 @@ typedef struct		s_vm
 ** next				- указатель на следующего чемпиона
 */
 
-typedef	struct s_champ
+typedef	struct		s_champ
 {
 	int				id;
 	int				magic;
@@ -131,6 +133,6 @@ typedef	struct s_champ
 	int				last_live;
 	int				lives_in_period;
 	struct s_champ	*next;
-}				t_champ;
+}					t_champ;
 
 #endif

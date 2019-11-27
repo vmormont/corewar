@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/26 15:40:49 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/27 20:02:08 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ void		set_champ_code_on_arena(t_vm *vm)
 		ft_memcpy((void*)vm->arena + i, player->code, player->code_size);
 		if (!(cursor	= new_cursor(i)))
 			ft_exit(MALLOC_FAILURE, NULL, &vm);
+		cursor->reg[1] = player->id;
+		cursor->cycles2go = -1;
+		cursor->pos = i;
 		add_cursor(&vm->cursors, cursor);
 		i += offset_start_code;
 		player = player->next;
