@@ -6,55 +6,34 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:27:58 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/27 20:44:27 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/28 11:24:38 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int	first_arg_ldi_lldi(char *arena, t_cursor *cursor, char type)
+static int	arg_ldi_lldi(char *arena, t_cursor *cursor, char type, int *offset)
 {
 	int		res;
 	char	reg_num;
 	int		shift;
 
-	cursor->step = 2;
 	if (type == DIR_CODE)
 	{
-		res = read_2_bytes(arena, cursor->pos + cursor->step);
-		cursor->step += 2;
+		res = read_2_bytes(arena, cursor->pos + *offset);
+		*offset += 2;
 	}
 	else if (type == REG_CODE)
 	{
-		reg_num = arena[cursor->pos + cursor->step];
+		reg_num = arena[cursor->pos + *offset];
 		res = cursor->reg[reg_num];
-		cursor->step += 1;
+		*offset += 1;
 	}
 	else if (type == IND_CODE)
 	{
-		shift = read_2_bytes(arena, cursor->pos + cursor->step) % IDX_MOD;
+		shift = read_2_bytes(arena, cursor->pos + *offset) % IDX_MOD;
 		res = read_4_bytes(arena, cursor->pos + shift);
 	}	
-	return (res);
-}
-
-static int	second_arg_ldi_lldi(char *arena, t_cursor *cursor, char type)
-{
-	int		res;
-	char	reg_num;
-	int		shift;
-
-	if (type == DIR_CODE)
-	{
-		res = read_2_bytes(arena, cursor->pos + cursor->step);
-		cursor->step += 2;
-	}
-	else if (type == REG_CODE)
-	{
-		reg_num = arena[cursor->pos + cursor->step];
-		res = cursor->reg[reg_num];
-		cursor->step += 1;
-	}
 	return (res);
 }
 
@@ -64,11 +43,13 @@ void op_ldi(t_vm *vm, t_cursor *cursor)
 	int		num1;
 	int		num2;
 	int		num_reg;
+	int		offset;
 	
+	offset = 2;
 	code_arg = vm->arena[cursor->pos + 1];
-	num1 = first_arg_ldi_lldi(vm->arena, cursor, (code_arg >> 6) & 3);
-	num2 = second_arg_ldi_lldi(vm->arena, cursor, (code_arg >> 4) & 3);
-	num_reg = read_4_bytes(vm->arena, cursor->pos + cursor->step);
+	num1 = arg_ldi_lldi(vm->arena, cursor, (code_arg >> 6) & 3, &offset);
+	num2 = arg_ldi_lldi(vm->arena, cursor, (code_arg >> 4) & 3, &offset);
+	num_reg = vm->arena[cursor->pos + offset];
 	cursor->reg[num_reg] = (num1 + num2) % IDX_MOD;
 }
 
@@ -78,10 +59,12 @@ void op_lldi(t_vm *vm, t_cursor  *cursor)
 	int		num1;
 	int		num2;
 	int		num_reg;
+	int		offset;
 	
+	offset = 2;
 	code_arg = vm->arena[cursor->pos + 1];
-	num1 = first_arg_ldi_lldi(vm->arena, cursor, (code_arg >> 6) & 3);
-	num2 = second_arg_ldi_lldi(vm->arena, cursor, (code_arg >> 4) & 3);
-	num_reg = read_4_bytes(vm->arena, cursor->pos + cursor->step);
+	num1 = arg_ldi_lldi(vm->arena, cursor, (code_arg >> 6) & 3, &offset);
+	num2 = arg_ldi_lldi(vm->arena, cursor, (code_arg >> 4) & 3, &offset);
+	num_reg = vm->arena[cursor->pos + offset];
 	cursor->reg[num_reg] = (num1 + num2);
 }

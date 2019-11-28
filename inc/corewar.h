@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/26 16:26:02 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/28 11:02:15 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,10 @@ void			cycle(t_vm *vm);
 void			op_ld(t_vm *vm, t_cursor *cursor);
 
 void			op_lld(t_vm *vm, t_cursor *cursor);
+
+void			op_ldi(t_vm *vm, t_cursor *cursor);
+
+void			op_lldi(t_vm *vm, t_cursor *cursor);
 
 /*
 ** READ & WRITE FUNCTIONS

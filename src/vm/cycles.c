@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/27 20:44:27 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/28 11:23:44 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ static char	read_cursor_before_exec(t_cursor *cursor, char *arena)
 		code = arena[(cursor->pos + 1) % MEM_SIZE];
 		while (i < g_op_tab[cursor->op_code].num_args)
 		{	
-			//ft_printf("op = %d, arg[%d],  step start = %d    ", cursor->op_code, i, step);
 			arg_code = (code >> (6 - (2 * i)) & 3);
 			if(arg_code == REG_CODE)
 				step++;
@@ -137,11 +136,9 @@ static char	read_cursor_before_exec(t_cursor *cursor, char *arena)
 				step += IND_SIZE;
 			exec = !(validation_arg(cursor->op_code, arg_code, i)) ? 0 : exec;
 			i++;
-			//ft_printf("arg code = %d,  step finish = %d\n", arg_code, step);
 		}
 		cursor->step = step;
 	}
-	//ft_printf("op code = %d, step = %d\n", cursor->op_code, cursor->step);
 	return (exec);
 }
 
@@ -157,16 +154,15 @@ void	cycle(t_vm *vm)
 		{
 			temp->cycles2go -= 1;
 			if (!temp->cycles2go)
+			{
 				exec = read_cursor_before_exec(temp, vm->arena);
-				//exec_op(vm, temp);
+			}
 			else if (temp->cycles2go == -1)
 			{
 				temp->pos = (temp->pos + temp->step) % MEM_SIZE; 
-				//ft_printf("cursor pos = %d step = %d\n", temp->pos, temp->step);
 			}
 			else if (temp->cycles2go == -2)
 				initial_read_cursor(temp, vm->arena);		
-			//ft_printf("time to exec = %d\n", temp->cycles2go);
 			temp = temp->next;
 		}
 		vm->cycles += 1;
@@ -176,6 +172,5 @@ void	cycle(t_vm *vm)
 			check_cursors(vm);
 			vm->cycles_from_last_check = 0;
 		}
-		//ft_printf("cycles from last check = %d    cycles to die = %d   cycles = %d\n", vm->cycles_from_last_check, vm->cycles_to_die, vm->cycles);
 	}
 }

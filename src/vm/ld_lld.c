@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 12:01:00 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/27 19:55:29 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/28 11:24:35 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void op_ld(t_vm *vm, t_cursor  *cursor)
 		else 
 			cursor->carry = 1;
 	}
-	//ft_printf("num = %d, num reg = %d, cursor reg = %d\n", num, num_reg, cursor->reg[num_reg]);
 }
 
 void op_lld(t_vm *vm, t_cursor  *cursor)
@@ -65,5 +64,4 @@ void op_lld(t_vm *vm, t_cursor  *cursor)
 		else 
 			cursor->carry = 1;
 	}
-	//ft_printf("num = %d, num reg = %d, cursor reg = %d\n", num, num_reg, cursor->reg[num_reg]);
 }
