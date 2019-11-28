@@ -6,13 +6,15 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/28 11:23:44 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:07:13 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
 extern t_op	g_op_tab[];
+
+extern t_function g_operation[];
 
 static void	define_step_and_time_cursor(t_cursor *cursor, char code_arg)
 {
@@ -110,7 +112,7 @@ static char	validation_arg(char op_code, char arg, char num_arg)
 	return (0);
 }
 
-static char	read_cursor_before_exec(t_cursor *cursor, char *arena)
+static char	check_op_code_and_type_args(t_cursor *cursor, char *arena)
 {
 	unsigned char	code;
 	char	step;
@@ -145,7 +147,6 @@ static char	read_cursor_before_exec(t_cursor *cursor, char *arena)
 void	cycle(t_vm *vm)
 {
 	t_cursor	*temp;
-	char		exec;
 
 	while (vm->cursors)
 	{
@@ -155,14 +156,12 @@ void	cycle(t_vm *vm)
 			temp->cycles2go -= 1;
 			if (!temp->cycles2go)
 			{
-				exec = read_cursor_before_exec(temp, vm->arena);
-			}
-			else if (temp->cycles2go == -1)
-			{
+				if (check_op_code_and_type_args(temp, vm->arena))
+					g_operation[temp->op_code](vm, temp);
+				temp->exec = TRUE;
 				temp->pos = (temp->pos + temp->step) % MEM_SIZE; 
-			}
-			else if (temp->cycles2go == -2)
 				initial_read_cursor(temp, vm->arena);		
+			}
 			temp = temp->next;
 		}
 		vm->cycles += 1;

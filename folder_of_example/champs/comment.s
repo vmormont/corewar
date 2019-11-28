@@ -2,7 +2,7 @@
 .comment "commnent"
 
 com1:			
-				ldi %5, %7, r4
+				ld %5, r7
 				and	r1, %3, r2
 				zjmp %-3
 				or  2, %-3, r4

@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 12:01:00 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/28 11:24:35 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/28 12:03:23 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void op_ld(t_vm *vm, t_cursor  *cursor)
 		num = read_2_bytes(vm->arena, (cursor->pos + 2)) % IDX_MOD;
 		num_reg = vm->arena[cursor->pos + 4];
 	}
-	if (num_reg > 0 && num_reg < 17)
+	if (isregister(num_reg))
 	{
 		cursor->reg[num_reg] = num;
 		if (num)
@@ -56,7 +56,7 @@ void op_lld(t_vm *vm, t_cursor  *cursor)
 		num = read_2_bytes(vm->arena, (cursor->pos + 2));
 		num_reg = vm->arena[cursor->pos + 4];
 	}
-	if (num_reg > 0 && num_reg < 17)
+	if (isregister(num_reg))
 	{
 		cursor->reg[num_reg] = num;
 		if (num)

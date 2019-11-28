@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cursor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:06:22 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/27 14:36:45 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:37:23 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_cursor	*new_cursor(int pos)
 	ft_bzero((void*)cursor, sizeof(t_cursor));
 	cursor->id = i;
 	cursor->pos = pos;
+	cursor->cycles2go = 1;
+	cursor->exec = TRUE;
 	++i;
 	return (cursor);
 }

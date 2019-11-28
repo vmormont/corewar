@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/28 11:28:24 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/28 12:01:24 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ int		main(int argc, char **argv)
 /*
 // 	проверка на файле zork.cor
 	ft_printf("pos = %d\n", vm->cursors->pos);
+	
 	g_operation[STI](vm, vm->cursors);
+	
 	vm->cursors->pos += OP_SIZE + ARGS_SIZE + 1 + 2 + 2;
 	ft_printf("and  = %d\n", vm->cursors->pos);
 	g_operation[AND](vm, vm->cursors);
