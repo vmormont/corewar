@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/28 14:54:02 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 16:01:43 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,13 @@ int		main(int argc, char **argv)
 	champs = NULL;
 	options = get_options(argc, argv);
 	read_champions_from_args(argc, argv, &champs);
-	if (champs)
-	{
-		vm = create_vm(champs, options);
-		set_champ_code_on_arena(vm);
-		cycle(vm);
-	}
-	else
+	if (!champs)
 		ft_exit_read(USAGE, NULL, &champs, NONE);
+	vm = create_vm(champs, options);
+	set_champ_code_on_arena(vm);
+	cycle(vm);
 //	print_champs(vm->champs);
-
+	introduce(vm->champs);
 	dump_arena(vm->arena);
 	destroy_vm(&vm);
 	return (0);

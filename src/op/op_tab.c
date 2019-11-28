@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:31:53 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/28 12:12:55 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 16:20:30 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ char		get_dir_size(char op_code)
 
 t_bool		possible_arg(char code, char num, t_arg_type type)
 {
-	if (type == T_REG && !(((g_op_tab[code].args[num] >> 4)\
-	& REG_CODE) ^ REG_CODE))
+	char	code_arg;
+
+	code_arg = g_op_tab[code].args[num];
+	if (type == T_REG && !((( code_arg >> 4) & REG_CODE) ^ REG_CODE))
 		return (TRUE);
-	else if (type == T_DIR && !(((g_op_tab[code].args[num] >> 2)\
-	& DIR_CODE) ^ DIR_CODE))
+	else if (type == T_DIR && !(((code_arg >> 2) & DIR_CODE) ^ DIR_CODE))
 		return (TRUE);
-	else if (type == T_IND && !((g_op_tab[code].args[num]\
-	& IND_CODE) ^ IND_CODE))
+	else if (type == T_IND && !((code_arg & IND_CODE) ^ IND_CODE))
 		return (TRUE);
 	return (FALSE);
 }

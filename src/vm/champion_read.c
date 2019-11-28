@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 16:35:34 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/26 13:18:45 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 16:10:13 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,15 @@ void			read_champions_from_args(int ac, char **av, t_champ **champs)
 		++i;
 	}
 	sort_and_check_champs(*champs);
+}
+
+void			introduce(t_champ *champ)
+{
+	ft_printf("Introducing contestants...\n");
+	while (champ)
+	{
+		ft_printf("* Player %d, weighing %d bytes, \"%s\", (\"%s\") !\n",\
+		ft_abs(champ->id), champ->code_size, champ->name, champ->comment);
+		champ = champ->next;
+	}
 }

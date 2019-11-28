@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/28 14:50:39 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 16:01:25 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int				read_memory(char *arena, int pos, char size);
 
 int				reverse_bits(int num, char full_bit);
 
+
 void			dump_arena(char *arena);
 
 t_bool			isdigit_word(char *word);
@@ -105,6 +106,8 @@ t_bool			isdigit_word(char *word);
 t_bool			is_filename_extension(char *filename, char *extension);
 
 void			ft_swap(void **a, void **b);
+
+void			introduce(t_champ *champ);
 
 /*
 ** CURSOR
