@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/28 14:07:13 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/28 16:12:38 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ static void	check_cursors(t_vm *vm)
 {
 	t_cursor	*temp;
 
+	vm->cycles_from_last_check = 0;
 	temp = vm->cursors;
 	while (temp)
 	{
@@ -170,6 +171,11 @@ void	cycle(t_vm *vm)
 		{
 			check_cursors(vm);
 			vm->cycles_from_last_check = 0;
+		}
+		if (vm->cycles == vm->options.dump)
+		{
+			dump_arena(vm->arena);
+			break ;
 		}
 	}
 }
