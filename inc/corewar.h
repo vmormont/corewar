@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/27 19:53:49 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 11:27:38 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,12 @@ void			op_lfork(t_vm *vm, t_cursor *cursor);
 
 void			op_aff(t_vm *vm, t_cursor *cursor);
 
+void			op_lld(t_vm *vm, t_cursor *cursor);
+
+void			op_ldi(t_vm *vm, t_cursor *cursor);
+
+void			op_lldi(t_vm *vm, t_cursor *cursor);
+
 /*
 ** OPERATIONS UTILITY
 */
@@ -182,6 +188,7 @@ void			op_aff(t_vm *vm, t_cursor *cursor);
 t_bool			isregister(char reg_num);
 
 t_arg_type		get_arg_type(char code_args, char num_arg);
+
 
 /*
 ** READ & WRITE FUNCTIONS
