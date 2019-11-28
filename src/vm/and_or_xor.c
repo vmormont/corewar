@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:02:30 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/27 19:45:36 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:44:39 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static int	get_arg_value(char *arena, t_cursor *cursor, char *offset, char num)
 		reg_num = arena[(cursor->pos + *offset) % MEM_SIZE];
 		if (isregister(reg_num))
 			value = cursor->reg[reg_num];
+		else
+			cursor->exec = FALSE;
 		*offset += 1;
 	}
 	if (type == DIR_CODE)
@@ -58,20 +60,17 @@ void		op_and(t_vm *vm, t_cursor *cursor)
 	char		arg3;
 	char		offset;
 
-	offset = 2;
+	offset = OP_SIZE + ARGS_SIZE;
 	//получаем значение из первого и второго аргумента
 	arg1 = get_arg_value(vm->arena, cursor, &offset, FIRST);
 	arg2 = get_arg_value(vm->arena, cursor, &offset, SECOND);
 
 	//получаем номер регистра для третьего аргумента
 	arg3 = vm->arena[(cursor->pos + offset) % MEM_SIZE];
-	if (isregister(arg3))
+	if (isregister(arg3) && cursor->exec)
 	{
 		cursor->reg[arg3] = arg1 & arg2;
-		if (cursor->reg[arg3])
-			cursor->carry = FALSE;
-		else
-			cursor->carry = TRUE;
+		cursor->carry = cursor->reg[arg3] ? FALSE : TRUE;
 	}
 }
 
@@ -90,13 +89,10 @@ void		op_or(t_vm *vm, t_cursor *cursor)
 
 	//получаем номер регистра для третьего аргумента
 	arg3 = vm->arena[(cursor->pos + offset) % MEM_SIZE];
-	if (isregister(arg3))
+	if (isregister(arg3) && cursor->exec)
 	{
 		cursor->reg[arg3] = arg1 | arg2;
-		if (cursor->reg[arg3])
-			cursor->carry = FALSE;
-		else
-			cursor->carry = TRUE;
+		cursor->carry = cursor->reg[arg3] ? FALSE : TRUE;
 	}
 }
 
@@ -115,12 +111,9 @@ void		op_xor(t_vm *vm, t_cursor *cursor)
 
 	//получаем номер регистра для третьего аргумента
 	arg3 = vm->arena[(cursor->pos + offset) % MEM_SIZE];
-	if (isregister(arg3))
+	if (isregister(arg3) && cursor->exec)
 	{
 		cursor->reg[arg3] = arg1 ^ arg2;
-		if (cursor->reg[arg3])
-			cursor->carry = FALSE;
-		else
-			cursor->carry = TRUE;
+		cursor->carry = cursor->reg[arg3] ? FALSE : TRUE;
 	}
 }

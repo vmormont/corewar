@@ -6,13 +6,11 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 20:46:25 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/27 19:10:47 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 12:05:44 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-extern		t_op g_op_tab[];
 
 void		print_error_position(char *data, char *error_address)
 {
@@ -75,20 +73,3 @@ t_bool		isseparator(char c)
 	return (FALSE);
 }
 
-int			get_instruct_code(char *name)
-{
-	int i;
-	int	code;
-	int name_len;
-
-	i = 1;
-	code = 0;
-	while (i <= NUMBER_OF_INSTR)
-	{
-		name_len = ft_strlen(g_op_tab[i].name);
-		if (!ft_strncmp(g_op_tab[i].name, name, name_len))
-			code = i;
-		++i;
-	}
-	return (code);
-}

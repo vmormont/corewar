@@ -6,12 +6,13 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:31:53 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 11:10:47 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 12:12:55 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 #include "op_struct.h"
+#include "libftprintf.h"
 
 /*
 ** GLOBAL VARIABLE G_OP_TAB
@@ -36,13 +37,49 @@ t_op g_op_tab[] = { {0, 0, 0, 0, 0, 0, 0},
 	{"lfork", 1, {D}, 15, 1000, 0, 1},
 	{"aff", 1, {R}, 16, 2, 1, 0} };
 
-int		possible_arg(t_arg_type type, char mask)
+char		get_dir_size(char op_code)
 {
-	if (type == T_REG && !(((mask >> 4) & 1) ^ 1))
-		return (1);
-	else if (type == T_DIR && !(((mask >> 2) & 2) ^ 2))
-		return (1);
-	else if (type == T_IND && !((mask & 3) ^ 3))
-		return (1);
-	return (0);
+	return (DIR_SIZE - IND_SIZE * g_op_tab[op_code].tdir_size);
+}
+
+t_bool		possible_arg(char code, char num, t_arg_type type)
+{
+	if (type == T_REG && !(((g_op_tab[code].args[num] >> 4)\
+	& REG_CODE) ^ REG_CODE))
+		return (TRUE);
+	else if (type == T_DIR && !(((g_op_tab[code].args[num] >> 2)\
+	& DIR_CODE) ^ DIR_CODE))
+		return (TRUE);
+	else if (type == T_IND && !((g_op_tab[code].args[num]\
+	& IND_CODE) ^ IND_CODE))
+		return (TRUE);
+	return (FALSE);
+}
+
+t_op		get_op_struct(char op_code)
+{
+	return (g_op_tab[op_code]);
+}
+
+char		*get_op_name(char op_code)
+{
+	return (g_op_tab[op_code].name);
+}
+
+int			get_instruct_code(char *name)
+{
+	int i;
+	int	code;
+	int name_len;
+
+	i = 1;
+	code = 0;
+	while (i <= NUMBER_OF_INSTR)
+	{
+		name_len = ft_strlen(g_op_tab[i].name);
+		if (!ft_strncmp(g_op_tab[i].name, name, name_len))
+			code = i;
+		++i;
+	}
+	return (code);
 }

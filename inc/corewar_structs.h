@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/27 20:42:52 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 13:58:43 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ typedef struct		s_cursor
 	char			op_code;
 	int				cycles2go;
 	char			step;
-	struct s_cursor	*next;
 	int				cycle_live;
+	t_bool			exec;
+	struct s_cursor	*next;
 }					t_cursor;
 
 /*

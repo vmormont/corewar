@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   asm_file_parser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:03:59 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/22 20:02:58 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/28 12:10:39 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-extern t_op g_op_tab[];
 
 static int	define_instruct_size(t_instr *instr)
 {
@@ -62,16 +60,16 @@ static int	get_instruction(t_champ *champ, char *filedata, int i)
 		error_manager(&champ, &filedata[i], T_INSTRUCTION);
 
 	//создаем новую инструкцию
-	if (!(instruct = new_instruct(&g_op_tab[valid_code])))
+	if (!(instruct = new_instruct(get_op_struct(valid_code))))
 		ft_exit(&champ, MALLOC_FAILURE);
 
 	//сдвигаем индекс на длину команды
-	i += ft_strlen(g_op_tab[valid_code].name);
+	i += ft_strlen(get_op_name(valid_code));
 
 	//если после команды нет явного, разделяющего символа вызываем ошибку
 	if (!isseparator(filedata[i]) || filedata[i] == '\n')
 		error_manager(&champ,\
-		&filedata[i - ft_strlen(g_op_tab[valid_code].name)], T_NONE);
+		&filedata[i - ft_strlen(get_op_name(valid_code))], T_NONE);
 	i = skip_spaces(filedata, i);
 
 	//запускаем парсинг аргументов

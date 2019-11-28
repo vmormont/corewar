@@ -6,13 +6,11 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 21:13:47 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 10:40:55 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 12:02:30 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-extern t_op g_op_tab[];
 
 static int	get_token_type(char *arg)
 {
@@ -124,7 +122,7 @@ void		invalid_parameter(t_champ **champ, char *data,\
 {
 	ft_fprintf(2, "Invalid parameter %d type", param);
 	print_token(get_token_type(data));
-	ft_fprintf(2, " for instruction %s\n", g_op_tab[instruction->code].name);
+	ft_fprintf(2, " for instruction %s\n", get_op_name(instruction->code));
 	del_one_instr(&instruction);
 	free_champ(champ);
 	exit(T_PARAMETER);

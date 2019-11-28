@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/27 19:14:25 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 11:52:08 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@
 # include "asm_structs.h"
 
 # define REG_CHAR 	'r'
-
-typedef enum	e_bool
-{
-	FALSE,
-	TRUE
-}				t_bool;
 
 enum			e_error
 {
@@ -95,7 +89,7 @@ t_header	*create_head_of_champion(t_champ *champ);
 ** INSTRUCTIONS FUNCTIONS
 */
 
-t_instr		*new_instruct(t_op *op);
+t_instr		*new_instruct(t_op op);
 
 void		add_instr2end(t_instr **begin, t_instr *instr);
 

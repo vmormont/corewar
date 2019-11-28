@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/27 19:53:49 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 11:17:41 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,6 @@ typedef enum	e_error
 	CODE_SIZE_ERROR,
 	MANY_CHAMPS_ERROR
 }				t_error;
-
-typedef enum	e_bool
-{
-	FALSE,
-	TRUE
-}				t_bool;
-
-enum			e_args
-{
-	FIRST,
-	SECOND,
-	THIRD
-};
 
 typedef void(*t_function)(t_vm *vm, t_cursor *cursor);
 
