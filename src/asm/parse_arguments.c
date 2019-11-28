@@ -6,13 +6,11 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/22 11:10:30 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 11:43:55 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-extern t_op g_op_tab[];
 
 static int	get_type_argument(char *arg)
 {
@@ -67,7 +65,7 @@ int			parse_arguments(t_champ *champ, t_instr *instruct,\
 			error_manager(&champ, &filedata[i], T_NONE);
 
 		//возможен ли этот тип аргумента в инструкции
-		if (!possible_arg(arg_type, g_op_tab[instruct->code].args[j]))
+		if (!possible_arg(instruct->code, j, arg_type))
 			invalid_parameter(&champ, &filedata[i], instruct, j);
 
 		//добавляем

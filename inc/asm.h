@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/28 14:39:35 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:49:41 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_header	*create_head_of_champion(t_champ *champ);
 ** INSTRUCTIONS FUNCTIONS
 */
 
-t_instr		*new_instruct(t_op *op);
+t_instr		*new_instruct(t_op op);
 
 void		add_instr2end(t_instr **begin, t_instr *instr);
 

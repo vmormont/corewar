@@ -6,13 +6,11 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 17:35:25 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/20 20:00:47 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 12:00:58 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-extern t_op	g_op_tab[];
 
 static int	get_exec_code_size(t_instr *instruct)
 {
@@ -70,7 +68,7 @@ static void	print_instr(t_instr *instruct)
 	t_arg	*args;
 
 	ft_printf("%-5u(%-3u) :        %-10s",\
-	instruct->offset, instruct->instr_size, g_op_tab[instruct->code].name);
+	instruct->offset, instruct->instr_size, get_op_name(instruct->code));
 	i = 0;
 	args = instruct->args;
 	while (i < instruct->num_args)

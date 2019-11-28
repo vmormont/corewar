@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cursor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:06:22 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/28 14:37:23 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/28 16:32:35 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ t_cursor	*copy_cursor(t_cursor *src, int pos)
 	i = 0;
 	while (++i <= REG_NUMBER)
 		dst->reg[i] = src->reg[i];
+	dst->pos = pos;
 	return (dst);
 }

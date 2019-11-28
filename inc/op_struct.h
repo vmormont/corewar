@@ -3,21 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   op_struct.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:19:34 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/28 14:38:34 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:50:52 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OP_STRUCT_H
 # define OP_STRUCT_H
-
-typedef enum	e_bool
-{
-	FALSE,
-	TRUE
-}				t_bool;
 
 /*
 **	ДОПУСТИМЫЙ ТИП АРГУМЕНТОВ ДЛЯ ИНСТРУКЦИИ
@@ -47,6 +41,19 @@ typedef enum	e_bool
 # define RD					24
 # define RI					19
 # define RDI				27
+
+typedef enum	e_bool
+{
+	FALSE,
+	TRUE
+}				t_bool;
+
+enum			e_args
+{
+	FIRST,
+	SECOND,
+	THIRD
+};
 
 enum			e_op
 {
@@ -80,6 +87,14 @@ typedef struct	s_op
 	char			tdir_size;
 }				t_op;
 
-int				possible_arg(t_arg_type type, char mask);
+t_bool			possible_arg(char op_code, char num_arg, t_arg_type type);
+
+char			get_dir_size(char op_code);
+
+t_op			get_op_struct(char op_code);
+
+char			*get_op_name(char op_code);
+
+int				get_instruct_code(char *name);
 
 #endif

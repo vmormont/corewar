@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/11/28 16:12:38 by pcredibl         ###   ########.fr       */
+=======
+/*   Updated: 2019/11/28 16:47:50 by astripeb         ###   ########.fr       */
+>>>>>>> 1c1f2cd7e72a215ca581aad6a44fc97f2e9394c0
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +20,7 @@ extern t_op	g_op_tab[];
 
 extern t_function g_operation[];
 
+/*
 static void	define_step_and_time_cursor(t_cursor *cursor, char code_arg)
 {
 	char	step;
@@ -42,7 +47,7 @@ static void	define_step_and_time_cursor(t_cursor *cursor, char code_arg)
 	cursor->step = step;
 	cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go;
 }
-
+*/
 
 static void	initial_read_cursor(t_cursor *cursor, char *arena)
 {
@@ -65,8 +70,6 @@ static void	initial_read_cursor(t_cursor *cursor, char *arena)
 		}
 		cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go;
 	}
-	//ft_printf("op_code = %d\nstep = %d\ncycle2go = %d\n", cursor->op_code, cursor->step, cursor->cycles2go);
-	//ft_printf("------------------------------\n");
 }
 
 static void calculate_cycle_to_die(t_vm *vm)
@@ -78,8 +81,6 @@ static void calculate_cycle_to_die(t_vm *vm)
 	}
 	else
 		vm->checks_without_dec_cycle2die += 1;
-	
-
 }
 
 static void	check_cursors(t_vm *vm)
@@ -97,20 +98,18 @@ static void	check_cursors(t_vm *vm)
 	calculate_cycle_to_die(vm);
 }
 
-static char	validation_arg(char op_code, char arg, char num_arg)
+t_bool		validation_arg(char op_code, t_arg_type type, char num_arg)
 {
 	char	code_arg;
-	char	i;
 
 	code_arg = g_op_tab[op_code].args[num_arg];
-	i = 0;
-	while (i != 6)
-	{
-		if (((code_arg >> i) & 3) == arg)
-			return (1);
-		i += 2;
-	}
-	return (0);
+	if (type == REG_CODE && !((( code_arg >> 4) & REG_CODE) ^ REG_CODE))
+		return (TRUE);
+	else if (type == DIR_CODE && !(((code_arg >> 2) & DIR_CODE) ^ DIR_CODE))
+		return (TRUE);
+	else if (type == IND_CODE && !((code_arg & IND_CODE) ^ IND_CODE))
+		return (TRUE);
+	return (FALSE);
 }
 
 static char	check_op_code_and_type_args(t_cursor *cursor, char *arena)
@@ -128,16 +127,15 @@ static char	check_op_code_and_type_args(t_cursor *cursor, char *arena)
 	{
 		code = arena[(cursor->pos + 1) % MEM_SIZE];
 		while (i < g_op_tab[cursor->op_code].num_args)
-		{	
+		{
 			arg_code = (code >> (6 - (2 * i)) & 3);
 			if(arg_code == REG_CODE)
 				step++;
 			else if (arg_code == DIR_CODE)
 				step += (4 - (2 * g_op_tab[cursor->op_code].tdir_size));
-
 			else if (arg_code == IND_CODE)
 				step += IND_SIZE;
-			exec = !(validation_arg(cursor->op_code, arg_code, i)) ? 0 : exec;
+			exec = validation_arg(cursor->op_code, arg_code, i) ? exec : 0;
 			i++;
 		}
 		cursor->step = step;
@@ -157,11 +155,11 @@ void	cycle(t_vm *vm)
 			temp->cycles2go -= 1;
 			if (!temp->cycles2go)
 			{
-				if (check_op_code_and_type_args(temp, vm->arena))
+				if (temp->op_code && check_op_code_and_type_args(temp, vm->arena))
 					g_operation[temp->op_code](vm, temp);
 				temp->exec = TRUE;
-				temp->pos = (temp->pos + temp->step) % MEM_SIZE; 
-				initial_read_cursor(temp, vm->arena);		
+				temp->pos = (temp->pos + temp->step) % MEM_SIZE;
+				initial_read_cursor(temp, vm->arena);
 			}
 			temp = temp->next;
 		}
