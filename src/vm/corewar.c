@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/28 14:34:58 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:54:02 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,35 +28,12 @@ int		main(int argc, char **argv)
 	{
 		vm = create_vm(champs, options);
 		set_champ_code_on_arena(vm);
-		//cycle(vm);
+		cycle(vm);
 	}
 	else
 		ft_exit_read(USAGE, NULL, &champs, NONE);
 //	print_champs(vm->champs);
 
-/*
-// 	проверка на файле zork.cor
-	vm->cursors->exec = TRUE;
-	ft_printf("pos = %d\n", vm->cursors->pos);
-	g_operation[STI](vm, vm->cursors);
-	vm->cursors->pos += OP_SIZE + ARGS_SIZE + 1 + 2 + 2;
-	vm->cursors->exec = TRUE;
-
-	ft_printf("and  = %d\n", vm->cursors->pos);
-	g_operation[AND](vm, vm->cursors);
-	vm->cursors->exec = TRUE;
-	vm->cursors->pos += OP_SIZE + ARGS_SIZE + 1 + DIR_SIZE + 1;
-
-	ft_printf("live = %d\n", vm->cursors->pos);
-	g_operation[LIVE](vm, vm->cursors);
-	vm->cursors->exec = TRUE;
-
-	vm->cursors->pos += OP_SIZE + DIR_SIZE;
-	ft_printf("zjmp = %d\n", vm->cursors->pos);
-	g_operation[ZJMP](vm, vm->cursors);
-	ft_printf("live = %d\n", vm->cursors->pos);
-	vm->cursors->exec = TRUE;
-*/
 	dump_arena(vm->arena);
 	destroy_vm(&vm);
 	return (0);

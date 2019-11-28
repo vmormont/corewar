@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/28 13:58:43 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:50:13 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct		s_cursor
 {
 	int				id;
 	char			reg[(REG_NUMBER + 1) * REG_SIZE];
-	char			carry;
+	t_bool			carry;
 	int				pos;
 	char			op_code;
 	int				cycles2go;

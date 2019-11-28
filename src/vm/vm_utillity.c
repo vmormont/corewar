@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vm_utillity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/27 20:02:08 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 12:59:09 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+extern t_op g_op_tab[];
 
 static int	count_champs(t_champ *champs)
 {
@@ -31,6 +33,7 @@ void		set_champ_code_on_arena(t_vm *vm)
 	t_champ		*player;
 	t_cursor	*cursor;
 	int			offset_start_code;
+	char		op_code;
 
 	i = 0;
 	player = vm->champs;
@@ -41,7 +44,9 @@ void		set_champ_code_on_arena(t_vm *vm)
 		if (!(cursor	= new_cursor(i)))
 			ft_exit(MALLOC_FAILURE, NULL, &vm);
 		cursor->reg[1] = player->id;
-		cursor->cycles2go = -1;
+		op_code = vm->arena[i];
+		cursor->op_code = op_code;
+		cursor->cycles2go = g_op_tab[op_code].cycles2go;
 		cursor->pos = i;
 		add_cursor(&vm->cursors, cursor);
 		i += offset_start_code;

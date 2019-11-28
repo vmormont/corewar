@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:06:22 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/28 14:22:23 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:51:19 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_cursor	*new_cursor(int pos)
 	ft_bzero((void*)cursor, sizeof(t_cursor));
 	cursor->id = i;
 	cursor->pos = pos;
+	cursor->cycles2go = 1;
 	cursor->exec = TRUE;
 	++i;
 	return (cursor);

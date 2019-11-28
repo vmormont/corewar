@@ -6,13 +6,15 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/26 13:32:32 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:07:13 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
 extern t_op	g_op_tab[];
+
+extern t_function g_operation[];
 
 static void	define_step_and_time_cursor(t_cursor *cursor, char code_arg)
 {
@@ -42,12 +44,12 @@ static void	define_step_and_time_cursor(t_cursor *cursor, char code_arg)
 }
 
 
-static void	read_cursor(t_cursor *cursor, char *arena)
+static void	initial_read_cursor(t_cursor *cursor, char *arena)
 {
 	char	code_arg;
 
 	cursor->op_code = arena[cursor->pos];
-	if(!(cursor->op_code > 0 && cursor->op_code < 17))
+	if (!(cursor->op_code > 0 && cursor->op_code < 17))
 	{
 		cursor->step = 1;
 		cursor->cycles2go = 0;
@@ -55,16 +57,13 @@ static void	read_cursor(t_cursor *cursor, char *arena)
 	else
 	{
 		if (g_op_tab[cursor->op_code].code_args)
-		{
 			code_arg = arena[(cursor->pos + 1) % MEM_SIZE];
-			define_step_and_time_cursor(cursor, code_arg);
-		}
 		else
 		{
 			cursor->step = 1 + (DIR_SIZE -\
 			(2 * g_op_tab[cursor->op_code].tdir_size));
-			cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go;	
 		}
+		cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go;
 	}
 	//ft_printf("op_code = %d\nstep = %d\ncycle2go = %d\n", cursor->op_code, cursor->step, cursor->cycles2go);
 	//ft_printf("------------------------------\n");
@@ -97,11 +96,53 @@ static void	check_cursors(t_vm *vm)
 	calculate_cycle_to_die(vm);
 }
 
-static void	exec_op(t_vm *vm, t_cursor *cursor)
+static char	validation_arg(char op_code, char arg, char num_arg)
 {
+	char	code_arg;
+	char	i;
 
+	code_arg = g_op_tab[op_code].args[num_arg];
+	i = 0;
+	while (i != 6)
+	{
+		if (((code_arg >> i) & 3) == arg)
+			return (1);
+		i += 2;
+	}
+	return (0);
 }
 
+static char	check_op_code_and_type_args(t_cursor *cursor, char *arena)
+{
+	unsigned char	code;
+	char	step;
+	char	i;
+	char	exec;
+	char	arg_code;
+
+	i = 0;
+	step = 2;
+	exec = 1;
+	if (g_op_tab[cursor->op_code].code_args)
+	{
+		code = arena[(cursor->pos + 1) % MEM_SIZE];
+		while (i < g_op_tab[cursor->op_code].num_args)
+		{	
+			arg_code = (code >> (6 - (2 * i)) & 3);
+			if(arg_code == REG_CODE)
+				step++;
+			else if (arg_code == DIR_CODE)
+				step += (4 - (2 * g_op_tab[cursor->op_code].tdir_size));
+
+			else if (arg_code == IND_CODE)
+				step += IND_SIZE;
+			exec = !(validation_arg(cursor->op_code, arg_code, i)) ? 0 : exec;
+			i++;
+		}
+		cursor->step = step;
+	}
+	return (exec);
+}
 
 void	cycle(t_vm *vm)
 {
@@ -114,13 +155,13 @@ void	cycle(t_vm *vm)
 		{
 			temp->cycles2go -= 1;
 			if (!temp->cycles2go)
-				temp->cycles2go -= 0;
-				//exec_op(vm, temp);
-			else if (temp->cycles2go == -1)
+			{
+				if (check_op_code_and_type_args(temp, vm->arena))
+					g_operation[temp->op_code](vm, temp);
+				temp->exec = TRUE;
 				temp->pos = (temp->pos + temp->step) % MEM_SIZE; 
-			else if (temp->cycles2go == -2)
-				read_cursor(temp, vm->arena);		
-			//ft_printf("time to exec = %d\n", temp->cycles2go);
+				initial_read_cursor(temp, vm->arena);		
+			}
 			temp = temp->next;
 		}
 		vm->cycles += 1;
@@ -130,6 +171,5 @@ void	cycle(t_vm *vm)
 			check_cursors(vm);
 			vm->cycles_from_last_check = 0;
 		}
-		ft_printf("cycles from last check = %d    cycles to die = %d   cycles = %d\n", vm->cycles_from_last_check, vm->cycles_to_die, vm->cycles);
 	}
 }

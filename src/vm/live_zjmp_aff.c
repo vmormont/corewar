@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   live_zjmp_aff.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/28 10:54:30 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 11:33:38 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,4 @@ void		op_aff(t_vm *vm, t_cursor *cursor)
 		if (vm->options.aff)
 			ft_printf("aff (%c)\n", (char)cursor->reg[reg_n]);
 	}
-}
-
-void		op_ldi(t_vm *vm, t_cursor *cursor)
-{
-	ft_printf("LDI\n");
-}
-
-void		op_lldi(t_vm *vm, t_cursor *cursor)
-{
-	ft_printf("LLDI!\n");
-}
-
-void		op_lld(t_vm *vm, t_cursor *cursor)
-{
-	ft_printf("LLD!\n");
 }
