@@ -6,17 +6,17 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/27 20:44:33 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/28 10:54:30 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-/*
-t_function	g_op_mass[17] = {NULL, &op_live, &op_ld, &op_st, &op_add,\
-	&op_sub, &op_and, &op_or, &op_xor, &op_zjmp, &op_ldi, &op_sdi,\
+
+t_function	g_operation[] = {NULL, &op_live, &op_ld, &op_st, &op_add,\
+	&op_sub, &op_and, &op_or, &op_xor, &op_zjmp, &op_ldi, &op_sti,\
 	&op_fork, &op_lld, &op_lldi, &op_lfork, &op_aff};
-*/
+
 
 void		op_live(t_vm *vm, t_cursor *cursor)
 {
@@ -57,4 +57,19 @@ void		op_aff(t_vm *vm, t_cursor *cursor)
 		if (vm->options.aff)
 			ft_printf("aff (%c)\n", (char)cursor->reg[reg_n]);
 	}
+}
+
+void		op_ldi(t_vm *vm, t_cursor *cursor)
+{
+	ft_printf("LDI\n");
+}
+
+void		op_lldi(t_vm *vm, t_cursor *cursor)
+{
+	ft_printf("LLDI!\n");
+}
+
+void		op_lld(t_vm *vm, t_cursor *cursor)
+{
+	ft_printf("LLD!\n");
 }
