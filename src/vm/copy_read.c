@@ -6,13 +6,13 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:44:46 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/26 15:43:01 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/29 16:25:42 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int			read_4_bytes(char *arena, int index)
+int			read_4_bytes(char *arena, unsigned int index)
 {
 	int i;
 	int num;
@@ -28,7 +28,7 @@ int			read_4_bytes(char *arena, int index)
 	return (num);
 }
 
-short		read_2_bytes(char *arena, int index)
+short		read_2_bytes(char *arena, unsigned index)
 {
 	int		i;
 	short	num;
@@ -44,23 +44,23 @@ short		read_2_bytes(char *arena, int index)
 	return (num);
 }
 
-void		copy_4_bytes(char *arena, int index, int num)
+void		copy_4_bytes(char *arena, unsigned index, int num)
 {
 	int		i;
 	int		offset;
 
 	i = 0;
-	offset = __CHAR_BIT__;
+	offset = 24;
 	while (i < REG_SIZE)
 	{
-		arena[index % MEM_SIZE] = (num >> offset) & 0xFF;
+		arena[index % MEM_SIZE] = (num >> offset) & 0xff;
 		++index;
 		++i;
 		offset = offset - __CHAR_BIT__;
 	}
 }
 
-void		copy_2_bytes(char *arena, int index, short num)
+void		copy_2_bytes(char *arena, unsigned index, short num)
 {
 	int		i;
 	int		offset;

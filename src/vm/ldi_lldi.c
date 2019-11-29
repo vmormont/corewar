@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ldi_lldi.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:27:58 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/28 14:37:23 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:53:07 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	arg_ldi_lldi(char *arena, t_cursor *cursor, char type, int *offset)
 	{
 		shift = read_2_bytes(arena, cursor->pos + *offset) % IDX_MOD;
 		res = read_4_bytes(arena, cursor->pos + shift);
-	}	
+	}
 	return (res);
 }
 
@@ -46,7 +46,7 @@ void op_ldi(t_vm *vm, t_cursor *cursor)
 	int		num2;
 	int		num_reg;
 	int		offset;
-	
+
 	offset = 2;
 	code_arg = vm->arena[cursor->pos + 1];
 	num1 = arg_ldi_lldi(vm->arena, cursor, (code_arg >> 6) & 3, &offset);
@@ -55,7 +55,7 @@ void op_ldi(t_vm *vm, t_cursor *cursor)
 	if (isregister(num_reg) && cursor->exec)
 		cursor->reg[num_reg] = (num1 + num2) % IDX_MOD;
 	offset++;
-	cursor->step = offset;
+//	cursor->step = offset;
 }
 
 void op_lldi(t_vm *vm, t_cursor  *cursor)
@@ -65,7 +65,7 @@ void op_lldi(t_vm *vm, t_cursor  *cursor)
 	int		num2;
 	int		num_reg;
 	int		offset;
-	
+
 	offset = 2;
 	code_arg = vm->arena[cursor->pos + 1];
 	num1 = arg_ldi_lldi(vm->arena, cursor, (code_arg >> 6) & 3, &offset);
@@ -74,5 +74,5 @@ void op_lldi(t_vm *vm, t_cursor  *cursor)
 	if (isregister(num_reg) && cursor->exec)
 		cursor->reg[num_reg] = (num1 + num2);
 	offset++;
-	cursor->step = offset;
+//	cursor->step = offset;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   live_zjmp_aff.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/28 11:33:38 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:34:37 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ void		op_live(t_vm *vm, t_cursor *cursor)
 	int		n;
 	t_champ	*champ;
 
+	vm->num_live_op += 1;
+	cursor->cycle_live = vm->cycles;
 	n = read_4_bytes(vm->arena, cursor->pos + 1);
+//	ft_printf("P %d | live %d\n", cursor->id, n);
 	if (n == cursor->reg[1])
 	{
-		cursor->cycle_live = vm->cycles;
 		if ((champ = get_champ_by_id(vm->champs, n)))
 		{
 			champ->last_live = vm->cycles;
@@ -42,8 +44,9 @@ void		op_zjmp(t_vm *vm, t_cursor *cursor)
 	if (cursor->carry)
 	{
 		address = read_2_bytes(vm->arena, cursor->pos + OP_SIZE) % IDX_MOD;
-		cursor->pos += address;
-		cursor->carry = FALSE;
+//		ft_printf("P %d | zjmp %d OK\n", cursor->id, address);
+		cursor->pos = (cursor->pos + address) % MEM_SIZE;
+	//	cursor->carry = FALSE;
 	}
 }
 
