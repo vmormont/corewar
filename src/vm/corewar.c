@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/28 16:01:43 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/29 12:07:49 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		main(int argc, char **argv)
 //	print_champs(vm->champs);
 	introduce(vm->champs);
 	dump_arena(vm->arena);
+	ft_printf("cycles = %d\n", vm->cycles);
 	destroy_vm(&vm);
 	return (0);
 }

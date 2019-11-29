@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:06:22 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/28 16:32:35 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/29 11:26:05 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void		kill_cursor(t_cursor **list, t_cursor *cursor)
 		}
 		cursor = start;
 	}
-
 }
 
 void		kill_all_cursors(t_cursor **begin)
