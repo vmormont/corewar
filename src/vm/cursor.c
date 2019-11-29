@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:06:22 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/29 11:26:05 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:47:45 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_cursor	*new_cursor(int pos)
 
 void		kill_cursor(t_cursor **list, t_cursor *cursor)
 {
-	t_cursor	*start;
-	t_cursor	*tmp;
+	t_cursor	*first;
+	t_cursor	*temp;
 
 	if (*list == cursor)
 	{
@@ -40,22 +40,35 @@ void		kill_cursor(t_cursor **list, t_cursor *cursor)
 	}
 	else
 	{
-		start = *list;
-		while (cursor)
+		first = *list;
+		while (first)
 		{
-			if (cursor->next && cursor->next == cursor)
+			if (first->next == cursor)
 			{
-				tmp = cursor->next;
-				cursor->next = cursor->next->next;
-				tmp->next = NULL;
-				free(tmp);
+				temp = first->next;
+				first->next = temp->next;
+				temp->next = NULL;
+				ft_memdel((void*)&temp);
 				break ;
 			}
-			cursor = cursor->next;
+			first = first->next;
 		}
-		cursor = start;
 	}
 }
+
+/*
+	if (first->path->vrx->type == END)
+	{
+		temp = first;
+		first = first->next;
+		first ? first->prev = NULL : 0;
+		second->next = first;
+		free(temp);
+		continue ;
+	}
+	second = first;
+	first = first->next;
+*/
 
 void		kill_all_cursors(t_cursor **begin)
 {
@@ -88,6 +101,5 @@ t_cursor	*copy_cursor(t_cursor *src, int pos)
 	i = 0;
 	while (++i <= REG_NUMBER)
 		dst->reg[i] = src->reg[i];
-	dst->pos = pos;
 	return (dst);
 }

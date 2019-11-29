@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_utillity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/28 12:59:09 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:10:05 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ t_vm		*create_vm(t_champ *champs, t_options options)
 		return (NULL);
 	ft_bzero((void*)vm, sizeof(t_vm));
 	vm->cycles_to_die = CYCLE_TO_DIE;
+	vm->cycles = 1;
+	vm->checks_without_dec_cycle2die = 1;
 	vm->champs = champs;
 	vm->num_of_champs = count_champs(vm->champs);
 	vm->options = options;

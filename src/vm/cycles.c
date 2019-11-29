@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/29 15:11:26 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:46:33 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ extern t_function g_operation[];
 
 static void		initial_read_cursor(t_cursor *cursor, char *arena)
 {
-	char	code_arg;
-
 	cursor->op_code = arena[cursor->pos % MEM_SIZE];
 	if (!(cursor->op_code > 0 && cursor->op_code < 17))
 	{
@@ -33,30 +31,37 @@ static void		initial_read_cursor(t_cursor *cursor, char *arena)
 
 static void		check_cursors(t_vm *vm)
 {
+	t_cursor	*first;
 	t_cursor	*temp;
 
 	// обнуляем переменную
 	vm->cycles_from_last_check = 0;
-	temp = vm->cursors;
 
+	first = vm->cursors;
 	// идем по процессам
-	while (temp)
+	while (first)
 	{
 		// если процесс отзывался последний раз в прошлом
 		// cycle2die периоде убиваем его
-		if (((vm->cycles - temp->cycle_live) >= vm->cycles_to_die)
-		|| vm->cycles_to_die <= 0)
+		if (((vm->cycles - first->cycle_live) >= vm->cycles_to_die) || vm->cycles_to_die <= 0)
+		{
+			temp = first;
+			first = first->next;
 			kill_cursor(&vm->cursors, temp);
-		temp = temp->next;
+		}
+		else
+			first = first->next;
 	}
 
 	// если количество проверок в cycle2die цикле больше NBR_LIVE
 	// или число проверок без уменьшения превысило MAX_CHECKS
+
+	// ft_printf("Cycle to die is now %d, lives = %d\n", vm->cycles_to_die - CYCLE_DELTA, vm->num_live_op);
 	if (vm->num_live_op >= NBR_LIVE || vm->checks_without_dec_cycle2die == MAX_CHECKS)
 	{
-		ft_printf("c2die = %d  ", vm->cycles_to_die);
-		ft_printf("cycle = %d  ", vm->cycles);
-		ft_printf("live = %d\n", vm->num_live_op);
+	//	ft_printf("c2die = %d  ", vm->cycles_to_die);
+	//	ft_printf("cycle = %d  ", vm->cycles);
+	//	ft_printf("live = %d\n", vm->num_live_op);
 		vm->cycles_to_die -= CYCLE_DELTA;
 		vm->checks_without_dec_cycle2die = 1;
 		vm->num_live_op = 0;
@@ -67,7 +72,6 @@ static void		check_cursors(t_vm *vm)
 		vm->checks_without_dec_cycle2die += 1;
 		vm->num_live_op = 0;
 	}
-	vm->cycles_from_last_check = 0;
 }
 
 static t_bool	validation_arg(char op_code, t_arg_type type, char num_arg)
@@ -124,6 +128,7 @@ void	cycle(t_vm *vm)
 	//пока живы процессы, игра продолжается (?)
 	while (vm->cursors)
 	{
+//		ft_printf("It is now cycle %d\n", vm->cycles);
 		temp = vm->cursors;
 		//проходим по каждому процессу
 		while (temp)

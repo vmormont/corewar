@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/29 12:07:49 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:11:04 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,18 @@ int		main(int argc, char **argv)
 		ft_exit_read(USAGE, NULL, &champs, NONE);
 	vm = create_vm(champs, options);
 	set_champ_code_on_arena(vm);
+	introduce(vm->champs);
 	cycle(vm);
 //	print_champs(vm->champs);
-	introduce(vm->champs);
-	dump_arena(vm->arena);
-	ft_printf("cycles = %d\n", vm->cycles);
+//	dump_arena(vm->arena);
+//	ft_printf("cycles = %d\n", vm->cycles);
+
+/*
+	int n = -40;
+	unsigned int u_n = (unsigned int)n;
+	ft_printf("n = %d, u_n = %u, u_n %% MEM_SIZE = %u\n",
+	n, u_n, u_n % MEM_SIZE);
+*/
 	destroy_vm(&vm);
 	return (0);
 }

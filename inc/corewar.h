@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/28 16:01:25 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/11/29 16:26:20 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,12 +184,12 @@ t_arg_type		get_arg_type(char code_args, char num_arg);
 ** READ & WRITE FUNCTIONS
 */
 
-int				read_4_bytes(char *arena, int index);
+int				read_4_bytes(char *arena, unsigned int index);
 
-short			read_2_bytes(char *arena, int index);
+short			read_2_bytes(char *arena, unsigned int index);
 
-void			copy_4_bytes(char *arena, int index, int num);
+void			copy_4_bytes(char *arena, unsigned int index, int num);
 
-void			copy_2_bytes(char *arena, int index, short num);
+void			copy_2_bytes(char *arena, unsigned int index, short num);
 
 #endif
