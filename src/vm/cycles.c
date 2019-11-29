@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/11/28 16:12:38 by pcredibl         ###   ########.fr       */
-=======
-/*   Updated: 2019/11/28 16:47:50 by astripeb         ###   ########.fr       */
->>>>>>> 1c1f2cd7e72a215ca581aad6a44fc97f2e9394c0
+/*   Updated: 2019/11/29 12:17:19 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +15,6 @@
 extern t_op	g_op_tab[];
 
 extern t_function g_operation[];
-
-/*
-static void	define_step_and_time_cursor(t_cursor *cursor, char code_arg)
-{
-	char	step;
-	char	i;
-
-	step = 2;
-	i = 6;
-	while (i)
-	{
-		if (((code_arg >> i) & 3) == REG_CODE)
-			step++;
-		else if (((code_arg >> i) & 3) == IND_CODE)
-			step += IND_SIZE;
-		else if (((code_arg >> i) & 3) == DIR_CODE)
-			step += (DIR_SIZE - (2 * g_op_tab[cursor->op_code].tdir_size));
-		else if (i == 6 && (((code_arg >> 6) & 3) == 0))
-		{
-			cursor->step = 1;
-			cursor->cycles2go = 0;
-			return ;
-		}
-		i -= 2;
-	}
-	cursor->step = step;
-	cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go;
-}
-*/
 
 static void	initial_read_cursor(t_cursor *cursor, char *arena)
 {
@@ -74,13 +41,15 @@ static void	initial_read_cursor(t_cursor *cursor, char *arena)
 
 static void calculate_cycle_to_die(t_vm *vm)
 {
-	if (vm->num_live_op >= NBR_LIVE || vm->checks_without_dec_cycle2die == MAX_CHECKS)
+	if (vm->num_live_op >= NBR_LIVE ||\
+	vm->checks_without_dec_cycle2die == MAX_CHECKS)
 	{
 		vm->cycles_to_die -= CYCLE_DELTA;
-		vm->checks_without_dec_cycle2die = 0;
+		vm->checks_without_dec_cycle2die = 1;
 	}
 	else
 		vm->checks_without_dec_cycle2die += 1;
+	vm->num_live_op = 0;
 }
 
 static void	check_cursors(t_vm *vm)
@@ -123,7 +92,13 @@ static char	check_op_code_and_type_args(t_cursor *cursor, char *arena)
 	i = 0;
 	step = 2;
 	exec = 1;
-	if (g_op_tab[cursor->op_code].code_args)
+	if (cursor->op_code < 1 || cursor->op_code > 16)
+	{
+		cursor->step = 1;
+		cursor->cycles2go = 1;
+		return (0);
+	}
+	else if (g_op_tab[cursor->op_code].code_args)
 	{
 		code = arena[(cursor->pos + 1) % MEM_SIZE];
 		while (i < g_op_tab[cursor->op_code].num_args)
@@ -170,6 +145,9 @@ void	cycle(t_vm *vm)
 			check_cursors(vm);
 			vm->cycles_from_last_check = 0;
 		}
+		if (vm->cycles == 914)
+			vm->cycles += 0;
+		ft_printf ("cycles = %d, dump = %d\n", vm->cycles, vm->options.dump);
 		if (vm->cycles == vm->options.dump)
 		{
 			dump_arena(vm->arena);
