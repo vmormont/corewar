@@ -4,7 +4,9 @@
 boost:	ld %12,r2
 	ld %3,r3
 	ld %4,r4
-	ld %5,r7
+	ld %0,r7
+	live %1
+	zjmp %:boost
 
 	sti r1,%:live1,%1
 live1:	live %66
@@ -55,6 +57,3 @@ wait:	live %66
 	zjmp %:ecriture
 
 ecriture: zjmp %:wait
-
-
-

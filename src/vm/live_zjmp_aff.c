@@ -3,20 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   live_zjmp_aff.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/29 17:34:37 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/02 16:19:04 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-
 t_function	g_operation[] = {NULL, &op_live, &op_ld, &op_st, &op_add,\
 	&op_sub, &op_and, &op_or, &op_xor, &op_zjmp, &op_ldi, &op_sti,\
 	&op_fork, &op_lld, &op_lldi, &op_lfork, &op_aff};
-
 
 void		op_live(t_vm *vm, t_cursor *cursor)
 {
@@ -35,6 +33,8 @@ void		op_live(t_vm *vm, t_cursor *cursor)
 			champ->lives_in_period += 1;
 		}
 	}
+	ft_printf("op code = %d, 1: 2, 2: 0, 3: 0, step = %d\n", cursor->op_code,\
+	cursor->step);
 }
 
 void		op_zjmp(t_vm *vm, t_cursor *cursor)
@@ -48,6 +48,8 @@ void		op_zjmp(t_vm *vm, t_cursor *cursor)
 		cursor->pos = (cursor->pos + address) % MEM_SIZE;
 	//	cursor->carry = FALSE;
 	}
+	ft_printf("op code = %d, 1: 2, 2: 0, 3: 0, step = %d\n", cursor->op_code,\
+	cursor->step);
 }
 
 void		op_aff(t_vm *vm, t_cursor *cursor)
@@ -60,4 +62,6 @@ void		op_aff(t_vm *vm, t_cursor *cursor)
 		if (vm->options.aff)
 			ft_printf("aff (%c)\n", (char)cursor->reg[reg_n]);
 	}
+	ft_printf("op code = %d, 1: 1, 2: 0, 3: 0, step = %d\n", cursor->op_code,\
+	cursor->step);
 }

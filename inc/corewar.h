@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/29 16:26:20 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/02 12:30:11 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ t_bool			is_filename_extension(char *filename, char *extension);
 void			ft_swap(void **a, void **b);
 
 void			introduce(t_champ *champ);
+
+void			print_reg(int  *reg);
 
 /*
 ** CURSOR

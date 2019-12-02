@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility_core.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:47:36 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/26 17:43:57 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/02 12:42:23 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,20 @@ void		ft_swap(void **a, void **b)
 	c = *a;
 	*a = *b;
 	*b = c;
+}
+
+void		print_reg(int *reg)
+{
+	int		i;
+
+	ft_printf("REGISTRY OF CURSOR\n");
+	i = 1;
+	while (i < 17)
+	{
+		ft_printf("%10d  ", reg[i]);
+		if (!(i % 4))
+			ft_printf("\n");
+		i++;
+	}
+	ft_printf("\n");
 }

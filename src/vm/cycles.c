@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/29 18:14:24 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/02 16:12:25 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void		check_cursors(t_vm *vm)
 	// идем по процессам
 	while (first)
 	{
-		// если процесс отзывался последний раз в прошлом
+		// если процесс не  отзывался последний раз в прошлом
 		// cycle2die периоде убиваем его
 		if (((vm->cycles - first->cycle_live) >= vm->cycles_to_die) || vm->cycles_to_die <= 0)
 		{
@@ -53,10 +53,10 @@ static void		check_cursors(t_vm *vm)
 			first = first->next;
 	}
 
-	// если количество проверок в cycle2die цикле больше NBR_LIVE
+	// если количество операций live в cycle2die циклов больше NBR_LIVE
 	// или число проверок без уменьшения превысило MAX_CHECKS
 
-	ft_printf("lives = %d\n", vm->num_live_op);
+	//ft_printf("lives = %d\n", vm->num_live_op);
 	if (vm->num_live_op >= NBR_LIVE || vm->checks_without_dec_cycle2die == MAX_CHECKS)
 	{
 	 	ft_printf("Cycle to die is now %d, lives = %d\n", vm->cycles_to_die - CYCLE_DELTA, vm->num_live_op);
@@ -65,14 +65,11 @@ static void		check_cursors(t_vm *vm)
 	//	ft_printf("live = %d\n", vm->num_live_op);
 		vm->cycles_to_die -= CYCLE_DELTA;
 		vm->checks_without_dec_cycle2die = 1;
-		vm->num_live_op = 0;
 	}
 	// увеличиваем число без проверок
 	else
-	{
 		vm->checks_without_dec_cycle2die += 1;
-		vm->num_live_op = 0;
-	}
+	vm->num_live_op = 0;
 }
 
 static t_bool	validation_arg(char op_code, t_arg_type type, char num_arg)
@@ -126,10 +123,10 @@ void	cycle(t_vm *vm)
 {
 	t_cursor	*temp;
 
-	//пока живы процессы, игра продолжается (?)
+	//пока живы процессы, игра продолжается (?): да (!)
 	while (vm->cursors)
 	{
-		ft_printf("It is now cycle %d\n", vm->cycles);
+		//ft_printf("It is now cycle %d\n", vm->cycles);
 		temp = vm->cursors;
 		//проходим по каждому процессу
 		while (temp)
@@ -146,6 +143,7 @@ void	cycle(t_vm *vm)
 					g_operation[temp->op_code](vm, temp);
 
 				//сдвигаем позицию каретки на длину операции
+				//если исполнилась операция НЕ zjmp
 				if (temp->op_code != ZJMP)
 					temp->pos = (temp->pos + temp->step) % MEM_SIZE;
 
@@ -165,6 +163,8 @@ void	cycle(t_vm *vm)
 		if(vm->cycles_from_last_check >= vm->cycles_to_die)
 			check_cursors(vm);
 
+		/*if (vm->cursors)
+			print_reg(vm->cursors->reg);*/
 		// если стоит флаг dump завешаем цикл
 		if (vm->cycles == vm->options.dump)
 		{

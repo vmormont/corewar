@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   st_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:45:30 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/29 16:16:51 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/02 16:28:50 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ void		op_st(t_vm *vm, t_cursor *cursor)
 			copy_4_bytes(vm->arena, cursor->pos + ind_val, cursor->reg[reg_n]);
 		}
 	}
+	ft_printf("op code = %d, 1: %d, 2: %d, 3: %d, step = %d\n", cursor->op_code,\
+	get_arg_type(code_args, FIRST), get_arg_type(code_args, SECOND),\
+	get_arg_type(code_args, THIRD), cursor->step);
 }
 
 static int	get_third_arg(t_vm *vm, t_cursor *cursor, t_arg_type s_type)
@@ -87,4 +90,6 @@ void		op_sti(t_vm *vm, t_cursor *cursor)
 	address = address % IDX_MOD;
 	if (cursor->exec)
 		copy_4_bytes(vm->arena, cursor->pos + address, cursor->reg[reg_n]);
+	ft_printf("op code = %d, 1: 1, 2-3 size: 4, step = %d\n", cursor->op_code,\
+	cursor->step);
 }

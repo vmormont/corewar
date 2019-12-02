@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ldi_lldi.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:27:58 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/29 15:53:07 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/02 16:34:39 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ void op_ldi(t_vm *vm, t_cursor *cursor)
 		cursor->reg[num_reg] = (num1 + num2) % IDX_MOD;
 	offset++;
 //	cursor->step = offset;
+ft_printf("op code = %d, 1: %d, 2: %d, 3: %d, step = %d\n", cursor->op_code,\
+	get_arg_type(code_arg, FIRST), get_arg_type(code_arg, SECOND),\
+	get_arg_type(code_arg, THIRD), cursor->step);
 }
 
 void op_lldi(t_vm *vm, t_cursor  *cursor)
@@ -75,4 +78,7 @@ void op_lldi(t_vm *vm, t_cursor  *cursor)
 		cursor->reg[num_reg] = (num1 + num2);
 	offset++;
 //	cursor->step = offset;
+ft_printf("op code = %d, 1: %d, 2: %d, 3: %d, step = %d\n", cursor->op_code,\
+	get_arg_type(code_arg, FIRST), get_arg_type(code_arg, SECOND),\
+	get_arg_type(code_arg, THIRD), cursor->step);
 }

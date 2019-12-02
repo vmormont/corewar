@@ -1,6 +1,7 @@
 .name		"Celebration Funebre v0.99pl42"
 .comment	"Jour J"
 
+#		fork %3
 		ld   %0,r3		
 label:		zjmp %:avantdebut
 		zjmp %0				# pour eviter ecrasement

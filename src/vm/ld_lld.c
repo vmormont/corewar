@@ -6,11 +6,12 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 12:01:00 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/29 18:53:17 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/02 16:17:35 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
 
 static int	get_ind_value(char *arena, int index, char offset)
 {
@@ -48,6 +49,9 @@ void op_ld(t_vm *vm, t_cursor  *cursor)
 		else 
 			cursor->carry = TRUE;
 	}
+	ft_printf("op code = %d, 1: %d, 2: %d, 3: %d, step = %d\n", cursor->op_code,\
+	get_arg_type(code_arg, FIRST), get_arg_type(code_arg, SECOND),\
+	get_arg_type(code_arg, THIRD), cursor->step);
 }
 
 void op_lld(t_vm *vm, t_cursor  *cursor)
@@ -75,4 +79,7 @@ void op_lld(t_vm *vm, t_cursor  *cursor)
 		else 
 			cursor->carry = TRUE;
 	}
+	ft_printf("op code = %d, 1: %d, 2: %d, 3: %d, step = %d\n", cursor->op_code,\
+	get_arg_type(code_arg, FIRST), get_arg_type(code_arg, SECOND),\
+	get_arg_type(code_arg, THIRD), cursor->step);
 }
