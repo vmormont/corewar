@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/29 17:56:01 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/02 23:16:06 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@ int		main(int argc, char **argv)
 //	print_champs(vm->champs);
 //	dump_arena(vm->arena);
 //	ft_printf("cycles = %d\n", vm->cycles);
-
-/*
-	int n = -40;
-	unsigned int u_n = (unsigned int)n;
-	ft_printf("n = %d, u_n = %u, u_n %% MEM_SIZE = %u\n",
-	n, u_n, u_n % MEM_SIZE);
-*/
 	destroy_vm(&vm);
 	return (0);
 }

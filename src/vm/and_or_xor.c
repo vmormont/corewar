@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   and_or_xor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:02:30 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/02 16:17:30 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/02 22:19:19 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int	get_ind_value(char *arena, int index, char offset)
+static int	get_ind_value(char *arena, unsigned int index, char offset)
 {
 	short	address;
 	int		value;

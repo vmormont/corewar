@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:44:46 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/29 16:25:42 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/02 22:19:32 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			read_4_bytes(char *arena, unsigned int index)
 	return (num);
 }
 
-short		read_2_bytes(char *arena, unsigned index)
+short		read_2_bytes(char *arena, unsigned int index)
 {
 	int		i;
 	short	num;

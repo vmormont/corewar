@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   live_zjmp_aff.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/02 16:19:04 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/02 23:17:12 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void		op_zjmp(t_vm *vm, t_cursor *cursor)
 		address = read_2_bytes(vm->arena, cursor->pos + OP_SIZE) % IDX_MOD;
 //		ft_printf("P %d | zjmp %d OK\n", cursor->id, address);
 		cursor->pos = (cursor->pos + address) % MEM_SIZE;
-	//	cursor->carry = FALSE;
 	}
 	ft_printf("op code = %d, 1: 2, 2: 0, 3: 0, step = %d\n", cursor->op_code,\
 	cursor->step);
