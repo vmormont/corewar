@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_utillity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/29 17:57:34 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/04 00:58:58 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		set_champ_code_on_arena(t_vm *vm)
 		cursor->reg[1] = player->id;
 		op_code = vm->arena[i];
 		cursor->op_code = op_code;
-		cursor->cycles2go = g_op_tab[op_code].cycles2go;
+		cursor->cycles2go = g_op_tab[op_code].cycles2go - 1;
 		cursor->pos = i;
 		add_cursor(&vm->cursors, cursor);
 		i += offset_start_code;
@@ -62,7 +62,7 @@ t_vm		*create_vm(t_champ *champs, t_options options)
 		return (NULL);
 	ft_bzero((void*)vm, sizeof(t_vm));
 	vm->cycles_to_die = CYCLE_TO_DIE;
-	vm->cycles = 1;
+	vm->cycles = 0;
 	vm->checks_without_dec_cycle2die = 1;
 	vm->champs = champs;
 	vm->num_of_champs = count_champs(vm->champs);

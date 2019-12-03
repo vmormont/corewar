@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:45:30 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/03 20:51:22 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/04 01:10:25 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	get_arg(t_vm *vm, t_cursor *cursor, char *offset, char num)
 	short		address;
 	int			value;
 
-	type = get_arg_type(vm->arena[(cursor->pos + 2) % MEM_SIZE], num);
+	type = get_arg_type(vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE], num);
 	if (type == REG_CODE)
 	{
 		reg_arg = vm->arena[(cursor->pos + *offset) % MEM_SIZE];
@@ -81,6 +81,7 @@ void		op_sti(t_vm *vm, t_cursor *cursor)
 	reg_n = vm->arena[(cursor->pos + offset) % MEM_SIZE];
 	if (!isregister(reg_n))
 		return ;
+	offset += 1;
 	address1 = get_arg(vm, cursor, &offset, SECOND);
 	address2 = get_arg(vm, cursor, &offset, THIRD);
 	if (cursor->exec)

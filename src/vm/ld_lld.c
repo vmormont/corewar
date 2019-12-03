@@ -6,14 +6,14 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 12:01:00 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/03 21:22:30 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/04 01:15:15 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
 
-static int	get_ind_value(char *arena, int index, char offset, t_bool mod)
+static int	get_ind_value(char *arena, unsigned int index, char offset, t_bool mod)
 {
 	short	address;
 	int		value;
@@ -31,7 +31,7 @@ void op_ld(t_vm *vm, t_cursor  *cursor)
 	int			value;
 	int			num_reg;
 
-	type = get_arg_type(vm->arena[(cursor->pos + 1) % MEM_SIZE], FIRST);
+	type = get_arg_type(vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE], FIRST);
 	if (type == DIR_CODE)
 	{
 		value = read_4_bytes(vm->arena, cursor->pos + 2);
@@ -55,7 +55,7 @@ void op_lld(t_vm *vm, t_cursor  *cursor)
 	int			value;
 	int			num_reg;
 
-	type = get_arg_type(vm->arena[(cursor->pos + 1) % MEM_SIZE], FIRST);
+	type = get_arg_type(vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE], FIRST);
 	if (type == DIR_CODE)
 	{
 		value = read_4_bytes(vm->arena, cursor->pos + 2);

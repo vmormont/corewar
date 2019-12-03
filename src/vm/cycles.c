@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/03 20:47:19 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/04 01:01:57 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ extern t_function g_operation[];
 static void		initial_read_cursor(t_cursor *cursor, char *arena)
 {
 	cursor->op_code = arena[cursor->pos % MEM_SIZE];
-	if (!(cursor->op_code > 0 && cursor->op_code < 17))
+	if (cursor->op_code < 1 || cursor->op_code > 17)
 	{
 		cursor->step = 1;
 		cursor->cycles2go = 1;
@@ -121,6 +121,9 @@ void	cycle(t_vm *vm)
 	//пока живы процессы, игра продолжается (?): да (!)
 	while (vm->cursors)
 	{
+		// увеличиваем счетчик цикла и цикла с последней проверки
+		vm->cycles += 1;
+		vm->cycles_from_last_check += 1;
 		//ft_printf("It is now cycle %d\n", vm->cycles);
 		temp = vm->cursors;
 		//проходим по каждому процессу
@@ -148,10 +151,6 @@ void	cycle(t_vm *vm)
 			}
 			temp = temp->next;
 		}
-
-		// увеличиваем счетчик цикла и цикла с последней проверки
-		vm->cycles += 1;
-		vm->cycles_from_last_check += 1;
 
 		// если количество циклов с последней проверки
 		// сравнялось с cycle_to_die проводим проверку кареток

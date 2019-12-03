@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:06:22 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/29 15:47:45 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/04 00:45:46 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,6 @@ void		kill_cursor(t_cursor **list, t_cursor *cursor)
 	}
 }
 
-/*
-	if (first->path->vrx->type == END)
-	{
-		temp = first;
-		first = first->next;
-		first ? first->prev = NULL : 0;
-		second->next = first;
-		free(temp);
-		continue ;
-	}
-	second = first;
-	first = first->next;
-*/
-
 void		kill_all_cursors(t_cursor **begin)
 {
 	t_cursor	*tmp;
@@ -98,7 +84,8 @@ t_cursor	*copy_cursor(t_cursor *src, int pos)
 		return (NULL);
 	dst->carry = src->carry;
 	dst->cycle_live = src->cycle_live;
-	i = 0;
+	dst->exec = TRUE;
+	i = -1;
 	while (++i <= REG_NUMBER)
 		dst->reg[i] = src->reg[i];
 	return (dst);
