@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/02 16:12:25 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/03 18:01:31 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void		check_cursors(t_vm *vm)
 		vm->cycles_to_die -= CYCLE_DELTA;
 		vm->checks_without_dec_cycle2die = 1;
 	}
-	// увеличиваем число без проверок
+	// увеличиваем число проверок без уменьшения cycle2die
 	else
 		vm->checks_without_dec_cycle2die += 1;
 	vm->num_live_op = 0;
@@ -126,7 +126,7 @@ void	cycle(t_vm *vm)
 	//пока живы процессы, игра продолжается (?): да (!)
 	while (vm->cursors)
 	{
-		//ft_printf("It is now cycle %d\n", vm->cycles);
+		ft_printf("It is now cycle %d\n", vm->cycles);
 		temp = vm->cursors;
 		//проходим по каждому процессу
 		while (temp)
@@ -146,7 +146,12 @@ void	cycle(t_vm *vm)
 				//если исполнилась операция НЕ zjmp
 				if (temp->op_code != ZJMP)
 					temp->pos = (temp->pos + temp->step) % MEM_SIZE;
-
+				
+				//иначе если команда была zjmp и carry = 0 то сдвигаемся на
+				//следующую команду
+				else if(temp->op_code == ZJMP && temp->carry == FALSE)
+					temp->pos += 1;
+				
 				// считываем следующий код операции и выставляем cycles2go
 				// согласно коду операции
 				initial_read_cursor(temp, vm->arena);

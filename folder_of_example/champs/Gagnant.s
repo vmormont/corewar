@@ -1,8 +1,8 @@
 .name		"Celebration Funebre v0.99pl42"
 .comment	"Jour J"
 
-#		fork %3
-		ld   %0,r3		
+		lldi r2, %5, r3
+		ldi 8, r4, r10
 label:		zjmp %:avantdebut
 		zjmp %0				# pour eviter ecrasement
 						# de l'instruction suivante

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   and_or_xor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:02:30 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/02 22:19:19 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:46:43 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void		op_and(t_vm *vm, t_cursor *cursor)
 		cursor->reg[arg3] = arg1 & arg2;
 		cursor->carry = cursor->reg[arg3] ? FALSE : TRUE;
 	}
-	ft_printf("op code = %d, 1: %d, 2: %d, 3: 1, step = %d\n", cursor->op_code,\
+	//ft_printf("op code = %d, 1: %d, 2: %d, 3: 1, step = %d\n", cursor->op_code,\
 	arg1, arg2, arg3, cursor->step);
 }
 
@@ -96,7 +96,7 @@ void		op_or(t_vm *vm, t_cursor *cursor)
 		cursor->reg[arg3] = arg1 | arg2;
 		cursor->carry = cursor->reg[arg3] ? FALSE : TRUE;
 	}
-	ft_printf("op code = %d, 1: %d, 2: %d, 3: 1, step = %d\n", cursor->op_code,\
+	//ft_printf("op code = %d, 1: %d, 2: %d, 3: 1, step = %d\n", cursor->op_code,\
 	arg1, arg2, arg3, cursor->step);
 }
 
@@ -120,6 +120,6 @@ void		op_xor(t_vm *vm, t_cursor *cursor)
 		cursor->reg[arg3] = arg1 ^ arg2;
 		cursor->carry = cursor->reg[arg3] ? FALSE : TRUE;
 	}
-	ft_printf("op code = %d, 1: %d, 2: %d, 3: 1, step = %d\n", cursor->op_code,\
+	//ft_printf("op code = %d, 1: %d, 2: %d, 3: 1, step = %d\n", cursor->op_code,\
 	arg1, arg2, arg3, cursor->step);
 }

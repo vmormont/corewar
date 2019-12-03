@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:19:02 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/02 16:11:56 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:53:22 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		op_fork(t_vm *vm, t_cursor *cursor)
 		ft_exit(MALLOC_FAILURE, NULL, &vm);
 	new_cursor->op_code = vm->arena[new_cursor->pos];
 	add_cursor(&vm->cursors, new_cursor);
-	ft_printf("op code = %d, 1: 10, 2: 0, 3: 0, step = %d\n", cursor->op_code,\
+	//ft_printf("op code = %d, 1: 10, 2: 0, 3: 0, step = %d\n", cursor->op_code,\
 	cursor->step);
 }
 
@@ -40,6 +40,6 @@ void		op_lfork(t_vm *vm, t_cursor *cursor)
 		ft_exit(MALLOC_FAILURE, NULL, &vm);
 	new_cursor->op_code = vm->arena[new_cursor->pos];
 	add_cursor(&vm->cursors, new_cursor);
-	ft_printf("op code = %d, 1: 10, 2: 0, 3: 0, step = %d\n", cursor->op_code,\
+	//ft_printf("op code = %d, 1: 10, 2: 0, 3: 0, step = %d\n", cursor->op_code,\
 	cursor->step);
 }

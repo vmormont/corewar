@@ -2,8 +2,8 @@
 .comment "I'MALIIIIVE"
 
 l2:		sti r1, %:live, %1
-		and r1, %0, r1
+#		and r1, %0, r1
 
 live:	live %1
-		aff r3
-		zjmp %:l2
+#		aff r3
+#		zjmp %:l2
