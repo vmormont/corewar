@@ -1,7 +1,7 @@
 #!/bin/bash
 
-OG_COREWAR="../vm_champs/corewar"
-MY_COREWAR="../corewar"
+OG_COREWAR="folder_of_example/corewar"
+MY_COREWAR="./corewar"
 
 if [ -z "$1" ]; then
 	echo "Usage: corewar_comparator.sh filenames ..."
@@ -25,8 +25,8 @@ if [[ ! "$CYCLE" =~ ^[0-9]+$ ]]; then
 	exit 1
 fi
 
-${OG_COREWAR} -d $CYCLE $@ &>og_dump
-${MY_COREWAR} -d $CYCLE $@ &>my_dump
+${OG_COREWAR} -dump $CYCLE $@ &>og_dump
+${MY_COREWAR} -dump $CYCLE $@ &>my_dump
 
 if diff og_dump my_dump &>/dev/null; then
 	echo "No difference at cycle $CYCLE"

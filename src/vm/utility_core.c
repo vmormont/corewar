@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility_core.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:47:36 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/02 12:42:23 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/03 22:30:17 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ void		dump_arena(char *arena)
 		ft_printf("%06p : ", (void*)address);
 		while (j < DUMP_ROWS)
 		{
+/*
 			if (arena[DUMP_ROWS * i + j])
 				ft_printf("{red}%x%x {eoc}",\
 				(arena[DUMP_ROWS * i + j] & 0xF0) >> 4,\
 				arena[DUMP_ROWS * i + j] & 0xF);
 			else
+*/
 				ft_printf("%x%x ", (arena[DUMP_ROWS * i + j] & 0xF0) >> 4,\
 				arena[DUMP_ROWS * i + j] & 0xF);
 			++j;

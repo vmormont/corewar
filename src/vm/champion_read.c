@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   champion_read.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 16:35:34 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/02 17:18:48 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/03 22:34:46 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static t_error	read_champion_from_file(int fd, char *filename,\
 				t_header *head, char *code)
 {
-	ft_printf ("%s\n", code);
 	if (read(fd, (void*)head, sizeof(int) + PROG_NAME_LENGTH)\
 	< (PROG_NAME_LENGTH + sizeof(int)))
 		return (HEAD_SIZE_ERROR);
@@ -110,7 +109,7 @@ void			introduce(t_champ *champ)
 	ft_printf("Introducing contestants...\n");
 	while (champ)
 	{
-		ft_printf("* Player %d, weighing %d bytes, \"%s\", (\"%s\") !\n",\
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",\
 		ft_abs(champ->id), champ->code_size, champ->name, champ->comment);
 		champ = champ->next;
 	}

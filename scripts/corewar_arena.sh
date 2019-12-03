@@ -1,9 +1,9 @@
 #!/bin/bash
 
-OG_COREWAR="../vm_champs/corewar"
-OG_ASM="../vm_champs/asm"
-MY_COREWAR="../corewar"
-CHECKER="./corewar_checker.sh"
+OG_COREWAR="folder_of_example/corewar"
+OG_ASM="folder_of_example/asm"
+MY_COREWAR="./corewar"
+CHECKER="./scripts/corewar_checker.sh"
 
 if [ -z "$1" ]; then
 	echo "Usage: corewar_arena.sh dirname [-u for different fighters only]"

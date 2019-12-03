@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/02 16:12:25 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/03 20:47:19 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,8 @@ static void		check_cursors(t_vm *vm)
 	// если количество операций live в cycle2die циклов больше NBR_LIVE
 	// или число проверок без уменьшения превысило MAX_CHECKS
 
-	//ft_printf("lives = %d\n", vm->num_live_op);
 	if (vm->num_live_op >= NBR_LIVE || vm->checks_without_dec_cycle2die == MAX_CHECKS)
 	{
-	 	ft_printf("Cycle to die is now %d, lives = %d\n", vm->cycles_to_die - CYCLE_DELTA, vm->num_live_op);
-	//	ft_printf("c2die = %d  ", vm->cycles_to_die);
-	//	ft_printf("cycle = %d  ", vm->cycles);
-	//	ft_printf("live = %d\n", vm->num_live_op);
 		vm->cycles_to_die -= CYCLE_DELTA;
 		vm->checks_without_dec_cycle2die = 1;
 	}
@@ -141,12 +136,12 @@ void	cycle(t_vm *vm)
 				//если успешно, выполняем операцию
 				if (check_op_code_and_type_args(temp, vm->arena))
 					g_operation[temp->op_code](vm, temp);
-
-				//сдвигаем позицию каретки на длину операции
+/*
 				//если исполнилась операция НЕ zjmp
-				if (temp->op_code != ZJMP)
-					temp->pos = (temp->pos + temp->step) % MEM_SIZE;
-
+				if (temp->op_code != ZJMP && !temp->carry)
+*/
+				//сдвигаем позицию каретки на длину операции
+				temp->pos = (temp->pos + temp->step) % MEM_SIZE;
 				// считываем следующий код операции и выставляем cycles2go
 				// согласно коду операции
 				initial_read_cursor(temp, vm->arena);
@@ -163,8 +158,6 @@ void	cycle(t_vm *vm)
 		if(vm->cycles_from_last_check >= vm->cycles_to_die)
 			check_cursors(vm);
 
-		/*if (vm->cursors)
-			print_reg(vm->cursors->reg);*/
 		// если стоит флаг dump завешаем цикл
 		if (vm->cycles == vm->options.dump)
 		{

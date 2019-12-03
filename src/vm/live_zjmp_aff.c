@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/02 23:17:12 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/03 20:39:20 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void		op_live(t_vm *vm, t_cursor *cursor)
 	vm->num_live_op += 1;
 	cursor->cycle_live = vm->cycles;
 	n = read_4_bytes(vm->arena, cursor->pos + 1);
-//	ft_printf("P %d | live %d\n", cursor->id, n);
 	if (n == cursor->reg[1])
 	{
 		if ((champ = get_champ_by_id(vm->champs, n)))
@@ -33,8 +32,6 @@ void		op_live(t_vm *vm, t_cursor *cursor)
 			champ->lives_in_period += 1;
 		}
 	}
-	ft_printf("op code = %d, 1: 2, 2: 0, 3: 0, step = %d\n", cursor->op_code,\
-	cursor->step);
 }
 
 void		op_zjmp(t_vm *vm, t_cursor *cursor)
@@ -44,11 +41,11 @@ void		op_zjmp(t_vm *vm, t_cursor *cursor)
 	if (cursor->carry)
 	{
 		address = read_2_bytes(vm->arena, cursor->pos + OP_SIZE) % IDX_MOD;
-//		ft_printf("P %d | zjmp %d OK\n", cursor->id, address);
 		cursor->pos = (cursor->pos + address) % MEM_SIZE;
+		cursor->step = 0;
 	}
-	ft_printf("op code = %d, 1: 2, 2: 0, 3: 0, step = %d\n", cursor->op_code,\
-	cursor->step);
+	else
+		cursor->step = 1;
 }
 
 void		op_aff(t_vm *vm, t_cursor *cursor)
@@ -61,6 +58,4 @@ void		op_aff(t_vm *vm, t_cursor *cursor)
 		if (vm->options.aff)
 			ft_printf("aff (%c)\n", (char)cursor->reg[reg_n]);
 	}
-	ft_printf("op code = %d, 1: 1, 2: 0, 3: 0, step = %d\n", cursor->op_code,\
-	cursor->step);
 }

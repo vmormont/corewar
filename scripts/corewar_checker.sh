@@ -1,7 +1,7 @@
 #!/bin/bash
 
-OG_COREWAR="../vm_champs/corewar"
-MY_COREWAR="../corewar"
+OG_COREWAR="folder_of_example/corewar"
+MY_COREWAR="./corewar"
 
 if [ -z "$1" ] ;
 	then echo "Usage: corewar_checker.sh filenames ..."
@@ -18,7 +18,7 @@ if [ ! -f "$OG_COREWAR" ]; then
 	exit -1
 fi
 
-${OG_COREWAR} -d 0 $@ &>og_dump
+${OG_COREWAR} -dump 0 $@ &>og_dump
 if [ $( tail -n 1 og_dump | cut -d " " -f1 ) == "Error:" ]; then
 	printf "\rError: bad player\n"
 	rm og_dump
