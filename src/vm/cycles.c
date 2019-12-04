@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/04 01:01:57 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/04 17:14:19 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void		check_cursors(t_vm *vm)
 		vm->cycles_to_die -= CYCLE_DELTA;
 		vm->checks_without_dec_cycle2die = 1;
 	}
-	// увеличиваем число без проверок
+	// увеличиваем число циклов без уменьшения cycle2die
 	else
 		vm->checks_without_dec_cycle2die += 1;
 	vm->num_live_op = 0;
@@ -111,6 +111,8 @@ static char		check_op_code_and_type_args(t_cursor *cursor, char *arena)
 	}
 	else
 		cursor->step = OP_SIZE + (4 - (2 * g_op_tab[cursor->op_code].tdir_size));
+//ft_printf("op code = %d, code args = %d, 1 = [%d], 2 = [%d], 3 = [%d], step = %d\n", cursor->op_code, 
+//	g_op_tab[cursor->op_code].code_args, (code >> 6) & 3, (code >> 4) & 3, (code >> 2) & 3, cursor->step);
 	return (exec);
 }
 
