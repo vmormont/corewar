@@ -25,7 +25,7 @@ mei:
 pharah:
 	st		r1, 6			#855
 	live	%0				#865
-	fork	%:symmetra		#1665
+	fork	%:symmetra		#1665		#43
 	st		r1, 6			#1670
 	live	%0				#1680
 	ld		%589824, r13				# r13 = 0x00090000 (0x00 zjmp %0)
@@ -34,18 +34,18 @@ pharah:
 	ld		%0, r16			#1700
 	zjmp	%:payload		#1720
 payload:
-	ld		%190057742, r11				# r11 = 0x0b540d0e (sti r13 r14 ..)
-	ld		%269090402, r12				# r12 = 0x1009fe62 (.. r16 zjmp -414)
-	ld		%0, r16
-	st		r11, -501 #-491
+	ld		%190057742, r11	#1740			# r11 = 0x0b540d0e (sti r13 r14 ..)
+	ld		%269090402, r12	#1745			# r12 = 0x1009fe62 (.. r16 zjmp -414)
+	ld		%0, r16			#1750
+	st		r11, -501 #-491	#1755
 	st		r12, -502 #-492
 	#st		r1, 6
 	#live	%0
-	zjmp	%-511
-reinhardt:
+	zjmp	%-511			#1780
+reinhardt:								#121
 	st		r1, 6
 	live	%0
-	fork	%:mercy
+	fork	%:mercy						#131
 	st		r1, 6
 	live	%0
 	ld		%190057743, r13				# r13 = 0x0b540d0f (sti r13 r15 ..)
@@ -53,7 +53,7 @@ reinhardt:
 	ld		%-21, r15
 	ld		%0, r16
 	zjmp	%:payload
-mercy:
+mercy:									#175
 	st		r1, 6
 	live	%0
 	ld		%269090790, r13				# r13 = 0x1009ffe6 (.. r16 zjmp %-26)
@@ -136,7 +136,7 @@ mercy:
 # Capture objective B ----------------------------------------------------------
 # ------------------------------------------------------------------------------
 
-symmetra:
+symmetra:						#411
 	ldi		%:mei, %0, r1				# r1 = 0x01?????? (live ?? ?? ?? ..)
 	ldi		%:mei, %4, r2				# r2 = 0x??09fffb (..?? zjmp %-5)
 	ld		%196608, r3					# r3 = 0x00030000

@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:45:30 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/04 01:10:25 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/05 00:38:24 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		op_st(t_vm *vm, t_cursor *cursor)
 	char		reg_n;
 	char		code_args;
 	char		reg_arg;
-	short		ind_val;
+	short		address;
 
 	code_args = vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE];
 	reg_n = vm->arena[(cursor->pos + OP_SIZE + ARGS_SIZE) % MEM_SIZE];
@@ -33,8 +33,8 @@ void		op_st(t_vm *vm, t_cursor *cursor)
 		}
 		else if (type == IND_CODE)
 		{
-			ind_val = read_2_bytes(vm->arena, cursor->pos + 3) % IDX_MOD;
-			copy_4_bytes(vm->arena, cursor->pos + ind_val, cursor->reg[reg_n]);
+			address = read_2_bytes(vm->arena, cursor->pos + 3) % IDX_MOD;
+			copy_4_bytes(vm->arena, cursor->pos + address, cursor->reg[reg_n]);
 		}
 	}
 }
@@ -58,7 +58,7 @@ static int	get_arg(t_vm *vm, t_cursor *cursor, char *offset, char num)
 	}
 	else if (type == DIR_CODE)
 	{
-		value = (int)read_2_bytes(vm->arena, cursor->pos + *offset);
+		value = read_2_bytes(vm->arena, cursor->pos + *offset);
 		*offset += IND_SIZE;
 	}
 	else if (type == IND_CODE)

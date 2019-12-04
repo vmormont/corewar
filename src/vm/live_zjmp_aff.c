@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/03 20:39:20 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/05 00:06:09 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		op_live(t_vm *vm, t_cursor *cursor)
 
 	vm->num_live_op += 1;
 	cursor->cycle_live = vm->cycles;
-	n = read_4_bytes(vm->arena, cursor->pos + 1);
+	n = read_4_bytes(vm->arena, cursor->pos + OP_SIZE);
 	if (n == cursor->reg[1])
 	{
 		if ((champ = get_champ_by_id(vm->champs, n)))

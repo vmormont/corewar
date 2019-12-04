@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 12:01:00 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/04 01:15:15 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/04 22:17:08 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void op_ld(t_vm *vm, t_cursor  *cursor)
 {
 	t_arg_type	type;
 	int			value;
-	int			num_reg;
+	char		num_reg;
 
 	type = get_arg_type(vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE], FIRST);
 	if (type == DIR_CODE)
@@ -53,7 +53,7 @@ void op_lld(t_vm *vm, t_cursor  *cursor)
 {
 	t_arg_type	type;
 	int			value;
-	int			num_reg;
+	char		num_reg;
 
 	type = get_arg_type(vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE], FIRST);
 	if (type == DIR_CODE)

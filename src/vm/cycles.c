@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/04 17:14:19 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/04 23:48:19 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void		initial_read_cursor(t_cursor *cursor, char *arena)
 		cursor->cycles2go = 1;
 	}
 	else
-		cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go;
+		cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go ;
 	cursor->exec = TRUE;
 }
 
@@ -41,7 +41,7 @@ static void		check_cursors(t_vm *vm)
 	// идем по процессам
 	while (first)
 	{
-		// если процесс не  отзывался последний раз в прошлом
+		// если процесс не отзывался последний раз в прошлом
 		// cycle2die периоде убиваем его
 		if (((vm->cycles - first->cycle_live) >= vm->cycles_to_die) || vm->cycles_to_die <= 0)
 		{
@@ -95,7 +95,7 @@ static char		check_op_code_and_type_args(t_cursor *cursor, char *arena)
 	if (g_op_tab[cursor->op_code].code_args)
 	{
 		cursor->step = OP_SIZE + ARGS_SIZE;
-		code = arena[(cursor->pos + 1) % MEM_SIZE];
+		code = arena[(cursor->pos + OP_SIZE) % MEM_SIZE];
 		while (i < g_op_tab[cursor->op_code].num_args)
 		{
 			type = (code >> (6 - (2 * i)) & 3);
@@ -111,7 +111,7 @@ static char		check_op_code_and_type_args(t_cursor *cursor, char *arena)
 	}
 	else
 		cursor->step = OP_SIZE + (4 - (2 * g_op_tab[cursor->op_code].tdir_size));
-//ft_printf("op code = %d, code args = %d, 1 = [%d], 2 = [%d], 3 = [%d], step = %d\n", cursor->op_code, 
+//ft_printf("op code = %d, code args = %d, 1 = [%d], 2 = [%d], 3 = [%d], step = %d\n", cursor->op_code,
 //	g_op_tab[cursor->op_code].code_args, (code >> 6) & 3, (code >> 4) & 3, (code >> 2) & 3, cursor->step);
 	return (exec);
 }
@@ -127,6 +127,7 @@ void	cycle(t_vm *vm)
 		vm->cycles += 1;
 		vm->cycles_from_last_check += 1;
 		//ft_printf("It is now cycle %d\n", vm->cycles);
+
 		temp = vm->cursors;
 		//проходим по каждому процессу
 		while (temp)
@@ -141,15 +142,14 @@ void	cycle(t_vm *vm)
 				//если успешно, выполняем операцию
 				if (check_op_code_and_type_args(temp, vm->arena))
 					g_operation[temp->op_code](vm, temp);
-/*
-				//если исполнилась операция НЕ zjmp
-				if (temp->op_code != ZJMP && !temp->carry)
-*/
+
 				//сдвигаем позицию каретки на длину операции
 				temp->pos = (temp->pos + temp->step) % MEM_SIZE;
+
 				// считываем следующий код операции и выставляем cycles2go
 				// согласно коду операции
 				initial_read_cursor(temp, vm->arena);
+
 			}
 			temp = temp->next;
 		}
