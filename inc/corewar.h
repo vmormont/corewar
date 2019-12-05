@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/05 00:36:06 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/05 19:58:37 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int				read_memory(char *arena, int pos, char size);
 
 int				reverse_bits(int num, char full_bit);
 
-
 void			dump_arena(char *arena);
 
 t_bool			isdigit_word(char *word);
@@ -109,15 +108,15 @@ void			ft_swap(void **a, void **b);
 
 void			introduce(t_champ *champ);
 
-void			print_reg(int  *reg);
+void			print_reg(int *reg);
 
 /*
 ** CURSOR
 */
 
-t_cursor		*new_cursor(int pos);
+t_cursor		*new_cursor(unsigned int pos);
 
-t_cursor		*copy_cursor(t_cursor *src, int pos);
+t_cursor		*copy_cursor(t_cursor *src, unsigned int pos);
 
 void			add_cursor(t_cursor **list, t_cursor *cursor);
 

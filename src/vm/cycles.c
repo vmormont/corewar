@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/05 17:47:04 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/05 21:04:57 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,9 @@ static void		initial_read_cursor(t_cursor *cursor, char *arena)
 {
 	cursor->op_code = arena[cursor->pos % MEM_SIZE];
 	if (cursor->op_code < 1 || cursor->op_code > 17)
-	{
-		cursor->step = 1;
 		cursor->cycles2go = 1;
-	}
 	else
-		cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go ;
+		cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go;
 	cursor->exec = TRUE;
 }
 
@@ -103,7 +100,10 @@ static char		check_op_code_and_type_args(t_cursor *cursor, char *arena)
 	i = 0;
 	exec = 1;
 	if (cursor->op_code < 1 || cursor->op_code > 16)
+	{
+		cursor->step = 1;
 		return (0);
+	}
 	if (g_op_tab[cursor->op_code].code_args)
 	{
 		cursor->step = OP_SIZE + ARGS_SIZE;
@@ -140,14 +140,10 @@ void	cycle(t_vm *vm)
 		vm->cycles_from_last_check += 1;
 		//ft_printf("It is now cycle %d\n", vm->cycles);
 
-		if (vm->cycles == 4132)
-			temp += 0;
 		temp = vm->cursors;
 		//проходим по каждому процессу
 		while (temp)
 		{
-			//уменьшаем количество циклов до исполнения
-			temp->cycles2go -= 1;
 
 			//если пришло время исполниться
 			if (!temp->cycles2go)
@@ -163,8 +159,10 @@ void	cycle(t_vm *vm)
 				// считываем следующий код операции и выставляем cycles2go
 				// согласно коду операции
 				initial_read_cursor(temp, vm->arena);
-
 			}
+
+			//уменьшаем количество циклов до исполнения
+			temp->cycles2go -= 1;
 			temp = temp->next;
 		}
 
