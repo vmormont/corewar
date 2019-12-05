@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/04 23:48:19 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/05 17:47:04 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 extern t_op	g_op_tab[];
 
 extern t_function g_operation[];
+
+static void zero_champs_live_in_period(t_champ *champs)
+{
+	while (champs)
+	{
+		champs->lives_in_period = 0;
+		champs = champs->next;
+	}
+}
 
 static void		initial_read_cursor(t_cursor *cursor, char *arena)
 {
@@ -64,7 +73,10 @@ static void		check_cursors(t_vm *vm)
 	// увеличиваем число циклов без уменьшения cycle2die
 	else
 		vm->checks_without_dec_cycle2die += 1;
+	//обнуляем общее количество операций live в цикле
 	vm->num_live_op = 0;
+	//обнуляем live_in_period у чемпионов
+	zero_champs_live_in_period(vm->champs);
 }
 
 static t_bool	validation_arg(char op_code, t_arg_type type, char num_arg)
@@ -128,6 +140,8 @@ void	cycle(t_vm *vm)
 		vm->cycles_from_last_check += 1;
 		//ft_printf("It is now cycle %d\n", vm->cycles);
 
+		if (vm->cycles == 4132)
+			temp += 0;
 		temp = vm->cursors;
 		//проходим по каждому процессу
 		while (temp)

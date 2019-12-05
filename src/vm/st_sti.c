@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   st_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:45:30 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/05 00:38:24 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/05 16:37:04 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static int	get_arg(t_vm *vm, t_cursor *cursor, char *offset, char num)
 	short		address;
 	int			value;
 
+	value = 0;
 	type = get_arg_type(vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE], num);
 	if (type == REG_CODE)
 	{

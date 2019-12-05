@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ld_lld.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 12:01:00 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/04 22:17:08 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/05 16:13:51 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
 
-static int	get_ind_value(char *arena, unsigned int index, char offset, t_bool mod)
+static int	get_ind_value(char *arena, unsigned int index,\
+			char offset, t_bool mod)
 {
 	short	address;
 	int		value;

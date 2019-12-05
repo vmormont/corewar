@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   and_or_xor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:02:30 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/03 20:48:14 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/05 15:04:08 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	get_arg_value(char *arena, t_cursor *cursor, char *offset, char num)
 			cursor->exec = FALSE;
 		*offset += 1;
 	}
-	if (type == DIR_CODE)
+	else if (type == DIR_CODE)
 	{
 		value = read_4_bytes(arena, cursor->pos + *offset);
 		*offset += DIR_SIZE;
