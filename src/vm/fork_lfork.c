@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:19:02 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/05 17:50:17 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/06 20:14:03 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void		op_fork(t_vm *vm, t_cursor *cursor)
 	if (!(new_cursor = copy_cursor(cursor, (cursor->pos + address) % MEM_SIZE)))
 		ft_exit(MALLOC_FAILURE, NULL, &vm);
 	new_cursor->op_code = vm->arena[new_cursor->pos % MEM_SIZE];
-	//if (new_cursor->op_code > 0 && new_cursor->op_code <= 16)
-	//	new_cursor->cycles2go = g_op_tab[new_cursor->op_code].cycles2go - 1;
-	//else
-	new_cursor->cycles2go = 1;
+	if (new_cursor->op_code > 0 && new_cursor->op_code <= 16)
+		new_cursor->cycles2go = g_op_tab[new_cursor->op_code].cycles2go;
+	else
+		new_cursor->cycles2go = 1;
 	add_cursor(&vm->cursors, new_cursor);
 	//print_reg(cursor->reg);
 	//print_reg(new_cursor->reg);
@@ -45,10 +45,10 @@ void		op_lfork(t_vm *vm, t_cursor *cursor)
 	if (!(new_cursor = copy_cursor(cursor, (cursor->pos + address) % MEM_SIZE)))
 		ft_exit(MALLOC_FAILURE, NULL, &vm);
 	new_cursor->op_code = vm->arena[new_cursor->pos % MEM_SIZE];
-	//if (new_cursor->op_code > 0 && new_cursor->op_code <= 16)
-	//	new_cursor->cycles2go = g_op_tab[new_cursor->op_code].cycles2go - 1;
-	//else
-	new_cursor->cycles2go = 1;
+	if (new_cursor->op_code > 0 && new_cursor->op_code <= 16)
+		new_cursor->cycles2go = g_op_tab[new_cursor->op_code].cycles2go;
+	else
+		new_cursor->cycles2go = 1;
 	add_cursor(&vm->cursors, new_cursor);
 	//print_reg(cursor->reg);
 	//print_reg(new_cursor->reg);

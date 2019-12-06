@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/05 17:47:04 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/06 21:08:14 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,14 +140,12 @@ void	cycle(t_vm *vm)
 		vm->cycles_from_last_check += 1;
 		//ft_printf("It is now cycle %d\n", vm->cycles);
 
-		if (vm->cycles == 4132)
+		if (vm->cycles == 839)
 			temp += 0;
 		temp = vm->cursors;
 		//проходим по каждому процессу
 		while (temp)
 		{
-			//уменьшаем количество циклов до исполнения
-			temp->cycles2go -= 1;
 
 			//если пришло время исполниться
 			if (!temp->cycles2go)
@@ -165,6 +163,8 @@ void	cycle(t_vm *vm)
 				initial_read_cursor(temp, vm->arena);
 
 			}
+			//уменьшаем количество циклов до исполнения
+			temp->cycles2go -= 1;
 			temp = temp->next;
 		}
 
