@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/06 21:08:14 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/09 17:59:25 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void		initial_read_cursor(t_cursor *cursor, char *arena)
 		cursor->cycles2go = 1;
 	}
 	else
-		cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go ;
+		cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go - 1;
 	cursor->exec = TRUE;
 }
 
@@ -136,18 +136,20 @@ void	cycle(t_vm *vm)
 	while (vm->cursors)
 	{
 		// увеличиваем счетчик цикла и цикла с последней проверки
-		vm->cycles += 1;
-		vm->cycles_from_last_check += 1;
 		//ft_printf("It is now cycle %d\n", vm->cycles);
 
-		if (vm->cycles == 839)
-			temp += 0;
+		//if (vm->cycles == 4159)
+		//	temp += 0;
+		vm->cycles += 1;
+		vm->cycles_from_last_check += 1;
 		temp = vm->cursors;
 		//проходим по каждому процессу
 		while (temp)
 		{
 
+			temp->cycles2go -= 1;
 			//если пришло время исполниться
+			temp->cycles2go == -1 ? initial_read_cursor(temp, vm->arena) : 0;
 			if (!temp->cycles2go)
 			{
 				//проводим валидацию кодов аргументов
@@ -160,14 +162,11 @@ void	cycle(t_vm *vm)
 
 				// считываем следующий код операции и выставляем cycles2go
 				// согласно коду операции
-				initial_read_cursor(temp, vm->arena);
 
 			}
 			//уменьшаем количество циклов до исполнения
-			temp->cycles2go -= 1;
 			temp = temp->next;
 		}
-
 		// если количество циклов с последней проверки
 		// сравнялось с cycle_to_die проводим проверку кареток
 		if(vm->cycles_from_last_check >= vm->cycles_to_die)
