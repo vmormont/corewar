@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/03 23:53:11 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/10 18:57:30 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,14 @@ int		main(int argc, char **argv)
 	vm = create_vm(champs, options);
 	set_champ_code_on_arena(vm);
 	introduce(vm->champs);
+	//ft_printf("ncurses = %d\n", vm->options.ncurses);
+	//vm->options.ncurses ? visualization(vm) : 0;
 	cycle(vm);
 //	print_champs(vm->champs);
 //	dump_arena(vm->arena);
 //	ft_printf("cycles = %d\n", vm->cycles);
 	destroy_vm(&vm);
+	//vm->options.ncurses ? endwin() : 0;
 	return (0);
 }
 

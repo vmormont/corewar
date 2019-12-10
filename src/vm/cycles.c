@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/10 14:43:57 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/10 16:56:44 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	cycle(t_vm *vm)
 		// увеличиваем счетчик цикла и цикла с последней проверки
 		//ft_printf("It is now cycle %d\n", vm->cycles);
 
-		if (vm->cycles == 3997)
+		if (vm->cycles == 4159)
 			temp += 0;
 		vm->cycles += 1;
 		vm->cycles_from_last_check += 1;

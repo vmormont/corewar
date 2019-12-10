@@ -6,7 +6,7 @@
 #    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/11/28 11:32:29 by pcredibl         ###   ########.fr        #
+#    Updated: 2019/12/10 17:17:40 by pcredibl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,12 +68,12 @@ all: lib $(NAME_ASM) $(NAME_CORE)
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(NAME_ASM): $(LIBFT) $(OBJ_ASM) $(OBJ_OP) $(ASM_HEADERS) $(OP_HEADERS)
-	$(CC) $(LFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ_ASM) $(OBJ_OP)) $(LIBS) -o $@
+	$(CC) $(LFLAGS) -lncurses $(addprefix $(OBJ_DIR)/, $(OBJ_ASM) $(OBJ_OP)) $(LIBS) -o $@ 
 	echo "$(GREEN)$@ was created ✅$(RESET)"
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(NAME_CORE): $(LIBFT) $(OBJ_CORE) $(OBJ_OP) $(CORE_HEADERS) $(OP_HEADERS)
-	$(CC) $(LFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ_CORE) $(OBJ_OP)) $(LIBS) -o $@
+	$(CC) $(LFLAGS) -lncurses $(addprefix $(OBJ_DIR)/, $(OBJ_CORE) $(OBJ_OP)) $(LIBS) -o $@
 	echo "$(GREEN)$@ was created ✅$(RESET)"
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)

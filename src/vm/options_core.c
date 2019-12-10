@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:38:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/29 12:04:21 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/10 18:52:25 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ static int	check_valid_options(int ac, char **av, char **options, int opt_num)
 t_options	get_options(int ac, char **av)
 {
 	t_options	options;
-	static char *opt[] = {"n", "dump", "s", "a", "v", "t", "-stealth"};
+	static char *opt[] = {"vis", "n", "dump", "s", "a", "v", "t", "-stealth"};
 
-	if (ac == 1 || !check_valid_options(ac, av, opt, 6))
+	if (ac == 1 || !check_valid_options(ac, av, opt, 7))
 		ft_exit(USAGE, NULL, NULL);
 	ft_bzero((void*)&options, sizeof(t_options));
 	options.aff = get_option(ac, av, "a");
@@ -94,6 +94,7 @@ t_options	get_options(int ac, char **av)
 		if (options.verbos != 1 && (options.verbos & (options.verbos - 1)))
 			ft_exit(USAGE, NULL, NULL);
 	}
+	options.ncurses = get_option(ac, av, "vis");
 	if ((options.terminal = get_option(ac, av, "t")))
 	{
 		if ((get_option(ac, av, "-stealth") - options.terminal) == 1)
