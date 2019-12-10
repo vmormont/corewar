@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
+#    By: vmormont <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/12/10 17:17:40 by pcredibl         ###   ########.fr        #
+#    Updated: 2019/12/10 23:20:13 by vmormont         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,13 @@ RESET				:= \033[0m
 
 NAME_ASM			:= asm
 NAME_CORE			:= corewar
+NAME_DASM			:= dasm
 
 #HEADERS
 OP_HEADERS			:= op_struct.h op.h
 ASM_HEADERS			:= asm_structs.h asm.h
 CORE_HEADERS		:= corewar_structs.h corewar.h
+DASM_HEADERS		:= dasm.h
 
 #COMPILER
 CC 					:= gcc
@@ -35,6 +37,7 @@ OBJ_DIR				:= ./obj
 SRC_OP_DIR			:= ./src/op
 SRC_ASM_DIR			:= ./src/asm
 SRC_CORE_DIR		:= ./src/vm
+SRC_DASM_DIR		:= ./src/dasm
 
 #COMPILER FLAGS
 CFALGS				:= -Wall -Wextra -Werror
@@ -55,16 +58,20 @@ SRC_CORE			:= corewar.c ft_exit_corewar.c utility_core.c options_core.c\
 					live_zjmp_aff.c add_sub.c and_or_xor.c st_sti.c fork_lfork.c\
 					ld_lld.c ldi_lldi.c
 
+SRC_DASM			:= main.c dasm.c utils.c write_fd.c
+
 OBJ_OP				:= $(SRC_OP:.c=.o)
 OBJ_ASM				:= $(SRC_ASM:.c=.o)
 OBJ_CORE			:= $(SRC_CORE:.c=.o)
+OBJ_DASM			:= $(SRC_DASM:.c=.o)
+OBJ_DASM_AND_CORE	:= champion_read.o champion_funcs.o champion_utility.o ft_exit_corewar.o utility_core.o vm_utillity.o cursor.o op_utility.o
 
-vpath %.c $(SRC_ASM_DIR) $(SRC_CORE_DIR) $(SRC_OP_DIR)
+vpath %.c $(SRC_ASM_DIR) $(SRC_CORE_DIR) $(SRC_OP_DIR) $(SRC_DASM_DIR)
 vpath %.o $(OBJ_DIR)
 vpath %.h $(INC_DIR)
 vpath %.a $(LIB_DIR)
 
-all: lib $(NAME_ASM) $(NAME_CORE)
+all: lib $(NAME_ASM) $(NAME_CORE) $(NAME_DASM)
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(NAME_ASM): $(LIBFT) $(OBJ_ASM) $(OBJ_OP) $(ASM_HEADERS) $(OP_HEADERS)
@@ -74,6 +81,11 @@ $(NAME_ASM): $(LIBFT) $(OBJ_ASM) $(OBJ_OP) $(ASM_HEADERS) $(OP_HEADERS)
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(NAME_CORE): $(LIBFT) $(OBJ_CORE) $(OBJ_OP) $(CORE_HEADERS) $(OP_HEADERS)
 	$(CC) $(LFLAGS) -lncurses $(addprefix $(OBJ_DIR)/, $(OBJ_CORE) $(OBJ_OP)) $(LIBS) -o $@
+	echo "$(GREEN)$@ was created ✅$(RESET)"
+
+#BEFORE COMPLETE PROJECT ADD $(CFLAGS)
+$(NAME_DASM): $(LIBFT) $(OBJ_DASM) $(OBJ_OP) $(DASM_HEADERS) $(OP_HEADERS) $(CORE_HEADERS)
+	$(CC) $(LFLAGS) -lncurses $(addprefix $(OBJ_DIR)/, $(OBJ_DASM) $(OBJ_OP) $(OBJ_DASM_AND_CORE)) $(LIBS) -o $@
 	echo "$(GREEN)$@ was created ✅$(RESET)"
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
@@ -88,6 +100,11 @@ $(OBJ_CORE):%.o:%.c $(CORE_HEADERS) $(OP_HEADERS) | $(OBJ_DIR)
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(OBJ_OP):%.o:%.c $(OP_HEADERS) | $(OBJ_DIR)
+	$(CC) -g $(LFLAGS) -o $(OBJ_DIR)/$@ -c $<
+	echo "$(GREEN)$@ was created$(RESET)"
+
+#BEFORE COMPLETE PROJECT ADD $(CFLAGS)
+$(OBJ_DASM):%.o:%.c $(DASM_HEADERS) | $(OBJ_DIR)
 	$(CC) -g $(LFLAGS) -o $(OBJ_DIR)/$@ -c $<
 	echo "$(GREEN)$@ was created$(RESET)"
 
@@ -109,10 +126,12 @@ fclean: clean
 	echo "$(RED)$(NAME_ASM) was deleted$(RESET)"
 	rm -rf $(NAME_CORE)
 	echo "$(RED)$(NAME_CORE) was deleted$(RESET)"
+	rm -rf $(NAME_DASM)
+	echo "$(RED)$(NAME_DASM) was deleted$(RESET)"
 
 re: fclean all
 
 .SILENT: all clean fclean re $(NAME_ASM) $(OBJ_ASM) $(NAME_CORE) \
-		$(OBJ_CORE) $(OBJ_DIR) $(OBJ_OP) lib
+		$(OBJ_CORE) $(NAME_DASM) $(OBJ_DASM) $(OBJ_DIR) $(OBJ_OP) lib
 
 .PHONY: clean fclean re all

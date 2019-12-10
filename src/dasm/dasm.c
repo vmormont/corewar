@@ -6,86 +6,29 @@
 /*   By: vmormont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 11:45:23 by vmormont          #+#    #+#             */
-/*   Updated: 2019/11/28 12:01:46 by vmormont         ###   ########.fr       */
+/*   Updated: 2019/12/10 22:17:33 by vmormont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "dasm.h"
 
-static t_error	read_champ_from_file(int fd, char *filename, t_header *head, char *code)
+extern t_op	g_op_tab[];
+
+void			disassemble(t_champ *champs, char **argv)
 {
-	if (read(fd, (void *)head, sizeof(int)+ PROG_NAME_LENGTH) < (sizeof(int) + PROG_NAME_LENGTH))
-		return (HEAD_SIZE_ERROR);
-	head->magic = reverse_bits(head->magic, 1);
-	lseek(fd, sizeof(int), SEEK_CUR);
-	if (read(fd, &head->prog_size, sizeof(int) + COMMENT_LENGTH) < (sizeof(int) + COMMENT_LENGTH))
-		return (HEAD_SIZE_ERROR);
-	lseek(fd, sizeof(int), SEEK_CUR);
-	if ((head->prog_size = reverse_bits(head->prog_size, 1)) > CHAMP_MAX_SIZE)
-		return (EXEC_SIZE_ERROR);
-	if (read(fd, code, head->prog_size) < head->prog_size)
-		return (CODE_SIZE_ERROR);
-	int		i = 0;
-	while (i < head->prog_size)
-	{
-		ft_printf("%c", code[i]);
-		i++;
-	}
-	return (NONE);
-}
-
-static t_champ	*get_champion_from_file(t_champ *champs, char *filename)
-{
-	int			fd;
-	char		code[CHAMP_MAX_SIZE + 1];
-	t_header	head;
-	t_champ		*new;
-	t_error		error;
-
-	if ((fd = open(filename, O_RDONLY)) <= 0)
-		ft_exit_read(NONE, filename, &champs, NONE);
-	ft_bzero((void *)&head, sizeof(t_header));
-	ft_bzero((void *)&code, CHAMP_MAX_SIZE);
-	error = read_champ_from_file(fd, filename, &head, (char *)&code);
-	close(fd);
-	if (error)
-		ft_exit_read(error, filename, &champs, head.prog_size);
-	if (head.magic != COREWAR_EXEC_MAGIC)
-		ft_exit_read(EXEC_CODE_ERROR, filename, &champs, NONE);
-	if (!(new = create_new_champ(&head, (void *)code)))
-		ft_exit_read(MALLOC_FAILURE, filename, &champs, NONE);
-	return (new);
-}
-
-void			read_cor_files_from_args(int argc, char **argv, t_champ **champs)
-{
-	int			count;
 	t_champ		*tmp;
+	int			fd;
+	int			count;
 
-	count = 0;
-	while (count < argc)
+	count = 1;
+	fd = 0;
+	tmp = champs;
+	while (tmp)
 	{
-		if (is_filename_extension(argv[count], ".cor"))
-		{
-			tmp = get_champion_from_file(*champs, argv[count]);
-			add_champion2end(champs, tmp, NONE);
-		}
-		++count;
+		fd = create_s_file(argv[count]);
+		write_name_comment_to_fd(tmp->name, tmp->comment, fd);
+		write_code_to_fd(tmp->code, tmp->code_size, fd);
+		close(fd);
+		tmp = tmp->next;
 	}
-	sort_and_check_champs(*champs);
 }
-
-
-int				main(int argc, char **argv)
-{
-	t_champ		*champs;
-
-	read_cor_files_from_args(argc, argv, &champs);
-	print_champs(champs);
-	return (0);
-}
-
-/*
-	Добавить распознавание кода по T_DIR, T_REG, T_IND
-	В зависимости от этого реверсить строку и записывать в файл
-*/
