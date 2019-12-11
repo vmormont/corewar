@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/05 23:45:36 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/10 23:42:12 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void		set_champ_code_on_arena(t_vm *vm)
 	t_champ		*player;
 	t_cursor	*cursor;
 	int			offset_start_code;
-	char		op_code;
 
 	i = 0;
 	player = vm->champs;
@@ -41,13 +40,9 @@ void		set_champ_code_on_arena(t_vm *vm)
 	while(player)
 	{
 		ft_memcpy((void*)vm->arena + i, player->code, player->code_size);
-		if (!(cursor	= new_cursor(i)))
+		if (!(cursor = new_cursor(i)))
 			ft_exit(MALLOC_FAILURE, NULL, &vm);
-		cursor->reg[1] = -player->id;
-		op_code = vm->arena[i];
-		cursor->op_code = op_code;
-		cursor->cycles2go = g_op_tab[op_code].cycles2go;
-		cursor->pos = i;
+		cursor->reg[1] = player->id;
 		add_cursor(&vm->cursors, cursor);
 		i += offset_start_code;
 		player = player->next;
@@ -67,7 +62,6 @@ t_vm		*create_vm(t_champ *champs, t_options options)
 	vm->champs = champs;
 	vm->num_of_champs = count_champs(vm->champs);
 	vm->options = options;
-	vm->checks_without_dec_cycle2die = 1;
 	return (vm);
 }
 

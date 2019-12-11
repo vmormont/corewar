@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:06:22 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/05 19:58:03 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/10 23:19:36 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_cursor	*new_cursor(unsigned int pos)
 	ft_bzero((void*)cursor, sizeof(t_cursor));
 	cursor->id = i;
 	cursor->pos = pos;
-	cursor->cycles2go = 0;
 	cursor->exec = TRUE;
 	++i;
 	return (cursor);
@@ -84,7 +83,6 @@ t_cursor	*copy_cursor(t_cursor *src, unsigned int pos)
 		return (NULL);
 	dst->carry = src->carry;
 	dst->cycle_live = src->cycle_live;
-	dst->exec = TRUE;
 	i = -1;
 	while (++i <= REG_NUMBER)
 		dst->reg[i] = src->reg[i];

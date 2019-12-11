@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 14:39:58 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/05 23:08:24 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/10 21:59:36 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	check_champs_num(t_champ *champs)
 		if (temp->id != i)
 			ft_exit_read(USAGE, NULL, &champs, NONE);
 		++i;
+		temp->id = -temp->id;
 		temp = temp->next;
 	}
 }

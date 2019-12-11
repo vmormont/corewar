@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/06 00:12:21 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/11 03:24:42 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ void		op_zjmp(t_vm *vm, t_cursor *cursor)
 		cursor->pos = (cursor->pos + address) % MEM_SIZE;
 		cursor->step = 0;
 	}
-	else
-		cursor->step = 1;
 }
 
 void		op_aff(t_vm *vm, t_cursor *cursor)
