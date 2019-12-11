@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:38:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/29 12:04:21 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/11 15:39:27 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static int	get_option_value(char **av, int index, int min_val, int max_val)
 		if (isdigit_word(av[index]))
 			value = ft_atoi(av[index]);
 		else
-			ft_exit(USAGE, NULL, NULL);
+			ft_exit(USAGE, NULL);
 		if (value < min_val || value > max_val)
-			ft_exit(USAGE, NULL, NULL);
+			ft_exit(USAGE, NULL);
 	}
 	return (value);
 }
@@ -81,7 +81,7 @@ t_options	get_options(int ac, char **av)
 	static char *opt[] = {"n", "dump", "s", "a", "v", "t", "-stealth"};
 
 	if (ac == 1 || !check_valid_options(ac, av, opt, 6))
-		ft_exit(USAGE, NULL, NULL);
+		ft_exit(USAGE, NULL);
 	ft_bzero((void*)&options, sizeof(t_options));
 	options.aff = get_option(ac, av, "a");
 	if ((options.dump = get_option(ac, av, "dump")))
@@ -92,7 +92,7 @@ t_options	get_options(int ac, char **av)
 	{
 		options.verbos = get_option_value(av, options.verbos + 1, 1, 16);
 		if (options.verbos != 1 && (options.verbos & (options.verbos - 1)))
-			ft_exit(USAGE, NULL, NULL);
+			ft_exit(USAGE, NULL);
 	}
 	if ((options.terminal = get_option(ac, av, "t")))
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/05 19:58:37 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/11 15:38:36 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # include <stdio.h>
 # include "corewar_structs.h"
+# include <ncurses.h>
 
 # define DUMP_COLUMNS	64
 # define DUMP_ROWS		64
@@ -38,7 +39,8 @@ typedef enum	e_error
 	EXEC_SIZE_ERROR,
 	NO_CODE_ERROR,
 	CODE_SIZE_ERROR,
-	MANY_CHAMPS_ERROR
+	MANY_CHAMPS_ERROR,
+	NCURSES_INIT_ERROR
 }				t_error;
 
 typedef void(*t_function)(t_vm *vm, t_cursor *cursor);
@@ -47,7 +49,7 @@ typedef void(*t_function)(t_vm *vm, t_cursor *cursor);
 ** MANAGMENT ERRORS
 */
 
-void			ft_exit(int err, char *file_name, t_vm **vm);
+void			ft_exit(int err, t_vm **vm);
 
 void			ft_exit_read(t_error err, char *file,\
 				t_champ **champs, int exec_size);
@@ -80,6 +82,8 @@ t_champ			*get_champ_by_id(t_champ *champs, int id);
 
 void			print_champs(t_champ *champ);
 
+void			announce_winner(t_champ *champs);
+
 /*
 ** UTILLITY VM
 */
@@ -91,6 +95,12 @@ void			set_champ_code_on_arena(t_vm *vm);
 void			destroy_vm(t_vm **vm);
 
 int				read_memory(char *arena, int pos, char size);
+
+/*
+**	FUNCTION FOR VIZUALIZATION
+*/
+
+void			visualizator(t_vm *vm);
 
 /*
 ** UTILITY FUNCTIONS

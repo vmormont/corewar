@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/11 03:12:16 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/11 13:27:35 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,8 @@ void			cycle(t_vm *vm)
 
 		// если количество циклов с последней проверки
 		// сравнялось с cycle_to_die проводим проверку кареток
-		if(vm->cycles_from_last_check == vm->cycles_to_die)
+		// условие >=, а не == потому что cycle_to_die теоретически может становиться отрицательным значением
+		if(vm->cycles_from_last_check >= vm->cycles_to_die)
 			check_cursors(vm);
 
 		// если стоит флаг dump завешаем цикл
@@ -176,4 +177,6 @@ void			cycle(t_vm *vm)
 			break ;
 		}
 	}
+	//если игра окончена, объявляем победителя
+	 vm->cursors ? 0 : announce_winner(vm->champs);
 }

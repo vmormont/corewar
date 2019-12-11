@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OG_COREWAR="folder_of_example/CW_LINUX"
+OG_COREWAR="folder_of_example/corewar"
 MY_COREWAR="./corewar"
 
 if [ -z "$1" ]; then
@@ -25,7 +25,7 @@ if [[ ! "$CYCLE" =~ ^[0-9]+$ ]]; then
 	exit 1
 fi
 
-${OG_COREWAR} -dump $CYCLE $@ &>og_dump
+${OG_COREWAR} -d $CYCLE $@ &>og_dump
 ${MY_COREWAR} -dump $CYCLE $@ &>my_dump
 
 if diff og_dump my_dump &>/dev/null; then

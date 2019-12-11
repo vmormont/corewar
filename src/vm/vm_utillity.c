@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_utillity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/10 23:42:12 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/11 15:39:46 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		set_champ_code_on_arena(t_vm *vm)
 	{
 		ft_memcpy((void*)vm->arena + i, player->code, player->code_size);
 		if (!(cursor = new_cursor(i)))
-			ft_exit(MALLOC_FAILURE, NULL, &vm);
+			ft_exit(MALLOC_FAILURE, &vm);
 		cursor->reg[1] = player->id;
 		add_cursor(&vm->cursors, cursor);
 		i += offset_start_code;

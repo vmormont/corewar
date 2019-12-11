@@ -6,7 +6,7 @@
 #    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/11/28 11:32:29 by pcredibl         ###   ########.fr        #
+#    Updated: 2019/12/11 15:32:04 by pcredibl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ SRC_CORE			:= corewar.c ft_exit_corewar.c utility_core.c options_core.c\
 					champion_read.c champion_utility.c champion_funcs.c\
 					vm_utillity.c cursor.c cycles.c copy_read.c op_utility.c\
 					live_zjmp_aff.c add_sub.c and_or_xor.c st_sti.c fork_lfork.c\
-					ld_lld.c ldi_lldi.c
+					ld_lld.c ldi_lldi.c visual.c
 
 OBJ_OP				:= $(SRC_OP:.c=.o)
 OBJ_ASM				:= $(SRC_ASM:.c=.o)
@@ -68,12 +68,12 @@ all: lib $(NAME_ASM) $(NAME_CORE)
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(NAME_ASM): $(LIBFT) $(OBJ_ASM) $(OBJ_OP) $(ASM_HEADERS) $(OP_HEADERS)
-	$(CC) $(LFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ_ASM) $(OBJ_OP)) $(LIBS) -o $@
+	$(CC) $(LFLAGS) -lncurses $(addprefix $(OBJ_DIR)/, $(OBJ_ASM) $(OBJ_OP)) $(LIBS) -o $@
 	echo "$(GREEN)$@ was created ✅$(RESET)"
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(NAME_CORE): $(LIBFT) $(OBJ_CORE) $(OBJ_OP) $(CORE_HEADERS) $(OP_HEADERS)
-	$(CC) $(LFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ_CORE) $(OBJ_OP)) $(LIBS) -o $@
+	$(CC) $(LFLAGS) -lncurses $(addprefix $(OBJ_DIR)/, $(OBJ_CORE) $(OBJ_OP)) $(LIBS) -o $@
 	echo "$(GREEN)$@ was created ✅$(RESET)"
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
