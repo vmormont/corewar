@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/11 15:38:36 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/12 14:27:01 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include "corewar_structs.h"
 # include <ncurses.h>
+# include <unistd.h>
 
 # define DUMP_COLUMNS	64
 # define DUMP_ROWS		64
@@ -82,7 +83,7 @@ t_champ			*get_champ_by_id(t_champ *champs, int id);
 
 void			print_champs(t_champ *champ);
 
-void			announce_winner(t_champ *champs);
+void			announce_winner(t_vm *vm);
 
 /*
 ** UTILLITY VM

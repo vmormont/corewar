@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   live_zjmp_aff.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/11 03:24:42 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/12 14:24:43 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void		op_live(t_vm *vm, t_cursor *cursor)
 		if ((champ = get_champ_by_id(vm->champs, n)))
 		{
 			champ->last_live = vm->cycles;
+			vm->winner = n;
 			champ->lives_in_period += 1;
 		}
 	}

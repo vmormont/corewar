@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/05 15:08:02 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/12 14:25:21 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct		s_cursor
 ** num_live_op		- количество операций live в данном цикле
 ** checks_without_dec_cycle2die
 **					- количество проверок без уменьшения парметра cycle_to_die
+**					- id последнего сказавшего live чемпиона
 */
 
 typedef struct		s_vm
@@ -107,6 +108,7 @@ typedef struct		s_vm
 	int				num_live_op;
 	int				checks_without_dec_cycle2die;
 	int				cycles_from_last_check;
+	char			winner;
 }					t_vm;
 
 /*

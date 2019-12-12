@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/11 13:27:35 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/12 18:54:12 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,8 @@ void			cycle(t_vm *vm)
 		vm->cycles += 1;
 		vm->cycles_from_last_check += 1;
 		//ft_printf("It is now cycle %d\n", vm->cycles);
-
+		if (vm->cycles == 20000)
+			temp += 0;
 		temp = vm->cursors;
 		//проходим по каждому процессу
 		while (temp)
@@ -178,5 +179,5 @@ void			cycle(t_vm *vm)
 		}
 	}
 	//если игра окончена, объявляем победителя
-	 vm->cursors ? 0 : announce_winner(vm->champs);
+	 vm->cursors ? 0 : announce_winner(vm);
 }

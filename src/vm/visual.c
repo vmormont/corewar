@@ -6,30 +6,45 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/11 17:04:22 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/12 18:34:44 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
+static void 	print_frame(WINDOW *win)
+{
+	start_color();
+	init_pair(1, COLOR_BLACK, COLOR_CYAN);
+	attron(1);
+}
+
 static void		print_info(t_vm *vm)
 {
-	move(3, (2 * DUMP_COLUMNS) + 5);
-	printw("*PLAY*");
-	move(4, (2 * DUMP_COLUMNS) + 5);
-	printw("row 2");
-	refresh();
+	int		i;
+
+	i = 0;
+	while (++i < 10)
+	{
+		clear();
+		move(i, (2 * DUMP_COLUMNS) + 5);
+		printw("*PLAY*");
+		usleep(100000);
+		refresh();
+	}
 	getch();
-	clear();
-	printw("screen 2\n");
+	move(i - 1, (2 * DUMP_COLUMNS) + 5);
+	printw("123456\n");
 	refresh();
 }
 
 void	visualizator(t_vm *vm)
 {
+	//WINDOW *main_window;
 	if (!initscr())
 		ft_exit(NCURSES_INIT_ERROR, &vm);
 	print_info(vm);
+	//print_frame();
 	getch();
 	
 }

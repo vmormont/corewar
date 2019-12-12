@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/11 16:42:06 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/12 14:31:51 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,25 +83,14 @@ void			add_champion2end(t_champ **begin, t_champ *champ, int id)
 	}
 }
 
-void			announce_winner(t_champ *champs)
+void			announce_winner(t_vm *vm)
 {
-	t_champ		*winner;
-	t_champ		*temp;
-	int			last_live_cycle;
+	int		id_winner;
+	t_champ	*winner;
 
-	winner = champs;
-	temp = champs->next;
-	last_live_cycle = champs->last_live;
-	while (temp)
-	{
-		if (temp->last_live < last_live_cycle)
-		{
-			winner = temp;
-			last_live_cycle = temp->last_live;
-		}
-		temp = temp->next;
-	}
-	ft_printf("Contestant %d, \"%s\", has won !\n", -winner->id, winner->name);
+	id_winner = vm->winner;
+	winner = get_champ_by_id(vm->champs, id_winner);
+	ft_printf("Contestant %d, \"%s\", has won !\n", -id_winner, winner->name);
 }
 
 void			print_champs(t_champ *champ)
