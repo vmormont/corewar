@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/12 14:24:43 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:43:12 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,12 @@ void		op_live(t_vm *vm, t_cursor *cursor)
 	vm->num_live_op += 1;
 	cursor->cycle_live = vm->cycles;
 	n = read_4_bytes(vm->arena, cursor->pos + OP_SIZE);
-	if (n == cursor->reg[1])
+	//ft_printf("live:\tcycle = %d, value = %d, reg = %d\n", vm->cycles, n, cursor->reg[1]);
+	if ((champ = get_champ_by_id(vm->champs, n)))
 	{
-		if ((champ = get_champ_by_id(vm->champs, n)))
-		{
-			champ->last_live = vm->cycles;
-			vm->winner = n;
-			champ->lives_in_period += 1;
-		}
+		champ->last_live = vm->cycles;
+		vm->winner = n;
+		champ->lives_in_period += 1;
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ld_lld.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 12:01:00 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/11 03:04:59 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:41:30 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@ void op_ld(t_vm *vm, t_cursor  *cursor)
 	{
 		value = read_4_bytes(vm->arena, cursor->pos + 2);
 		num_reg = vm->arena[(cursor->pos + 6) % MEM_SIZE];
+		//ft_printf("ld:\t\tcycle = %d, value = %d, reg = %d, pos = %d ( %d | %d )\n", vm->cycles, value, num_reg, cursor->pos, ((cursor->pos - 1)/ DUMP_COLUMNS) + 1, ((cursor->pos - 1)% DUMP_COLUMNS) + 1);
 	}
 	else if(type == IND_CODE)
 	{
 		value = get_ind_value(vm->arena, cursor->pos, 2, TRUE);
 		num_reg = vm->arena[(cursor->pos + 4) % MEM_SIZE];
+		//ft_printf("ld:\t\tcycle = %d, value = %d, reg = %d, pos = %d ( %d | %d )\n", vm->cycles, value, num_reg, cursor->pos, ((cursor->pos - 1)/ DUMP_COLUMNS) + 1, ((cursor->pos - 1)% DUMP_COLUMNS) + 1);
 	}
 	if (isregister(num_reg))
 	{
@@ -61,11 +63,13 @@ void op_lld(t_vm *vm, t_cursor  *cursor)
 	{
 		value = read_4_bytes(vm->arena, cursor->pos + 2);
 		num_reg = vm->arena[(cursor->pos + 6) % MEM_SIZE];
+		//ft_printf("lld:\t\tcycle = %d, value = %d, reg = %d, pos = %d ( %d | %d )\n", vm->cycles, value, num_reg, cursor->pos, ((cursor->pos - 1)/ DUMP_COLUMNS) + 1, ((cursor->pos - 1)% DUMP_COLUMNS) + 1);
 	}
 	else if(type == IND_CODE)
 	{
 		value = get_ind_value(vm->arena, cursor->pos, 2, FALSE);
 		num_reg = vm->arena[(cursor->pos + 4) % MEM_SIZE];
+		//ft_printf("lld:\t\tcycle = %d, value = %d, reg = %d, pos = %d ( %d | %d )\n", vm->cycles, value, num_reg, cursor->pos, ((cursor->pos - 1)/ DUMP_COLUMNS) + 1, ((cursor->pos - 1)% DUMP_COLUMNS) + 1);
 	}
 	if (isregister(num_reg))
 	{

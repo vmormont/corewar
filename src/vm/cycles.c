@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/12 18:54:12 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:43:37 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,8 @@ void			cycle(t_vm *vm)
 		vm->cycles += 1;
 		vm->cycles_from_last_check += 1;
 		//ft_printf("It is now cycle %d\n", vm->cycles);
-		if (vm->cycles == 20000)
-			temp += 0;
+		//if (vm->cycles == 1929)
+		//	temp += 0;
 		temp = vm->cursors;
 		//проходим по каждому процессу
 		while (temp)
