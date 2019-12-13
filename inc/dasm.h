@@ -6,7 +6,7 @@
 /*   By: vmormont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 00:37:08 by vmormont          #+#    #+#             */
-/*   Updated: 2019/12/10 23:16:08 by vmormont         ###   ########.fr       */
+/*   Updated: 2019/12/14 02:23:57 by vmormont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,33 +17,92 @@
 ** THIS HEADER ONLY FOR FUNCTIONS PROTOTYPES
 */
 
-#include "corewar.h"
-#include "op.h"
-#include "op_struct.h"
+# include "op.h"
+# include "op_struct.h"
+# include "libft.h"
+# include "libftprintf.h"
+# include <stdbool.h>
 
 /*
-** WRITE TO FD FUNCTIONS
+** Error managment
 */
 
-int				ft_printf_fd(const char *frm, int fd, ...);
-void			write_name_comment_to_fd(char *name, char *comment, int fd);
-void			write_code_to_fd(char *code, int size, int fd);
-int				write_instruction_to_fd(char *code, int fd);
-void			write_type_to_fd(char type, char *code, int pos, int fd);
+# define READ_ERROR "can not read file"
+# define ERROR_PROG_SIZE "too big size for a champion"
+# define ERROR_COMMENT_SIZE "too long length of a comment"
+# define MAGIC_ERROR "no equal magic"
 
 /*
-** UTILLITY DASM
+** Decimal representation of the instruction number
 */
 
-int				create_s_file(char *name);
-int				instruct_len(char *instuct);
-int				get_num_byte(char type, char t_dir_size);
-char			get_arg_type_dasm(char ind, char *code, int index);
+# define LIVE 1
+# define LD 2
+# define ST 3
+# define ADD 4
+# define SUB 5
+# define AND 6
+# define OR 7
+# define XOR 8
+# define ZJMP 9
+# define LDI 10
+# define STI 11
+# define FORK 12
+# define LLD 13
+# define LLDI 14
+# define LFORK 15
+# define AFF 16
 
 /*
-** DISASSEMBLER
+** Additional constants for operation of the disassembler
 */
 
-void			disassemble(t_champ *champs, char **argv);
+# define BYTE_SIZE 8
+# define NUM_ARG 3
+# define REG_DASM 1
+# define IND_DASM 3
+
+# define START 0
+# define EXTENSION 4
+
+/*
+**	Disassemble
+*/
+
+void					disassemble(char **argv, int index);
+
+/*
+**	Read functions
+*/
+
+void					read_cor_head(int fd, t_header *head);
+
+/*
+**	Print functions
+*/
+
+void					print_name_comment_to_fd(char *name, char *comment,\
+												int fd_out);
+void					print_code_first(int fd, int fd_out);
+void					print_code_continiue(int opcode, char num,\
+										int fd, int fd_out);
+
+/*
+**	Utilits
+*/
+
+void					print_usage(void);
+void					ft_exit_dasm(char *identifier, int fd);
+bool					is_filename_extension(char *filename, char *extension);
+char					*get_s_filename(char *arg);
+int						reverse_bits(int num, char full_bit);
+char					get_num_type(char num, int num_arg);
+int						get_num(int fd, size_t t_size);
+
+/*
+**	Print Functions
+*/
+
+int						ft_printf_fd(const char *frm, int fd, ...);
 
 #endif

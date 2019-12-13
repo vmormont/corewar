@@ -6,7 +6,7 @@
 #    By: vmormont <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/12/10 23:20:13 by vmormont         ###   ########.fr        #
+#    Updated: 2019/12/14 01:58:40 by vmormont         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,10 +37,10 @@ OBJ_DIR				:= ./obj
 SRC_OP_DIR			:= ./src/op
 SRC_ASM_DIR			:= ./src/asm
 SRC_CORE_DIR		:= ./src/vm
-SRC_DASM_DIR		:= ./src/dasm
+SRC_DASM_DIR		:= ./src/dasm/
 
 #COMPILER FLAGS
-CFALGS				:= -Wall -Wextra -Werror
+CFALGS				:= -Wall -Wextra -Werror -g -O3
 LFLAGS				:= -I $(LIB_DIR)/inc -I $(INC_DIR)
 LIBS				:= -L $(LIB_DIR) -lft
 
@@ -58,13 +58,12 @@ SRC_CORE			:= corewar.c ft_exit_corewar.c utility_core.c options_core.c\
 					live_zjmp_aff.c add_sub.c and_or_xor.c st_sti.c fork_lfork.c\
 					ld_lld.c ldi_lldi.c
 
-SRC_DASM			:= main.c dasm.c utils.c write_fd.c
+SRC_DASM			:= main.c dasm.c ft_printf_fd.c utilits.c utilits_second.c print.c
 
 OBJ_OP				:= $(SRC_OP:.c=.o)
 OBJ_ASM				:= $(SRC_ASM:.c=.o)
 OBJ_CORE			:= $(SRC_CORE:.c=.o)
 OBJ_DASM			:= $(SRC_DASM:.c=.o)
-OBJ_DASM_AND_CORE	:= champion_read.o champion_funcs.o champion_utility.o ft_exit_corewar.o utility_core.o vm_utillity.o cursor.o op_utility.o
 
 vpath %.c $(SRC_ASM_DIR) $(SRC_CORE_DIR) $(SRC_OP_DIR) $(SRC_DASM_DIR)
 vpath %.o $(OBJ_DIR)
@@ -84,8 +83,8 @@ $(NAME_CORE): $(LIBFT) $(OBJ_CORE) $(OBJ_OP) $(CORE_HEADERS) $(OP_HEADERS)
 	echo "$(GREEN)$@ was created ✅$(RESET)"
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
-$(NAME_DASM): $(LIBFT) $(OBJ_DASM) $(OBJ_OP) $(DASM_HEADERS) $(OP_HEADERS) $(CORE_HEADERS)
-	$(CC) $(LFLAGS) -lncurses $(addprefix $(OBJ_DIR)/, $(OBJ_DASM) $(OBJ_OP) $(OBJ_DASM_AND_CORE)) $(LIBS) -o $@
+$(NAME_DASM): $(LIBFT) $(OBJ_DASM) $(OBJ_OP) $(DASM_HEADERS) $(OP_HEADERS)
+	$(CC) $(LFLAGS) -lncurses $(addprefix $(OBJ_DIR)/, $(OBJ_DASM) $(OBJ_OP)) $(LIBS) -o $@
 	echo "$(GREEN)$@ was created ✅$(RESET)"
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
