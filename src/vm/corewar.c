@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/14 16:57:26 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/14 17:20:53 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,8 @@ int		main(int argc, char **argv)
 	if (options.terminal)
 		visualizator(vm);
 	cycle(vm);
-//	print_champs(vm->champs);
-//	dump_arena(vm->arena);
-//	ft_printf("cycles = %d\n", vm->cycles);
+	vm->cursors ? dump_arena(vm->arena) : announce_winner(vm);
 	destroy_vm(&vm);
-	options.terminal ? endwin() : 0;
+//	options.terminal ? endwin() : 0;
 	return (0);
 }
-

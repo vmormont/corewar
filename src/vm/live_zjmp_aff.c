@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   live_zjmp_aff.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/13 15:43:12 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/13 18:24:35 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-t_function	g_operation[] = {NULL, &op_live, &op_ld, &op_st, &op_add,\
-	&op_sub, &op_and, &op_or, &op_xor, &op_zjmp, &op_ldi, &op_sti,\
-	&op_fork, &op_lld, &op_lldi, &op_lfork, &op_aff};
 
 void		op_live(t_vm *vm, t_cursor *cursor)
 {
@@ -24,7 +20,6 @@ void		op_live(t_vm *vm, t_cursor *cursor)
 	vm->num_live_op += 1;
 	cursor->cycle_live = vm->cycles;
 	n = read_4_bytes(vm->arena, cursor->pos + OP_SIZE);
-	//ft_printf("live:\tcycle = %d, value = %d, reg = %d\n", vm->cycles, n, cursor->reg[1]);
 	if ((champ = get_champ_by_id(vm->champs, n)))
 	{
 		champ->last_live = vm->cycles;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/13 15:43:37 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/14 12:08:27 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 extern t_op	g_op_tab[];
 
-extern t_function g_operation[];
+t_function	g_operation[] = {NULL, &op_live, &op_ld, &op_st, &op_add,\
+	&op_sub, &op_and, &op_or, &op_xor, &op_zjmp, &op_ldi, &op_sti,\
+	&op_fork, &op_lld, &op_lldi, &op_lfork, &op_aff};
 
 static void 	zero_champs_live_in_period(t_champ *champs)
 {
@@ -52,6 +54,7 @@ static void		check_cursors(t_vm *vm)
 			temp = first;
 			first = first->next;
 			kill_cursor(&vm->cursors, temp);
+			vm->num_of_cursors -= 1;
 		}
 		else
 			first = first->next;
@@ -59,7 +62,6 @@ static void		check_cursors(t_vm *vm)
 
 	// если количество операций live в cycle2die циклов больше NBR_LIVE
 	// или число проверок без уменьшения превысило MAX_CHECKS
-
 	if (vm->num_live_op >= NBR_LIVE || vm->checks_without_dec_cycle2die == MAX_CHECKS)
 	{
 		vm->cycles_to_die -= CYCLE_DELTA;
@@ -74,56 +76,6 @@ static void		check_cursors(t_vm *vm)
 	zero_champs_live_in_period(vm->champs);
 }
 
-static t_bool	validation_arg(char op_code, t_arg_type type, char num_arg)
-{
-	char	code_arg;
-
-	code_arg = g_op_tab[op_code].args[num_arg];
-	if (type == REG_CODE && !(((code_arg >> 4) & REG_CODE) ^ REG_CODE))
-		return (TRUE);
-	else if (type == DIR_CODE && !(((code_arg >> 2) & DIR_CODE) ^ DIR_CODE))
-		return (TRUE);
-	else if (type == IND_CODE && !((code_arg & IND_CODE) ^ IND_CODE))
-		return (TRUE);
-	return (FALSE);
-}
-
-static char		check_op_code_and_type_args(t_cursor *cursor, char *arena)
-{
-	t_arg_type	type;
-	char		code;
-	char		i;
-	char		exec;
-
-	i = 0;
-	exec = 1;
-	if (cursor->op_code < 1 || cursor->op_code > 16)
-	{
-		cursor->step = 1;
-		return (0);
-	}
-	if (g_op_tab[cursor->op_code].code_args)
-	{
-		cursor->step = OP_SIZE + ARGS_SIZE;
-		code = arena[(cursor->pos + OP_SIZE) % MEM_SIZE];
-		while (i < g_op_tab[cursor->op_code].num_args)
-		{
-			type = (code >> (6 - (2 * i)) & 3);
-			if(type == REG_CODE)
-				cursor->step += 1;
-			else if (type == DIR_CODE)
-				cursor->step += (4 - (2 * g_op_tab[cursor->op_code].tdir_size));
-			else if (type == IND_CODE)
-				cursor->step += IND_SIZE;
-			exec = validation_arg(cursor->op_code, type, i) ? exec : 0;
-			i++;
-		}
-	}
-	else
-		cursor->step = OP_SIZE + (4 - (2 * g_op_tab[cursor->op_code].tdir_size));
-	return (exec);
-}
-
 void			cycle(t_vm *vm)
 {
 	t_cursor	*temp;
@@ -131,12 +83,13 @@ void			cycle(t_vm *vm)
 	//пока живы процессы, игра продолжается (?): да (!)
 	while (vm->cursors)
 	{
+		// если стоит флаг dump завешаем цикл
+		if (vm->cycles == vm->options.dump)
+			break ;
 		// увеличиваем счетчик цикла и цикла с последней проверки
 		vm->cycles += 1;
 		vm->cycles_from_last_check += 1;
-		//ft_printf("It is now cycle %d\n", vm->cycles);
-		//if (vm->cycles == 1929)
-		//	temp += 0;
+
 		temp = vm->cursors;
 		//проходим по каждому процессу
 		while (temp)
@@ -164,20 +117,9 @@ void			cycle(t_vm *vm)
 			}
 			temp = temp->next;
 		}
-
 		// если количество циклов с последней проверки
 		// сравнялось с cycle_to_die проводим проверку кареток
-		// условие >=, а не == потому что cycle_to_die теоретически может становиться отрицательным значением
 		if(vm->cycles_from_last_check >= vm->cycles_to_die)
 			check_cursors(vm);
-
-		// если стоит флаг dump завешаем цикл
-		if (vm->cycles == vm->options.dump)
-		{
-			dump_arena(vm->arena);
-			break ;
-		}
 	}
-	//если игра окончена, объявляем победителя
-	 vm->cursors ? 0 : announce_winner(vm);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   options_core.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:38:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/11 15:39:27 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/14 10:51:59 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_options	get_options(int ac, char **av)
 	options.aff = get_option(ac, av, "a");
 	if ((options.dump = get_option(ac, av, "dump")))
 		options.dump = get_option_value(av, options.dump + 1, 1, INT32_MAX);
+	options.dump = !options.dump ? -1 : options.dump;
 	if ((options.cycles = get_option(ac, av, "s")))
 		options.cycles = get_option_value(av, options.cycles + 1, 1, INT32_MAX);
 	if ((options.verbos = get_option(ac, av, "v")))
