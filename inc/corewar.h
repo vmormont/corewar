@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/12 14:27:01 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/14 12:31:47 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ void			kill_all_cursors(t_cursor **begin);
 
 void			cycle(t_vm *vm);
 
+t_bool			check_op_code_and_type_args(t_cursor *cursor, char *arena);
+
 /*
 ** OPERATIONS FUNCTION
 */
@@ -189,12 +191,17 @@ void			op_lldi(t_vm *vm, t_cursor *cursor);
 
 t_bool			isregister(char reg_num);
 
-t_arg_type		get_arg_type(char code_args, char num_arg);
+int				get_arg_value(char *arena, t_cursor *cursor,\
+				t_arg_type type, char *offset);
 
+int				get_ind_value(char *arena, unsigned int index,\
+				char offset, t_bool mod);
 
 /*
 ** READ & WRITE FUNCTIONS
 */
+
+int				read_to_int(char *arena, unsigned int index, char size);
 
 int				read_4_bytes(char *arena, unsigned int index);
 

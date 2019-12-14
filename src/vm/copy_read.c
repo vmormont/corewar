@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   copy_read.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:44:46 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/13 15:42:02 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/13 19:36:14 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,11 @@ void		copy_4_bytes(char *arena, unsigned int index, int num)
 		++index;
 		offset = offset - __CHAR_BIT__;
 	}
+}
+
+int			read_to_int(char *arena, unsigned int index, char size)
+{
+	if (size == IND_SIZE)
+		return (read_2_bytes(arena, index));
+	return (read_4_bytes(arena, index));
 }
