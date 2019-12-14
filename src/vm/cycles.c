@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/14 12:08:27 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/14 15:31:00 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ static void		check_cursors(t_vm *vm)
 		{
 			temp = first;
 			first = first->next;
+			if (vm->options.verbos == V_DEATHS)
+			{
+				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",\
+				temp->id, vm->cycles - temp->cycle_live, vm->cycles_to_die);
+			}
 			kill_cursor(&vm->cursors, temp);
 			vm->num_of_cursors -= 1;
 		}
@@ -65,6 +70,8 @@ static void		check_cursors(t_vm *vm)
 	if (vm->num_live_op >= NBR_LIVE || vm->checks_without_dec_cycle2die == MAX_CHECKS)
 	{
 		vm->cycles_to_die -= CYCLE_DELTA;
+		if (vm->options.verbos == V_CYCLE)
+			ft_printf("Cycle to die is now %d\n", vm->cycles_to_die);
 		vm->checks_without_dec_cycle2die = 1;
 	}
 	// увеличиваем число циклов без уменьшения cycle2die
@@ -76,11 +83,32 @@ static void		check_cursors(t_vm *vm)
 	zero_champs_live_in_period(vm->champs);
 }
 
+void			log_moves(t_vm *vm, t_cursor *cursor)
+{
+	int			i;
+
+	if (cursor->step > 1)
+	{
+		ft_printf("ADV %d (%06p -> %06p) ", cursor->step,\
+		(uintptr_t)(cursor->pos),\
+		(uintptr_t)((cursor->pos + cursor->step)));
+		i = cursor->pos;
+		while (i < (cursor->pos + cursor->step))
+		{
+			ft_printf("%x%x ",\
+			(vm->arena[i % MEM_SIZE] & 0xF0) >> 4,\
+			vm->arena[i % MEM_SIZE] & 0xF);
+			++i;
+		}
+		ft_printf("\n");
+	}
+}
+
 void			cycle(t_vm *vm)
 {
 	t_cursor	*temp;
 
-	//пока живы процессы, игра продолжается (?): да (!)
+	//пока живы процессы, игра продолжается
 	while (vm->cursors)
 	{
 		// если стоит флаг dump завешаем цикл
@@ -89,6 +117,8 @@ void			cycle(t_vm *vm)
 		// увеличиваем счетчик цикла и цикла с последней проверки
 		vm->cycles += 1;
 		vm->cycles_from_last_check += 1;
+		if (vm->options.verbos == V_CYCLE)
+			ft_printf("It is now cycle %d\n", vm->cycles);
 
 		temp = vm->cursors;
 		//проходим по каждому процессу
@@ -100,7 +130,6 @@ void			cycle(t_vm *vm)
 				// согласно коду операции
 				initial_read_cursor(temp, vm->arena);
 			}
-
 			//уменьшаем количество циклов до исполнения
 			if (temp->cycles2go > 0)
 				temp->cycles2go -= 1;
@@ -111,7 +140,8 @@ void			cycle(t_vm *vm)
 				//если успешно, выполняем операцию
 				if (check_op_code_and_type_args(temp, vm->arena))
 					g_operation[temp->op_code](vm, temp);
-
+				if (vm->options.verbos == V_MOVE)
+					log_moves(vm, temp);
 				//сдвигаем позицию каретки на длину операции
 				temp->pos = (temp->pos + temp->step) % MEM_SIZE;
 			}

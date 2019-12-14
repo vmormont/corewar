@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:19:02 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/14 11:14:29 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/14 17:57:28 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,15 @@ void		op_fork(t_vm *vm, t_cursor *cursor)
 	t_cursor	*new_cursor;
 
 	new_cursor = NULL;
-	address = read_2_bytes(vm->arena, cursor->pos + OP_SIZE) % IDX_MOD;
-	if (!(new_cursor = copy_cursor(cursor, (cursor->pos + address) % MEM_SIZE)))
+	address = read_2_bytes(vm->arena, cursor->pos + OP_SIZE);
+	if (!(new_cursor = copy_cursor(cursor,\
+	(cursor->pos + (address % IDX_MOD) % MEM_SIZE))))
 		ft_exit(MALLOC_FAILURE, &vm);
 	add_cursor(&vm->cursors, new_cursor);
 	vm->num_of_cursors += 1;
+	if (vm->options.verbos == V_OPERATIONS)
+		ft_printf("P %4d | fork %d (%d)\n", cursor->id, address,\
+		new_cursor->pos);
 }
 
 void		op_lfork(t_vm *vm, t_cursor *cursor)
@@ -38,4 +42,7 @@ void		op_lfork(t_vm *vm, t_cursor *cursor)
 		ft_exit(MALLOC_FAILURE, &vm);
 	add_cursor(&vm->cursors, new_cursor);
 	vm->num_of_cursors += 1;
+	if (vm->options.verbos == V_OPERATIONS)
+		ft_printf("P %4d | lfork %d (%d)\n", cursor->id, address,\
+		cursor->pos + address);
 }

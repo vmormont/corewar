@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/14 12:31:47 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/14 12:50:01 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,16 @@ typedef enum	e_error
 	MANY_CHAMPS_ERROR,
 	NCURSES_INIT_ERROR
 }				t_error;
+
+enum			e_verbos
+{
+	V_NONE,
+	V_LIVE = 1,
+	V_CYCLE = 2,
+	V_OPERATIONS = 4,
+	V_DEATHS = 8,
+	V_MOVE = 16
+};
 
 typedef void(*t_function)(t_vm *vm, t_cursor *cursor);
 

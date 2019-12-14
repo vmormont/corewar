@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:02:30 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/13 20:25:03 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/14 17:53:24 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void		op_or(t_vm *vm, t_cursor *cursor)
 	{
 		cursor->reg[arg3] = arg1 | arg2;
 		cursor->carry = cursor->reg[arg3] ? FALSE : TRUE;
+		if (vm->options.verbos == V_OPERATIONS)
+			ft_printf("P %4d | or %d %d r%d\n", cursor->id, arg1, arg2, arg3);
 	}
 }
 
@@ -78,5 +80,7 @@ void		op_xor(t_vm *vm, t_cursor *cursor)
 	{
 		cursor->reg[arg3] = arg1 ^ arg2;
 		cursor->carry = cursor->reg[arg3] ? FALSE : TRUE;
+		if (vm->options.verbos == V_OPERATIONS)
+			ft_printf("P %4d | xor %d %d r%d\n", cursor->id, arg1, arg2, arg3);
 	}
 }

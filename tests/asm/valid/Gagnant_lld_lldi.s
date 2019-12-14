@@ -1,7 +1,7 @@
 .name		"Celebration Funebre v0.99pl42"
 .comment	"Jour J"
 
-		ld   %0,r3
+		lld   %0,r3
 label:		zjmp %:avantdebut
 		zjmp %0				# pour eviter ecrasement
 						# de l'instruction suivante
@@ -44,7 +44,7 @@ level11:	live %4
 		fork %:level111
 
 level110:	live %42
-		lldi  %8, %:code, r15		#set des octets 9-12
+		ldi  %8, %:code, r15		#set des octets 9-12
 		ld   %-186, r14			#=$A-6-8
 		ld   %0,r2
 		zjmp  %:label
