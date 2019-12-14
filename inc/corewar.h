@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/14 12:50:01 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/14 18:02:21 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # include <stdio.h>
 # include "corewar_structs.h"
+# include "visual.h"
 # include <ncurses.h>
 # include <unistd.h>
 
@@ -107,11 +108,6 @@ void			destroy_vm(t_vm **vm);
 
 int				read_memory(char *arena, int pos, char size);
 
-/*
-**	FUNCTION FOR VIZUALIZATION
-*/
-
-void			visualizator(t_vm *vm);
 
 /*
 ** UTILITY FUNCTIONS

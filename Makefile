@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/12/14 12:32:02 by astripeb         ###   ########.fr        #
+#    Updated: 2019/12/14 17:20:51 by pcredibl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ NAME_CORE			:= corewar
 #HEADERS
 OP_HEADERS			:= op_struct.h op.h
 ASM_HEADERS			:= asm_structs.h asm.h
-CORE_HEADERS		:= corewar_structs.h corewar.h
+CORE_HEADERS		:= corewar_structs.h corewar.h visual.h
 
 #COMPILER
 CC 					:= gcc
