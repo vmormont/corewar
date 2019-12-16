@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/06 20:14:31 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/16 17:00:18 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void		set_champ_code_on_arena(t_vm *vm)
 	t_champ		*player;
 	t_cursor	*cursor;
 	int			offset_start_code;
-	char		op_code;
 
 	i = 0;
 	player = vm->champs;
@@ -41,14 +40,14 @@ void		set_champ_code_on_arena(t_vm *vm)
 	while(player)
 	{
 		ft_memcpy((void*)vm->arena + i, player->code, player->code_size);
-		if (!(cursor	= new_cursor(i)))
-			ft_exit(MALLOC_FAILURE, NULL, &vm);
+		if (!(cursor = new_cursor(i)))
+			ft_exit(MALLOC_FAILURE, &vm);
 		cursor->reg[1] = player->id;
-		op_code = vm->arena[i];
-		cursor->op_code = op_code;
-		cursor->cycles2go = g_op_tab[op_code].cycles2go;
+		cursor->op_code = vm->arena[i];
+		cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go;
 		cursor->pos = i;
 		add_cursor(&vm->cursors, cursor);
+		ft_printf("id = %d, pos = %d, size = %d\n", player->id, i, player->code_size);
 		i += offset_start_code;
 		player = player->next;
 	}
@@ -66,8 +65,10 @@ t_vm		*create_vm(t_champ *champs, t_options options)
 	vm->checks_without_dec_cycle2die = 1;
 	vm->champs = champs;
 	vm->num_of_champs = count_champs(vm->champs);
+	vm->num_of_cursors = vm->num_of_champs;
+	ft_printf("num of cursors = %d\n", vm->num_of_cursors);
 	vm->options = options;
-	vm->checks_without_dec_cycle2die = 1;
+	vm->winner = get_champ_by_id(vm->champs, -vm->num_of_champs)->id;
 	return (vm);
 }
 

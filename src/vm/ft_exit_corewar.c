@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit_corewar.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <astripeb@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:58:00 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/25 16:32:59 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/11 15:30:17 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ static void	ft_usage(void)
 	ft_printf("\n\n");
 }
 
-void		ft_exit(int err, char *file_name, t_vm **vm)
+void		ft_exit(int err, t_vm **vm)
 {
 	if (err == USAGE)
 		ft_usage();
 	else if (err == MALLOC_FAILURE)
 		ft_fprintf(STDERR_FILENO, "Error: Failed to alloc memory\n");
+	else if (err == NCURSES_INIT_ERROR)
+		ft_fprintf(STDERR_FILENO, "Ncurses init error\n");
 	destroy_vm(vm);
 	exit(err);
 }

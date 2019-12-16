@@ -8,8 +8,8 @@ Dieu est la plus belle invention.
 Tapis dans l'ombre je veille. - Minou"
 
 start:
-	ld -42, r2
-	zjmp %:begin
+	ld -42, r2  #5
+	zjmp %:begin #20
 first_attack:
 	sti r10, r15, r9
 	live %42
@@ -25,10 +25,10 @@ p2:
 	ld -511, r1
 	zjmp %:first_attack
 begin:
-	ld %55575553, r8		# 02 90 03 50 04 01 08
-	st r1, r15				# 03 50 01 0f
-	st r8, -4				# 03 70 08 ff fc
-	fork %:def
+	ld %55575553, r8		# 02 90 03 50 04 01 08 #25
+	st r1, r15				# 03 50 01 0f 			#30
+	st r8, -4				# 03 70 08 ff fc		#35
+	fork %:def										#
 	live %42
 	fork %:p2
 p1:

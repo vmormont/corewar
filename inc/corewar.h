@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/10 17:15:20 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/16 16:48:06 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 
 # include <stdio.h>
 # include "corewar_structs.h"
+# include "visual.h"
 # include <ncurses.h>
+# include <unistd.h>
 
 # define DUMP_COLUMNS	64
 # define DUMP_ROWS		64
@@ -39,8 +41,19 @@ typedef enum	e_error
 	EXEC_SIZE_ERROR,
 	NO_CODE_ERROR,
 	CODE_SIZE_ERROR,
-	MANY_CHAMPS_ERROR
+	MANY_CHAMPS_ERROR,
+	NCURSES_INIT_ERROR
 }				t_error;
+
+enum			e_verbos
+{
+	V_NONE,
+	V_LIVE = 1,
+	V_CYCLE = 2,
+	V_OPERATIONS = 4,
+	V_DEATHS = 8,
+	V_MOVE = 16
+};
 
 typedef void(*t_function)(t_vm *vm, t_cursor *cursor);
 
@@ -48,7 +61,7 @@ typedef void(*t_function)(t_vm *vm, t_cursor *cursor);
 ** MANAGMENT ERRORS
 */
 
-void			ft_exit(int err, char *file_name, t_vm **vm);
+void			ft_exit(int err, t_vm **vm);
 
 void			ft_exit_read(t_error err, char *file,\
 				t_champ **champs, int exec_size);
@@ -81,6 +94,8 @@ t_champ			*get_champ_by_id(t_champ *champs, int id);
 
 void			print_champs(t_champ *champ);
 
+void			announce_winner(t_vm *vm);
+
 /*
 ** UTILLITY VM
 */
@@ -93,12 +108,12 @@ void			destroy_vm(t_vm **vm);
 
 int				read_memory(char *arena, int pos, char size);
 
+
 /*
 ** UTILITY FUNCTIONS
 */
 
 int				reverse_bits(int num, char full_bit);
-
 
 void			dump_arena(char *arena);
 
@@ -110,15 +125,15 @@ void			ft_swap(void **a, void **b);
 
 void			introduce(t_champ *champ);
 
-void			print_reg(int  *reg);
+void			print_reg(int *reg);
 
 /*
 ** CURSOR
 */
 
-t_cursor		*new_cursor(int pos);
+t_cursor		*new_cursor(unsigned int pos);
 
-t_cursor		*copy_cursor(t_cursor *src, int pos);
+t_cursor		*copy_cursor(t_cursor *src, unsigned int pos);
 
 void			add_cursor(t_cursor **list, t_cursor *cursor);
 
@@ -131,6 +146,8 @@ void			kill_all_cursors(t_cursor **begin);
 */
 
 void			cycle(t_vm *vm);
+
+t_bool			check_op_code_and_type_args(t_cursor *cursor, char *arena);
 
 /*
 ** OPERATIONS FUNCTION
@@ -180,12 +197,17 @@ void			op_lldi(t_vm *vm, t_cursor *cursor);
 
 t_bool			isregister(char reg_num);
 
-t_arg_type		get_arg_type(char code_args, char num_arg);
+int				get_arg_value(char *arena, t_cursor *cursor,\
+				t_arg_type type, char *offset);
 
+int				get_ind_value(char *arena, unsigned int index,\
+				char offset, t_bool mod);
 
 /*
 ** READ & WRITE FUNCTIONS
 */
+
+int				read_to_int(char *arena, unsigned int index, char size);
 
 int				read_4_bytes(char *arena, unsigned int index);
 

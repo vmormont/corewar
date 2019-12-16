@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   champion_funcs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/26 13:20:49 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/12 14:31:51 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,16 @@ void			add_champion2end(t_champ **begin, t_champ *champ, int id)
 			temp->next = champ;
 		}
 	}
+}
+
+void			announce_winner(t_vm *vm)
+{
+	int		id_winner;
+	t_champ	*winner;
+
+	id_winner = vm->winner;
+	winner = get_champ_by_id(vm->champs, id_winner);
+	ft_printf("Contestant %d, \"%s\", has won !\n", -id_winner, winner->name);
 }
 
 void			print_champs(t_champ *champ)

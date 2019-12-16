@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:38:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/10 18:52:25 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/16 17:01:17 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static int	get_option_value(char **av, int index, int min_val, int max_val)
 		if (isdigit_word(av[index]))
 			value = ft_atoi(av[index]);
 		else
-			ft_exit(USAGE, NULL, NULL);
+			ft_exit(USAGE, NULL);
 		if (value < min_val || value > max_val)
-			ft_exit(USAGE, NULL, NULL);
+			ft_exit(USAGE, NULL);
 	}
 	return (value);
 }
@@ -80,21 +80,21 @@ t_options	get_options(int ac, char **av)
 	t_options	options;
 	static char *opt[] = {"vis", "n", "dump", "s", "a", "v", "t", "-stealth"};
 
-	if (ac == 1 || !check_valid_options(ac, av, opt, 7))
-		ft_exit(USAGE, NULL, NULL);
+	if (ac == 1 || !check_valid_options(ac, av, opt, 6))
+		ft_exit(USAGE, NULL);
 	ft_bzero((void*)&options, sizeof(t_options));
 	options.aff = get_option(ac, av, "a");
 	if ((options.dump = get_option(ac, av, "dump")))
 		options.dump = get_option_value(av, options.dump + 1, 1, INT32_MAX);
+	options.dump = !options.dump ? -1 : options.dump;
 	if ((options.cycles = get_option(ac, av, "s")))
 		options.cycles = get_option_value(av, options.cycles + 1, 1, INT32_MAX);
 	if ((options.verbos = get_option(ac, av, "v")))
 	{
 		options.verbos = get_option_value(av, options.verbos + 1, 1, 16);
 		if (options.verbos != 1 && (options.verbos & (options.verbos - 1)))
-			ft_exit(USAGE, NULL, NULL);
+			ft_exit(USAGE, NULL);
 	}
-	options.ncurses = get_option(ac, av, "vis");
 	if ((options.terminal = get_option(ac, av, "t")))
 	{
 		if ((get_option(ac, av, "-stealth") - options.terminal) == 1)

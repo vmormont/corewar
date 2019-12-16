@@ -2,6 +2,7 @@
 .comment "__UNDERSCORE_S__"
 
 first:
+	lldi    %42, %42, r16
 	ld		%0, r2
 	zjmp	%:begin
 	zjmp	%-511
@@ -18,7 +19,6 @@ zero:
 	zjmp	%:defdessus
 #plein de truck pour remplir
 lasertop:
-	live	%-42
 	ld		%-128, r6
 	fork	%:lasera
 	ld		%190056198, r7
@@ -36,7 +36,6 @@ dec2:
 laser:
 	ld		%0, r2
 	zjmp	%-511
-empty:
 	lldi    %42, %42, r16
 #def du dessus
 atj1:

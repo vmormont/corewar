@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:21:32 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/28 11:46:57 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/13 20:29:40 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_instr		*new_instruct(t_op op)
 	instr->code_args = op.code_args;
 	instr->cycles2go = op.cycles2go;
 	instr->num_args = op.num_args;
-	instr->tdir_size = !op.tdir_size ? 4 : 2;
+	instr->tdir_size = op.tdir_size;
 	if (!(instr->args = (t_arg*)malloc(sizeof(t_arg) * instr->num_args)))
 	{
 		ft_memdel((void*)&instr);
