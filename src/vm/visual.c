@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/16 20:00:41 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/16 20:34:03 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,24 +102,20 @@ static void		print_champ_info(t_vm *vm, t_champ *champs)
 
 static void		print_info(t_vm *vm)
 {
-	int		i;
-	
 	attron(A_BOLD);
 	mvaddstr(3, (3* DUMP_COLUMNS) + 8, vm->pause ? "** PAUSED **" : "** RUNNING **");
 	mvaddstr(5, (3 * DUMP_COLUMNS) + 8, "Cycles/second limit : ");
 	mvaddstr(8, (3 * DUMP_COLUMNS) + 8, "Cycle : ");
 	mvaddstr(11, (3 * DUMP_COLUMNS) + 8, "Processes : ");
-	i = 0;
-	while (++i <= vm->num_of_champs)
-		print_champ_info(vm, vm->champs);
-	mvprintw(11 + (4 * i) + 7, (3 * DUMP_COLUMNS) + 8, "CYCLE TO DIE :\t%d",\
-	vm->cycles_to_die);
-	mvprintw(13 + (4 * i) + 7, (3 * DUMP_COLUMNS) + 8, "CYCLE DELTA :\t%d",\
-	CYCLE_DELTA);
-	mvprintw(15 + (4 * i) + 7, (3 * DUMP_COLUMNS) + 8, "NBR LIVE :\t%d",\
-	NBR_LIVE);
-	mvprintw(17 + (4 * i) + 7, (3 * DUMP_COLUMNS) + 8, "MAX CHECKS :\t%d",\
-	MAX_CHECKS);
+	print_champ_info(vm, vm->champs);
+	mvprintw(11 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
+	"CYCLE TO DIE :\t%d", vm->cycles_to_die);
+	mvprintw(13 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
+	"CYCLE DELTA :\t%d", CYCLE_DELTA);
+	mvprintw(15 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
+	"NBR LIVE :\t%d", NBR_LIVE);
+	mvprintw(17 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
+	"MAX CHECKS :\t%d", MAX_CHECKS);
 	refresh();
 	attron(A_NORMAL);
 }
