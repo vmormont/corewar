@@ -94,7 +94,9 @@ typedef struct				s_cursor
 ** num_live_op				- количество операций live в данном цикле
 ** checks_without_dec_cycle2die
 ** 							- количество проверок без уменьшения парметра cycle_to_die
-**	winner					- id последнего сказавшего live чемпиона
+** winner					- id последнего сказавшего live чемпиона
+** vis_speed				- скорость отрисовки (циклов в секунду)
+** pause					- флаг, стоит ли игра на паузе.
 */
 
 typedef struct				s_vm
@@ -111,6 +113,8 @@ typedef struct				s_vm
 	int						checks_without_dec_cycle2die;
 	int						cycles_from_last_check;
 	char					winner;
+	short					vis_speed;
+	t_bool					pause;
 }							t_vm;
 
 /*

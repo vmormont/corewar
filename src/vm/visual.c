@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/16 18:38:40 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/16 20:00:41 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,33 +79,57 @@ static void		print_src_arena(t_vm *vm, char *byte)
 
 }
 
+static void		print_champ_info(t_vm *vm, t_champ *champs)
+{
+	int		i;
+
+	i = 0;
+	while (i < vm->num_of_champs)
+	{
+		mvprintw(16 + (i * 4), (3 * DUMP_COLUMNS) + 8, "Player %d : ", champs->id);
+		color_set(i + 1, NULL);
+		printw("%s\n", champs->name);
+		color_set(WHITE_TEXT, NULL);
+		mvprintw(17 + (i * 4), (3 * DUMP_COLUMNS) + 10,\
+		"Last live :\t\t\t%d\n", champs->last_live);
+		mvprintw(18 + (i * 4), (3 * DUMP_COLUMNS) + 10,\
+		"Lives in current period :\t%d\n", champs->lives_in_period);
+		i++;
+		champs = champs->next;
+	}
+	refresh();
+}
+
 static void		print_info(t_vm *vm)
 {
 	int		i;
 	
 	attron(A_BOLD);
+	mvaddstr(3, (3* DUMP_COLUMNS) + 8, vm->pause ? "** PAUSED **" : "** RUNNING **");
 	mvaddstr(5, (3 * DUMP_COLUMNS) + 8, "Cycles/second limit : ");
-	//тут будет пока несуществующий параметр структуры
-	//printw("\t%d", vm->vis_speed);
 	mvaddstr(8, (3 * DUMP_COLUMNS) + 8, "Cycle : ");
-	printw("\t%d", vm->cycles);
-	mvaddstr(14, (3 * DUMP_COLUMNS) + 8, "Processes : ");
-	//тут будет пока несуществующий параметр структуры
-	//printw("\t%d", vm->num_of_cursors);
+	mvaddstr(11, (3 * DUMP_COLUMNS) + 8, "Processes : ");
 	i = 0;
-	/*информация про игроков;
 	while (++i <= vm->num_of_champs)
-		print_champ_info(vm->champs);*/
-	mvprintw(20 + (6 * i), (3 * DUMP_COLUMNS) + 8, "CYCLE TO DIE :\t%d",\
+		print_champ_info(vm, vm->champs);
+	mvprintw(11 + (4 * i) + 7, (3 * DUMP_COLUMNS) + 8, "CYCLE TO DIE :\t%d",\
 	vm->cycles_to_die);
-	mvprintw(22 + (6 * i), (3 * DUMP_COLUMNS) + 8, "CYCLE DELTA :\t%d",\
+	mvprintw(13 + (4 * i) + 7, (3 * DUMP_COLUMNS) + 8, "CYCLE DELTA :\t%d",\
 	CYCLE_DELTA);
-	mvprintw(24 + (6 * i), (3 * DUMP_COLUMNS) + 8, "NBR LIVE :\t%d",\
+	mvprintw(15 + (4 * i) + 7, (3 * DUMP_COLUMNS) + 8, "NBR LIVE :\t%d",\
 	NBR_LIVE);
-	mvprintw(26 + (6 * i), (3 * DUMP_COLUMNS) + 8, "MAX CHECKS :\t%d",\
+	mvprintw(17 + (4 * i) + 7, (3 * DUMP_COLUMNS) + 8, "MAX CHECKS :\t%d",\
 	MAX_CHECKS);
 	refresh();
 	attron(A_NORMAL);
+}
+
+static void	show_values(t_vm *vm)
+{
+	mvprintw(5, (3 * DUMP_COLUMNS) + 31, "%d", vm->vis_speed);
+	mvprintw(8, (3 * DUMP_COLUMNS) + 17, "%d", vm->cycles);
+	mvprintw(11, (3 * DUMP_COLUMNS) + 21, "%d", vm->num_of_cursors);
+	refresh();
 }
 
 static void color_init(void)
@@ -131,8 +155,9 @@ void	visualizator(t_vm *vm)
 	//box(arena, 0, 0);
 	print_src_arena(vm, vm->arena);
 	print_info(vm);
+	show_values(vm);
 	print_frame();
-	
+	noecho();
 	getch();
 	//wclear(arena);
 	//wrefresh(arena);
