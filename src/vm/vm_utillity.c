@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_utillity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/14 11:20:02 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/16 14:36:35 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void		set_champ_code_on_arena(t_vm *vm)
 		add_cursor(&vm->cursors, cursor);
 		vm->num_of_cursors += 1;
 		i += offset_start_code;
+		ft_printf("id = %d, pos = %d, size = %d\n", player->id, i, player->code_size);
 		player = player->next;
 	}
 }
