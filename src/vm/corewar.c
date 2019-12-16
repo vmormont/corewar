@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/16 16:48:06 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/16 18:00:17 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ int		main(int argc, char **argv)
 	cycle(vm);
 	vm->cursors ? dump_arena(vm->arena) : announce_winner(vm);
 	destroy_vm(&vm);
-//	options.terminal ? endwin() : 0;
+	options.terminal ? endwin() : 0;
 	return (0);
 }

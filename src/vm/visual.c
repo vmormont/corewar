@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/14 17:14:25 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/16 18:38:40 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,27 @@ static void		print_src_arena(t_vm *vm, char *byte)
 	while (i < DUMP_ROWS)
 	{
 		j = 0;
-		if (!(((i * DUMP_COLUMNS) + j) % ((DUMP_COLUMNS * DUMP_ROWS) / vm->num_of_champs)))
-		{
-			color_code++;
-			color_set(color_code, NULL);
-			champ_begin = (i * DUMP_COLUMNS) + j;
-		}
-		else if (temp && (((i * DUMP_COLUMNS) + j) - champ_begin) >= temp->code_size)
-		{
-			color_set(WHITE_TEXT, NULL);
-			champ_begin = 0;
-			temp->next ? temp = temp->next : 0;
-		}
 
 		while (j < DUMP_COLUMNS)
 		{
-			//mvwprintw(arena, i, 3 * j, "X");
+			//mvprintw(i + 3, 270, "STR");
 			//move(i + 3, (3 * j) + 3);
+			if (!(((i * DUMP_COLUMNS) + j) % (((DUMP_COLUMNS * DUMP_ROWS)\
+			/ vm->num_of_champs))) && temp)
+			{
+				color_code++;
+				//mvprintw(color_code, 270, "color code = %d", color_code);
+				color_set(color_code, NULL);
+				champ_begin = (i * DUMP_COLUMNS) + j;
+				//mvprintw(j + 3, 300, "code size = %d", temp->code_size);
+			}
+			else if (temp && (((i * DUMP_COLUMNS) + j) - champ_begin) == temp->code_size)
+			{
+				color_set(WHITE_TEXT, NULL);
+				champ_begin = 0;
+				temp = temp->next;
+				//mvprintw(i, 300, "code size = %d", temp->code_size);
+			}
 			mvprintw(i + 3, (3 * j) + 3, "%02hhx ", *byte);
 			byte += 1;
 			j++;
