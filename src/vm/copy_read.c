@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 17:44:46 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/13 19:36:14 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/16 21:45:01 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		copy_4_bytes(char *arena, unsigned int index, int num)
 	offset = 24;
 	while (i < REG_SIZE)
 	{
-		arena[index % MEM_SIZE] = (unsigned char)((num >> offset) & 0xFF);
+		arena[index % MEM_SIZE] = (uint8_t)((num >> offset) & 0xFF);
 		++i;
 		++index;
 		offset = offset - __CHAR_BIT__;

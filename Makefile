@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
+#    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/12/16 17:00:11 by pcredibl         ###   ########.fr        #
+#    Updated: 2019/12/16 22:54:48 by astripeb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,38 +34,59 @@ LIBFT				:= libft.a
 #PROJECT_DIRS
 INC_DIR				:= ./inc
 OBJ_DIR				:= ./obj
-SRC_OP_DIR			:= ./src/op
+SRC_OP_INFO_DIR		:= ./src/op_info
 SRC_ASM_DIR			:= ./src/asm
 SRC_CORE_DIR		:= ./src/vm
-SRC_DASM_DIR		:= ./src/dasm/
+SRC_OP_FUNC_DIR		:= ./src/vm/op_funcs
+SRC_VIS_DIR			:= ./src/vm/visual
+SRC_DASM_DIR		:= ./src/dasm
 
 #COMPILER FLAGS
 CFALGS				:= -Wall -Wextra -Werror -g -O3
 LFLAGS				:= -I $(LIB_DIR)/inc -I $(INC_DIR)
 LIBS				:= -L $(LIB_DIR) -lft
 
-SRC_OP				:= op_tab.c
+SRC_OP_INFO			:= op_tab.c
 
-SRC_ASM				:= asm.c ft_exit_asm.c champion.c utility.c instructions_utility.c\
-					label_utility.c parse_name_comment.c parse_label.c\
-					asm_file_parser.c parse_arguments.c validation.c\
-					error_manager.c assign_values.c assembly.c dump_to_stdo.c\
-					options.c
+################################################################################
+#									ASSEMBLY FILES					 		   #
+################################################################################
+
+SRC_ASM				:= asm.c ft_exit_asm.c champion.c utility.c\
+					instructions_utility.c label_utility.c parse_name_comment.c\
+					parse_label.c asm_file_parser.c parse_arguments.c\
+					validation.c error_manager.c assign_values.c assembly.c\
+					dump_to_stdout.c options.c
+
+################################################################################
+#									COREWAR FILES					 		   #
+################################################################################
 
 SRC_CORE			:= corewar.c ft_exit_corewar.c utility_core.c options_core.c\
 					champion_read.c champion_utility.c champion_funcs.c\
-					vm_utillity.c cursor.c cycles.c copy_read.c op_utility.c\
-					live_zjmp_aff.c add_sub.c and_or_xor.c st_sti.c fork_lfork.c\
-					ld_ldi_lld_lldi.c check_args.c visual.c
+					vm_utillity.c cursor.c cycles.c copy_read.c check_args.c
 
-SRC_DASM			:= main.c dasm.c ft_printf_fd.c utilits.c utilits_second.c print.c
+SRC_OP_FUNC			:= ld_lld.c ldi_lldi.c live_zjmp_aff.c add_sub.c\
+					and_or_xor.c st_sti.c fork_lfork.c op_utility.c
 
-OBJ_OP				:= $(SRC_OP:.c=.o)
+SRC_VIS				:= visual.c
+
+################################################################################
+#									DISASSEMBLY FILES				 		   #
+################################################################################
+
+SRC_DASM			:= main.c dasm.c ft_printf_fd.c utilits.c utilits_second.c\
+					print.c
+
+OBJ_OP				:= $(SRC_OP_INFO:.c=.o)
 OBJ_ASM				:= $(SRC_ASM:.c=.o)
-OBJ_CORE			:= $(SRC_CORE:.c=.o)
+OBJ_CORE			:= $(SRC_CORE:.c=.o) $(SRC_OP_FUNC:.c=.o) $(SRC_VIS:.c=.o)
 OBJ_DASM			:= $(SRC_DASM:.c=.o)
 
-vpath %.c $(SRC_ASM_DIR) $(SRC_CORE_DIR) $(SRC_OP_DIR) $(SRC_DASM_DIR)
+vpath %.c $(SRC_OP_INFO_DIR)\
+		$(SRC_ASM_DIR)\
+		$(SRC_CORE_DIR) $(SRC_OP_FUNC_DIR) $(SRC_VIS_DIR)\
+		$(SRC_DASM_DIR)
 vpath %.o $(OBJ_DIR)
 vpath %.h $(INC_DIR)
 vpath %.a $(LIB_DIR)
@@ -74,17 +95,17 @@ all: lib $(NAME_ASM) $(NAME_CORE) $(NAME_DASM)
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(NAME_ASM): $(LIBFT) $(OBJ_ASM) $(OBJ_OP) $(ASM_HEADERS) $(OP_HEADERS)
-	$(CC) $(LFLAGS) -lncurses $(addprefix $(OBJ_DIR)/, $(OBJ_ASM) $(OBJ_OP)) $(LIBS) -o $@
+	$(CC) $(LFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ_ASM) $(OBJ_OP)) $(LIBS) -o $@
 	echo "$(GREEN)$@ was created ✅$(RESET)"
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(NAME_CORE): $(LIBFT) $(OBJ_CORE) $(OBJ_OP) $(CORE_HEADERS) $(OP_HEADERS)
-	$(CC) $(LFLAGS) -lncurses $(addprefix $(OBJ_DIR)/, $(OBJ_CORE) $(OBJ_OP)) $(LIBS) -o $@
+	$(CC) $(LFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ_CORE) $(OBJ_OP)) $(LIBS) -lncurses -o $@
 	echo "$(GREEN)$@ was created ✅$(RESET)"
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(NAME_DASM): $(LIBFT) $(OBJ_DASM) $(OBJ_OP) $(DASM_HEADERS) $(OP_HEADERS)
-	$(CC) $(LFLAGS) -lncurses $(addprefix $(OBJ_DIR)/, $(OBJ_DASM) $(OBJ_OP)) $(LIBS) -o $@
+	$(CC) $(LFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ_DASM) $(OBJ_OP)) $(LIBS) -o $@
 	echo "$(GREEN)$@ was created ✅$(RESET)"
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)

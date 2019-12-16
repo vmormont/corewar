@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_lfork.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 14:19:02 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/16 17:00:18 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/16 21:36:51 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		op_fork(t_vm *vm, t_cursor *cursor)
 	new_cursor = NULL;
 	address = read_2_bytes(vm->arena, cursor->pos + OP_SIZE);
 	if (!(new_cursor = copy_cursor(cursor,\
-	(cursor->pos + (address % IDX_MOD) % MEM_SIZE))))
+	(cursor->pos + (address % IDX_MOD)) % MEM_SIZE)))
 		ft_exit(MALLOC_FAILURE, &vm);
 	add_cursor(&vm->cursors, new_cursor);
 	vm->num_of_cursors += 1;

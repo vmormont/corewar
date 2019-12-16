@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   visual.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 13:55:43 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/14 16:33:33 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/16 22:36:07 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VISUAL_H
 # define VISUAL_H
 
+# include <ncurses.h>
 # include "corewar_structs.h"
 
 # define RED_TEXT 1

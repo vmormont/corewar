@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/16 16:48:06 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/16 22:36:00 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include <stdio.h>
 # include "corewar_structs.h"
 # include "visual.h"
-# include <ncurses.h>
-# include <unistd.h>
 
 # define DUMP_COLUMNS	64
 # define DUMP_ROWS		64

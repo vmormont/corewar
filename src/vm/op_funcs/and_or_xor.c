@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:02:30 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/14 17:53:24 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/16 22:08:50 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void		op_and(t_vm *vm, t_cursor *cursor)
 	{
 		cursor->reg[arg3] = arg1 & arg2;
 		cursor->carry = cursor->reg[arg3] ? FALSE : TRUE;
+		if (vm->options.verbos == V_OPERATIONS)
+			ft_printf("P %4d | and %d %d r%d\n", cursor->id, arg1, arg2, arg3);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/16 17:02:46 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/16 22:07:37 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		initial_read_cursor(t_cursor *cursor, char *arena)
 		cursor->cycles2go = 0;
 	}
 	else
-		cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go - 1;
+		cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go;
 	cursor->exec = TRUE;
 }
 
@@ -149,10 +149,6 @@ void			cycle(t_vm *vm)
 					log_moves(vm, temp);
 				//сдвигаем позицию каретки на длину операции
 				temp->pos = (temp->pos + temp->step) % MEM_SIZE;
-
-				// считываем следующий код операции и выставляем cycles2go
-				// согласно коду операции
-
 			}
 			//уменьшаем количество циклов до исполнения
 			temp = temp->next;
