@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:21:32 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/13 20:29:40 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/17 23:07:27 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void		del_one_instr(t_instr **instr)
 	if (instr && *instr)
 	{
 		del_args(&(*instr)->args, (*instr)->num_args);
-		(*instr)->prev = NULL;
 		(*instr)->next = NULL;
 		ft_memdel((void*)instr);
 	}
@@ -92,7 +91,6 @@ void		add_instr2end(t_instr **begin, t_instr *instr)
 			while (temp->next)
 				temp = temp->next;
 			temp->next = instr;
-			instr->prev = temp;
 		}
 	}
 }

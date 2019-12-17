@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/16 22:36:00 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/17 23:29:08 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 
 # define OP_SIZE 1
 # define ARGS_SIZE 1
+# define PRE_SIZE 2
+# define ARENA_REG_SIZE 1
 
 typedef enum	e_error
 {
@@ -193,13 +195,9 @@ void			op_lldi(t_vm *vm, t_cursor *cursor);
 ** OPERATIONS UTILITY
 */
 
-t_bool			isregister(char reg_num);
+int				get_arg_value(char *arena, t_cursor *cursor, t_arg_type type);
 
-int				get_arg_value(char *arena, t_cursor *cursor,\
-				t_arg_type type, char *offset);
-
-int				get_ind_value(char *arena, unsigned int index,\
-				char offset, t_bool mod);
+int				get_arg_size(char op_code, t_arg_type type);
 
 /*
 ** READ & WRITE FUNCTIONS

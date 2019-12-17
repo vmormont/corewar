@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/16 22:07:37 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/17 23:29:34 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void		initial_read_cursor(t_cursor *cursor, char *arena)
 	}
 	else
 		cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go;
-	cursor->exec = TRUE;
 }
 
 static void		check_cursors(t_vm *vm)
@@ -88,7 +87,7 @@ static void		check_cursors(t_vm *vm)
 	zero_champs_live_in_period(vm->champs);
 }
 
-void			log_moves(t_vm *vm, t_cursor *cursor)
+static void		log_moves(t_vm *vm, t_cursor *cursor)
 {
 	int			i;
 
@@ -145,6 +144,7 @@ void			cycle(t_vm *vm)
 				//если успешно, выполняем операцию
 				if (check_op_code_and_type_args(temp, vm->arena))
 					g_operation[temp->op_code](vm, temp);
+
 				if (vm->options.verbos == V_MOVE)
 					log_moves(vm, temp);
 				//сдвигаем позицию каретки на длину операции

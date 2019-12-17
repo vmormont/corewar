@@ -16,38 +16,33 @@ void op_ld(t_vm *vm, t_cursor  *cursor)
 {
 	int			value;
 	char		reg;
-	char		offset;
 	char		code_args;
 
-	offset = OP_SIZE + ARGS_SIZE;
+	cursor->step = PRE_SIZE;
 	code_args = vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE];
-	value = get_arg_value(vm->arena, cursor, ((code_args >> 6) & 3), &offset);
-	reg = vm->arena[(cursor->pos + offset) % MEM_SIZE];
-	if (isregister(reg) && cursor->exec)
-	{
-		cursor->reg[reg] = value;
-		cursor->carry = value ? FALSE : TRUE;
-		if (vm->options.verbos == V_OPERATIONS)
-			ft_printf("P %4d | ld %d r%d\n", cursor->id, value, reg);
-	}
+	value = get_arg_value(vm->arena, cursor, ((code_args >> 6) & 3));
+	reg = vm->arena[(cursor->pos + cursor->step) % MEM_SIZE];
+	cursor->reg[reg] = value;
+	cursor->step += ARENA_REG_SIZE;
+	cursor->carry = value ? FALSE : TRUE;
+
+	if (vm->options.verbos == V_OPERATIONS)
+		ft_printf("P %4d | ld %d r%d\n", cursor->id, value, reg);
 }
 
 void op_lld(t_vm *vm, t_cursor  *cursor)
 {
 	int			value;
 	char		reg;
-	char		offset;
 	char		code_args;
 
-	offset = OP_SIZE + ARGS_SIZE;
+	cursor->step = PRE_SIZE;
 	code_args = vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE];
-	value = get_arg_value(vm->arena, cursor, ((code_args >> 6) & 3), &offset);
-	reg = vm->arena[(cursor->pos + offset) % MEM_SIZE];
-	if (isregister(reg) && cursor->exec)
-	{
-		cursor->reg[reg] = value;
-		cursor->carry = value ? FALSE : TRUE;
-		if (vm->options.verbos == V_OPERATIONS)
-			ft_printf("P %4d | lld %d r%d\n", cursor->id, value, reg);
-	}
+	value = get_arg_value(vm->arena, cursor, ((code_args >> 6) & 3));
+	reg = vm->arena[(cursor->pos + cursor->step) % MEM_SIZE];
+	cursor->reg[reg] = value;
+	cursor->step += ARENA_REG_SIZE;
+	cursor->carry = value ? FALSE : TRUE;
+	if (vm->options.verbos == V_OPERATIONS)
+		ft_printf("P %4d | lld %d r%d\n", cursor->id, value, reg);
 }

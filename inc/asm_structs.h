@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:00:23 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/13 20:30:57 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/17 23:06:27 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct	s_arg
 }				t_arg;
 
 /*
-** ИНСТРУКЦИЯ (двусвязный(?) список)
+** ИНСТРУКЦИЯ связный список
 ** code 		- код инструкции (live -> 1, ld -> 2, lfork ->15 and e.t.)
 ** offset 		- смещение инструкции относительно начала КОДА чемиона
 ** code_args	- код типов аргументов
@@ -58,8 +58,7 @@ typedef struct	s_arg
 ** instr_size	- размер в байтах инструкции
 ** cycles2go	- циклов до исполнения
 ** tdir_size	- размер T_DIR
-** next			- следующая инструкция (под вопросом)
-** prev			- предыдущая инструкция (под вопросом)
+** next			- следующая инструкция
 */
 
 typedef struct	s_instr
@@ -73,7 +72,6 @@ typedef struct	s_instr
 	int				cycles2go;
 	char			tdir_size;
 	struct s_instr	*next;
-	struct s_instr	*prev;
 }				t_instr;
 
 /*

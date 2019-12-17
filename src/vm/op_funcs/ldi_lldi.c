@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 22:23:49 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/16 22:24:41 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/17 23:04:22 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,44 +29,40 @@ static void	log_lldi(t_cursor *cursor, int addr1, int addr2, char reg)
 
 void 		op_ldi(t_vm *vm, t_cursor *cursor)
 {
-	int		code_arg;
+	char	code_arg;
 	int		arg1;
 	int		arg2;
 	char	reg;
-	char	offset;
 
-	offset = 2;
+	cursor->step = PRE_SIZE;
 	code_arg = vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE];
-	arg1 = get_arg_value(vm->arena, cursor, (code_arg >> 6) & 3, &offset);
-	arg2 = get_arg_value(vm->arena, cursor, (code_arg >> 4) & 3, &offset);
-	reg = vm->arena[(cursor->pos + offset) % MEM_SIZE];
-	if (isregister(reg) && cursor->exec)
-	{
-		cursor->reg[reg] = read_4_bytes(vm->arena,\
-		cursor->pos + ((arg1 + arg2) % IDX_MOD));
-		if (vm->options.verbos == V_OPERATIONS)
-			log_ldi(cursor, arg1, arg2, reg);
-	}
+	arg1 = get_arg_value(vm->arena, cursor, (code_arg >> 6) & 3);
+	arg2 = get_arg_value(vm->arena, cursor, (code_arg >> 4) & 3);
+	reg = vm->arena[(cursor->pos + cursor->step) % MEM_SIZE];
+	cursor->reg[reg] = read_4_bytes(vm->arena,\
+	cursor->pos + ((arg1 + arg2) % IDX_MOD));
+	cursor->step += ARENA_REG_SIZE;
+
+	if (vm->options.verbos == V_OPERATIONS)
+		log_ldi(cursor, arg1, arg2, reg);
 }
 
 void 		op_lldi(t_vm *vm, t_cursor  *cursor)
 {
-	int		code_arg;
+	char	code_arg;
 	int		arg1;
 	int		arg2;
 	char	reg;
-	char	offset;
 
-	offset = 2;
+	cursor->step = PRE_SIZE;
 	code_arg = vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE];
-	arg1 = get_arg_value(vm->arena, cursor, (code_arg >> 6) & 3, &offset);
-	arg2 = get_arg_value(vm->arena, cursor, (code_arg >> 4) & 3, &offset);
-	reg = vm->arena[(cursor->pos + offset) % MEM_SIZE];
-	if (isregister(reg) && cursor->exec)
-	{
-		cursor->reg[reg] = read_4_bytes(vm->arena, cursor->pos + arg1 + arg2);
-		cursor->carry = cursor->reg[reg] ? FALSE : TRUE;
-		if (vm->options.verbos == V_OPERATIONS)
-			log_lldi(cursor, arg1, arg2, reg);
-	}
+	arg1 = get_arg_value(vm->arena, cursor, (code_arg >> 6) & 3);
+	arg2 = get_arg_value(vm->arena, cursor, (code_arg >> 4) & 3);
+	reg = vm->arena[(cursor->pos + cursor->step) % MEM_SIZE];
+	cursor->reg[reg] = read_4_bytes(vm->arena, cursor->pos + arg1 + arg2);
+	cursor->step += ARENA_REG_SIZE;
+	cursor->carry = cursor->reg[reg] ? FALSE : TRUE;
+
+	if (vm->options.verbos == V_OPERATIONS)
+		log_lldi(cursor, arg1, arg2, reg);
 }

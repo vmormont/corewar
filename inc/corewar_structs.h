@@ -77,7 +77,6 @@ typedef struct				s_cursor
 	int						cycles2go;
 	int						step;
 	int						cycle_live;
-	t_bool					exec;
 	struct s_cursor			*next;
 }							t_cursor;
 

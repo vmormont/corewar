@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OG_COREWAR="folder_of_example/corewar"
+OG_COREWAR="folder_of_example/CW_LINUX"
 MY_COREWAR="./corewar"
 
 if [ -z "$1" ] ;
@@ -30,7 +30,7 @@ STEP=1000
 
 while [ 1 ]; do
 	printf "\rCurrent cycle: $CYCLE"
-	${OG_COREWAR} -d $CYCLE $@ &>og_dump
+	${OG_COREWAR} -dump $CYCLE $@ &>og_dump
 	${MY_COREWAR} -dump $CYCLE $@ &>my_dump
 	if ! diff -q og_dump my_dump &>/dev/null; then
 		if [ $STEP == 1 ]; then

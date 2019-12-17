@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/14 17:50:32 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/17 21:30:52 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void		op_live(t_vm *vm, t_cursor *cursor)
 	int		n;
 	t_champ	*champ;
 
+	cursor->step = 5;
 	vm->num_live_op += 1;
 	cursor->cycle_live = vm->cycles;
 	n = read_4_bytes(vm->arena, cursor->pos + OP_SIZE);
@@ -43,6 +44,7 @@ void		op_zjmp(t_vm *vm, t_cursor *cursor)
 		cursor->pos = (cursor->pos + (address % IDX_MOD)) % MEM_SIZE;
 		cursor->step = 0;
 	}
+
 	if (vm->options.verbos == V_OPERATIONS)
 		ft_printf("P %4d | zjmp %d %s\n", cursor->id, address,\
 		cursor->carry ? "OK" : "FAILED");
@@ -53,9 +55,7 @@ void		op_aff(t_vm *vm, t_cursor *cursor)
 	char	reg_n;
 
 	reg_n = vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE];
-	if (isregister(reg_n))
-	{
-		if (vm->options.aff)
+	if (vm->options.aff)
 			ft_printf("aff (%c)\n", (char)cursor->reg[reg_n]);
-	}
+	cursor->step = 3;
 }

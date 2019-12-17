@@ -20,6 +20,7 @@ void		op_fork(t_vm *vm, t_cursor *cursor)
 	t_cursor	*new_cursor;
 
 	new_cursor = NULL;
+	cursor->step = 3;
 	address = read_2_bytes(vm->arena, cursor->pos + OP_SIZE);
 	if (!(new_cursor = copy_cursor(cursor,\
 	(cursor->pos + (address % IDX_MOD)) % MEM_SIZE)))
@@ -37,6 +38,7 @@ void		op_lfork(t_vm *vm, t_cursor *cursor)
 	t_cursor	*new_cursor;
 
 	new_cursor = NULL;
+	cursor->step = 3;
 	address = read_2_bytes(vm->arena, cursor->pos + OP_SIZE);
 	if (!(new_cursor = copy_cursor(cursor, (cursor->pos + address) % MEM_SIZE)))
 		ft_exit(MALLOC_FAILURE, &vm);
