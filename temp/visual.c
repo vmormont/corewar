@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/17 14:28:59 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/17 18:19:03 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,10 @@ static void color_init(void)
 	init_pair(BLUE_TEXT, COLOR_BLUE, COLOR_BLACK);
 	init_pair(YELLOW_TEXT, COLOR_YELLOW, COLOR_BLACK);
 	init_pair(WHITE_TEXT, COLOR_WHITE, COLOR_BLACK);
+	init_pair(RED_CURSOR, COLOR_BLACK, COLOR_RED);
+	init_pair(GREEN_CURSOR, COLOR_BLACK, COLOR_GREEN);
+	init_pair(BLUE_CURSOR, COLOR_BLACK, COLOR_BLUE);
+	init_pair(YELLOW_CURSOR, COLOR_BLACK, COLOR_YELLOW);
 	init_pair(FRAME, COLOR_BLACK, COLOR_WHITE);
 }
 
@@ -155,20 +159,4 @@ void	visualizator(t_vm *vm)
 	print_frame();
 	noecho();
 	getch();
-	//wclear(arena);
-	//wrefresh(arena);
-	getch();
-	//print_src_arena(vm, vm->arena);
-	getch();
-	/*exp = newwin(30, 75, 5, (3 * DUMP_COLUMNS) + 80);
-	//box(exp, 1, 1);
-	wattron(exp, A_BOLD);
-	//wcolor_set(exp, 2, NULL);
-	mvwaddstr(exp, 0, 1, "hello");
-	mvwaddstr(exp, 1, 1, "world");
-	wrefresh(exp);*/
-	/*getch();
-	wclear(exp);
-	wrefresh(exp);
-	getch();*/
 }

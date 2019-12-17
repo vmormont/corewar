@@ -107,9 +107,10 @@ typedef struct				s_vm
 	int						cycles;
 	int						cycles_to_die;
 	char					num_of_champs;
-	unsigned long long int	num_of_cursors;
+	unsigned int			num_of_cursors;
 	char					arena[MEM_SIZE];
 	int						num_live_op;
+	int						cursors_pos[MEM_SIZE];
 	int						checks_without_dec_cycle2die;
 	int						cycles_from_last_check;
 	char					winner;
