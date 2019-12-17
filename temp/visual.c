@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/17 16:00:35 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/17 14:28:59 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,7 @@ static void 	print_frame()
 	color_set (WHITE_TEXT, NULL);
 }
 
-static void		print_champ_code(int *i, int *j, t_champ *champ, char *arena)
-{
-	int		counter;
-	
-	counter = 0;
-	while (counter < champ->code_size)
-	{
-		mvprintw((*i) + 3, (3 * (*j)) + 3, "%02hhx ", arena[(*i) * DUMP_COLUMNS + (*j)]);
-		(*j)++;
-		if (!((*j) % DUMP_COLUMNS))
-		{
-			(*j) = 0;
-			(*i)++;
-		}
-		counter++;
-	}
-	color_set(WHITE_TEXT, NULL);
-}
-
-static void		print_src_arena(t_vm *vm, char *arena)
+static void		print_src_arena(t_vm *vm, char *byte)
 {
 	int		i;
 	int		j;
@@ -68,7 +49,6 @@ static void		print_src_arena(t_vm *vm, char *arena)
 	{
 		j = 0;
 
-		//mvprintw(i + 3, 270, "code size = %d, champ_begin = %d", temp ? temp->code_size : 0, (((DUMP_COLUMNS * DUMP_ROWS) / vm->num_of_champs)));
 		while (j < DUMP_COLUMNS)
 		{
 			//mvprintw(i + 3, 270, "STR");
@@ -79,21 +59,18 @@ static void		print_src_arena(t_vm *vm, char *arena)
 				color_code++;
 				//mvprintw(color_code, 270, "color code = %d", color_code);
 				color_set(color_code, NULL);
-				print_champ_code(&i, &j, temp, arena);
-				temp = temp->next;
-				//champ_begin = (i * DUMP_COLUMNS) + j;
+				champ_begin = (i * DUMP_COLUMNS) + j;
 				//mvprintw(j + 3, 300, "code size = %d", temp->code_size);
 			}
-			/*else if (temp && (((i * DUMP_COLUMNS) + j) - champ_begin) == temp->code_size)
+			else if (temp && (((i * DUMP_COLUMNS) + j) - champ_begin) == temp->code_size)
 			{
-				mvprintw(i + 3, 330, "code size = %d, champ_num = %d", temp->code_size, vm->num_of_champs);
 				color_set(WHITE_TEXT, NULL);
 				champ_begin = 0;
 				temp = temp->next;
-			}*/
-			mvprintw(i + 3, (3 * j) + 3, "%02d ", 0);
-			mvprintw(i + 3, 300, "row = %d, column = %d", i, j);
-			//byte += 1;
+				//mvprintw(i, 300, "code size = %d", temp->code_size);
+			}
+			mvprintw(i + 3, (3 * j) + 3, "%02hhx ", *byte);
+			byte += 1;
 			j++;
 		}
 		i++;
