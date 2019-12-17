@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/16 20:34:03 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/17 20:22:33 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,53 +33,15 @@ static void 	print_frame()
 	color_set (WHITE_TEXT, NULL);
 }
 
-static void		print_src_arena(t_vm *vm, char *byte)
+char		cursor_in_pos(int *cursors_map, int pos)
 {
-	int		i;
-	int		j;
-	t_champ	*temp;
-	char	color_code;
-	int		champ_begin;
-
-	color_code = 0;
-	temp = vm->champs;
-	attron(A_BOLD);
-	i = 0;
-	while (i < DUMP_ROWS)
-	{
-		j = 0;
-
-		while (j < DUMP_COLUMNS)
-		{
-			//mvprintw(i + 3, 270, "STR");
-			//move(i + 3, (3 * j) + 3);
-			if (!(((i * DUMP_COLUMNS) + j) % (((DUMP_COLUMNS * DUMP_ROWS)\
-			/ vm->num_of_champs))) && temp)
-			{
-				color_code++;
-				//mvprintw(color_code, 270, "color code = %d", color_code);
-				color_set(color_code, NULL);
-				champ_begin = (i * DUMP_COLUMNS) + j;
-				//mvprintw(j + 3, 300, "code size = %d", temp->code_size);
-			}
-			else if (temp && (((i * DUMP_COLUMNS) + j) - champ_begin) == temp->code_size)
-			{
-				color_set(WHITE_TEXT, NULL);
-				champ_begin = 0;
-				temp = temp->next;
-				//mvprintw(i, 300, "code size = %d", temp->code_size);
-			}
-			mvprintw(i + 3, (3 * j) + 3, "%02hhx ", *byte);
-			byte += 1;
-			j++;
-		}
-		i++;
-	}
-	refresh();
-
+	if (cursors_map[pos])
+		return (1);
+	else
+		return (0);
 }
 
-static void		print_champ_info(t_vm *vm, t_champ *champs)
+void		print_champ_info(t_vm *vm, t_champ *champs)
 {
 	int		i;
 
@@ -98,45 +60,6 @@ static void		print_champ_info(t_vm *vm, t_champ *champs)
 		champs = champs->next;
 	}
 	refresh();
-}
-
-static void		print_info(t_vm *vm)
-{
-	attron(A_BOLD);
-	mvaddstr(3, (3* DUMP_COLUMNS) + 8, vm->pause ? "** PAUSED **" : "** RUNNING **");
-	mvaddstr(5, (3 * DUMP_COLUMNS) + 8, "Cycles/second limit : ");
-	mvaddstr(8, (3 * DUMP_COLUMNS) + 8, "Cycle : ");
-	mvaddstr(11, (3 * DUMP_COLUMNS) + 8, "Processes : ");
-	print_champ_info(vm, vm->champs);
-	mvprintw(11 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
-	"CYCLE TO DIE :\t%d", vm->cycles_to_die);
-	mvprintw(13 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
-	"CYCLE DELTA :\t%d", CYCLE_DELTA);
-	mvprintw(15 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
-	"NBR LIVE :\t%d", NBR_LIVE);
-	mvprintw(17 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
-	"MAX CHECKS :\t%d", MAX_CHECKS);
-	refresh();
-	attron(A_NORMAL);
-}
-
-static void	show_values(t_vm *vm)
-{
-	mvprintw(5, (3 * DUMP_COLUMNS) + 31, "%d", vm->vis_speed);
-	mvprintw(8, (3 * DUMP_COLUMNS) + 17, "%d", vm->cycles);
-	mvprintw(11, (3 * DUMP_COLUMNS) + 21, "%d", vm->num_of_cursors);
-	refresh();
-}
-
-static void color_init(void)
-{
-	start_color();
-	init_pair(RED_TEXT, COLOR_RED, COLOR_BLACK);
-	init_pair(GREEN_TEXT, COLOR_GREEN, COLOR_BLACK);
-	init_pair(BLUE_TEXT, COLOR_BLUE, COLOR_BLACK);
-	init_pair(YELLOW_TEXT, COLOR_YELLOW, COLOR_BLACK);
-	init_pair(WHITE_TEXT, COLOR_WHITE, COLOR_BLACK);
-	init_pair(FRAME, COLOR_BLACK, COLOR_WHITE);
 }
 
 void	visualizator(t_vm *vm)

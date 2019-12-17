@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/17 23:29:34 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/17 23:31:04 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,10 @@ void			cycle(t_vm *vm)
 
 				if (vm->options.verbos == V_MOVE)
 					log_moves(vm, temp);
+				//в массиве положений кареток убираем одну каретку по старой позиции
+				//и добавляем одну в новую позицию
+				vm->cursors_pos[temp->pos]--;
+				vm->cursors_pos[(temp->pos + temp->step) % MEM_SIZE]++;
 				//сдвигаем позицию каретки на длину операции
 				temp->pos = (temp->pos + temp->step) % MEM_SIZE;
 			}

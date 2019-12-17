@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/17 21:30:52 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/17 23:41:39 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,7 @@ void		op_zjmp(t_vm *vm, t_cursor *cursor)
 
 	address = read_2_bytes(vm->arena, cursor->pos + OP_SIZE);
 	if (cursor->carry)
-	{
-		cursor->pos = (cursor->pos + (address % IDX_MOD)) % MEM_SIZE;
-		cursor->step = 0;
-	}
+		cursor->step = address % IDX_MOD;
 
 	if (vm->options.verbos == V_OPERATIONS)
 		ft_printf("P %4d | zjmp %d %s\n", cursor->id, address,\
