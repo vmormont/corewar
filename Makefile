@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
+#    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/12/17 16:14:52 by pcredibl         ###   ########.fr        #
+#    Updated: 2019/12/18 23:00:26 by astripeb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ SRC_ASM				:= asm.c ft_exit_asm.c champion.c utility.c\
 
 SRC_CORE			:= corewar.c ft_exit_corewar.c utility_core.c options_core.c\
 					champion_read.c champion_utility.c champion_funcs.c\
-					vm_utillity.c cursor.c cycles.c copy_read.c check_args.c
+					vm_utillity.c cursor.c cycles.c check_args.c
 
 SRC_OP_FUNC			:= ld_lld.c ldi_lldi.c live_zjmp_aff.c add_sub.c\
 					and_or_xor.c st_sti.c fork_lfork.c op_utility.c

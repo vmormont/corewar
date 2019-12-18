@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   visual.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/18 17:57:56 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/19 00:31:57 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+static t_visual *new_visual()
+{
+	t_visual *visual;
+
+	if (!(visual = (t_visual*)malloc(sizeof(t_visual))))
+		return (NULL);
+	ft_bzero((void*)visual, sizeof(t_visual));
+	visual->vis_speed = 50;
+	visual->pause = TRUE;
+	return (visual);
+}
 
 static void 	print_frame()
 {
@@ -62,119 +74,32 @@ void		print_champ_info(WINDOW *menu, t_vm *vm, t_champ *champs)
 	refresh();
 }
 
-void	visualizator(t_vm *vm)
+void		visualizator(t_vm *vm)
 {
-	WINDOW *exp;
-	WINDOW *menu;
-
+	if (!(vm->visual = new_visual()))
+		ft_exit(MALLOC_FAILURE, &vm);
 	if (!initscr())
 		ft_exit(NCURSES_INIT_ERROR, &vm);
-	//arena = newwin(DUMP_ROWS, 3 * DUMP_COLUMNS, 3, 3);
+
+	//инициализируем цвета
 	color_init();
-	//box(arena, 0, 0);
-	menu = newwin(DUMP_ROWS + 2, 69, 2, (DUMP_COLUMNS * 3) + 5);
-	print_src_arena(vm, vm->arena);
+	//убираем курсор
+	curs_set(NONE);
+	//печатаем рамку
 	print_frame();
-	print_info(menu, vm);
+
+	//создаем окно меню
+	vm->visual->menu = newwin(DUMP_ROWS + 2, 69, 2, (DUMP_COLUMNS * 3) + 5);
+	//печатаем информацию о чемпионах в окно меню
+	print_info(vm->visual->menu, vm);
+
+	//тут надо создать окно арены
+	print_src_arena(vm, vm->arena);
+
 	noecho();
 	getch();
-	wclear(menu);
-	wrefresh(menu);
+	wclear(vm->visual->menu);
+	refresh();
+	wrefresh(vm->visual->menu);
 	getch();
-	//wclear(arena);
-	//wrefresh(arena);
-	//print_src_arena(vm, vm->arena);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/*exp = newwin(30, 75, 5, (3 * DUMP_COLUMNS) + 80);
-	//box(exp, 1, 1);
-	wattron(exp, A_BOLD);
-	//wcolor_set(exp, 2, NULL);
-	mvwaddstr(exp, 0, 1, "hello");
-	mvwaddstr(exp, 1, 1, "world");
-	wrefresh(exp);*/
-	/*getch();
-	wclear(exp);
-	wrefresh(exp);
-	getch();*/
 }

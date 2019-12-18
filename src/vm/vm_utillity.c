@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_utillity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/18 16:24:06 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/19 00:15:17 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,38 @@ t_vm		*create_vm(t_champ *champs, t_options options)
 	vm->num_of_champs = count_champs(vm->champs);
 	vm->num_of_cursors = vm->num_of_champs;
 	vm->options = options;
-	if (vm->options.terminal)
-	{
-		vm->visual = (t_visual*)malloc(sizeof(t_visual));
-		vm->visual->vis_speed = 50;
-		vm->visual->pause = TRUE;
-	}
 	vm->winner = get_champ_by_id(vm->champs, -vm->num_of_champs)->id;
 	return (vm);
 }
 
-void	destroy_vm(t_vm **vm)
+void		destroy_vm(t_vm **vm)
 {
 	if (vm && (*vm))
 	{
 		del_champions(&(*vm)->champs);
+		ft_memdel((void**)&(*vm)->visual);
 		kill_all_cursors(&(*vm)->cursors);
-		ft_memdel((void*)vm);
+		ft_memdel((void**)vm);
+	}
+}
+
+void		log_moves(t_vm *vm, t_cursor *cursor)
+{
+	int			i;
+
+	if (cursor->step > 1)
+	{
+		ft_printf("ADV %d (%06p -> %06p) ", cursor->step,\
+		(uintptr_t)(cursor->pos),\
+		(uintptr_t)((cursor->pos + cursor->step)));
+		i = cursor->pos;
+		while (i < (cursor->pos + cursor->step))
+		{
+			ft_printf("%x%x ",\
+			(vm->arena[i % MEM_SIZE] & 0xF0) >> 4,\
+			vm->arena[i % MEM_SIZE] & 0xF);
+			++i;
+		}
+		ft_printf("\n");
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cursor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:06:22 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/18 15:59:48 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/18 23:06:26 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_cursor	*new_cursor(unsigned int pos)
 	return (cursor);
 }
 
-void		kill_cursor(t_cursor **list, t_cursor *cursor, t_visual *vis)
+void		kill_cursor(t_cursor **list, t_cursor *cursor)
 {
 	t_cursor	*first;
 	t_cursor	*temp;
@@ -43,7 +43,6 @@ void		kill_cursor(t_cursor **list, t_cursor *cursor, t_visual *vis)
 		{
 			if (first->next == cursor)
 			{
-				vis ? vis->cursors_pos[first->next->pos]-- : 0;
 				temp = first->next;
 				first->next = temp->next;
 				temp->next = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visual_struct.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 14:20:45 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/18 15:56:14 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/19 00:09:09 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@
 ** pause					- флаг, стоит ли игра на паузе.
 */
 
-typedef	struct				s_visual
+typedef	struct		s_visual
 {
-	int						cursors_pos[MEM_SIZE];
-	short					vis_speed;
-	t_bool					pause;
-}							t_visual;
+	WINDOW			*arena;
+	WINDOW			*menu;
+	int				cursors_pos[MEM_SIZE];
+	short			vis_speed;
+	t_bool			pause;
+}					t_visual;
 
 #endif

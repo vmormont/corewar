@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/18 15:59:21 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/18 23:24:23 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ void			ft_exit_read(t_error err, char *file,\
 
 t_options		get_options(int ac, char **av);
 
-void			print_options(t_options options);
-
 /*
 ** CHAMPION FUNCTIONS
 */
@@ -107,10 +105,7 @@ void			set_champ_code_on_arena(t_vm *vm);
 
 void			destroy_vm(t_vm **vm);
 
-int				read_memory(char *arena, int pos, char size);
-
-void			print_cursor_map(int *map);
-
+void			log_moves(t_vm *vm, t_cursor *cursor);
 
 /*
 ** UTILITY FUNCTIONS
@@ -128,8 +123,6 @@ void			ft_swap(void **a, void **b);
 
 void			introduce(t_champ *champ);
 
-void			print_reg(int *reg);
-
 /*
 ** CURSOR
 */
@@ -140,7 +133,7 @@ t_cursor		*copy_cursor(t_cursor *src, unsigned int pos);
 
 void			add_cursor(t_cursor **list, t_cursor *cursor);
 
-void			kill_cursor(t_cursor **list, t_cursor *cursor, t_visual *vis);
+void			kill_cursor(t_cursor **list, t_cursor *cursor);
 
 void			kill_all_cursors(t_cursor **begin);
 
@@ -198,20 +191,22 @@ void			op_lldi(t_vm *vm, t_cursor *cursor);
 ** OPERATIONS UTILITY
 */
 
-int				get_arg_value(char *arena, t_cursor *cursor, t_arg_type type);
-
 int				get_arg_size(char op_code, t_arg_type type);
-
-/*
-** READ & WRITE FUNCTIONS
-*/
-
-int				read_to_int(char *arena, unsigned int index, char size);
 
 int				read_4_bytes(char *arena, unsigned int index);
 
 short			read_2_bytes(char *arena, unsigned int index);
 
 void			copy_4_bytes(char *arena, unsigned int index, int num);
+
+int				get_arg_value(char *arena, t_cursor *cursor, t_arg_type type);
+
+
+//УДОЛИТЬ!!!
+void			print_cursor_map(int *map);
+
+void			print_reg(int *reg);
+
+void			print_options(t_options options);
 
 #endif
