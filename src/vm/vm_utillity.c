@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_utillity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/17 23:33:37 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/18 16:24:06 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		set_champ_code_on_arena(t_vm *vm)
 		cursor->reg[1] = player->id;
 		cursor->op_code = vm->arena[i];
 		cursor->pos = i;
-		vm->cursors_pos[i]++;
+		vm->visual ? vm->visual->cursors_pos[cursor->pos]++ : 0;
 		add_cursor(&vm->cursors, cursor);
 		i += offset_start_code;
 		player = player->next;
@@ -65,9 +65,13 @@ t_vm		*create_vm(t_champ *champs, t_options options)
 	vm->num_of_champs = count_champs(vm->champs);
 	vm->num_of_cursors = vm->num_of_champs;
 	vm->options = options;
+	if (vm->options.terminal)
+	{
+		vm->visual = (t_visual*)malloc(sizeof(t_visual));
+		vm->visual->vis_speed = 50;
+		vm->visual->pause = TRUE;
+	}
 	vm->winner = get_champ_by_id(vm->champs, -vm->num_of_champs)->id;
-	vm->vis_speed = 50;
-	vm->pause = TRUE;
 	return (vm);
 }
 

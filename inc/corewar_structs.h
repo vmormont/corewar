@@ -1,4 +1,4 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   corewar_structs.h                                  :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/16 16:31:16 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/18 15:33:52 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct				s_cursor
 ** ВИРТУАЛЬНАЯ МАШИНА
 ** champs					- список игроков
 ** cursors					- список кареток
+** visual					- структура для визуализации
 ** options					- опиции, считанные из командной строки
 ** cycles					- количество пройденных циклов
 ** cycles_to_die			- количество оставшихся до конца партии циклов
@@ -94,14 +95,13 @@ typedef struct				s_cursor
 ** checks_without_dec_cycle2die
 ** 							- количество проверок без уменьшения парметра cycle_to_die
 ** winner					- id последнего сказавшего live чемпиона
-** vis_speed				- скорость отрисовки (циклов в секунду)
-** pause					- флаг, стоит ли игра на паузе.
 */
 
 typedef struct				s_vm
 {
 	struct s_champ			*champs;
 	struct s_cursor			*cursors;
+	struct s_visual			*visual;
 	t_options				options;
 	int						cycles;
 	int						cycles_to_die;
@@ -109,12 +109,11 @@ typedef struct				s_vm
 	unsigned int			num_of_cursors;
 	char					arena[MEM_SIZE];
 	int						num_live_op;
-	int						cursors_pos[MEM_SIZE];
 	int						checks_without_dec_cycle2die;
 	int						cycles_from_last_check;
 	char					winner;
-	short					vis_speed;
-	t_bool					pause;
+	
+	
 }							t_vm;
 
 /*

@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 13:55:43 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/17 20:19:25 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/18 17:16:13 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <ncurses.h>
 # include "corewar_structs.h"
+# include "visual_struct.h"
 
 # define RED_TEXT 1
 # define GREEN_TEXT 2
@@ -35,13 +36,13 @@ void			visualizator(t_vm *vm);
 
 void			color_init(void);
 
-void			show_values(t_vm *vm);
+void			show_values(WINDOW *menu, t_vm *vm);
 
-void			print_info(t_vm *vm);
+void			print_info(WINDOW *menu, t_vm *vm);
 
 void			print_src_arena(t_vm *vm, char *arena);
 
-void			print_champ_info(t_vm *vm, t_champ *champs);
+void			print_champ_info(WINDOW *menu, t_vm *vm, t_champ *champs);
 
 char			cursor_in_pos(int *cursors_map, int pos);
 

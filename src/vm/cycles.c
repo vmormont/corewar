@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/17 23:31:04 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/18 16:10:10 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void		check_cursors(t_vm *vm)
 				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",\
 				temp->id, vm->cycles - temp->cycle_live, vm->cycles_to_die);
 			}
-			kill_cursor(&vm->cursors, temp);
+			kill_cursor(&vm->cursors, temp, vm->visual);
 			vm->num_of_cursors -= 1;
 		}
 		else
@@ -129,11 +129,9 @@ void			cycle(t_vm *vm)
 		while (temp)
 		{
 			if (!temp->cycles2go)
-			{
 				// считываем следующий код операции и выставляем cycles2go
 				// согласно коду операции
 				initial_read_cursor(temp, vm->arena);
-			}
 			//уменьшаем количество циклов до исполнения
 			if (temp->cycles2go > 0)
 				temp->cycles2go -= 1;
@@ -148,11 +146,11 @@ void			cycle(t_vm *vm)
 				if (vm->options.verbos == V_MOVE)
 					log_moves(vm, temp);
 				//в массиве положений кареток убираем одну каретку по старой позиции
-				//и добавляем одну в новую позицию
-				vm->cursors_pos[temp->pos]--;
-				vm->cursors_pos[(temp->pos + temp->step) % MEM_SIZE]++;
+				vm->visual ? vm->visual->cursors_pos[temp->pos]-- : 0;
 				//сдвигаем позицию каретки на длину операции
 				temp->pos = (temp->pos + temp->step) % MEM_SIZE;
+				//добавляем одну каретку в новую позицию
+				vm->visual ? vm->visual->cursors_pos[temp->pos]++ : 0;
 			}
 			//уменьшаем количество циклов до исполнения
 			temp = temp->next;

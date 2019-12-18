@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cursor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:06:22 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/17 23:05:28 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/18 15:59:48 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_cursor	*new_cursor(unsigned int pos)
 	return (cursor);
 }
 
-void		kill_cursor(t_cursor **list, t_cursor *cursor)
+void		kill_cursor(t_cursor **list, t_cursor *cursor, t_visual *vis)
 {
 	t_cursor	*first;
 	t_cursor	*temp;
@@ -43,6 +43,7 @@ void		kill_cursor(t_cursor **list, t_cursor *cursor)
 		{
 			if (first->next == cursor)
 			{
+				vis ? vis->cursors_pos[first->next->pos]-- : 0;
 				temp = first->next;
 				first->next = temp->next;
 				temp->next = NULL;
@@ -86,4 +87,16 @@ t_cursor	*copy_cursor(t_cursor *src, unsigned int pos)
 	while (++i <= REG_NUMBER)
 		dst->reg[i] = src->reg[i];
 	return (dst);
+}
+
+void		print_cursor_map(int *map)
+{
+	short	i;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		ft_printf("pos[%d] = %d\n", i, map[i]);
+		i++;
+	}
 }

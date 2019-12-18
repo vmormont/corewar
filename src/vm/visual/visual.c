@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/17 20:22:33 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/18 17:57:56 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,21 @@ char		cursor_in_pos(int *cursors_map, int pos)
 		return (0);
 }
 
-void		print_champ_info(t_vm *vm, t_champ *champs)
+void		print_champ_info(WINDOW *menu, t_vm *vm, t_champ *champs)
 {
 	int		i;
 
 	i = 0;
 	while (i < vm->num_of_champs)
 	{
-		mvprintw(16 + (i * 4), (3 * DUMP_COLUMNS) + 8, "Player %d : ", champs->id);
-		color_set(i + 1, NULL);
-		printw("%s\n", champs->name);
-		color_set(WHITE_TEXT, NULL);
-		mvprintw(17 + (i * 4), (3 * DUMP_COLUMNS) + 10,\
-		"Last live :\t\t\t%d\n", champs->last_live);
-		mvprintw(18 + (i * 4), (3 * DUMP_COLUMNS) + 10,\
-		"Lives in current period :\t%d\n", champs->lives_in_period);
+		mvwprintw(menu, 12 + (i * 4), 3, "Player %d : ", champs->id);
+		wcolor_set(menu, i + 1, NULL);
+		wprintw(menu, "%s\n", champs->name);
+		wcolor_set(menu, WHITE_TEXT, NULL);
+		mvwprintw(menu, 13 + (i * 4), 5, "Last live :\t\t%d\n",\
+		champs->last_live);
+		mvwprintw(menu, 14 + (i * 4), 5, "Lives in current period :\t%d\n",\
+		champs->lives_in_period);
 		i++;
 		champs = champs->next;
 	}
@@ -65,24 +65,107 @@ void		print_champ_info(t_vm *vm, t_champ *champs)
 void	visualizator(t_vm *vm)
 {
 	WINDOW *exp;
-	WINDOW *arena;
+	WINDOW *menu;
 
 	if (!initscr())
 		ft_exit(NCURSES_INIT_ERROR, &vm);
 	//arena = newwin(DUMP_ROWS, 3 * DUMP_COLUMNS, 3, 3);
 	color_init();
 	//box(arena, 0, 0);
+	menu = newwin(DUMP_ROWS + 2, 69, 2, (DUMP_COLUMNS * 3) + 5);
 	print_src_arena(vm, vm->arena);
-	print_info(vm);
-	show_values(vm);
 	print_frame();
+	print_info(menu, vm);
 	noecho();
+	getch();
+	wclear(menu);
+	wrefresh(menu);
 	getch();
 	//wclear(arena);
 	//wrefresh(arena);
-	getch();
 	//print_src_arena(vm, vm->arena);
-	getch();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	/*exp = newwin(30, 75, 5, (3 * DUMP_COLUMNS) + 80);
 	//box(exp, 1, 1);
 	wattron(exp, A_BOLD);

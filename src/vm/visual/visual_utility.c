@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visual_utility.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 16:09:56 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/17 23:44:16 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/18 17:51:46 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,33 @@ void color_init(void)
 	init_pair(FRAME, COLOR_BLACK, COLOR_WHITE);
 }
 
-void	show_values(t_vm *vm)
+void	show_values(WINDOW *menu, t_vm *vm)
 {
-	mvprintw(5, (3 * DUMP_COLUMNS) + 31, "%d", vm->vis_speed);
-	mvprintw(8, (3 * DUMP_COLUMNS) + 17, "%d", vm->cycles);
-	mvprintw(11, (3 * DUMP_COLUMNS) + 21, "%d", vm->num_of_cursors);
+	mvwprintw(menu, 4, 26, "%d", vm->visual->vis_speed);
+	mvwprintw(menu, 7, 12, "%d", vm->cycles);
+	mvwprintw(menu, 10, 16, "%d", vm->num_of_cursors);
 	refresh();
 }
 
-void		print_info(t_vm *vm)
+void		print_info(WINDOW *menu, t_vm *vm)
 {
-	attron(A_BOLD);
-	mvaddstr(3, (3 * DUMP_COLUMNS) + 8, vm->pause ? "** PAUSED **" : "** RUNNING **");
-	mvaddstr(5, (3 * DUMP_COLUMNS) + 8, "Cycles/second limit : ");
-	mvaddstr(8, (3 * DUMP_COLUMNS) + 8, "Cycle : ");
-	mvaddstr(11, (3 * DUMP_COLUMNS) + 8, "Processes : ");
-	print_champ_info(vm, vm->champs);
-	mvprintw(11 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
+	wattron(menu, A_BOLD);
+	mvwaddstr(menu, 2, 3, vm->visual->pause ? "** PAUSED **" : "** RUNNING **");
+	mvwaddstr(menu, 4, 3, "Cycles/second limit : ");
+	mvwaddstr(menu, 7, 3, "Cycle : ");
+	mvwaddstr(menu, 10, 3, "Processes : ");
+	print_champ_info(menu, vm, vm->champs);
+	mvwprintw(menu, 12 + (4 * vm->num_of_champs) + 7, 3,\
 	"CYCLE TO DIE :\t%d", vm->cycles_to_die);
-	mvprintw(13 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
+	mvwprintw(menu, 14 + (4 * vm->num_of_champs) + 7, 3,\
 	"CYCLE DELTA :\t%d", CYCLE_DELTA);
-	mvprintw(15 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
-	"NBR LIVE :\t%d", NBR_LIVE);
-	mvprintw(17 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
-	"MAX CHECKS :\t%d", MAX_CHECKS);
-	refresh();
-	attron(A_NORMAL);
+	mvwprintw(menu, 16 + (4 * vm->num_of_champs) + 7, 3,\
+	"NBR LIVE :\t\t%d", NBR_LIVE);
+	mvwprintw(menu, 18 + (4 * vm->num_of_champs) + 7, 3,\
+	"MAX CHECKS :\t\t%d", MAX_CHECKS);
+	wrefresh(menu);
+	//attron(A_NORMAL);
+	show_values(menu, vm);
 }
 
 static void		print_champ_code(int *i, int *j, t_champ *champ, t_vm *vm)
@@ -67,9 +68,11 @@ static void		print_champ_code(int *i, int *j, t_champ *champ, t_vm *vm)
 	color_set(color_code, NULL);
 	while (counter < champ->code_size)
 	{
-		cursor_in_pos(vm->cursors_pos, (*i) * DUMP_COLUMNS + (*j)) ? color_set(color_code + 5, NULL) : 0;
+		if (vm->visual)
+			cursor_in_pos(vm->visual->cursors_pos, (*i) * DUMP_COLUMNS + (*j)) ? color_set(color_code + 5, NULL) : 0;
 		mvprintw((*i) + 3, (3 * (*j)) + 3, "%02hhx", arena[(*i) * DUMP_COLUMNS + (*j)]);
-		cursor_in_pos(vm->cursors_pos, (*i) * DUMP_COLUMNS + (*j)) ? color_set(color_code, NULL) : 0;
+		if (vm->visual)
+			cursor_in_pos(vm->visual->cursors_pos, (*i) * DUMP_COLUMNS + (*j)) ? color_set(color_code, NULL) : 0;
 		(*j)++;
 		if (!((*j) % DUMP_COLUMNS))
 		{
@@ -86,11 +89,9 @@ void		print_src_arena(t_vm *vm, char *arena)
 	int		i;
 	int		j;
 	t_champ	*temp;
-	//char	color_code;
 
-	//color_code = 0;
 	temp = vm->champs;
-	attron(A_BOLD);
+	attron(A_NORMAL);
 	i = 0;
 	while (i < DUMP_ROWS)
 	{
@@ -100,14 +101,14 @@ void		print_src_arena(t_vm *vm, char *arena)
 			if (!(((i * DUMP_COLUMNS) + j) % (((DUMP_COLUMNS * DUMP_ROWS)\
 			/ vm->num_of_champs))) && temp)
 			{
-				//color_code++;
-				//color_set(color_code, NULL);
 				print_champ_code(&i, &j, temp, vm);
 				temp = temp->next;
 			}
-			cursor_in_pos(vm->cursors_pos, i * DUMP_COLUMNS + j) ? color_set(FRAME, NULL) : 0;
+			if (vm->visual)
+				cursor_in_pos(vm->visual->cursors_pos, i * DUMP_COLUMNS + j) ? color_set(FRAME, NULL) : 0;
 			mvprintw(i + 3, (3 * j) + 3, "%02d", 0);
-			cursor_in_pos(vm->cursors_pos, i * DUMP_COLUMNS + j) ? color_set(WHITE_TEXT, NULL) : 0;
+			if (vm->visual)
+				cursor_in_pos(vm->visual->cursors_pos, i * DUMP_COLUMNS + j) ? color_set(WHITE_TEXT, NULL) : 0;
 			j++;
 		}
 		i++;

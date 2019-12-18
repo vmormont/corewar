@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/17 23:29:08 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/18 15:59:21 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include "corewar_structs.h"
 # include "visual.h"
+# include "visual_struct.h"
 
 # define DUMP_COLUMNS	64
 # define DUMP_ROWS		64
@@ -108,6 +109,8 @@ void			destroy_vm(t_vm **vm);
 
 int				read_memory(char *arena, int pos, char size);
 
+void			print_cursor_map(int *map);
+
 
 /*
 ** UTILITY FUNCTIONS
@@ -137,7 +140,7 @@ t_cursor		*copy_cursor(t_cursor *src, unsigned int pos);
 
 void			add_cursor(t_cursor **list, t_cursor *cursor);
 
-void			kill_cursor(t_cursor **list, t_cursor *cursor);
+void			kill_cursor(t_cursor **list, t_cursor *cursor, t_visual *vis);
 
 void			kill_all_cursors(t_cursor **begin);
 

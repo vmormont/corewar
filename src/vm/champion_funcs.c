@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/17 17:07:14 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/18 17:45:52 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,12 @@ void			announce_winner(t_vm *vm)
 		ft_printf("Contestant %d, \"%s\", has won !\n", -id_winner, winner->name);
 	else
 	{
-	mvprintw(19 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
+	mvprintw(23 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
 	"The winner is :\t");
 	color_set(-id_winner, NULL);
 	printw("%s", winner->name);
 	color_set(WHITE_TEXT, NULL);
-	mvprintw(21 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
+	mvprintw(25 + (4 * vm->num_of_champs) + 7, (3 * DUMP_COLUMNS) + 8,\
 	"Press any key to finish !!!");
 	getch();	
 	}
