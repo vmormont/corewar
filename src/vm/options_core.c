@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:38:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/19 17:30:32 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/19 19:15:33 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_options	get_options(int ac, char **av)
 	t_options	options;
 	static char *opt[] = {"n", "dump", "s", "a", "v", "t", "-stealth"};
 
-	if (ac == 1 || !check_valid_options(ac, av, opt, 6))
+	if (ac == 1 || !check_valid_options(ac, av, opt, 7))
 		ft_exit(USAGE, NULL);
 	ft_bzero((void*)&options, sizeof(t_options));
 	options.aff = get_option(ac, av, "a");

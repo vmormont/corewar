@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 16:09:56 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/19 17:42:54 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/19 18:49:14 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	show_values(WINDOW *menu, t_vm *vm)
 	mvwprintw(menu, 4, 26, "%d", vm->visual->vis_speed);
 	mvwprintw(menu, 7, 12, "%d", vm->cycles);
 	mvwprintw(menu, 10, 16, "%d", vm->num_of_cursors);
-	refresh();
+	wrefresh(menu);
 }
 
 void		print_info(WINDOW *menu, t_vm *vm)
@@ -51,8 +51,6 @@ void		print_info(WINDOW *menu, t_vm *vm)
 	"NBR LIVE :\t\t%d", NBR_LIVE);
 	mvwprintw(menu, 18 + (4 * vm->num_of_champs) + 7, 3,\
 	"MAX CHECKS :\t\t%d", MAX_CHECKS);
-	wrefresh(menu);
-	//attron(A_NORMAL);
 	show_values(menu, vm);
 }
 
@@ -68,8 +66,15 @@ static void		print_champ_code(int *i, int *j, t_champ *champ, t_vm *vm)
 	wcolor_set(vm->visual->arena, color_code, NULL);
 	while (counter < champ->code_size)
 	{
-		mvwprintw(vm->visual->arena, (*i), (3 * (*j)), "%02hhx",\
-		arena[(*i) * DUMP_COLUMNS + (*j)]);
+		cursor_in_pos(vm->visual->cursors_pos, (*i) * DUMP_COLUMNS + (*j)) ?\
+		wcolor_set(vm->visual->arena, color_code + 5, NULL) : 0;
+		if (vm->options.terminal != 2)
+			mvwprintw(vm->visual->arena, (*i), (3 * (*j)), "%02hhx",\
+			arena[(*i) * DUMP_COLUMNS + (*j)]);
+		else
+			mvwprintw(vm->visual->arena, (*i), (3 * (*j)), "ff");
+		cursor_in_pos(vm->visual->cursors_pos, (*i) * DUMP_COLUMNS + (*j)) ?\
+		wcolor_set(vm->visual->arena, color_code, NULL) : 0;
 		(*j)++;
 		if (!((*j) % DUMP_COLUMNS))
 		{
@@ -103,6 +108,7 @@ void		print_src_arena(t_vm *vm, char *arena)
 			}
 			cursor_in_pos(vm->visual->cursors_pos, i * DUMP_COLUMNS + j) ?\
 			wcolor_set(vm->visual->arena, FRAME, NULL) : 0;
+			vm->options.terminal == 2 ? mvwprintw(vm->visual->arena, i, (3 * j), "ff") :\
 			mvwprintw(vm->visual->arena, i, (3 * j), "%02d", 0);
 			cursor_in_pos(vm->visual->cursors_pos, i * DUMP_COLUMNS + j) ?\
 			wcolor_set(vm->visual->arena, WHITE_TEXT, NULL) : 0;
