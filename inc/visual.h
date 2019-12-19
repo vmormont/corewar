@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visual.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 13:55:43 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/19 17:26:39 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/19 23:11:40 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,37 @@
 # define FRAME 10
 
 /*
-**	FUNCTION FOR VIZUALIZATION
+**	UTILITY
+*/
+
+t_visual 		*new_visual(void);
+
+void			destroy_visual(t_visual **vis);
+
+t_bool			cursor_in_pos(int *cursors_map, int pos);
+
+/*
+**	INITILIZE
 */
 
 void			visualizator(t_vm *vm);
-
-void			color_init(void);
 
 void			show_values(WINDOW *menu, t_vm *vm);
 
 void			print_info(WINDOW *menu, t_vm *vm);
 
-void			print_src_arena(t_vm *vm, char *arena);
+void			print_arena(t_vm *vm, char *arena);
 
 void			print_champ_info(WINDOW *menu, t_vm *vm, t_champ *champs);
 
-char			cursor_in_pos(int *cursors_map, int pos);
+/*
+**	VISUALISATION CURSOR
+*/
 
-void			destroy_vis(t_visual **vis);
+void			set_cursor(t_vm *vm, unsigned int pos, int color_code);
 
-t_visual 		*new_visual(void);
+void			clear_cursor(t_vm *vm, unsigned int pos, int color_code);
+
+void			move_cursor(t_vm *vm, t_cursor *cursor);
 
 #endif

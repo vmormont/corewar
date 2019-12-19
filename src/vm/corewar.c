@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/19 18:01:22 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/19 23:36:21 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,6 @@ int		main(int argc, char **argv)
 		visualizator(vm);
 	cycle(vm);
 	vm->cursors ? dump_arena(vm->arena) : announce_winner(vm);
-//	vm->visual ? print_cursor_map(vm->visual->cursors_pos) : 0;
-	getch();
-	wclear(vm->visual->menu);
-	wrefresh(vm->visual->menu);
-	getch();
-	wclear(vm->visual->arena);
-	wrefresh(vm->visual->arena);
-	getch();
 	destroy_vm(&vm);
-	options.terminal ? endwin() : 0;
 	return (0);
 }

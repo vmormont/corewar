@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:06:22 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/18 23:06:26 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/19 21:23:18 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ t_cursor	*copy_cursor(t_cursor *src, unsigned int pos)
 		return (NULL);
 	dst->carry = src->carry;
 	dst->cycle_live = src->cycle_live;
+	dst->champ = src->champ;
 	i = -1;
 	while (++i <= REG_NUMBER)
 		dst->reg[i] = src->reg[i];

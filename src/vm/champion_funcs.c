@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   champion_funcs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/19 18:05:01 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/19 21:30:50 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,15 @@ void			announce_winner(t_vm *vm)
 		ft_printf("Contestant %d, \"%s\", has won !\n", -id_winner, winner->name);
 	else
 	{
-	mvwprintw(vm->visual->menu, 29 + (4 * vm->num_of_champs), 2,\
-	"The winner is : ");
-	wcolor_set(vm->visual->menu, -id_winner, NULL);
-	wprintw(vm->visual->menu, "%s", winner->name);
-	wcolor_set(vm->visual->menu, WHITE_TEXT, NULL);
-	mvwprintw(vm->visual->menu, 31 + (4 * vm->num_of_champs), 2,\
-	"Press any key to finish !!!");
-	wrefresh(vm->visual->menu);
-	getch();	
+		mvwprintw(vm->visual->menu, 29 + (4 * vm->num_of_champs), 2,\
+		"The winner is : ");
+		wcolor_set(vm->visual->menu, -id_winner, NULL);
+		wprintw(vm->visual->menu, "%s", winner->name);
+		wcolor_set(vm->visual->menu, WHITE_TEXT, NULL);
+		mvwprintw(vm->visual->menu, 31 + (4 * vm->num_of_champs), 2,\
+		"Press any key to finish !!!");
+		wrefresh(vm->visual->menu);
+		getch();
 	}
 }
 

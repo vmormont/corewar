@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar_structs.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/18 15:33:52 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/19 22:25:36 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct				s_options
 typedef struct				s_cursor
 {
 	int						id;
+	struct s_champ			*champ;
 	int						reg[REG_NUMBER + 1];
 	t_bool					carry;
 	unsigned int			pos;
@@ -77,6 +78,7 @@ typedef struct				s_cursor
 	int						cycles2go;
 	int						step;
 	int						cycle_live;
+	char					color;
 	struct s_cursor			*next;
 }							t_cursor;
 
@@ -112,8 +114,6 @@ typedef struct				s_vm
 	int						checks_without_dec_cycle2die;
 	int						cycles_from_last_check;
 	char					winner;
-	
-	
 }							t_vm;
 
 /*

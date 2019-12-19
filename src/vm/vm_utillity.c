@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_utillity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/19 17:30:27 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/19 21:49:19 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		set_champ_code_on_arena(t_vm *vm)
 		cursor->reg[1] = player->id;
 		cursor->op_code = vm->arena[i];
 		cursor->pos = i;
-		vm->visual ? vm->visual->cursors_pos[cursor->pos]++ : 0;
+		cursor->champ = player;
 		add_cursor(&vm->cursors, cursor);
 		i += offset_start_code;
 		player = player->next;
@@ -66,8 +66,11 @@ t_vm		*create_vm(t_champ *champs, t_options options)
 	vm->num_of_cursors = vm->num_of_champs;
 	vm->options = options;
 	vm->winner = get_champ_by_id(vm->champs, -vm->num_of_champs)->id;
-	if (!(vm->visual = new_visual()))
+	if (options.terminal)
+	{
+		if (!(vm->visual = new_visual()))
 			ft_exit(MALLOC_FAILURE, &vm);
+	}
 	return (vm);
 }
 
@@ -77,7 +80,7 @@ void		destroy_vm(t_vm **vm)
 	{
 		del_champions(&(*vm)->champs);
 		kill_all_cursors(&(*vm)->cursors);
-		(*vm)->visual ? destroy_vis(&(*vm)->visual) : 0;
+		destroy_visual(&(*vm)->visual);
 		ft_memdel((void**)vm);
 	}
 }

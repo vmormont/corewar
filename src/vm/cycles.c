@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/19 19:36:49 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/20 00:09:55 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static void		check_cursors(t_vm *vm)
 				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",\
 				temp->id, vm->cycles - temp->cycle_live, vm->cycles_to_die);
 			}
-			vm->visual ? vm->visual->cursors_pos[temp->pos]-- : NONE;
+			if (vm->visual)
+				clear_cursor(vm, temp->pos, ft_abs(temp->champ->id));
 			kill_cursor(&vm->cursors, temp);
 			vm->num_of_cursors -= 1;
 		}
@@ -105,14 +106,14 @@ static void		check_cycle2go(t_vm *vm)
 			//если успешно, выполняем операцию
 			if (check_op_code_and_type_args(temp, vm->arena))
 				g_operation[temp->op_code](vm, temp);
+
 			if (vm->options.verbos == V_MOVE)
 				log_moves(vm, temp);
-			//в массиве положений кареток убираем одну каретку по старой позиции
-			vm->visual ? vm->visual->cursors_pos[temp->pos]-- : NONE;
+
+			if (vm->visual)
+				move_cursor(vm, temp);
 			//сдвигаем позицию каретки на длину операции
 			temp->pos = (temp->pos + temp->step) % MEM_SIZE;
-			//добавляем одну каретку в новую позицию
-			vm->visual ? vm->visual->cursors_pos[temp->pos]++ : NONE;
 		}
 		//уменьшаем количество циклов до исполнения
 		temp = temp->next;
@@ -138,16 +139,14 @@ void			cycle(t_vm *vm)
 		//проходим по каждому процессу и выполняем его если пришлов время
 		check_cycle2go(vm);
 
-		//делаем задержку чтобы в секунду успевало сделаться
-		//заданное количество циклов
-		vm->visual ? usleep(1000000 / vm->visual->vis_speed) : 0;
-
 		// если количество циклов с последней проверки
 		// сравнялось с cycle_to_die проводим проверку кареток
-		if(vm->cycles_from_last_check >= vm->cycles_to_die)
+		if (vm->cycles_from_last_check >= vm->cycles_to_die)
 		{
 			check_cursors(vm);
 			check_cycle2die(vm);
 		}
+		if (vm->visual)
+			show_values(vm->visual->menu, vm);
 	}
 }
