@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 13:55:43 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/18 17:16:13 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/19 17:26:39 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,9 @@ void			print_src_arena(t_vm *vm, char *arena);
 void			print_champ_info(WINDOW *menu, t_vm *vm, t_champ *champs);
 
 char			cursor_in_pos(int *cursors_map, int pos);
+
+void			destroy_vis(t_visual **vis);
+
+t_visual 		*new_visual(void);
 
 #endif

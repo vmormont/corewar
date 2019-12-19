@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   visual.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/19 00:31:57 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/19 18:03:12 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static t_visual *new_visual()
+t_visual 		*new_visual(void)
 {
 	t_visual *visual;
 
@@ -76,8 +76,6 @@ void		print_champ_info(WINDOW *menu, t_vm *vm, t_champ *champs)
 
 void		visualizator(t_vm *vm)
 {
-	if (!(vm->visual = new_visual()))
-		ft_exit(MALLOC_FAILURE, &vm);
 	if (!initscr())
 		ft_exit(NCURSES_INIT_ERROR, &vm);
 
@@ -93,13 +91,11 @@ void		visualizator(t_vm *vm)
 	//печатаем информацию о чемпионах в окно меню
 	print_info(vm->visual->menu, vm);
 
+	vm->visual->arena = newwin(DUMP_ROWS, 3 * DUMP_COLUMNS, 3, 3);
 	//тут надо создать окно арены
 	print_src_arena(vm, vm->arena);
 
 	noecho();
 	getch();
-	wclear(vm->visual->menu);
-	refresh();
-	wrefresh(vm->visual->menu);
-	getch();
+	
 }

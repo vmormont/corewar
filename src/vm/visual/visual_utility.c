@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 16:09:56 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/18 17:51:46 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/19 17:42:54 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,11 @@ static void		print_champ_code(int *i, int *j, t_champ *champ, t_vm *vm)
 	counter = 0;
 	arena = vm->arena;
 	color_code ++;
-	color_set(color_code, NULL);
+	wcolor_set(vm->visual->arena, color_code, NULL);
 	while (counter < champ->code_size)
 	{
-		if (vm->visual)
-			cursor_in_pos(vm->visual->cursors_pos, (*i) * DUMP_COLUMNS + (*j)) ? color_set(color_code + 5, NULL) : 0;
-		mvprintw((*i) + 3, (3 * (*j)) + 3, "%02hhx", arena[(*i) * DUMP_COLUMNS + (*j)]);
-		if (vm->visual)
-			cursor_in_pos(vm->visual->cursors_pos, (*i) * DUMP_COLUMNS + (*j)) ? color_set(color_code, NULL) : 0;
+		mvwprintw(vm->visual->arena, (*i), (3 * (*j)), "%02hhx",\
+		arena[(*i) * DUMP_COLUMNS + (*j)]);
 		(*j)++;
 		if (!((*j) % DUMP_COLUMNS))
 		{
@@ -81,7 +78,7 @@ static void		print_champ_code(int *i, int *j, t_champ *champ, t_vm *vm)
 		}
 		counter++;
 	}
-	color_set(WHITE_TEXT, NULL);
+	wcolor_set(vm->visual->arena, WHITE_TEXT, NULL);
 }
 
 void		print_src_arena(t_vm *vm, char *arena)
@@ -91,7 +88,7 @@ void		print_src_arena(t_vm *vm, char *arena)
 	t_champ	*temp;
 
 	temp = vm->champs;
-	attron(A_NORMAL);
+	wattron(vm->visual->arena, A_NORMAL);
 	i = 0;
 	while (i < DUMP_ROWS)
 	{
@@ -104,14 +101,22 @@ void		print_src_arena(t_vm *vm, char *arena)
 				print_champ_code(&i, &j, temp, vm);
 				temp = temp->next;
 			}
-			if (vm->visual)
-				cursor_in_pos(vm->visual->cursors_pos, i * DUMP_COLUMNS + j) ? color_set(FRAME, NULL) : 0;
-			mvprintw(i + 3, (3 * j) + 3, "%02d", 0);
-			if (vm->visual)
-				cursor_in_pos(vm->visual->cursors_pos, i * DUMP_COLUMNS + j) ? color_set(WHITE_TEXT, NULL) : 0;
+			cursor_in_pos(vm->visual->cursors_pos, i * DUMP_COLUMNS + j) ?\
+			wcolor_set(vm->visual->arena, FRAME, NULL) : 0;
+			mvwprintw(vm->visual->arena, i, (3 * j), "%02d", 0);
+			cursor_in_pos(vm->visual->cursors_pos, i * DUMP_COLUMNS + j) ?\
+			wcolor_set(vm->visual->arena, WHITE_TEXT, NULL) : 0;
 			j++;
 		}
 		i++;
 	}
-	refresh();
+	wrefresh(vm->visual->arena);
+}
+
+void		destroy_vis(t_visual **vis)
+{
+	delwin((*vis)->arena);
+	delwin((*vis)->menu);
+	//ft_memdel((void**)&vis);
+	free(*vis);
 }

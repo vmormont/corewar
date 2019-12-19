@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_utillity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/19 00:15:17 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/19 17:30:27 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ t_vm		*create_vm(t_champ *champs, t_options options)
 	vm->num_of_cursors = vm->num_of_champs;
 	vm->options = options;
 	vm->winner = get_champ_by_id(vm->champs, -vm->num_of_champs)->id;
+	if (!(vm->visual = new_visual()))
+			ft_exit(MALLOC_FAILURE, &vm);
 	return (vm);
 }
 
@@ -74,8 +76,8 @@ void		destroy_vm(t_vm **vm)
 	if (vm && (*vm))
 	{
 		del_champions(&(*vm)->champs);
-		ft_memdel((void**)&(*vm)->visual);
 		kill_all_cursors(&(*vm)->cursors);
+		(*vm)->visual ? destroy_vis(&(*vm)->visual) : 0;
 		ft_memdel((void**)vm);
 	}
 }
