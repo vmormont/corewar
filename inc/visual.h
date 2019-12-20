@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visual.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 13:55:43 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/19 23:11:40 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/20 12:44:06 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void			destroy_visual(t_visual **vis);
 
 t_bool			cursor_in_pos(int *cursors_map, int pos);
 
+void			clear_values(t_vm *vm);
+
 /*
 **	INITILIZE
 */
@@ -51,6 +53,8 @@ void			print_info(WINDOW *menu, t_vm *vm);
 void			print_arena(t_vm *vm, char *arena);
 
 void			print_champ_info(WINDOW *menu, t_vm *vm, t_champ *champs);
+
+void			vis_delay(t_visual *vis);
 
 /*
 **	VISUALISATION CURSOR

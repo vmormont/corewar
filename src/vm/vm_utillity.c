@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_utillity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/19 21:49:19 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/20 17:06:25 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,30 @@ void		log_moves(t_vm *vm, t_cursor *cursor)
 		}
 		ft_printf("\n");
 	}
+}
+
+void		vis_delay(t_visual *vis)
+{
+	int			key;
+	static int	i = 0;
+
+
+	key = getch();
+	if (key == 'r' || key == 'R')
+		vis->vis_speed += 10;
+	else if (key == 'e'|| key == 'E')
+		vis->vis_speed += 1;
+	else if (key == 'w' || key == 'W')
+		vis->vis_speed -= 1;
+	else if (key == 'q' || key == 'Q')
+		vis->vis_speed -= 10;
+	vis->vis_speed = vis->vis_speed > 1000 ? 1000 : vis->vis_speed;
+	vis->vis_speed = vis->vis_speed < 1 ? 1 : vis->vis_speed;
+	if (key == ' ')
+	{
+		mvwaddstr(vis->menu, 2, 3, "               ");
+		vis->pause = vis->pause == TRUE ? FALSE : TRUE;
+	}
+	wrefresh(vis->menu);
+	usleep(1000000 / vis->vis_speed);
 }

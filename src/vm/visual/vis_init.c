@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vis_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/19 22:25:01 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/20 16:16:18 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,16 @@ void		print_champ_info(WINDOW *menu, t_vm *vm, t_champ *champs)
 void		print_info(WINDOW *menu, t_vm *vm)
 {
 	wattron(menu, A_BOLD);
-	mvwaddstr(menu, 2, 3, vm->visual->pause ? "** PAUSED **" : "** RUNNING **");
+	//mvwaddstr(menu, 2, 3, vm->visual->pause ? "** PAUSED **" : "** RUNNING **");
 	mvwaddstr(menu, 4, 3, "Cycles/second limit : ");
 	mvwaddstr(menu, 7, 3, "Cycle : ");
 	mvwaddstr(menu, 10, 3, "Processes : ");
-	print_champ_info(menu, vm, vm->champs);
-	mvwprintw(menu, 12 + (4 * vm->num_of_champs) + 7, 3,\
-	"CYCLE TO DIE :\t%d", vm->cycles_to_die);
-	mvwprintw(menu, 14 + (4 * vm->num_of_champs) + 7, 3,\
+	//print_champ_info(menu, vm, vm->champs);
+	mvwprintw(menu, 16 + (4 * vm->num_of_champs) + 3, 3,\
 	"CYCLE DELTA :\t%d", CYCLE_DELTA);
-	mvwprintw(menu, 16 + (4 * vm->num_of_champs) + 7, 3,\
+	mvwprintw(menu, 18 + (4 * vm->num_of_champs) + 3, 3,\
 	"NBR LIVE :\t\t%d", NBR_LIVE);
-	mvwprintw(menu, 18 + (4 * vm->num_of_champs) + 7, 3,\
+	mvwprintw(menu, 20 + (4 * vm->num_of_champs) + 3, 3,\
 	"MAX CHECKS :\t\t%d", MAX_CHECKS);
 	show_values(menu, vm);
 }
@@ -112,4 +110,5 @@ void		visualizator(t_vm *vm)
 	if (!(vm->visual->arena = newwin(DUMP_ROWS, 3 * DUMP_COLUMNS, 3, 3)))
 		ft_exit(MALLOC_FAILURE, &vm);
 	print_arena(vm, vm->arena);
+	//vis_delay(vm->visual);
 }

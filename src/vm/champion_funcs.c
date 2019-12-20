@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   champion_funcs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/19 21:30:50 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/20 16:19:54 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,15 @@ void			announce_winner(t_vm *vm)
 	int		id_winner;
 	t_champ	*winner;
 
+	nodelay(stdscr, FALSE);
 	id_winner = vm->winner;
 	winner = get_champ_by_id(vm->champs, id_winner);
 	if (!vm->options.terminal)
 		ft_printf("Contestant %d, \"%s\", has won !\n", -id_winner, winner->name);
 	else
 	{
+		nodelay(vm->visual->arena, FALSE);
+		nodelay(vm->visual->menu, FALSE);
 		mvwprintw(vm->visual->menu, 29 + (4 * vm->num_of_champs), 2,\
 		"The winner is : ");
 		wcolor_set(vm->visual->menu, -id_winner, NULL);

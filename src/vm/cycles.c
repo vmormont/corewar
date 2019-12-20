@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/20 00:09:55 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/20 17:45:28 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,6 @@ static void		check_cycle2go(t_vm *vm)
 
 void			cycle(t_vm *vm)
 {
-	t_cursor	*temp;
-
 	//пока живы процессы, игра продолжается
 	while (vm->cursors)
 	{
@@ -143,10 +141,16 @@ void			cycle(t_vm *vm)
 		// сравнялось с cycle_to_die проводим проверку кареток
 		if (vm->cycles_from_last_check >= vm->cycles_to_die)
 		{
+			vm->visual ? clear_values(vm) : 0;
 			check_cursors(vm);
 			check_cycle2die(vm);
 		}
 		if (vm->visual)
+		{
+			mvwaddstr(vm->visual->menu, 2, 3, vm->visual->pause ? "** PAUSED **" : "** RUNNING **");
 			show_values(vm->visual->menu, vm);
+			vis_delay(vm->visual);
+			vm->visual->pause ? nodelay(stdscr, FALSE) : nodelay(stdscr, TRUE);
+		}
 	}
 }
