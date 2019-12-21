@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   champion_funcs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/20 16:19:54 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/21 12:50:51 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,12 @@ void			announce_winner(t_vm *vm)
 		mvwprintw(vm->visual->menu, 31 + (4 * vm->num_of_champs), 2,\
 		"Press any key to finish !!!");
 		wrefresh(vm->visual->menu);
+		wrefresh(vm->visual->arena);
 		getch();
 	}
 }
 
+/*
 void			print_champs(t_champ *champ)
 {
 	ft_printf("__________________________________\n");
@@ -123,3 +125,4 @@ void			print_champs(t_champ *champ)
 		champ = champ->next;
 	}
 }
+*/

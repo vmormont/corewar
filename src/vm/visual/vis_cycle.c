@@ -6,18 +6,18 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/20 18:54:39 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/20 20:36:46 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/21 12:44:45 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void		print_pause(WINDOW *menu, t_bool pause)
+static void		print_pause(WINDOW *menu, t_bool pause)
 {
 	mvwaddstr(menu, 2, 3, pause ? "** PAUSED **" : "** RUNNING **");
 }
 
-void		print_speed(WINDOW *menu, short speed)
+static void		print_speed(WINDOW *menu, short speed)
 {
 	mvwprintw(menu, 4, 25, "    ");
 	mvwprintw(menu, 4, 26, "%d", speed);
@@ -29,7 +29,6 @@ void		vis_read_keys(t_visual *vis)
 
 	while ((key = getch()) != EOF)
 	{
-		;
 		if (key == 'r' || key == 'R')
 			vis->vis_speed += 10;
 		else if (key == 'e'|| key == 'E')

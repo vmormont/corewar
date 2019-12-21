@@ -6,13 +6,13 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/21 10:16:08 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/21 12:50:19 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void	print_frame()
+static void		print_frame()
 {
 	int		i;
 
@@ -33,7 +33,7 @@ static void	print_frame()
 	color_set (WHITE_TEXT, NULL);
 }
 
-static void	color_init(void)
+static void		color_init(void)
 {
 	start_color();
 	init_pair(RED_TEXT, COLOR_RED, COLOR_BLACK);
@@ -48,7 +48,7 @@ static void	color_init(void)
 	init_pair(FRAME, COLOR_BLACK, COLOR_WHITE);
 }
 
-void		print_champ_info(WINDOW *menu, t_vm *vm, t_champ *champs)
+static void		print_champs(WINDOW *menu, t_vm *vm, t_champ *champs)
 {
 	int		i;
 
@@ -59,34 +59,35 @@ void		print_champ_info(WINDOW *menu, t_vm *vm, t_champ *champs)
 		wcolor_set(menu, i + 1, NULL);
 		wprintw(menu, "%s\n", champs->name);
 		wcolor_set(menu, WHITE_TEXT, NULL);
-		mvwprintw(menu, 13 + (i * 4), 5, "Last live :\t\t%d\n",\
-		champs->last_live);
-		mvwprintw(menu, 14 + (i * 4), 5, "Lives in current period :\t%d\n",\
+		mvwprintw(menu, 13 + (i * 4), 5, "Last live :", champs->last_live);
+		mvwprintw(menu, 14 + (i * 4), 5, "Lives in current period :",\
 		champs->lives_in_period);
 		i++;
 		champs = champs->next;
 	}
-	wrefresh(menu);
 }
 
-void		print_info(WINDOW *menu, t_vm *vm)
+static void		print_info(WINDOW *menu, t_vm *vm)
 {
 	wattron(menu, A_BOLD);
 	mvwaddstr(menu, 2, 3, vm->visual->pause ? "** PAUSED **" : "** RUNNING **");
 	mvwaddstr(menu, 4, 3, "Cycles/second limit : ");
 	mvwaddstr(menu, 7, 3, "Cycle : ");
 	mvwaddstr(menu, 10, 3, "Processes : ");
-	//print_champ_info(menu, vm, vm->champs);
 	mvwprintw(menu, 16 + (4 * vm->num_of_champs) + 3, 3,\
 	"CYCLE DELTA :\t%d", CYCLE_DELTA);
 	mvwprintw(menu, 18 + (4 * vm->num_of_champs) + 3, 3,\
 	"NBR LIVE :\t\t%d", NBR_LIVE);
 	mvwprintw(menu, 20 + (4 * vm->num_of_champs) + 3, 3,\
 	"MAX CHECKS :\t\t%d", MAX_CHECKS);
+	mvwprintw(menu, 12 + (4 * vm->num_of_champs) + 3, 3,\
+	"LIVE OPERATION IN CURRENT PERIOD : ", vm->num_live_op);
+	mvwprintw(menu, 14 + (4 * vm->num_of_champs) + 3, 3,\
+	"CYCLE TO DIE : ", vm->cycles_to_die);
 	show_values(menu, vm);
 }
 
-void		visualizator(t_vm *vm)
+void			visualizator(t_vm *vm)
 {
 
 	if (!initscr())
@@ -105,7 +106,8 @@ void		visualizator(t_vm *vm)
 		ft_exit(MALLOC_FAILURE, &vm);
 	//печатаем информацию о чемпионах в окно меню
 	print_info(vm->visual->menu, vm);
-
+	print_champs(vm->visual->menu, vm, vm->champs);
+	wrefresh(vm->visual->menu);
 	//создаем окно арены
 	if (!(vm->visual->arena = newwin(DUMP_ROWS, 3 * DUMP_COLUMNS, 3, 3)))
 		ft_exit(MALLOC_FAILURE, &vm);

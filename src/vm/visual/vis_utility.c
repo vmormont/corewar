@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 16:09:56 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/20 19:40:30 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/21 12:49:46 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,35 +36,29 @@ void			destroy_visual(t_visual **vis)
 	}
 }
 
-t_bool			cursor_in_pos(int *cursors_map, int pos)
+static void		print_champ_info(WINDOW *menu, t_vm *vm, t_champ *champs)
 {
-	if (cursors_map[pos])
-		return (TRUE);
-	else
-		return (FALSE);
-}
+	int		i;
 
-void			clear_values(t_vm *vm)
-{
-	mvwprintw(vm->visual->menu, 4, 26, "                    ");
-	mvwprintw(vm->visual->menu, 7, 12, "                    ");
-	mvwprintw(vm->visual->menu, 10, 16, "                    ");
-	mvwprintw(vm->visual->menu, 12 + (4 * vm->num_of_champs) + 3, 3,\
-	"LIVE OPERATION IN CURRENT PERIOD :\t%s", "                    ");
-	mvwprintw(vm->visual->menu, 14 + (4 * vm->num_of_champs) + 3, 3,\
-	"CYCLE TO DIE :\t%s", "                    ");
-	wrefresh(vm->visual->menu);
+	i = 0;
+	wcolor_set(menu, WHITE_TEXT, NULL);
+	while (i < vm->num_of_champs)
+	{
+		mvwprintw(menu, 13 + (i * 4), 35, "%d     ", champs->last_live);
+		mvwprintw(menu, 14 + (i * 4), 35, "%d     ", champs->lives_in_period);
+		i++;
+		champs = champs->next;
+	}
 }
 
 void			show_values(WINDOW *menu, t_vm *vm)
 {
 	print_champ_info(menu, vm, vm->champs);
-	mvwprintw(menu, 4, 26, "%d", vm->visual->vis_speed);
-	mvwprintw(menu, 7, 12, "%d", vm->cycles);
-	mvwprintw(menu, 10, 16, "%d", vm->num_of_cursors);
-	mvwprintw(menu, 12 + (4 * vm->num_of_champs) + 3, 3,\
-	"LIVE OPERATION IN CURRENT PERIOD :\t%d", vm->num_live_op);
-	mvwprintw(menu, 14 + (4 * vm->num_of_champs) + 3, 3,\
-	"CYCLE TO DIE :\t%d", vm->cycles_to_die);
-	wrefresh(menu);
+	mvwprintw(menu, 4, 26, "%d      ", vm->visual->vis_speed);
+	mvwprintw(menu, 7, 12, "%d      ", vm->cycles);
+	mvwprintw(menu, 10, 16, "%d     ", vm->num_of_cursors);
+	mvwprintw(menu, 15 + (4 * vm->num_of_champs), 40, "%d     ",\
+	vm->num_live_op);
+	mvwprintw(menu, 17 + (4 * vm->num_of_champs), 24, "%d     ",\
+	vm->cycles_to_die);
 }

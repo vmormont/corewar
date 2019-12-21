@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/20 19:50:22 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/21 12:04:35 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void		check_cursors(t_vm *vm)
 				temp->id, vm->cycles - temp->cycle_live, vm->cycles_to_die);
 			}
 			if (vm->visual)
-				clear_cursor(vm, temp->pos, ft_abs(temp->champ->id));
+				clear_cursor(vm, temp->pos, temp->color);
 			kill_cursor(&vm->cursors, temp);
 			vm->num_of_cursors -= 1;
 		}
@@ -77,9 +77,6 @@ static void 	check_cycle2die(t_vm *vm)
 		vm->checks_without_dec_cycle2die += 1;
 	//обнуляем общее количество операций live в цикле
 	vm->num_live_op = 0;
-	//обнуляем live_in_period у чемпионов
-	if (vm->visual)
-		clear_values(vm);
 	temp = vm->champs;
 	while (temp)
 	{

@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/18 23:24:23 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/21 12:15:09 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ void			read_champions_from_args(int ac, char **av, t_champ **champs);
 void			sort_and_check_champs(t_champ *champs);
 
 t_champ			*get_champ_by_id(t_champ *champs, int id);
-
-void			print_champs(t_champ *champ);
 
 void			announce_winner(t_vm *vm);
 

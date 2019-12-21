@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/19 22:25:36 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/21 10:29:37 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ typedef struct				s_options
 typedef struct				s_cursor
 {
 	int						id;
-	struct s_champ			*champ;
 	int						reg[REG_NUMBER + 1];
 	t_bool					carry;
 	unsigned int			pos;

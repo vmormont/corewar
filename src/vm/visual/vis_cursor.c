@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 20:53:13 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/21 10:17:13 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/21 12:20:16 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ void		set_cursor(t_vm *vm, unsigned int pos, int color_code)
 	//получаем символ по адресу
 	ch = mvwinch(vm->visual->arena, i, j);
 	//узнаем какой там цвет
-	if (PAIR_NUMBER(ch) == WHITE_TEXT || PAIR_NUMBER(ch) == FRAME)
-		color_code = FRAME - 5;
-	wcolor_set(vm->visual->arena, color_code + 5, NULL);
+	color_code = PAIR_NUMBER(ch);
+	if (color_code < 6)
+		color_code += 5;
+	wcolor_set(vm->visual->arena, color_code, NULL);
 	if (vm->options.terminal != 2)
 		mvwprintw(vm->visual->arena, i, j, "%02hhx", vm->arena[pos]);
 	else
@@ -48,8 +49,9 @@ void		clear_cursor(t_vm *vm, unsigned int pos, int color_code)
 	//получаем символ по адресу
 	ch = mvwinch(vm->visual->arena, i, j);
 	//узнаем какой там цвет
-	if (PAIR_NUMBER(ch) == FRAME || PAIR_NUMBER(ch) == WHITE_TEXT)
-		color_code = WHITE_TEXT;
+	color_code = PAIR_NUMBER(ch);
+	if (color_code > 5)
+		color_code -= 5;
 	wcolor_set(vm->visual->arena, color_code, NULL);
 	if (vm->options.terminal != 2)
 		mvwprintw(vm->visual->arena, i, j, "%02hhx", vm->arena[pos]);
@@ -62,31 +64,34 @@ void		move_cursor(t_vm *vm, t_cursor *cursor)
 	//в массиве положений кареток убираем одну каретку по старой позиции
 	vm->visual->cursors_pos[cursor->pos] -= 1;
 	if (vm->visual->cursors_pos[cursor->pos] == 0)
-		clear_cursor(vm, cursor->pos, ft_abs(cursor->champ->id));
+		clear_cursor(vm, cursor->pos, cursor->color);
 
 	if (vm->visual->cursors_pos[(cursor->pos + cursor->step) % MEM_SIZE] == 0)
-		set_cursor(vm, (cursor->pos + cursor->step) % MEM_SIZE ,\
-		ft_abs(cursor->champ->id));
+		set_cursor(vm, (cursor->pos + cursor->step) % MEM_SIZE , cursor->color);
 
 	wrefresh(vm->visual->arena);
 }
 
-void		vis_st(t_visual *vis, int num, int pos, char color)
+void		vis_st(t_vm *vm, int num, unsigned int pos, char color)
 {
-	short i;
-	short j;
-	short k;
+	short	i;
+	short	j;
+	short	k;
 	char	offset;
 
 	pos = pos % MEM_SIZE;
-	i = pos  / DUMP_ROWS;
+	i = pos / DUMP_ROWS;
 	j = (pos % DUMP_COLUMNS) * 3;
+
 	k = 0;
 	offset = 24;
-	wcolor_set(vis->arena, color, NULL);
+	wcolor_set(vm->visual->arena, color, NULL);
 	while (k < REG_SIZE)
 	{
-		mvwprintw(vis->arena, i, j, "%02hhx", ((num >> offset) & 0xFF));
+		if (vm->options.terminal == 1)
+			mvwprintw(vm->visual->arena, i, j, "%02hhx", ((num >> offset) & 0xFF));
+		else
+			mvwprintw(vm->visual->arena, i, j, "ff");
 		offset = offset - __CHAR_BIT__;
 		++k;
 		j += 3;
@@ -96,5 +101,5 @@ void		vis_st(t_visual *vis, int num, int pos, char color)
 			++i;
 		}
 	}
-	wrefresh(vis->arena);
+//	wrefresh(vm->visual->arena);
 }

@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/20 18:54:24 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/21 10:30:24 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		set_champ_code_on_arena(t_vm *vm)
 		cursor->reg[1] = player->id;
 		cursor->op_code = vm->arena[i];
 		cursor->pos = i;
-		cursor->champ = player;
+		cursor->color = ft_abs(player->id);
 		add_cursor(&vm->cursors, cursor);
 		i += offset_start_code;
 		player = player->next;
