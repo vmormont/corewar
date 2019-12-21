@@ -6,7 +6,7 @@
 /*   By: vmormont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 01:57:32 by vmormont          #+#    #+#             */
-/*   Updated: 2019/12/14 02:21:35 by vmormont         ###   ########.fr       */
+/*   Updated: 2019/12/21 17:22:08 by vmormont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int				main(int argc, char **argv)
 		else
 		{
 			error = true;
-			ft_printf("{red}ERROR: invalid filename extension: %s\n",\
+			ft_printf("{red}ERROR: invalid filename extension: %s{eoc}\n",\
 						argv[index]);
 		}
 		++index;

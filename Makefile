@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: vmormont <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/12/20 19:41:36 by astripeb         ###   ########.fr        #
+#    Updated: 2019/12/21 17:22:49 by vmormont         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ SRC_VIS				:= vis_init.c vis_utility.c vis_champs.c vis_cursor.c\
 #									DISASSEMBLY FILES				 		   #
 ################################################################################
 
-SRC_DASM			:= main.c dasm.c ft_printf_fd.c utilits.c utilits_second.c\
+SRC_DASM			:= main.c dasm.c utilits.c utilits_second.c\
 					print.c
 
 OBJ_OP				:= $(SRC_OP_INFO:.c=.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmormont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 01:56:19 by vmormont          #+#    #+#             */
-/*   Updated: 2019/12/21 17:02:22 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/21 17:21:44 by vmormont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void				print_code_first(int fd, int fd_out)
 		if (g_op_tab[ind].code_args)
 		{
 			if (read(fd, &code_args, 1) < 0)
-				;//ошибка;
+				exit(EXIT_FAILURE);
 			i = 6;
 			while (i >= 8 - (2 * g_op_tab[ind].num_args))
 			{
@@ -70,42 +70,3 @@ void				print_code_first(int fd, int fd_out)
 		ft_fprintf(fd_out, "\n");
 	}
 }
-			
-		
-/*		if (ind == LIVE)
-			ft_fprintf(fd_out, "%%%d\n", get_num(fd, T_IND));
-		else if (ind == LFORK || ind == FORK || ind == ZJMP)
-			ft_fprintf(fd_out, "%%%hd\n", get_num(fd, T_DIR));
-		else if (ind == AFF)
-			ft_fprintf(fd_out, "r%hhu\n", get_num(fd, T_REG));
-		else
-			print_code_continiue(ind, get_num(fd, T_REG), fd, fd_out);
-	}
-}
-
-void				print_code_continiue(int opcode, char num,\
-										int fd, int fd_out)
-{
-	char			num_type;
-	int				num_arg;
-
-	num_arg = NUM_ARG;
-	num_type = get_num_type(num, num_arg);
-	while (num_type)
-	{
-		if (num_type == REG_DASM)
-			ft_fprintf(fd_out, "r%hhu", get_num(fd, T_REG));
-		else if (num_type == IND_DASM)
-			ft_fprintf(fd_out, "%d", get_num(fd, T_DIR));
-		else if (opcode == STI || opcode == LDI || opcode == LLDI)
-			ft_fprintf(fd_out, "%%%hd", get_num(fd, T_DIR));
-		else if (num_type)
-			ft_fprintf(fd_out, "%%%d", get_num(fd, T_IND));
-		--num_arg;
-		num_type = get_num_type(num, num_arg);
-		if (num_type)
-			ft_fprintf(fd_out, ", ");
-		else
-			ft_fprintf(fd_out, "\n");
-	}
-}*/
