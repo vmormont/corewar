@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/21 12:15:09 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/21 15:36:37 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,9 @@ t_cursor		*copy_cursor(t_cursor *src, unsigned int pos);
 
 void			add_cursor(t_cursor **list, t_cursor *cursor);
 
-void			kill_cursor(t_cursor **list, t_cursor *cursor);
-
 void			kill_all_cursors(t_cursor **begin);
+
+void			check_cursors(t_vm *vm);
 
 /*
 ** CYCLES FUNCTION

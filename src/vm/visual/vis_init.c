@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/21 12:50:19 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/21 16:51:35 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ static void		print_frame()
 
 	color_set (FRAME, NULL);
 	i = 0;
-	while (++i < (3 * DUMP_COLUMNS) + 75)
+	while (++i < ARENA_WIDTH + 75)
 	{
 		mvaddch(1, i, ' ');
-		mvaddch(DUMP_ROWS + 4, i, ' ');
+		mvaddch(ARENA_HEIGHT + 4, i, ' ');
 	}
 	i = 0;
-	while (++i < DUMP_ROWS + 5)
+	while (++i < ARENA_HEIGHT + 5)
 	{
 		mvaddch(i, 0, ' ');
-		mvaddch(i, (3 * DUMP_COLUMNS) + 4, ' ');
-		mvaddch(i, (3 * DUMP_COLUMNS) + 75, ' ');
+		mvaddch(i, ARENA_WIDTH + 4, ' ');
+		mvaddch(i, ARENA_WIDTH + 75, ' ');
 	}
 	color_set (WHITE_TEXT, NULL);
 }
@@ -70,7 +70,7 @@ static void		print_champs(WINDOW *menu, t_vm *vm, t_champ *champs)
 static void		print_info(WINDOW *menu, t_vm *vm)
 {
 	wattron(menu, A_BOLD);
-	mvwaddstr(menu, 2, 3, vm->visual->pause ? "** PAUSED **" : "** RUNNING **");
+	mvwaddstr(menu, 2, 3, "** PAUSED **");
 	mvwaddstr(menu, 4, 3, "Cycles/second limit : ");
 	mvwaddstr(menu, 7, 3, "Cycle : ");
 	mvwaddstr(menu, 10, 3, "Processes : ");
@@ -89,10 +89,8 @@ static void		print_info(WINDOW *menu, t_vm *vm)
 
 void			visualizator(t_vm *vm)
 {
-
 	if (!initscr())
 		ft_exit(NCURSES_INIT_ERROR, &vm);
-
 	//инициализируем цвета
 	color_init();
 	//убираем курсор
@@ -102,14 +100,14 @@ void			visualizator(t_vm *vm)
 	print_frame();
 	refresh();
 	//создаем окно меню
-	if (!(vm->visual->menu = newwin(DUMP_ROWS + 2, 69, 2, (DUMP_COLUMNS * 3) + 5)))
+	if (!(vm->visual->menu = newwin(ARENA_HEIGHT + 2, 69, 2, ARENA_WIDTH + 5)))
 		ft_exit(MALLOC_FAILURE, &vm);
 	//печатаем информацию о чемпионах в окно меню
 	print_info(vm->visual->menu, vm);
 	print_champs(vm->visual->menu, vm, vm->champs);
 	wrefresh(vm->visual->menu);
 	//создаем окно арены
-	if (!(vm->visual->arena = newwin(DUMP_ROWS, 3 * DUMP_COLUMNS, 3, 3)))
+	if (!(vm->visual->arena = newwin(ARENA_HEIGHT, ARENA_WIDTH, 3, 3)))
 		ft_exit(MALLOC_FAILURE, &vm);
 	print_arena(vm, vm->arena);
 }

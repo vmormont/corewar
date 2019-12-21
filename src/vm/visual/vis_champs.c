@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 20:05:15 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/20 18:39:13 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/21 13:26:56 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	print_champ_code(int *i, int *j, t_champ *champ, t_vm *vm)
 		}
 		counter++;
 	}
-	set_cursor(vm, (*i) * DUMP_COLUMNS + (*j) - counter, ft_abs(champ->id));
+	set_cursor(vm, (*i) * DUMP_COLUMNS + (*j) - counter);
 	wcolor_set(vm->visual->arena, WHITE_TEXT, NULL);
 }
 

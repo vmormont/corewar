@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 13:55:43 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/21 13:00:12 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/21 16:24:22 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,15 @@ enum	s_vis_color
 	FRAME
 };
 
-# define RED_TEXT 1
-# define GREEN_TEXT 2
-# define BLUE_TEXT 3
-# define YELLOW_TEXT 4
-# define WHITE_TEXT 5
-# define RED_CURSOR 6
-# define GREEN_CURSOR 7
-# define BLUE_CURSOR 8
-# define YELLOW_CURSOR 9
-# define FRAME 10
+# define VIS_MIN_SPEED 1
+# define VIS_MAX_SPEED 1000
+# define VIS_SPEED_START 100
+# define VIS_SPEED_DEL 1000000
+
+# define VIS_BYTE_SIZE 3
+
+# define ARENA_WIDTH (VIS_BYTE_SIZE * DUMP_COLUMNS)
+# define ARENA_HEIGHT (DUMP_ROWS)
 
 /*
 **	UTILITY
@@ -66,9 +65,9 @@ void			vis_cycle(t_vm *vm);
 **	VISUALISATION CURSOR
 */
 
-void			set_cursor(t_vm *vm, unsigned int pos, int color_code);
+void			set_cursor(t_vm *vm, unsigned int pos);
 
-void			clear_cursor(t_vm *vm, unsigned int pos, int color_code);
+void			clear_cursor(t_vm *vm, unsigned int pos);
 
 void			move_cursor(t_vm *vm, t_cursor *cursor);
 

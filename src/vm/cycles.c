@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/21 12:04:35 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/21 17:34:56 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,35 +28,6 @@ static void		initial_read_cursor(t_cursor *cursor, char *arena)
 	}
 	else
 		cursor->cycles2go = g_op_tab[cursor->op_code].cycles2go;
-}
-
-static void		check_cursors(t_vm *vm)
-{
-	t_cursor	*first;
-	t_cursor	*temp;
-
-	vm->cycles_from_last_check = 0;
-	first = vm->cursors;
-	while (first)
-	{
-		if (((vm->cycles - first->cycle_live) >= vm->cycles_to_die)\
-		|| vm->cycles_to_die <= 0)
-		{
-			temp = first;
-			first = first->next;
-			if (vm->options.verbos == V_DEATHS)
-			{
-				ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",\
-				temp->id, vm->cycles - temp->cycle_live, vm->cycles_to_die);
-			}
-			if (vm->visual)
-				clear_cursor(vm, temp->pos, temp->color);
-			kill_cursor(&vm->cursors, temp);
-			vm->num_of_cursors -= 1;
-		}
-		else
-			first = first->next;
-	}
 }
 
 static void 	check_cycle2die(t_vm *vm)
@@ -101,8 +72,7 @@ static void		check_cycle2go(t_vm *vm)
 			temp->cycles2go -= 1;
 		if (!temp->cycles2go)
 		{
-			//проводим валидацию кодов аргументов
-			//если успешно, выполняем операцию
+			//проводим валидацию кодов аргументов. если успешно, выполняем операцию
 			if (check_op_code_and_type_args(temp, vm->arena))
 				g_operation[temp->op_code](vm, temp);
 

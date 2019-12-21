@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:06:22 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/21 10:32:43 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/21 15:39:14 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,34 +24,6 @@ t_cursor	*new_cursor(unsigned int pos)
 	cursor->pos = pos;
 	++i;
 	return (cursor);
-}
-
-void		kill_cursor(t_cursor **list, t_cursor *cursor)
-{
-	t_cursor	*first;
-	t_cursor	*temp;
-
-	if (*list == cursor)
-	{
-		*list = cursor->next;
-		ft_memdel((void*)&cursor);
-	}
-	else
-	{
-		first = *list;
-		while (first)
-		{
-			if (first->next == cursor)
-			{
-				temp = first->next;
-				first->next = temp->next;
-				temp->next = NULL;
-				ft_memdel((void*)&temp);
-				break ;
-			}
-			first = first->next;
-		}
-	}
 }
 
 void		kill_all_cursors(t_cursor **begin)
