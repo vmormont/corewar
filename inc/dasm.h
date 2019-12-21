@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dasm.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmormont <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 00:37:08 by vmormont          #+#    #+#             */
-/*   Updated: 2019/12/14 02:23:57 by vmormont         ###   ########.fr       */
+/*   Updated: 2019/12/21 16:57:22 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ bool					is_filename_extension(char *filename, char *extension);
 char					*get_s_filename(char *arg);
 int						reverse_bits(int num, char full_bit);
 char					get_num_type(char num, int num_arg);
-int						get_num(int fd, size_t t_size);
+int						get_num(int fd, size_t t_size, char type);
 
 /*
 **	Print Functions
