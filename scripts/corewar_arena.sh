@@ -1,7 +1,7 @@
 #!/bin/bash
 
-OG_COREWAR="folder_of_example/CW_LINUX"
-OG_ASM="folder_of_example/ASM_LINUX"
+OG_COREWAR="folder_of_example/corewar"
+OG_ASM="folder_of_example/asm"
 MY_COREWAR="./corewar"
 CHECKER="./scripts/corewar_checker.sh"
 

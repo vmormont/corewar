@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vis_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/20 16:16:18 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/21 10:16:08 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void		print_champ_info(WINDOW *menu, t_vm *vm, t_champ *champs)
 void		print_info(WINDOW *menu, t_vm *vm)
 {
 	wattron(menu, A_BOLD);
-	//mvwaddstr(menu, 2, 3, vm->visual->pause ? "** PAUSED **" : "** RUNNING **");
+	mvwaddstr(menu, 2, 3, vm->visual->pause ? "** PAUSED **" : "** RUNNING **");
 	mvwaddstr(menu, 4, 3, "Cycles/second limit : ");
 	mvwaddstr(menu, 7, 3, "Cycle : ");
 	mvwaddstr(menu, 10, 3, "Processes : ");
@@ -110,5 +110,4 @@ void		visualizator(t_vm *vm)
 	if (!(vm->visual->arena = newwin(DUMP_ROWS, 3 * DUMP_COLUMNS, 3, 3)))
 		ft_exit(MALLOC_FAILURE, &vm);
 	print_arena(vm, vm->arena);
-	//vis_delay(vm->visual);
 }

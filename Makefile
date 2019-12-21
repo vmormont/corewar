@@ -6,7 +6,7 @@
 #    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/12/19 20:53:59 by astripeb         ###   ########.fr        #
+#    Updated: 2019/12/20 19:41:36 by astripeb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,8 @@ SRC_CORE			:= corewar.c ft_exit_corewar.c utility_core.c options_core.c\
 SRC_OP_FUNC			:= ld_lld.c ldi_lldi.c live_zjmp_aff.c add_sub.c\
 					and_or_xor.c st_sti.c fork_lfork.c op_utility.c
 
-SRC_VIS				:= vis_init.c vis_utility.c vis_champs.c vis_cursor.c
+SRC_VIS				:= vis_init.c vis_utility.c vis_champs.c vis_cursor.c\
+					vis_cycle.c
 
 ################################################################################
 #									DISASSEMBLY FILES				 		   #

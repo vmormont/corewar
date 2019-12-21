@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vis_utility.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 16:09:56 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/20 14:25:35 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/20 19:40:30 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,11 @@ void			clear_values(t_vm *vm)
 	"LIVE OPERATION IN CURRENT PERIOD :\t%s", "                    ");
 	mvwprintw(vm->visual->menu, 14 + (4 * vm->num_of_champs) + 3, 3,\
 	"CYCLE TO DIE :\t%s", "                    ");
-	wrefresh(vm->visual->menu);	
+	wrefresh(vm->visual->menu);
 }
 
 void			show_values(WINDOW *menu, t_vm *vm)
 {
-	//clear_value(vm);
 	print_champ_info(menu, vm, vm->champs);
 	mvwprintw(menu, 4, 26, "%d", vm->visual->vis_speed);
 	mvwprintw(menu, 7, 12, "%d", vm->cycles);
@@ -68,9 +67,4 @@ void			show_values(WINDOW *menu, t_vm *vm)
 	mvwprintw(menu, 14 + (4 * vm->num_of_champs) + 3, 3,\
 	"CYCLE TO DIE :\t%d", vm->cycles_to_die);
 	wrefresh(menu);
-
-	//делаем задержку чтобы в секунду успевало сделаться
-	//заданное количество циклов
-	//usleep(1000000 / vm->visual->vis_speed);
-//	getch();
 }

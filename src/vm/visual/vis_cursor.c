@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 20:53:13 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/20 00:12:11 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/21 10:17:13 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ void		set_cursor(t_vm *vm, unsigned int pos, int color_code)
 		color_code = FRAME - 5;
 	wcolor_set(vm->visual->arena, color_code + 5, NULL);
 	if (vm->options.terminal != 2)
-		mvwprintw(vm->visual->arena, i, j, "%02hhx",\
-		vm->arena[i * DUMP_COLUMNS + j]);
+		mvwprintw(vm->visual->arena, i, j, "%02hhx", vm->arena[pos]);
 	else
 		mvwprintw(vm->visual->arena, i, j, "ff");
+
+	//в массив кареток добавляем одну каретку
+	vm->visual->cursors_pos[pos] += 1;
 }
 
 void		clear_cursor(t_vm *vm, unsigned int pos, int color_code)
@@ -50,8 +52,7 @@ void		clear_cursor(t_vm *vm, unsigned int pos, int color_code)
 		color_code = WHITE_TEXT;
 	wcolor_set(vm->visual->arena, color_code, NULL);
 	if (vm->options.terminal != 2)
-		mvwprintw(vm->visual->arena, i, j, "%02hhx",\
-		vm->arena[i * DUMP_COLUMNS + j]);
+		mvwprintw(vm->visual->arena, i, j, "%02hhx", vm->arena[pos]);
 	else
 		mvwprintw(vm->visual->arena, i, j, "ff");
 }
@@ -64,10 +65,36 @@ void		move_cursor(t_vm *vm, t_cursor *cursor)
 		clear_cursor(vm, cursor->pos, ft_abs(cursor->champ->id));
 
 	if (vm->visual->cursors_pos[(cursor->pos + cursor->step) % MEM_SIZE] == 0)
-		set_cursor(vm, (cursor->pos + cursor->step) % MEM_SIZE , ft_abs(cursor->champ->id));
-
-	//в массив кареток добавляем одну каретку
-	vm->visual->cursors_pos[(cursor->pos + cursor->step) % MEM_SIZE] += 1;
+		set_cursor(vm, (cursor->pos + cursor->step) % MEM_SIZE ,\
+		ft_abs(cursor->champ->id));
 
 	wrefresh(vm->visual->arena);
+}
+
+void		vis_st(t_visual *vis, int num, int pos, char color)
+{
+	short i;
+	short j;
+	short k;
+	char	offset;
+
+	pos = pos % MEM_SIZE;
+	i = pos  / DUMP_ROWS;
+	j = (pos % DUMP_COLUMNS) * 3;
+	k = 0;
+	offset = 24;
+	wcolor_set(vis->arena, color, NULL);
+	while (k < REG_SIZE)
+	{
+		mvwprintw(vis->arena, i, j, "%02hhx", ((num >> offset) & 0xFF));
+		offset = offset - __CHAR_BIT__;
+		++k;
+		j += 3;
+		if (!(j % (DUMP_COLUMNS * 3)))
+		{
+			j = 0;
+			++i;
+		}
+	}
+	wrefresh(vis->arena);
 }

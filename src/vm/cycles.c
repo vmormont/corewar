@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cycles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:46:47 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/20 17:45:28 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/20 19:50:22 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ static void 	check_cycle2die(t_vm *vm)
 	//обнуляем общее количество операций live в цикле
 	vm->num_live_op = 0;
 	//обнуляем live_in_period у чемпионов
+	if (vm->visual)
+		clear_values(vm);
 	temp = vm->champs;
 	while (temp)
 	{
@@ -141,16 +143,10 @@ void			cycle(t_vm *vm)
 		// сравнялось с cycle_to_die проводим проверку кареток
 		if (vm->cycles_from_last_check >= vm->cycles_to_die)
 		{
-			vm->visual ? clear_values(vm) : 0;
 			check_cursors(vm);
 			check_cycle2die(vm);
 		}
 		if (vm->visual)
-		{
-			mvwaddstr(vm->visual->menu, 2, 3, vm->visual->pause ? "** PAUSED **" : "** RUNNING **");
-			show_values(vm->visual->menu, vm);
-			vis_delay(vm->visual);
-			vm->visual->pause ? nodelay(stdscr, FALSE) : nodelay(stdscr, TRUE);
-		}
+			vis_cycle(vm);
 	}
 }

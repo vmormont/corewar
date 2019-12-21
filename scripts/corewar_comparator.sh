@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OG_COREWAR="folder_of_example/CW_LINUX"
+OG_COREWAR="folder_of_example/corewar"
 MY_COREWAR="./corewar"
 
 if [ -z "$1" ]; then

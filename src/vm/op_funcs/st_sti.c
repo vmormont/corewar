@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:45:30 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/17 19:28:56 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/20 21:04:26 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ void		op_st(t_vm *vm, t_cursor *cursor)
 		address = read_2_bytes(vm->arena, cursor->pos + cursor->step);
 		copy_4_bytes(vm->arena, cursor->pos + (address % IDX_MOD),\
 		cursor->reg[reg_n]);
+		if (vm->visual)
+			vis_st(vm->visual, cursor->reg[reg_n], cursor->pos + (address % IDX_MOD),\
+			ft_abs(cursor->champ->id));
 	}
 	cursor->step += get_arg_size(cursor->op_code, (code_args >> 4) & 3);
 	if (vm->options.verbos == V_OPERATIONS)
@@ -63,4 +66,8 @@ void		op_sti(t_vm *vm, t_cursor *cursor)
 	cursor->pos + ((address1 + address2) % IDX_MOD), cursor->reg[reg_n]);
 	if (vm->options.verbos == V_OPERATIONS)
 		log_sti(cursor, reg_n, address1, address2);
+	if (vm->visual)
+		vis_st(vm->visual, cursor->reg[reg_n],\
+		cursor->pos + ((address1 + address2) % IDX_MOD),\
+		ft_abs(cursor->champ->id));
 }
