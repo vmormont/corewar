@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   options_core.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:38:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/19 19:15:33 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/23 14:38:16 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ t_options	get_options(int ac, char **av)
 	if ((options.terminal = get_option(ac, av, "t")))
 	{
 		if ((get_option(ac, av, "-stealth") - options.terminal) == 1)
-			options.terminal = 2;
+			options.terminal = STEALTH_MODE;
 		else
-			options.terminal = 1;
+			options.terminal = NORMAL_MODE;
 	}
 	return (options);
 }

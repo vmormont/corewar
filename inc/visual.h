@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 13:55:43 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/21 16:24:22 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 15:12:14 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ enum	s_vis_color
 	GREEN_CURSOR,
 	BLUE_CURSOR,
 	YELLOW_CURSOR,
-	FRAME
+	FRAME,
+	RED_LIVE,
+	GREEN_LIVE,
+	BLUE_LIVE,
+	YELLOW_LIVE
 };
 
 # define VIS_MIN_SPEED 1
@@ -37,9 +41,10 @@ enum	s_vis_color
 # define VIS_SPEED_DEL 1000000
 
 # define VIS_BYTE_SIZE 3
-
 # define ARENA_WIDTH (VIS_BYTE_SIZE * DUMP_COLUMNS)
 # define ARENA_HEIGHT (DUMP_ROWS)
+
+# define VIS_BACKLIGHT_NUM 50
 
 /*
 **	UTILITY
@@ -72,5 +77,9 @@ void			clear_cursor(t_vm *vm, unsigned int pos);
 void			move_cursor(t_vm *vm, t_cursor *cursor);
 
 void			vis_st(t_vm *vm, int num, unsigned int pos, char color);
+
+void			vis_live(t_vm *vm, unsigned int pos, char color);
+
+void			check_attr(t_vm *vm);
 
 #endif

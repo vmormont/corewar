@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/21 17:19:33 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 11:18:48 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void		op_live(t_vm *vm, t_cursor *cursor)
 	}
 	if (vm->options.verbos == V_OPERATIONS)
 		ft_printf("P %4d | live %d\n", cursor->id, n);
+	if (vm->visual)
+		vis_live(vm, cursor->pos, cursor->color);
 }
 
 void		op_zjmp(t_vm *vm, t_cursor *cursor)

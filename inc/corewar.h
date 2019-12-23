@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/21 15:36:37 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 14:37:44 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 # define ARGS_SIZE 1
 # define PRE_SIZE 2
 # define ARENA_REG_SIZE 1
+
+# define NORMAL_MODE 1
+# define STEALTH_MODE 2
 
 typedef enum	e_error
 {

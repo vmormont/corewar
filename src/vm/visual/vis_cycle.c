@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/20 18:54:39 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/21 16:48:56 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 14:50:39 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void			vis_cycle(t_vm *vm)
 		wrefresh(vm->visual->menu);
 	}
 	wrefresh(vm->visual->menu);
+	check_attr(vm);
 	wrefresh(vm->visual->arena);
 	usleep(VIS_SPEED_DEL / vm->visual->vis_speed);
 }

@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 20:53:13 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/21 17:36:02 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 15:44:04 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ void		set_cursor(t_vm *vm, unsigned int pos)
 
 	i = pos / DUMP_ROWS;
 	j = (pos % DUMP_COLUMNS) * VIS_BYTE_SIZE;
+
 	//получаем символ по адресу и узнаем какой там цвет
 	color = PAIR_NUMBER(mvwinch(vm->visual->arena, i, j));
-	if (color < 6)
+	if (color < RED_CURSOR)
 		color += 5;
 	wcolor_set(vm->visual->arena, color, NULL);
-	if (vm->options.terminal != 2)
+	if (vm->options.terminal == NORMAL_MODE)
 		mvwprintw(vm->visual->arena, i, j, "%02hhx", vm->arena[pos]);
 	else
 		mvwprintw(vm->visual->arena, i, j, "ff");
@@ -45,10 +46,10 @@ void		clear_cursor(t_vm *vm, unsigned int pos)
 
 	//получаем символ по адресу и узнаем какой там цвет
 	color = PAIR_NUMBER(mvwinch(vm->visual->arena, i, j));
-	if (color > 5 && color <= FRAME)
+	if (color > WHITE_TEXT && color < RED_LIVE)
 		color -= 5;
 	wcolor_set(vm->visual->arena, color, NULL);
-	if (vm->options.terminal != 2)
+	if (vm->options.terminal == NORMAL_MODE)
 		mvwprintw(vm->visual->arena, i, j, "%02hhx", vm->arena[pos]);
 	else
 		mvwprintw(vm->visual->arena, i, j, "ff");
@@ -71,26 +72,52 @@ void		vis_st(t_vm *vm, int num, unsigned int pos, char color)
 	short	i;
 	short	j;
 	short	k;
-	char	offs;
+	int		c;
+	char	offset;
 
-	k = 0;
-	offs = 24;
+	offset = 24;
+	c = 0xFF;
+	k = REG_SIZE;
 	i = (pos % MEM_SIZE) / DUMP_ROWS;
 	j = ((pos % MEM_SIZE) % DUMP_COLUMNS) * VIS_BYTE_SIZE;
+	wattron(vm->visual->arena, A_STANDOUT | A_BOLD);
 	wcolor_set(vm->visual->arena, color, NULL);
-	while (k < REG_SIZE)
+	while (k--)
 	{
 		if (vm->options.terminal == 1)
-			mvwprintw(vm->visual->arena, i, j, "%02hhx", (num >> offs) & 0xFF);
-		else
-			mvwprintw(vm->visual->arena, i, j, "ff");
-		offs = offs - __CHAR_BIT__;
-		++k;
-		j += VIS_BYTE_SIZE;
-		if (!(j % ARENA_WIDTH))
-		{
-			j = 0;
+			c = ((num >> offset) & 0xFF);
+		mvwprintw(vm->visual->arena, i, j, "%02hhx", c);
+		offset = offset - __CHAR_BIT__;
+		j = (j + VIS_BYTE_SIZE) % ARENA_WIDTH;
+		if (!j)
 			++i;
-		}
+		vm->visual->attr[(pos++) % MEM_SIZE].st_cycle = VIS_BACKLIGHT_NUM;
 	}
+	wattroff(vm->visual->arena, A_STANDOUT | A_BOLD);
+}
+
+void		vis_live(t_vm *vm, unsigned int pos, char color)
+{
+	short	i;
+	short	j;
+
+	i = pos / DUMP_ROWS;
+	j = (pos % DUMP_COLUMNS) * VIS_BYTE_SIZE;
+
+	if (!vm->visual->attr[pos].live_cycle)
+	{
+		vm->visual->attr[pos].instant_color =\
+		PAIR_NUMBER(mvwinch(vm->visual->arena, i, j)) - 5;
+	}
+
+	wattron(vm->visual->arena, A_BOLD);
+	wcolor_set(vm->visual->arena, color + 10, NULL);
+
+	if (vm->options.terminal == NORMAL_MODE)
+		mvwprintw(vm->visual->arena, i, j, "%02hhx", vm->arena[pos]);
+	else
+		mvwprintw(vm->visual->arena, i, j, "ff");
+
+	vm->visual->attr[pos].live_cycle = VIS_BACKLIGHT_NUM;
+	wattroff(vm->visual->arena, A_BOLD);
 }

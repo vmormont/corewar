@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/21 16:51:35 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 11:26:02 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ static void		color_init(void)
 	init_pair(BLUE_CURSOR, COLOR_BLACK, COLOR_BLUE);
 	init_pair(YELLOW_CURSOR, COLOR_BLACK, COLOR_YELLOW);
 	init_pair(FRAME, COLOR_BLACK, COLOR_WHITE);
+	init_pair(RED_LIVE, COLOR_RED, COLOR_WHITE);
+	init_pair(GREEN_LIVE, COLOR_GREEN, COLOR_WHITE);
+	init_pair(BLUE_LIVE, COLOR_BLUE, COLOR_WHITE);
+	init_pair(YELLOW_LIVE, COLOR_YELLOW, COLOR_WHITE);
 }
 
 static void		print_champs(WINDOW *menu, t_vm *vm, t_champ *champs)
