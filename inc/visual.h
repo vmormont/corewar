@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visual.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 13:55:43 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/23 15:12:14 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:54:59 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void			show_values(WINDOW *menu, t_vm *vm);
 
 void			visualizator(t_vm *vm);
 
-void			print_arena(t_vm *vm, char *arena);
+void			print_arena(t_vm *vm);
 
 void			vis_cycle(t_vm *vm);
 

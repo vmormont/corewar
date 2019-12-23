@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar_structs.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/21 10:29:37 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:51:38 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct				s_cursor
 	int						reg[REG_NUMBER + 1];
 	t_bool					carry;
 	unsigned int			pos;
-	char					op_code;
+	short					op_code;
 	int						cycles2go;
 	int						step;
 	int						cycle_live;

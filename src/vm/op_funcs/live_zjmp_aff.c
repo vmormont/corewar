@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   live_zjmp_aff.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 11:18:48 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:35:33 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		op_zjmp(t_vm *vm, t_cursor *cursor)
 
 void		op_aff(t_vm *vm, t_cursor *cursor)
 {
-	char	reg_n;
+	short	reg_n;
 
 	reg_n = vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE];
 	if (vm->options.aff)

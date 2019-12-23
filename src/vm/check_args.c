@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 12:07:23 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/17 23:28:18 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:32:08 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_bool	isregister(char reg_num)
 	return (FALSE);
 }
 
-static t_bool	valid_arg(char op_code, t_arg_type type, char num_arg)
+static t_bool	valid_arg(short op_code, t_arg_type type, short num_arg)
 {
 	char	code_arg;
 

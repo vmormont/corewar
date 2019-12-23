@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assembly.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 14:27:32 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/13 20:34:58 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:06:09 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static char	*get_cor_filename(char *src_file, t_champ *champ)
 {
 	char		*cor_file;
-	char		*file_type;
 
 	cor_file = NULL;
 	if (!(cor_file = ft_strnew(ft_strlen(src_file) + 2)))

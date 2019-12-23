@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_utility.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:41:19 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/18 22:56:59 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:53:50 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		copy_4_bytes(char *arena, unsigned int index, int num)
 	}
 }
 
-int			get_arg_size(char op_code, t_arg_type type)
+int			get_arg_size(short op_code, t_arg_type type)
 {
 	if (type == REG_CODE)
 		return (ARENA_REG_SIZE);
@@ -77,10 +77,12 @@ int			get_arg_value(char *arena, t_cursor *cursor, t_arg_type type)
 {
 	short		address;
 	int			value;
+	short		reg_n;
 
 	value = 0;
+	reg_n = arena[(cursor->pos +cursor->step) % MEM_SIZE];
 	if (type == REG_CODE)
-		value = cursor->reg[arena[(cursor->pos + cursor->step) % MEM_SIZE]];
+		value = cursor->reg[reg_n];
 	else if (type == DIR_CODE)
 	{
 		if (g_op_tab[cursor->op_code].tdir_size == IND_SIZE)

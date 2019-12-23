@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vis_champs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 20:05:15 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/21 13:26:56 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:55:01 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	print_champ_code(int *i, int *j, t_champ *champ, t_vm *vm)
 	wcolor_set(vm->visual->arena, WHITE_TEXT, NULL);
 }
 
-void		print_arena(t_vm *vm, char *arena)
+void		print_arena(t_vm *vm)
 {
 	int		i;
 	int		j;

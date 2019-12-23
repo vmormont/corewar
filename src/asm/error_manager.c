@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 21:13:47 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/28 12:02:30 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:05:29 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ static void	print_token_value(char *arg, char token)
 
 void		error_manager(t_champ **champ, char *error_address, char token)
 {
-	char	*token_value;
-
 	if (!token)
 		token = get_token_type(error_address);
 	if (token)

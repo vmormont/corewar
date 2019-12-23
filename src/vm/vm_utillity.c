@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_utillity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/21 10:30:24 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:22:10 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void		destroy_vm(t_vm **vm)
 
 void		log_moves(t_vm *vm, t_cursor *cursor)
 {
-	int			i;
+	unsigned int	i;
 
 	if (cursor->step > 1)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:49:45 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/28 14:49:41 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:04:03 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int			parse_label(t_champ *champ, char *filedata, int i);
 int			parse_arguments(t_champ *champ, t_instr *instruction,
 			char *filedata, int index);
 
-int			valid_argument(char *arg, t_arg_type type, t_label *label);
+int			valid_argument(char *arg, t_arg_type type);
 
 void		assign_arguments_values(t_champ *champ);
 

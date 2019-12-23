@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ldi_lldi.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 22:23:49 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/18 22:59:38 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:34:36 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void 		op_ldi(t_vm *vm, t_cursor *cursor)
 	char	code_arg;
 	int		arg1;
 	int		arg2;
-	char	reg;
+	short	reg;
 
 	cursor->step = PRE_SIZE;
 	code_arg = vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE];
@@ -52,7 +52,7 @@ void 		op_lldi(t_vm *vm, t_cursor  *cursor)
 	char	code_arg;
 	int		arg1;
 	int		arg2;
-	char	reg;
+	short	reg;
 
 	cursor->step = PRE_SIZE;
 	code_arg = vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE];

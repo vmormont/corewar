@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vis_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/23 11:26:02 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:55:46 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,5 @@ void			visualizator(t_vm *vm)
 	//создаем окно арены
 	if (!(vm->visual->arena = newwin(ARENA_HEIGHT, ARENA_WIDTH, 3, 3)))
 		ft_exit(MALLOC_FAILURE, &vm);
-	print_arena(vm, vm->arena);
+	print_arena(vm);
 }

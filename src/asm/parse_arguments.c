@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_arguments.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/28 11:43:55 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:04:41 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static int	add_argument(t_champ *champ, t_instr *instruct, int num_arg, int i)
 	int		valid;
 	char	*str_before_trim;
 
-	valid = valid_argument(&champ->data[i], instruct->args[num_arg].type,\
-	champ->labels);
+	valid = valid_argument(&champ->data[i], instruct->args[num_arg].type);
 	if (!valid)
 		error_manager(&champ, &champ->data[i], T_NONE);
 	if (!(str_before_trim = ft_strsub(champ->data, i, valid)))

@@ -6,27 +6,26 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 16:35:34 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/04 17:47:20 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:21:23 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static t_error	read_champion_from_file(int fd, char *filename,\
-				t_header *head, char *code)
+static t_error	read_champion_from_file(int fd, t_header *head, char *code)
 {
-	if (read(fd, (void*)head, sizeof(int) + PROG_NAME_LENGTH)\
+	if ((unsigned long) read(fd, (void*)head, sizeof(int) + PROG_NAME_LENGTH)\
 	< (PROG_NAME_LENGTH + sizeof(int)))
 		return (HEAD_SIZE_ERROR);
 	head->magic = reverse_bits(head->magic, 1);
 	lseek(fd, sizeof(int), SEEK_CUR);
-	if ((read(fd, &head->prog_size, sizeof(int) + COMMENT_LENGTH))\
+	if (((unsigned long)read(fd, &head->prog_size, sizeof(int) + COMMENT_LENGTH))\
 	< (sizeof(int) + COMMENT_LENGTH))
 		return (HEAD_SIZE_ERROR);
 	lseek(fd, sizeof(int), SEEK_CUR);
 	if ((head->prog_size = reverse_bits(head->prog_size, 1)) > CHAMP_MAX_SIZE)
 		return (EXEC_SIZE_ERROR);
-	if (read(fd, code, head->prog_size) < head->prog_size)
+	if ((unsigned long) read(fd, code, head->prog_size) < head->prog_size)
 		return (CODE_SIZE_ERROR);
 	return (NONE);
 }
@@ -43,7 +42,7 @@ static t_champ	*get_champion_from_file(t_champ *champs, char *filename)
 		ft_exit_read(NONE, filename, &champs, NONE);
 	ft_bzero((void*)&header, sizeof(t_header));
 	ft_bzero((void*)&code, CHAMP_MAX_SIZE);
-	error = read_champion_from_file(fd, filename, &header, (char*)&code);
+	error = read_champion_from_file(fd, &header, code);
 	if (error)
 		ft_exit_read(error, filename, &champs, header.prog_size);
 	if (header.magic != COREWAR_EXEC_MAGIC)
@@ -54,11 +53,12 @@ static t_champ	*get_champion_from_file(t_champ *champs, char *filename)
 	return (champ);
 }
 
-static void		add_n_champion(int ac, char **av, t_champ **champs, int i)
+static void		add_n_champion(char **av, t_champ **champs, int i)
 {
 	int		id;
 	t_champ	*temp;
 
+	temp = NULL;
 	id = 0;
 	if (av[i] && isdigit_word(av[i]))
 	{
@@ -89,7 +89,7 @@ void			read_champions_from_args(int ac, char **av, t_champ **champs)
 	{
 		if (!ft_strcmp(av[i], "-n"))
 		{
-			add_n_champion(ac, av, champs, i + 1);
+			add_n_champion(av, champs, i + 1);
 			i = i + 2;
 		}
 		else if (is_filename_extension(av[i], ".cor"))

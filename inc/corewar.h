@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/23 14:37:44 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:53:36 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ void			op_lldi(t_vm *vm, t_cursor *cursor);
 ** OPERATIONS UTILITY
 */
 
-int				get_arg_size(char op_code, t_arg_type type);
+int				get_arg_size(short op_code, t_arg_type type);
 
 int				read_4_bytes(char *arena, unsigned int index);
 

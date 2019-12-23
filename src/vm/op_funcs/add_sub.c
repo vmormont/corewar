@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:52:56 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/17 18:54:40 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:36:11 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void		op_add(t_vm *vm, t_cursor *cursor)
 {
-	char		f_reg;
-	char		s_reg;
-	char		t_reg;
+	short		f_reg;
+	short		s_reg;
+	short		t_reg;
 
 	cursor->step = 5;
 	f_reg = vm->arena[(cursor->pos + 2) % MEM_SIZE];
@@ -31,9 +31,9 @@ void		op_add(t_vm *vm, t_cursor *cursor)
 
 void		op_sub(t_vm *vm, t_cursor *cursor)
 {
-	char		f_reg;
-	char		s_reg;
-	char		t_reg;
+	short		f_reg;
+	short		s_reg;
+	short		t_reg;
 
 	cursor->step = 5;
 	f_reg = vm->arena[(cursor->pos + 2) % MEM_SIZE];

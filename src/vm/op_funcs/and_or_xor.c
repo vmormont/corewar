@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 18:02:30 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/17 19:52:32 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:36:53 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		op_and(t_vm *vm, t_cursor *cursor)
 {
 	int			arg1;
 	int			arg2;
-	char		arg3;
+	short		arg3;
 	char		code_args;
 
 	cursor->step = PRE_SIZE;
@@ -37,7 +37,7 @@ void		op_or(t_vm *vm, t_cursor *cursor)
 {
 	int			arg1;
 	int			arg2;
-	char		arg3;
+	short		arg3;
 	char		code_args;
 
 	cursor->step = PRE_SIZE;
@@ -57,7 +57,7 @@ void		op_xor(t_vm *vm, t_cursor *cursor)
 {
 	int			arg1;
 	int			arg2;
-	char		arg3;
+	short		arg3;
 	char		code_args;
 
 	cursor->step = PRE_SIZE;

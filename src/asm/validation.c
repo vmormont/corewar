@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 13:37:50 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/11/21 11:52:33 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:03:42 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static int	valid_label(char *arg, t_label *label)
+static int	valid_label(char *arg)
 {
 	int i;
 
@@ -26,7 +26,7 @@ static int	valid_label(char *arg, t_label *label)
 	return (i);
 }
 
-static int	valid_direct(char *arg, t_label *label)
+static int	valid_direct(char *arg)
 {
 	int i;
 
@@ -35,7 +35,7 @@ static int	valid_direct(char *arg, t_label *label)
 	{
 		if (arg[++i] == LABEL_CHAR)
 		{
-			if (!(i += valid_label(&arg[i], label)))
+			if (!(i += valid_label(&arg[i])))
 				return (0);
 		}
 		else
@@ -54,14 +54,14 @@ static int	valid_direct(char *arg, t_label *label)
 	return (i);
 }
 
-static int	valid_indirect(char *arg, t_label *label)
+static int	valid_indirect(char *arg)
 {
 	int i;
 
 	i = 0;
 	if (arg[i] == LABEL_CHAR)
 	{
-		if (!(i = valid_label(&arg[i], label)))
+		if (!(i = valid_label(&arg[i])))
 			return (0);
 	}
 	else
@@ -91,15 +91,15 @@ static int	valid_register(char *arg)
 	return (i);
 }
 
-int			valid_argument(char *arg, t_arg_type type, t_label *label)
+int			valid_argument(char *arg, t_arg_type type)
 {
 	int		valid;
 
 	valid = 0;
 	if (type == T_DIR)
-		valid = valid_direct(arg, label);
+		valid = valid_direct(arg);
 	else if (type == T_IND)
-		valid = valid_indirect(arg, label);
+		valid = valid_indirect(arg);
 	else if (type == T_REG)
 		valid = valid_register(arg);
 	return (valid);

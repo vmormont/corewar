@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ld_lld.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:27:58 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/16 22:24:58 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:34:04 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void op_ld(t_vm *vm, t_cursor  *cursor)
 {
 	int			value;
-	char		reg;
+	short		reg;
 	char		code_args;
 
 	cursor->step = PRE_SIZE;
@@ -33,7 +33,7 @@ void op_ld(t_vm *vm, t_cursor  *cursor)
 void op_lld(t_vm *vm, t_cursor  *cursor)
 {
 	int			value;
-	char		reg;
+	short		reg;
 	char		code_args;
 
 	cursor->step = PRE_SIZE;

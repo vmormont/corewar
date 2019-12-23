@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   st_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:45:30 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/21 10:35:34 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:38:19 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void		op_st(t_vm *vm, t_cursor *cursor)
 {
-	char		reg_n;
-	char		reg_arg;
+	short		reg_n;
+	short		reg_arg;
 	short		address;
 	char		code_args;
 
@@ -52,7 +52,7 @@ static void	log_sti(t_cursor *cursor, char reg, int addr1, int addr2)
 
 void		op_sti(t_vm *vm, t_cursor *cursor)
 {
-	char		reg_n;
+	short		reg_n;
 	char		code_args;
 	int			address1;
 	int			address2;

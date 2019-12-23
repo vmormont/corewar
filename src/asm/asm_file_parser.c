@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm_file_parser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:03:59 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/20 22:02:33 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:00:13 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ static int	define_instruct_size(t_instr *instr)
 
 static int	define_instruct_offset(t_instr *instr)
 {
-	t_instr		*tmp;
-
 	if (!instr)
 		return (0);
 	else
@@ -87,7 +85,6 @@ static int	get_instruction(t_champ *champ, char *filedata, int i)
 void		asm_file_parser(t_champ *champ, char *filename)
 {
 	int		i;
-	t_instr *temp;
 
 	champ->data = get_clean_data_from_file(champ, filename);
 	i = parse_name(champ, champ->data);
