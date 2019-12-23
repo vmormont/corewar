@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:03:59 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/23 16:00:13 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/23 17:36:08 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,35 +49,19 @@ static int	get_instruction(t_champ *champ, char *filedata, int i)
 	int			valid_code;
 	t_instr		*instruct;
 
-	//мы находимся всегда в начале команды
-	//променяем валидность названия инструкции
 	valid_code = get_instruct_code(&filedata[i]);
-
-	//если инструкции нет, сообщаем об ошибке
 	if (!valid_code)
 		error_manager(&champ, &filedata[i], T_INSTRUCTION);
-
-	//создаем новую инструкцию
 	if (!(instruct = new_instruct(get_op_struct(valid_code))))
 		ft_exit(&champ, MALLOC_FAILURE);
-
-	//сдвигаем индекс на длину команды
 	i += ft_strlen(get_op_name(valid_code));
-
-	//если после команды нет явного, разделяющего символа вызываем ошибку
 	if (!isseparator(filedata[i]) || filedata[i] == '\n')
 		error_manager(&champ,\
 		&filedata[i - ft_strlen(get_op_name(valid_code))], T_NONE);
 	i = skip_spaces(filedata, i);
-
-	//запускаем парсинг аргументов
 	i = parse_arguments(champ, instruct, filedata, i);
-
-	//добавляем размер инструккци и ее смещение относительно начала кода
 	instruct->instr_size = define_instruct_size(instruct);
 	instruct->offset = define_instruct_offset(champ->instr);
-
-	//добавляем в список инструкции
 	add_instr2end(&champ->instr, instruct);
 	return (i);
 }
@@ -98,16 +82,4 @@ void		asm_file_parser(t_champ *champ, char *filename)
 	if (!champ->instr)
 		error_manager(&champ, &champ->data[i], T_END);
 	assign_arguments_values(champ);
-/*
-	//УДОЛИТЬ!
-	ft_printf("\nNAME = %s\nCOMMENT = %s\n\n", champ->name, champ->comment);
-	print_label(champ->labels);
-	print_instruct(champ->instr);
-	temp = champ->instr;
-	while (temp)
-	{
-		print_args(temp->args, temp->num_args);
-		temp = temp->next;
-	}
-*/
 }

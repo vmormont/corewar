@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions_utility.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 14:21:32 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/17 23:07:27 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 17:36:50 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,26 +93,4 @@ void		add_instr2end(t_instr **begin, t_instr *instr)
 			temp->next = instr;
 		}
 	}
-}
-
-void		print_instruct(t_instr *instr)
-{
-	int i;
-
-	ft_printf("\nINSTRUCTIONS\n");
-	ft_printf("_______________________\n");
-	while (instr)
-	{
-		ft_printf("| code       = %7d|\n| num_args   = %7d|\n| offset     = %7d|\n| size instr = %7d|\n",\
-		instr->code, instr->num_args, instr->offset, instr->instr_size);
-		i = 0;
-		while (i < instr->num_args)
-		{
-			ft_printf("| arg[%d]     = %7s|\n", i + 1, instr->args[i].str);
-			++i;
-		}
-		ft_printf("|_____________________|\n");
-		instr = instr->next;
-	}
-
 }

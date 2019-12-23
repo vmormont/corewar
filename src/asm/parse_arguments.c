@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 16:04:41 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/23 17:40:17 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,14 @@ int			parse_arguments(t_champ *champ, t_instr *instruct,\
 	j = 0;
 	while (42)
 	{
-		//получаем тип аргумента
 		if (!(arg_type = get_type_argument(&filedata[i])))
 			error_manager(&champ, &filedata[i], T_NONE);
-
-		//возможен ли этот тип аргумента в инструкции
 		if (!possible_arg(instruct->code, j, arg_type))
 			invalid_parameter(&champ, &filedata[i], instruct, j);
-
-		//добавляем
 		instruct->args[j].type = arg_type;
 		i = add_argument(champ, instruct, j, i);
-
-		//если нет разделителя, выходим
 		if (filedata[i] != SEPARATOR_CHAR)
 			break ;
-		//пропускем пробелы после SEPARATOR CHAR
 		i = skip_spaces(filedata, i + 1);
 		++j;
 	}
@@ -83,21 +75,4 @@ int			parse_arguments(t_champ *champ, t_instr *instruct,\
 	while (ft_isspace(filedata[i]))
 		++i;
 	return (i);
-}
-
-void		print_args(t_arg *args, int num)
-{
-	int		i;
-
-	i = 0;
-	ft_printf("\nARGS\n");
-	ft_printf("__________________________________________________________\n");
-	ft_printf("|       type       |       str        |       value      |\n");
-	while (i < num)
-	{
-		ft_printf("| %16d | %16s | %16d |\n", args[i].type, args[i].str,\
-		(short)args[i].value);
-		i++;
-	}
-	ft_printf("|________________________________________________________|\n");
 }

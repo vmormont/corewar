@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_name_comment.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 21:10:47 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/20 17:14:15 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 17:42:17 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,12 @@ static int	add_comment(t_champ *champ, char *data, int i)
 {
 	int	j;
 
-	// пропускаем пробелы после ".comment"
 	i = skip_spaces(data, i);
-	// если не начало строки сообщаем об ошибке
 	if (data[i++] != '"')
 		error_manager(&champ, &data[--i], T_NONE);
-	//запонимаем индекс начала
 	j = i;
-	//проходим все предложение в " "
 	while (data[i] && data[i] != '"')
 		++i;
-	// в зависимости от флага добавляем имя или комментарий
 	if (!champ->comment)
 	{
 		if (!(champ->comment = ft_strsub(data, j, i - j)))
@@ -65,10 +60,7 @@ static int	add_comment(t_champ *champ, char *data, int i)
 	}
 	else
 		error_manager(&champ, &data[i], T_COMMENT);
-	//переход на следущую строку
 	i = skip_spaces(data, ++i);
-	//если дошли до конца файла или не перешли на следующую строку
-	//сообщаем об ошибке
 	if (!data[i] || data[i++] != '\n')
 		error_manager(&champ, &data[i], T_NONE);
 	return (i);

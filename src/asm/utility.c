@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 20:46:25 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/28 12:05:44 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 17:41:03 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,3 @@ t_bool		isseparator(char c)
 		return (TRUE);
 	return (FALSE);
 }
-

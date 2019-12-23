@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   options.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 20:05:39 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/20 20:20:52 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 17:39:11 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int		check_option(char *str, long int *options)
 			if (str[i] > 96 && str[i] < 123)
 				*options |= (1L << (str[i] - 71));
 			else if (str[i] > 64 && str[i] < 91)
-			    *options |= (1L << (str[i] - 65));
+				*options |= (1L << (str[i] - 65));
 			else
 				return (-1);
 			++i;
