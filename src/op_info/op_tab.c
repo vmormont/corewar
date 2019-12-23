@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_tab.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:31:53 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/13 20:28:25 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 17:23:56 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** NEEDED ONLY FOR SUBSTRACT INFORMATION ABOUT OPERATIONS
 */
 
-t_op g_op_tab[] = { {0, 0, 0, 0, 0, 0, 0},
+t_op g_op_tab[] = { {{0, 0, 0, 0, 0, 0}, 0, {0, 0, 0}, 0, 0, 0, 0},
 	{"live", 1, {D}, 1, 10, 0, 4},
 	{"ld", 2, {DI, R}, 2, 5, 1, 4},
 	{"st", 2, {R, RI}, 3, 5, 1, 4},
@@ -37,12 +37,12 @@ t_op g_op_tab[] = { {0, 0, 0, 0, 0, 0, 0},
 	{"lfork", 1, {D}, 15, 1000, 0, 2},
 	{"aff", 1, {R}, 16, 2, 1, 4} };
 
-char		get_dir_size(char op_code)
+char		get_dir_size(short op_code)
 {
 	return (DIR_SIZE - IND_SIZE * g_op_tab[op_code].tdir_size);
 }
 
-t_bool		possible_arg(char code, char num, t_arg_type type)
+t_bool		possible_arg(short code, short num, t_arg_type type)
 {
 	char	code_arg;
 
@@ -56,12 +56,12 @@ t_bool		possible_arg(char code, char num, t_arg_type type)
 	return (FALSE);
 }
 
-t_op		get_op_struct(char op_code)
+t_op		get_op_struct(short op_code)
 {
 	return (g_op_tab[op_code]);
 }
 
-char		*get_op_name(char op_code)
+char		*get_op_name(short op_code)
 {
 	return (g_op_tab[op_code].name);
 }

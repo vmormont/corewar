@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 21:53:36 by vmormont          #+#    #+#             */
-/*   Updated: 2019/12/21 13:28:10 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/23 17:28:01 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,14 @@ extern t_op g_op_tab[];
 
 void			read_cor_head(int fd, t_header *head)
 {
-	if (read(fd, (void *)head, sizeof(int) + PROG_NAME_LENGTH) <\
-				(sizeof(int) + PROG_NAME_LENGTH))
+	if ((unsigned long) read(fd, (void *)head, sizeof(int) + PROG_NAME_LENGTH)\
+				< (sizeof(int) + PROG_NAME_LENGTH))
 		ft_exit_dasm(READ_ERROR, fd);
-	if ((head->magic = reverse_bits(head->magic, 1)) !=\
-				COREWAR_EXEC_MAGIC)
+	if ((head->magic = reverse_bits(head->magic, 1)) !=	COREWAR_EXEC_MAGIC)
 		ft_exit_dasm(MAGIC_ERROR, fd);
 	lseek(fd, sizeof(int), SEEK_CUR);
-	if (read(fd, &head->prog_size, sizeof(int) + COMMENT_LENGTH) <\
-				(sizeof(int) + COMMENT_LENGTH))
+	if ((unsigned long) read(fd, &head->prog_size, sizeof(int) + COMMENT_LENGTH)\
+				< (sizeof(int) + COMMENT_LENGTH))
 		ft_exit_dasm(ERROR_COMMENT_SIZE, fd);
 	lseek(fd, sizeof(int), SEEK_CUR);
 	if ((head->prog_size = reverse_bits(head->prog_size, 1)) >\

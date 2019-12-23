@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_struct.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:19:34 by astripeb          #+#    #+#             */
-/*   Updated: 2019/11/28 14:50:52 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 17:11:57 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ typedef struct	s_op
 	char			tdir_size;
 }				t_op;
 
-t_bool			possible_arg(char op_code, char num_arg, t_arg_type type);
+t_bool			possible_arg(short op_code, short num_arg, t_arg_type type);
 
-char			get_dir_size(char op_code);
+char			get_dir_size(short op_code);
 
-t_op			get_op_struct(char op_code);
+t_op			get_op_struct(short op_code);
 
-char			*get_op_name(char op_code);
+char			*get_op_name(short op_code);
 
 int				get_instruct_code(char *name);
 

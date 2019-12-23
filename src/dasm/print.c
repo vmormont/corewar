@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmormont <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 01:56:19 by vmormont          #+#    #+#             */
-/*   Updated: 2019/12/21 17:21:44 by vmormont         ###   ########.fr       */
+/*   Updated: 2019/12/23 17:28:41 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void				print_name_comment_to_fd(char *name, char *comment,\
 void				print_code_first(int fd, int fd_out)
 {
 
-	char			ind;
+	short			ind;
 	char			code_args;
 	int				num;
 	int				i;

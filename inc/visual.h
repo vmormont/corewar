@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 13:55:43 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/23 16:54:59 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/23 17:05:53 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "corewar_structs.h"
 # include "visual_struct.h"
 
-enum	s_vis_color
+enum	e_vis_color
 {
 	RED_TEXT = 1,
 	GREEN_TEXT,
@@ -50,7 +50,7 @@ enum	s_vis_color
 **	UTILITY
 */
 
-t_visual 		*new_visual(void);
+t_visual		*new_visual(void);
 
 void			destroy_visual(t_visual **vis);
 

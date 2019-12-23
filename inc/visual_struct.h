@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visual_struct.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 14:20:45 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/23 12:21:42 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 17:03:56 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,5 @@ typedef	struct		s_visual
 	short			vis_speed;
 	t_bool			pause;
 }					t_visual;
-
-
 
 #endif

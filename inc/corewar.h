@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/23 16:53:36 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/23 17:06:21 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,13 +201,5 @@ short			read_2_bytes(char *arena, unsigned int index);
 void			copy_4_bytes(char *arena, unsigned int index, int num);
 
 int				get_arg_value(char *arena, t_cursor *cursor, t_arg_type type);
-
-
-//УДОЛИТЬ!!!
-void			print_cursor_map(int *map);
-
-void			print_reg(int *reg);
-
-void			print_options(t_options options);
 
 #endif
