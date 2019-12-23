@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:47:36 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/03 22:30:17 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 22:58:18 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,8 @@ void		dump_arena(char *arena)
 		ft_printf("%06p : ", (void*)address);
 		while (j < DUMP_ROWS)
 		{
-/*
-			if (arena[DUMP_ROWS * i + j])
-				ft_printf("{red}%x%x {eoc}",\
-				(arena[DUMP_ROWS * i + j] & 0xF0) >> 4,\
-				arena[DUMP_ROWS * i + j] & 0xF);
-			else
-*/
-				ft_printf("%x%x ", (arena[DUMP_ROWS * i + j] & 0xF0) >> 4,\
-				arena[DUMP_ROWS * i + j] & 0xF);
+			ft_printf("%x%x ", (arena[DUMP_ROWS * i + j] & 0xF0) >> 4,\
+			arena[DUMP_ROWS * i + j] & 0xF);
 			++j;
 			++address;
 		}
@@ -91,20 +84,4 @@ void		ft_swap(void **a, void **b)
 	c = *a;
 	*a = *b;
 	*b = c;
-}
-
-void		print_reg(int *reg)
-{
-	int		i;
-
-	ft_printf("REGISTRY OF CURSOR\n");
-	i = 1;
-	while (i < 17)
-	{
-		ft_printf("%10d  ", reg[i]);
-		if (!(i % 4))
-			ft_printf("\n");
-		i++;
-	}
-	ft_printf("\n");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 01:56:19 by vmormont          #+#    #+#             */
-/*   Updated: 2019/12/23 17:28:41 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/23 22:41:57 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void				print_code_first(int fd, int fd_out)
 	char			code_args;
 	int				num;
 	int				i;
-	int				arg_type;
 
 	while (read(fd, &ind, 1) > 0)
 	{
@@ -42,7 +41,6 @@ void				print_code_first(int fd, int fd_out)
 			i = 6;
 			while (i >= 8 - (2 * g_op_tab[ind].num_args))
 			{
-				arg_type = (code_args >> i) & 3;
 				if (((code_args >> i) & 3) == REG_CODE)
 				{
 					num = get_num(fd, T_REG, REG_CODE);

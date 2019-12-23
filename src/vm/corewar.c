@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:13:31 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/23 16:06:38 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/23 22:58:59 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		main(int argc, char **argv)
 	if (!champs)
 		ft_exit_read(USAGE, NULL, &champs, NONE);
 	vm = create_vm(champs, options);
-	set_champ_code_on_arena(vm);
 	introduce(vm->champs);
 	if (options.terminal)
 		visualizator(vm);

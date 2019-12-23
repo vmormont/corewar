@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vis_champs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 20:05:15 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 16:55:01 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/23 22:54:23 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ void		print_arena(t_vm *vm)
 {
 	int		i;
 	int		j;
+	char	byte;
 	t_champ	*temp;
 
 	temp = vm->champs;
+	byte = vm->options.terminal == NORMAL_MODE ? 0 : 0xFF;
 	wattron(vm->visual->arena, A_NORMAL);
 	i = 0;
 	while (i < DUMP_ROWS)
@@ -59,8 +61,7 @@ void		print_arena(t_vm *vm)
 				temp = temp->next;
 				continue;
 			}
-			vm->options.terminal == 2 ? mvwprintw(vm->visual->arena, i, (3 * j), "ff") :\
-			mvwprintw(vm->visual->arena, i, (3 * j), "%02d", 0);
+			mvwprintw(vm->visual->arena, i, (VIS_BYTE_SIZE * j), "%02x", byte);
 			j++;
 		}
 		i++;

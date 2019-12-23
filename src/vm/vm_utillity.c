@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_utillity.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/23 16:22:10 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/23 22:59:45 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	count_champs(t_champ *champs)
 	return (i);
 }
 
-void		set_champ_code_on_arena(t_vm *vm)
+static void	set_champ_code_on_arena(t_vm *vm)
 {
 	int			i;
 	t_champ		*player;
@@ -71,6 +71,7 @@ t_vm		*create_vm(t_champ *champs, t_options options)
 		if (!(vm->visual = new_visual()))
 			ft_exit(MALLOC_FAILURE, &vm);
 	}
+	set_champ_code_on_arena(vm);
 	return (vm);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 20:46:25 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 17:41:03 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/23 22:37:57 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void		print_error_position(char *data, char *error_address)
 int			reverse_bits(int num, char full_bit)
 {
 	int		rev_num;
-	int		i;
 
-	i = 0;
 	if (full_bit)
 	{
 		rev_num = (num & 0xFF) << 24;

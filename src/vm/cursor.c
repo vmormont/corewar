@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:06:22 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/21 15:39:14 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 22:56:16 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,4 @@ t_cursor	*copy_cursor(t_cursor *src, unsigned int pos)
 	while (++i <= REG_NUMBER)
 		dst->reg[i] = src->reg[i];
 	return (dst);
-}
-
-void		print_cursor_map(int *map)
-{
-	short	i;
-
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		ft_printf("pos[%d] = %d\n", i, map[i]);
-		i++;
-	}
 }

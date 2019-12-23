@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:32:05 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/23 17:06:21 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/23 23:00:38 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,6 @@ void			announce_winner(t_vm *vm);
 */
 
 t_vm			*create_vm(t_champ *champs, t_options options);
-
-void			set_champ_code_on_arena(t_vm *vm);
 
 void			destroy_vm(t_vm **vm);
 
