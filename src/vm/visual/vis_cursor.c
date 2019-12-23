@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 20:53:13 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 15:44:04 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 22:35:10 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void		vis_st(t_vm *vm, int num, unsigned int pos, char color)
 	k = REG_SIZE;
 	i = (pos % MEM_SIZE) / DUMP_ROWS;
 	j = ((pos % MEM_SIZE) % DUMP_COLUMNS) * VIS_BYTE_SIZE;
-	wattron(vm->visual->arena, A_STANDOUT | A_BOLD);
+	wattron(vm->visual->arena, A_BOLD);
 	wcolor_set(vm->visual->arena, color, NULL);
 	while (k--)
 	{
@@ -93,7 +93,7 @@ void		vis_st(t_vm *vm, int num, unsigned int pos, char color)
 			++i;
 		vm->visual->attr[(pos++) % MEM_SIZE].st_cycle = VIS_BACKLIGHT_NUM;
 	}
-	wattroff(vm->visual->arena, A_STANDOUT | A_BOLD);
+	wattroff(vm->visual->arena, A_BOLD);
 }
 
 void		vis_live(t_vm *vm, unsigned int pos, char color)
@@ -103,21 +103,19 @@ void		vis_live(t_vm *vm, unsigned int pos, char color)
 
 	i = pos / DUMP_ROWS;
 	j = (pos % DUMP_COLUMNS) * VIS_BYTE_SIZE;
-
 	if (!vm->visual->attr[pos].live_cycle)
 	{
 		vm->visual->attr[pos].instant_color =\
-		PAIR_NUMBER(mvwinch(vm->visual->arena, i, j)) - 5;
+		PAIR_NUMBER(mvwinch(vm->visual->arena, i, j));
+		if (vm->visual->attr[pos].instant_color > WHITE_TEXT)
+			vm->visual->attr[pos].instant_color -= 5;
 	}
-
 	wattron(vm->visual->arena, A_BOLD);
 	wcolor_set(vm->visual->arena, color + 10, NULL);
-
 	if (vm->options.terminal == NORMAL_MODE)
 		mvwprintw(vm->visual->arena, i, j, "%02hhx", vm->arena[pos]);
 	else
 		mvwprintw(vm->visual->arena, i, j, "ff");
-
 	vm->visual->attr[pos].live_cycle = VIS_BACKLIGHT_NUM;
 	wattroff(vm->visual->arena, A_BOLD);
 }

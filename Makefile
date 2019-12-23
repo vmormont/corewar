@@ -6,7 +6,7 @@
 #    By: astripeb <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/12/23 10:15:25 by astripeb         ###   ########.fr        #
+#    Updated: 2019/12/23 17:17:02 by astripeb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,7 +116,7 @@ $(OBJ_ASM):%.o:%.c $(ASM_HEADERS) $(OP_HEADERS) | $(OBJ_DIR)
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(OBJ_CORE):%.o:%.c $(CORE_HEADERS) $(OP_HEADERS) | $(OBJ_DIR)
-	$(CC) -g $(LFLAGS) -o $(OBJ_DIR)/$@ -c $<
+	$(CC) $(LFLAGS) -o $(OBJ_DIR)/$@ -c $<
 	echo "$(GREEN)$@ was created$(RESET)"
 
 #BEFORE COMPLETE PROJECT ADD $(CFLAGS)

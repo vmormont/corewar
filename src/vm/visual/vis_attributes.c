@@ -6,7 +6,7 @@
 /*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 09:42:39 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 15:44:13 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:02:05 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void	clear_attributes(t_visual *vis, char *arena,\
 	i = pos / DUMP_ROWS;
 	j = (pos % DUMP_COLUMNS) * VIS_BYTE_SIZE;
 	color = PAIR_NUMBER(mvwinch(vis->arena, i, j));
-
 	if (PAIR_NUMBER(mvwinch(vis->arena, i, j)) > FRAME)
 		color = vis->attr[pos].instant_color;
 	wcolor_set(vis->arena, color, NULL);
