@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/24 13:52:32 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 18:52:51 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void			announce_winner(t_vm *vm)
 		wcolor_set(vm->visual->menu, WHITE_TEXT, NULL);
 		mvwprintw(vm->visual->menu, 31 + (4 * vm->num_of_champs), 2,\
 		"Press any key to finish !!!");
+		!ft_strcmp(winner->name, "Shang Tsung") ? easter_egg(vm) : 0;
 		wrefresh(vm->visual->menu);
 		wrefresh(vm->visual->arena);
 		getch();
