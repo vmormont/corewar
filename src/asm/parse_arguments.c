@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_arguments.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:26:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 17:40:17 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 21:59:51 by astripeb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			parse_arguments(t_champ *champ, t_instr *instruct,\
 	char	arg_type;
 
 	j = 0;
-	while (42)
+	while (TRUE)
 	{
 		if (!(arg_type = get_type_argument(&filedata[i])))
 			error_manager(&champ, &filedata[i], T_NONE);
@@ -70,7 +70,7 @@ int			parse_arguments(t_champ *champ, t_instr *instruct,\
 		i = skip_spaces(filedata, i + 1);
 		++j;
 	}
-	if (filedata[i] != '\n')
+	if (filedata[i] != '\n' || j < (instruct->num_args - 1))
 		error_manager(&champ, &filedata[i], T_NONE);
 	while (ft_isspace(filedata[i]))
 		++i;
