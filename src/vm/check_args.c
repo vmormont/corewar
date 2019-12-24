@@ -6,13 +6,13 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 12:07:23 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 16:32:08 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 13:55:25 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-extern t_op	g_op_tab[];
+extern t_op		g_op_tab[];
 
 static t_bool	isregister(char reg_num)
 {
@@ -34,7 +34,6 @@ static t_bool	valid_arg(short op_code, t_arg_type type, short num_arg)
 		return (TRUE);
 	return (FALSE);
 }
-
 
 static void		calc_step(char *arena, t_cursor *cursor)
 {
@@ -97,11 +96,11 @@ t_bool			check_op_code_and_type_args(t_cursor *cursor, char *arena)
 		return (FALSE);
 	}
 	if (g_op_tab[cursor->op_code].code_args)
-		exec = valid_args(arena, cursor, arena[(cursor->pos + OP_SIZE) % MEM_SIZE]);
+		exec = valid_args(arena, cursor, arena[(cursor->pos + OP_SIZE)\
+		% MEM_SIZE]);
 	else
 		cursor->step = OP_SIZE + g_op_tab[cursor->op_code].tdir_size;
 	if (!exec)
 		calc_step(arena, cursor);
 	return (exec);
 }
-

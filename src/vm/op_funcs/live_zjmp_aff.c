@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 15:15:04 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 16:35:33 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 12:54:54 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void		op_zjmp(t_vm *vm, t_cursor *cursor)
 	address = read_2_bytes(vm->arena, cursor->pos + OP_SIZE);
 	if (cursor->carry)
 		cursor->step = address % IDX_MOD;
-
 	if (vm->options.verbos == V_OPERATIONS)
 		ft_printf("P %4d | zjmp %d %s\n", cursor->id, address,\
 		cursor->carry ? "OK" : "FAILED");
@@ -55,6 +54,6 @@ void		op_aff(t_vm *vm, t_cursor *cursor)
 
 	reg_n = vm->arena[(cursor->pos + OP_SIZE) % MEM_SIZE];
 	if (vm->options.aff)
-			ft_printf("aff (%c)\n", (char)cursor->reg[reg_n]);
+		ft_printf("aff (%c)\n", (char)cursor->reg[reg_n]);
 	cursor->step = 3;
 }

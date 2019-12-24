@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 10:31:53 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 17:23:56 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 12:41:42 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_bool		possible_arg(short code, short num, t_arg_type type)
 	char	code_arg;
 
 	code_arg = g_op_tab[code].args[num];
-	if (type == T_REG && !((( code_arg >> 4) & REG_CODE) ^ REG_CODE))
+	if (type == T_REG && !(((code_arg >> 4) & REG_CODE) ^ REG_CODE))
 		return (TRUE);
 	else if (type == T_DIR && !(((code_arg >> 2) & DIR_CODE) ^ DIR_CODE))
 		return (TRUE);

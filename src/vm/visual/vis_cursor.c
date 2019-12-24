@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vis_cursor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 20:53:13 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 15:44:04 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/24 14:15:29 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void		set_cursor(t_vm *vm, unsigned int pos)
 
 	i = pos / DUMP_ROWS;
 	j = (pos % DUMP_COLUMNS) * VIS_BYTE_SIZE;
-
-	//получаем символ по адресу и узнаем какой там цвет
 	color = PAIR_NUMBER(mvwinch(vm->visual->arena, i, j));
 	if (color < RED_CURSOR)
 		color += 5;
@@ -30,8 +28,6 @@ void		set_cursor(t_vm *vm, unsigned int pos)
 		mvwprintw(vm->visual->arena, i, j, "%02hhx", vm->arena[pos]);
 	else
 		mvwprintw(vm->visual->arena, i, j, "ff");
-
-	//в массив кареток добавляем одну каретку
 	vm->visual->cursors_pos[pos] += 1;
 }
 
@@ -43,8 +39,6 @@ void		clear_cursor(t_vm *vm, unsigned int pos)
 
 	i = pos / DUMP_ROWS;
 	j = (pos % DUMP_COLUMNS) * VIS_BYTE_SIZE;
-
-	//получаем символ по адресу и узнаем какой там цвет
 	color = PAIR_NUMBER(mvwinch(vm->visual->arena, i, j));
 	if (color > WHITE_TEXT && color < RED_LIVE)
 		color -= 5;
@@ -57,12 +51,10 @@ void		clear_cursor(t_vm *vm, unsigned int pos)
 
 void		move_cursor(t_vm *vm, t_cursor *cursor)
 {
-	//в массиве положений кареток убираем одну каретку по старой позиции
 	if (vm->visual->cursors_pos[cursor->pos] > 0)
 		vm->visual->cursors_pos[cursor->pos] -= 1;
 	if (vm->visual->cursors_pos[cursor->pos] == 0)
 		clear_cursor(vm, cursor->pos);
-
 	if (vm->visual->cursors_pos[(cursor->pos + cursor->step) % MEM_SIZE] == 0)
 		set_cursor(vm, (cursor->pos + cursor->step) % MEM_SIZE);
 }
@@ -103,21 +95,17 @@ void		vis_live(t_vm *vm, unsigned int pos, char color)
 
 	i = pos / DUMP_ROWS;
 	j = (pos % DUMP_COLUMNS) * VIS_BYTE_SIZE;
-
 	if (!vm->visual->attr[pos].live_cycle)
 	{
 		vm->visual->attr[pos].instant_color =\
 		PAIR_NUMBER(mvwinch(vm->visual->arena, i, j)) - 5;
 	}
-
 	wattron(vm->visual->arena, A_BOLD);
 	wcolor_set(vm->visual->arena, color + 10, NULL);
-
 	if (vm->options.terminal == NORMAL_MODE)
 		mvwprintw(vm->visual->arena, i, j, "%02hhx", vm->arena[pos]);
 	else
 		mvwprintw(vm->visual->arena, i, j, "ff");
-
 	vm->visual->attr[pos].live_cycle = VIS_BACKLIGHT_NUM;
 	wattroff(vm->visual->arena, A_BOLD);
 }

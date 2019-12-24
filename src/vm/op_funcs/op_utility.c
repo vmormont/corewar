@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:41:19 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 16:53:50 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 12:55:59 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int			get_arg_value(char *arena, t_cursor *cursor, t_arg_type type)
 	short		reg_n;
 
 	value = 0;
-	reg_n = arena[(cursor->pos +cursor->step) % MEM_SIZE];
+	reg_n = arena[(cursor->pos + cursor->step) % MEM_SIZE];
 	if (type == REG_CODE)
 		value = cursor->reg[reg_n];
 	else if (type == DIR_CODE)

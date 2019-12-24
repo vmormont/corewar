@@ -6,7 +6,7 @@
 .comment "The hottest data on earth. In the coolest head in town"
 
 live:
-	live %1
+	live %1956465168428
 	zjmp %:live
 
 add2r3:

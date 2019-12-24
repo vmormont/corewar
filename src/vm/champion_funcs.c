@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   champion_funcs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 15:35:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/21 12:50:51 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/24 13:52:32 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void			announce_winner(t_vm *vm)
 	id_winner = vm->winner;
 	winner = get_champ_by_id(vm->champs, id_winner);
 	if (!vm->options.terminal)
-		ft_printf("Contestant %d, \"%s\", has won !\n", -id_winner, winner->name);
+		ft_printf("Contestant %d, \"%s\", has won !\n",\
+		-id_winner, winner->name);
 	else
 	{
 		nodelay(vm->visual->arena, FALSE);
@@ -109,20 +110,3 @@ void			announce_winner(t_vm *vm)
 		getch();
 	}
 }
-
-/*
-void			print_champs(t_champ *champ)
-{
-	ft_printf("__________________________________\n");
-	while (champ)
-	{
-		ft_printf("id      = %d\n", champ->id);
-		ft_printf("magic   = %x\n", champ->magic);
-		ft_printf("name    = %s\n", champ->name);
-		ft_printf("comment = %s\n", champ->comment);
-		ft_printf("size    = %d\n", champ->code_size);
-		ft_printf("----------------------------------\n");
-		champ = champ->next;
-	}
-}
-*/

@@ -6,13 +6,13 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:27:58 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/23 16:34:04 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 12:52:55 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void op_ld(t_vm *vm, t_cursor  *cursor)
+void	op_ld(t_vm *vm, t_cursor *cursor)
 {
 	int			value;
 	short		reg;
@@ -25,12 +25,11 @@ void op_ld(t_vm *vm, t_cursor  *cursor)
 	cursor->reg[reg] = value;
 	cursor->step += ARENA_REG_SIZE;
 	cursor->carry = value ? FALSE : TRUE;
-
 	if (vm->options.verbos == V_OPERATIONS)
 		ft_printf("P %4d | ld %d r%d\n", cursor->id, value, reg);
 }
 
-void op_lld(t_vm *vm, t_cursor  *cursor)
+void	op_lld(t_vm *vm, t_cursor *cursor)
 {
 	int			value;
 	short		reg;

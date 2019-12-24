@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   options_core.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:38:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 14:38:16 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/24 14:18:28 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,20 +96,7 @@ t_options	get_options(int ac, char **av)
 			ft_exit(USAGE, NULL);
 	}
 	if ((options.terminal = get_option(ac, av, "t")))
-	{
-		if ((get_option(ac, av, "-stealth") - options.terminal) == 1)
-			options.terminal = STEALTH_MODE;
-		else
-			options.terminal = NORMAL_MODE;
-	}
+		options.terminal = (get_option(ac, av, "-stealth")\
+		- options.terminal) == 1 ? STEALTH_MODE : NORMAL_MODE;
 	return (options);
-}
-
-void		print_options(t_options options)
-{
-	ft_printf("aff = %d\n", options.aff);
-	ft_printf("dump = %d\n", options.dump);
-	ft_printf("cycles = %d\n", options.cycles);
-	ft_printf("verbos = %d\n", options.verbos);
-	ft_printf("terminal = %d\n", options.terminal);
 }

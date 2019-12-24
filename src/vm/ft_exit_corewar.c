@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:58:00 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/11 15:30:17 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 14:10:37 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,21 @@ void		ft_exit(int err, t_vm **vm)
 	exit(err);
 }
 
+static void	ft_exit_read_continue(t_error err)
+{
+	if (err == CHAMP_NUM_ERROR)
+		ft_fprintf(STDERR_FILENO, "Wrong player number (1 - %d)\n",\
+		MAX_PLAYERS);
+	else if (err == FILE_EXTENSION_ERROR)
+		ft_fprintf(STDERR_FILENO, "Error: Invalid file extension.\
+		Need <file_name>.cor\n");
+	else if (err == MANY_CHAMPS_ERROR)
+		ft_fprintf(STDERR_FILENO, "Error: Too many players. Max playes: %d\n",\
+		MAX_PLAYERS);
+	else
+		perror("Error");
+}
+
 void		ft_exit_read(t_error err, char *file,\
 			t_champ **champs, int exec_size)
 {
@@ -67,19 +82,13 @@ void		ft_exit_read(t_error err, char *file,\
 	else if (err == EXEC_CODE_ERROR)
 		ft_fprintf(STDERR_FILENO, "Error: File %s has an invalid header", file);
 	else if (err == EXEC_SIZE_ERROR)
-		ft_fprintf(STDERR_FILENO, "Error: File %s has too large a code (%d bytes > %d%s",\
-		file, exec_size, CHAMP_MAX_SIZE, " bytes)\n");
+		ft_fprintf(STDERR_FILENO, "Error: File %s has too large a code\
+		(%d bytes > %d%s", file, exec_size, CHAMP_MAX_SIZE, " bytes)\n");
 	else if (err == CODE_SIZE_ERROR)
 		ft_fprintf(STDERR_FILENO, "Error: File %s size of code is incorrect\n",\
 		file);
-	else if (err == CHAMP_NUM_ERROR)
-		ft_fprintf(STDERR_FILENO, "Wrong player number (1 - %d)\n", MAX_PLAYERS);
-	else if (err == FILE_EXTENSION_ERROR)
-		ft_fprintf(STDERR_FILENO, "Error: Invalid file extension. Need <file_name>.cor\n");
-	else if (err == MANY_CHAMPS_ERROR)
-		ft_fprintf(STDERR_FILENO, "Error: Too many players. Max playes: %d\n", MAX_PLAYERS);
 	else
-		perror("Error");
+		ft_exit_read_continue(err);
 	del_champions(champs);
 	exit(err);
 }

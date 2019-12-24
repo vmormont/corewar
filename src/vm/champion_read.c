@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 16:35:34 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 16:21:23 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 13:56:26 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 static t_error	read_champion_from_file(int fd, t_header *head, char *code)
 {
-	if ((unsigned long) read(fd, (void*)head, sizeof(int) + PROG_NAME_LENGTH)\
+	if ((unsigned long)read(fd, (void*)head, sizeof(int) + PROG_NAME_LENGTH)\
 	< (PROG_NAME_LENGTH + sizeof(int)))
 		return (HEAD_SIZE_ERROR);
 	head->magic = reverse_bits(head->magic, 1);
 	lseek(fd, sizeof(int), SEEK_CUR);
-	if (((unsigned long)read(fd, &head->prog_size, sizeof(int) + COMMENT_LENGTH))\
-	< (sizeof(int) + COMMENT_LENGTH))
+	if (((unsigned long)read(fd, &head->prog_size, sizeof(int)\
+	+ COMMENT_LENGTH)) < (sizeof(int) + COMMENT_LENGTH))
 		return (HEAD_SIZE_ERROR);
 	lseek(fd, sizeof(int), SEEK_CUR);
 	if ((head->prog_size = reverse_bits(head->prog_size, 1)) > CHAMP_MAX_SIZE)
 		return (EXEC_SIZE_ERROR);
-	if ((unsigned long) read(fd, code, head->prog_size) < head->prog_size)
+	if ((unsigned long)read(fd, code, head->prog_size) < head->prog_size)
 		return (CODE_SIZE_ERROR);
 	return (NONE);
 }

@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 15:59:44 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/23 16:22:10 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 14:18:01 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		set_champ_code_on_arena(t_vm *vm)
 	i = 0;
 	player = vm->champs;
 	offset_start_code = MEM_SIZE / vm->num_of_champs;
-	while(player)
+	while (player)
 	{
 		ft_memcpy((void*)vm->arena + i, player->code, player->code_size);
 		if (!(cursor = new_cursor(i)))

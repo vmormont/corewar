@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 00:37:08 by vmormont          #+#    #+#             */
-/*   Updated: 2019/12/23 17:01:51 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 11:59:21 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,7 @@ void					read_cor_head(int fd, t_header *head);
 
 void					print_name_comment_to_fd(char *name, char *comment,\
 												int fd_out);
-void					print_code_first(int fd, int fd_out);
-void					print_code_continiue(int opcode, char num,\
-										int fd, int fd_out);
+void					print_code(int fd, int fd_out);
 
 /*
 **	Utilits

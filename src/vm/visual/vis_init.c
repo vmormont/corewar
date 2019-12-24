@@ -6,17 +6,17 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:32:15 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/23 16:55:46 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 13:50:01 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static void		print_frame()
+static void		print_frame(void)
 {
 	int		i;
 
-	color_set (FRAME, NULL);
+	color_set(FRAME, NULL);
 	i = 0;
 	while (++i < ARENA_WIDTH + 75)
 	{
@@ -30,7 +30,7 @@ static void		print_frame()
 		mvaddch(i, ARENA_WIDTH + 4, ' ');
 		mvaddch(i, ARENA_WIDTH + 75, ' ');
 	}
-	color_set (WHITE_TEXT, NULL);
+	color_set(WHITE_TEXT, NULL);
 }
 
 static void		color_init(void)
@@ -95,22 +95,16 @@ void			visualizator(t_vm *vm)
 {
 	if (!initscr())
 		ft_exit(NCURSES_INIT_ERROR, &vm);
-	//инициализируем цвета
 	color_init();
-	//убираем курсор
 	curs_set(NONE);
 	noecho();
-	//печатаем рамку
 	print_frame();
 	refresh();
-	//создаем окно меню
 	if (!(vm->visual->menu = newwin(ARENA_HEIGHT + 2, 69, 2, ARENA_WIDTH + 5)))
 		ft_exit(MALLOC_FAILURE, &vm);
-	//печатаем информацию о чемпионах в окно меню
 	print_info(vm->visual->menu, vm);
 	print_champs(vm->visual->menu, vm, vm->champs);
 	wrefresh(vm->visual->menu);
-	//создаем окно арены
 	if (!(vm->visual->arena = newwin(ARENA_HEIGHT, ARENA_WIDTH, 3, 3)))
 		ft_exit(MALLOC_FAILURE, &vm);
 	print_arena(vm);

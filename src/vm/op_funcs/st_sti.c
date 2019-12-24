@@ -6,11 +6,24 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:45:30 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 16:38:19 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 13:26:22 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+static int	read_t_ind_st(short reg, t_vm *vm, t_cursor *cursor)
+{
+	short		address;
+
+	address = read_2_bytes(vm->arena, cursor->pos + cursor->step);
+	copy_4_bytes(vm->arena, cursor->pos + (address % IDX_MOD),\
+	cursor->reg[reg]);
+	if (vm->visual)
+		vis_st(vm, cursor->reg[reg], cursor->pos + (address % IDX_MOD),\
+		cursor->color);
+	return (address);
+}
 
 void		op_st(t_vm *vm, t_cursor *cursor)
 {
@@ -28,14 +41,7 @@ void		op_st(t_vm *vm, t_cursor *cursor)
 		cursor->reg[reg_arg] = cursor->reg[reg_n];
 	}
 	else
-	{
-		address = read_2_bytes(vm->arena, cursor->pos + cursor->step);
-		copy_4_bytes(vm->arena, cursor->pos + (address % IDX_MOD),\
-		cursor->reg[reg_n]);
-		if (vm->visual)
-			vis_st(vm, cursor->reg[reg_n], cursor->pos + (address % IDX_MOD),\
-			cursor->color);
-	}
+		address = read_t_ind_st(reg_n, vm, cursor);
 	cursor->step += get_arg_size(cursor->op_code, (code_args >> 4) & 3);
 	if (vm->options.verbos == V_OPERATIONS)
 		ft_printf("P %4d | st r%d %d\n", cursor->id, reg_n,\

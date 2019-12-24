@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 00:38:31 by vmormont          #+#    #+#             */
-/*   Updated: 2019/12/21 17:10:16 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 16:53:11 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char				get_num_type(char num, int num_arg)
 	return ((num >> (num_arg * 2)) & 3);
 }
 
-int					get_num(int fd, size_t t_size, char type)
+/*int					get_num(int fd, size_t t_size, char type)
 {
 	unsigned char	buff[t_size];
 	int				num;
@@ -41,9 +41,31 @@ int					get_num(int fd, size_t t_size, char type)
 		exit(1);
 	while (cnt >= 0)
 	{
-		num = ((num) | (buff[t_size - cnt - 1] << (cnt * BYTE_SIZE)));
+		num = ((num) | (buff[3 - cnt] << (cnt * BYTE_SIZE)));
 		--cnt;
 	}
+	if (type == IND_CODE)
+		num = (short)num;
+	return (num);
+}*/
+
+int					get_num(int fd, size_t t_size, char type)
+{
+	unsigned char	buff[t_size];
+	int				num;
+	size_t			i;
+
+	num = 0;
+	i = 0;
+	ft_bzero((void *)buff, t_size);
+	if (read(fd, buff, t_size) < 0)
+		exit(1);
+	while (i < t_size)
+	{
+		num = ((num << (BYTE_SIZE)) | buff[3 - i]);
+		i++;
+	}
+	num = reverse_bits(num, t_size / 4);
 	if (type == IND_CODE)
 		num = (short)num;
 	return (num);

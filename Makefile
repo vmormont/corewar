@@ -6,7 +6,7 @@
 #    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/12/23 15:59:04 by pcredibl         ###   ########.fr        #
+#    Updated: 2019/12/24 11:40:14 by pcredibl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,37 +94,30 @@ vpath %.a $(LIB_DIR)
 
 all: lib $(NAME_ASM) $(NAME_CORE) $(NAME_DASM)
 
-#BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(NAME_ASM): $(LIBFT) $(OBJ_ASM) $(OBJ_OP) $(ASM_HEADERS) $(OP_HEADERS)
 	$(CC) $(CFALGS) $(LFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ_ASM) $(OBJ_OP)) $(LIBS) -o $@
 	echo "$(GREEN)$@ was created ✅$(RESET)"
 
-#BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(NAME_CORE): $(LIBFT) $(OBJ_CORE) $(OBJ_OP) $(CORE_HEADERS) $(OP_HEADERS)
 	$(CC) $(CFALGS) $(LFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ_CORE) $(OBJ_OP)) $(LIBS) -lncurses -o $@
 	echo "$(GREEN)$@ was created ✅$(RESET)"
 
-#BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(NAME_DASM): $(LIBFT) $(OBJ_DASM) $(OBJ_OP) $(DASM_HEADERS) $(OP_HEADERS)
 	$(CC) $(CFALGS) $(LFLAGS) $(addprefix $(OBJ_DIR)/, $(OBJ_DASM) $(OBJ_OP)) $(LIBS) -o $@
 	echo "$(GREEN)$@ was created ✅$(RESET)"
 
-#BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(OBJ_ASM):%.o:%.c $(ASM_HEADERS) $(OP_HEADERS) | $(OBJ_DIR)
 	$(CC) $(CFALGS) $(LFLAGS) -o $(OBJ_DIR)/$@ -c $<
 	echo "$(GREEN)$@ was created$(RESET)"
 
-#BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(OBJ_CORE):%.o:%.c $(CORE_HEADERS) $(OP_HEADERS) | $(OBJ_DIR)
 	$(CC) $(CFALGS) $(LFLAGS) -o $(OBJ_DIR)/$@ -c $<
 	echo "$(GREEN)$@ was created$(RESET)"
 
-#BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(OBJ_OP):%.o:%.c $(OP_HEADERS) | $(OBJ_DIR)
 	$(CC) $(CFALGS) $(LFLAGS) -o $(OBJ_DIR)/$@ -c $<
 	echo "$(GREEN)$@ was created$(RESET)"
 
-#BEFORE COMPLETE PROJECT ADD $(CFLAGS)
 $(OBJ_DASM):%.o:%.c $(DASM_HEADERS) | $(OBJ_DIR)
 	$(CC) $(CFALGS) $(LFLAGS) -o $(OBJ_DIR)/$@ -c $<
 	echo "$(GREEN)$@ was created$(RESET)"
