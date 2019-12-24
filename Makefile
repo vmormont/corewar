@@ -6,11 +6,7 @@
 #    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2019/12/24 11:40:14 by pcredibl         ###   ########.fr        #
-=======
-#    Updated: 2019/12/23 17:17:02 by astripeb         ###   ########.fr        #
->>>>>>> cf6a2a509d3b8991b4897def930ed4187d3eae52
+#    Updated: 2019/12/24 17:39:15 by pcredibl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +70,7 @@ SRC_OP_FUNC			:= ld_lld.c ldi_lldi.c live_zjmp_aff.c add_sub.c\
 					and_or_xor.c st_sti.c fork_lfork.c op_utility.c
 
 SRC_VIS				:= vis_init.c vis_utility.c vis_champs.c vis_cursor.c\
-					vis_cycle.c vis_attributes.c
+					vis_cycle.c vis_attributes.c vis_sound.c
 
 ################################################################################
 #									DISASSEMBLY FILES				 		   #
@@ -115,11 +111,7 @@ $(OBJ_ASM):%.o:%.c $(ASM_HEADERS) $(OP_HEADERS) | $(OBJ_DIR)
 	echo "$(GREEN)$@ was created$(RESET)"
 
 $(OBJ_CORE):%.o:%.c $(CORE_HEADERS) $(OP_HEADERS) | $(OBJ_DIR)
-<<<<<<< HEAD
 	$(CC) $(CFALGS) $(LFLAGS) -o $(OBJ_DIR)/$@ -c $<
-=======
-	$(CC) $(LFLAGS) -o $(OBJ_DIR)/$@ -c $<
->>>>>>> cf6a2a509d3b8991b4897def930ed4187d3eae52
 	echo "$(GREEN)$@ was created$(RESET)"
 
 $(OBJ_OP):%.o:%.c $(OP_HEADERS) | $(OBJ_DIR)

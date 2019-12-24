@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vis_cycle.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: astripeb <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/20 18:54:39 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 14:50:39 by astripeb         ###   ########.fr       */
+/*   Updated: 2019/12/24 17:43:51 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static t_bool	read_keys(t_visual *vis, int key)
 		vis->vis_speed -= 1;
 	else if (key == 'q' || key == 'Q')
 		vis->vis_speed -= 10;
+	if (key == 'p' || key == 'P')
+			vis_sound(vis);
 	else if (key == 's' || key == 'S')
 	{
 		vis->pause = FALSE;

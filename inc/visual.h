@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 13:55:43 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/23 17:05:53 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 17:38:54 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,11 @@ void			vis_st(t_vm *vm, int num, unsigned int pos, char color);
 void			vis_live(t_vm *vm, unsigned int pos, char color);
 
 void			check_attr(t_vm *vm);
+
+/*
+**	SOUND
+*/
+
+void			vis_sound(t_visual *vis);
 
 #endif

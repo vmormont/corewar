@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 14:20:45 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/23 17:03:56 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/24 17:28:47 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef	struct		s_visual
 	struct s_attr	attr[MEM_SIZE];
 	short			vis_speed;
 	t_bool			pause;
+	t_bool			sound;
 }					t_visual;
 
 #endif
