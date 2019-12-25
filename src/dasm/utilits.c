@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/14 00:38:31 by vmormont          #+#    #+#             */
-/*   Updated: 2019/12/24 16:53:11 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/25 17:49:53 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,6 @@ char				get_num_type(char num, int num_arg)
 	return ((num >> (num_arg * 2)) & 3);
 }
 
-/*int					get_num(int fd, size_t t_size, char type)
-{
-	unsigned char	buff[t_size];
-	int				num;
-	int				cnt;
-
-	num = 0;
-	cnt = t_size - 1;
-	ft_bzero((void *)buff, t_size);
-	if (read(fd, buff, t_size) < 0)
-		exit(1);
-	while (cnt >= 0)
-	{
-		num = ((num) | (buff[3 - cnt] << (cnt * BYTE_SIZE)));
-		--cnt;
-	}
-	if (type == IND_CODE)
-		num = (short)num;
-	return (num);
-}*/
-
 int					get_num(int fd, size_t t_size, char type)
 {
 	unsigned char	buff[t_size];
@@ -62,7 +41,7 @@ int					get_num(int fd, size_t t_size, char type)
 		exit(1);
 	while (i < t_size)
 	{
-		num = ((num << (BYTE_SIZE)) | buff[3 - i]);
+		num = ((num << (BYTE_SIZE)) | buff[(t_size - 1) - i]);
 		i++;
 	}
 	num = reverse_bits(num, t_size / 4);

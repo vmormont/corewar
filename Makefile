@@ -6,7 +6,7 @@
 #    By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/07 15:14:49 by pcredibl          #+#    #+#              #
-#    Updated: 2019/12/24 18:14:18 by pcredibl         ###   ########.fr        #
+#    Updated: 2019/12/25 16:53:55 by pcredibl         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -146,6 +146,6 @@ fclean: clean
 re: fclean all
 
 .SILENT: all clean fclean re $(NAME_ASM) $(OBJ_ASM) $(NAME_CORE) \
-		$(OBJ_CORE) $(NAME_DASM) $(OBJ_DASM) $(OBJ_DIR) $(OBJ_OP) lib
+		$(OBJ_CORE) $(NAME_DASM) $(OBJ_DASM) $(OBJ_DIR) $(OBJ_OP) $(OBJ_DIR) lib
 
 .PHONY: clean fclean re all
