@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 18:58:00 by pcredibl          #+#    #+#             */
-/*   Updated: 2019/12/24 18:00:59 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/26 12:11:33 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static void	ft_usage(void)
 	print_filler(83, '#', STDOUT_FILENO);
 	ft_printf("\n	-dump [1..INT_MAX]	- %s",\
 	"Dumps memory after N cycles then exits\n");
-	ft_printf("\n	-s [1..INT_MAX]	- %s",\
-	"Runs N cycles, dumps memory, pauses, then repeats\n");
 	ft_printf("	-v N            - %s",\
 	"Verbosity levels, can be added together to enable several\n");
 	ft_printf("\t\t- 0  : Show only essentials\n");

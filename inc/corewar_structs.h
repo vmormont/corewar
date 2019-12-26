@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 20:46:20 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/23 17:30:15 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/26 12:11:19 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 ** -a			- Prints output from "aff" (Default is to hide it)
 ** ############################################################################
 ** -d [1..INT_MAX]	- Dumps memory after N cycles then exits
-** -s [1..INT_MAX]	- Runs N cycles, dumps memory, pauses, then repeats
 ** -v N			- Verbosity levels, can be added together to enable several
 **  				- 0 : Show only essentials
 **  				- 1 : Show lives
@@ -48,7 +47,6 @@ typedef struct				s_options
 {
 	char					aff;
 	int						dump;
-	int						cycles;
 	char					verbos;
 	char					terminal;
 }							t_options;

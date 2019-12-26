@@ -6,7 +6,7 @@
 /*   By: pcredibl <pcredibl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 14:38:50 by astripeb          #+#    #+#             */
-/*   Updated: 2019/12/24 14:18:28 by pcredibl         ###   ########.fr       */
+/*   Updated: 2019/12/26 12:10:52 by pcredibl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,15 @@ static int	check_valid_options(int ac, char **av, char **options, int opt_num)
 t_options	get_options(int ac, char **av)
 {
 	t_options	options;
-	static char *opt[] = {"n", "dump", "s", "a", "v", "t", "-stealth"};
+	static char *opt[] = {"n", "dump", "a", "v", "t", "-stealth"};
 
-	if (ac == 1 || !check_valid_options(ac, av, opt, 7))
+	if (ac == 1 || !check_valid_options(ac, av, opt, 6))
 		ft_exit(USAGE, NULL);
 	ft_bzero((void*)&options, sizeof(t_options));
 	options.aff = get_option(ac, av, "a");
 	if ((options.dump = get_option(ac, av, "dump")))
 		options.dump = get_option_value(av, options.dump + 1, 1, INT32_MAX);
 	options.dump = !options.dump ? -1 : options.dump;
-	if ((options.cycles = get_option(ac, av, "s")))
-		options.cycles = get_option_value(av, options.cycles + 1, 1, INT32_MAX);
 	if ((options.verbos = get_option(ac, av, "v")))
 	{
 		options.verbos = get_option_value(av, options.verbos + 1, 1, 16);
